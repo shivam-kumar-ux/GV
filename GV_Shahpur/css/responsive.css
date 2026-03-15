@@ -1,7 +1,31 @@
-/* ========================================
-   GYANODAY VIDYALAYA - RESPONSIVE CSS
-   Mobile-First Modern Approach
-   ======================================== */
+/* Mobile Responsive Overrides - Header Content Card */
+@media (max-width: 768px) {
+    .header-content-card {
+        /* Keep it floating over the video */
+        position: absolute !important; 
+        left: 20px !important;
+        bottom: 20px !important;
+        
+        /* Set size to 20% of the container */
+        width: 30% !important; 
+        max-width: 200px; /* Prevents it from getting too tiny */
+        
+        /* Adjust padding and margins for mobile */
+        margin: 0 !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+    }
+
+    /* Shrink the text inside the card to fit the smaller size */
+    .header-content-card .display-1 {
+        font-size: 1.2rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .header-content-card h4 {
+        font-size: 0.9rem !important;
+    }
+}
 
 /* CSS Custom Properties */
 :root {
@@ -794,3 +818,153 @@ img {
 .animate-slideUp {
     animation: slideUp 0.5s ease;
 }
+
+/* Stats Boxes - No gaps on mobile, flush single row */
+@media (max-width: 991.98px) {
+    .row.pt-3.mx-0 {
+        margin: 0 !important;
+    }
+    
+    .row.pt-3.mx-0 > .col-md-3/*div[class*="col"]*/ {
+        flex: 0 0 17% !important;
+        padding-left: 1px !important;
+        padding-right: 1px !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .row.pt-3.mx-0 .p-4 {
+        padding: 8px 6px !important;
+    }
+    
+    .row.pt-3.mx-0 h1 {
+        font-size: 1.25rem !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .row.pt-3.mx-0 h6 {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* CONTACT SECTION MOBILE RESPONSIVE FIX - BLACKBOXAI */
+@media (max-width: 768px) {
+    /* Prevent any horizontal scroll */
+    html, body {
+        overflow-x: hidden !important;
+    }
+    
+    .container-fluid, .container {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+    
+    /* Contact sections - reduce padding */
+    .container-fluid.py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Contact info card - flexible height */
+    .bg-light.d-flex.flex-column.justify-content-center {
+        height: auto !important;
+        min-height: 320px !important;
+        padding: 2rem 1.5rem !important;
+        box-sizing: border-box;
+    }
+    
+    /* Contact items - perfect center alignment */
+    .d-flex.align-items-center.mb-5 {
+        margin-bottom: 1.5rem !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .d-flex.align-items-center.mb-5 .btn-icon {
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+    
+    
+    /* Smaller icons on mobile */
+    .btn-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* Form - full width fields */
+    .row > .col-6 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .form-group {
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .form-control {
+        padding: 1rem !important;
+    }
+    
+    /* Navbar & jumbotron margin */
+    .jumbotron {
+        margin-bottom: 4rem !important;
+    }
+    
+    /* Map responsive */
+    .map-container {
+        height: 250px !important;
+        overflow: hidden !important;
+    }
+    
+    .map-container iframe {
+        width: 100% !important;
+        height: 250px !important;
+        border-radius: 12px !important;
+    }
+    
+    /* Row no negative margins */
+    .row {
+        margin-right: -10px !important;
+        margin-left: -10px !important;
+    }
+    
+    .row > [class*="col-"] {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+}
+
+/* XS screens */
+@media (max-width: 480px) {
+    .container-fluid.py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    .bg-light.d-flex.flex-column.justify-content-center {
+        min-height: 300px !important;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .btn-icon {
+        width: 42px !important;
+        height: 42px !important;
+    }
+    
+    .map-container {
+        height: 220px !important;
+    }
+    
+    .map-container iframe {
+        height: 220px !important;
+    }
+}
+
+

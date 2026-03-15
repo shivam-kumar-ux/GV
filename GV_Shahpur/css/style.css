@@ -9787,7 +9787,9 @@ h6,
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
-  color: #2878EB;
+  background: #1a5cc4 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
 }
 
 @media (max-width: 991.98px) {
@@ -10025,13 +10027,6 @@ h6,
     background: #2878EB;
 }
 
-/* Student Achievement Slider Styles */
-.student-slider-container {
-    overflow: hidden;
-    width: 100%;
-    padding: 20px 0;
-    margin-bottom: 30px;
-}
 
 .student-slider-track {
     display: flex;
@@ -10216,3 +10211,88 @@ h6,
         font-size: 11px;
     }
 }
+
+    /* MOBILE SINGLE-CARD RESPONSIVE FIX - BLACKBOXAI */
+    @media (max-width: 768px) {
+        .student-slider-container {
+            overflow: hidden;
+            padding: 0 2.5vw;
+        }
+        
+        .student-slider-track {
+            width: calc(95vw * 8) !important;
+            justify-content: flex-start !important;
+            gap: 0 !important;
+        }
+        
+        .student-slide {
+            flex: 0 0 95vw !important;
+            margin: 0 2.5vw 4vw 2.5vw !important;
+        }
+        
+        .student-card {
+            width: 90vw !important;
+            height: 60vh !important;
+            min-height: 400px;
+            padding: 5vw !important;
+            overflow: hidden !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            box-sizing: border-box;
+        }
+        
+        .student-overlay {
+            padding: 5vw 5vw 3vw !important;
+            word-break: break-word;
+        }
+        
+        .student-info {
+            margin-bottom: 3vw;
+        }
+        
+        .student-name {
+            font-size: clamp(16px, 4vw, 20px) !important;
+        }
+        
+        .student-achievement {
+            font-size: clamp(12px, 3.5vw, 14px) !important;
+        }
+        
+        .student-details {
+            padding: 4vw !important;
+            max-height: 30vh !important;
+            overflow-y: auto;
+            margin: 0 -5vw -3vw -5vw !important;
+        }
+        
+        .student-details p {
+            font-size: clamp(12px, 3vw, 14px) !important;
+            margin-bottom: 2vw !important;
+            line-height: 1.4;
+        }
+        
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-95vw * 4));
+            }
+        }
+        
+        .student-slider-container:hover .student-slider-track {
+            animation-play-state: paused !important;
+        }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+        .student-card {
+            padding: 8vw !important;
+            min-height: 350px !important;
+        }
+        
+        .student-details {
+            max-height: 25vh !important;
+        }
+    }
