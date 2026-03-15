@@ -1,12 +1,20 @@
 /* General Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 body {
     background: #050a05; /* Deep dark green */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Background image styling */
@@ -27,11 +35,18 @@ body {
 }
 
 .scene {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 40px 20px;
     transition: opacity 1.5s ease-in-out;
+}
+
+@media (max-width: 479px) {
+    .scene {
+        padding: 20px 10px;
+    }
 }
 
 .hidden { display: none; opacity: 0; }
@@ -39,22 +54,24 @@ body {
 /* Intro Scene Styles */
 .welcome-text {
     color: #ffd700;
-    font-size: 5rem;
-    margin-bottom: 50px;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    margin-bottom: clamp(30px, 8vh, 50px);
     text-align: center;
     animation: fadeInDown 1s ease;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    max-width: 90%;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     border-left: 6px solid #FDD473;
-    padding-left: 45px;
+    padding-left: clamp(20px, 5vw, 45px);
     animation: fadeInLeft 1.5s ease;
+    max-width: 90%;
 }
 
-.school-logo { width: 250px; margin-right: 40px; }
+.school-logo { max-width: 250px; width: auto; margin-right: 40px; }
 .school-name { color: #FDD473; font-size: 4rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
 .motto { color: #FDD473; font-size: 1.8rem; margin-top: 20px; border-top: 1px solid #FDD473; padding-top: 10px; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); }
 
@@ -66,15 +83,24 @@ body {
 }
 
 .header-logo {
-    width: 160px;
+    max-width: 160px;
+    width: auto;
     height: auto;
 }
 
-.card-container { display: flex; gap: 30px; }
+.card-container { 
+    display: flex; 
+    gap: clamp(20px, 4vw, 30px); 
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 95vw;
+    margin: 0 auto;
+}
 
 .card {
     background: #fdf6e3;
-    width: 450px;
+    width: 100%;
+    max-width: 450px;
     border-radius: 10px;
     overflow: hidden;
     color: #333;
@@ -118,10 +144,72 @@ body {
 
 /* Footer */
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
+    left: 0;
+    right: 0;
     width: 100%;
     text-align: center;
     font-size: 0.85rem;
     color: #c5a059;
+    z-index: 1000;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+footer .footer-info span {
+    pointer-events: all;
+}
+
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+}
+
+/* Responsive Media Queries */
+@media (min-width: 1200px) {
+    .card { width: 450px; }
+    .welcome-text { font-size: 5rem; }
+    .school-name { font-size: 4rem; }
+    .motto { font-size: 1.8rem; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .card-container { gap: 20px; }
+    .welcome-text { font-size: 4rem; }
+    .school-name { font-size: 3.5rem; }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .card { max-width: 400px; }
+    .welcome-text { font-size: 3.5rem; }
+    .school-name { font-size: 3rem; }
+    .motto { font-size: 1.5rem; }
+    .top-left-logo { top: 10px; left: 10px; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .card { max-width: 350px; }
+    .welcome-text { font-size: 3rem; }
+    .school-name { font-size: 2.5rem; }
+    .motto { font-size: 1.3rem; }
+    .logo-container { flex-direction: column; text-align: center; padding-left: 0; border-left: none; border-top: 6px solid #FDD473; padding-top: 30px; }
+}
+
+@media (max-width: 479px) {
+    body { font-size: 14px; }
+    .welcome-text { font-size: 2.5rem; margin-bottom: 30px; }
+    .school-name { font-size: 2rem; }
+    .motto { font-size: 1.1rem; }
+    .logo-container { flex-direction: column; text-align: center; padding: 20px; border-left: none; border-top: 4px solid #FDD473; padding-top: 25px; }
+    .school-logo { margin-right: 0; margin-bottom: 20px; max-width: 200px; }
+    .top-left-logo { top: 5px; left: 5px; }
+    .header-logo { max-width: 120px; }
+    .card-img-box img { height: 200px; }
+    .card-body { padding: 20px; }
+    .card-body h3 { font-size: 1rem; height: auto; }
+    .card-body p { font-size: 0.9rem; }
 }
