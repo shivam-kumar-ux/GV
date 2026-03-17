@@ -10296,3 +10296,62 @@ h6,
             max-height: 25vh !important;
         }
     }
+/* Academics Page Custom Styles */
+.academic-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.routine-btn, .syllabus-btn {
+  flex: 1;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.routine-btn {
+  background: #2878EB;
+  color: white;
+}
+
+.syllabus-btn {
+  background: #28a745;
+  color: white;
+}
+
+.routine-btn:hover {
+  background: #1e62b7;
+  transform: translateY(-2px);
+}
+
+.syllabus-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .academic-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Modal Styles */
+.academic-modal iframe {
+  border: none;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+}
+
+@media (max-width: 768px) {
+  .academic-modal iframe {
+    height: 60vh;
+  }
+}
