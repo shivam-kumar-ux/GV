@@ -1903,8 +1903,8 @@ pre code {
 }
 
 .form-control:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #495057;
+  color: #495057;
+  text-shadow: none;
 }
 
 .form-control:focus {
@@ -3753,8 +3753,8 @@ input[type="button"].btn-block {
 }
 
 .custom-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #495057;
+  color: #495057;
+  text-shadow: none;
 }
 
 .custom-select-sm {
@@ -10355,3 +10355,47 @@ h6,
     height: 60vh;
   }
 }
+
+/*Code for result page styles*/
+.rc-header {
+    background: #1F4E79; color: #fff;
+    padding: 14px 18px; text-align: center;
+    border-radius: 6px 6px 0 0;
+  }
+  .rc-info {
+    background: #f8f9fa; border: 1px solid #dee2e6;
+    padding: 12px 18px; margin-bottom: 14px;
+  }
+  @media print {
+    body * { visibility: hidden !important; }
+    #printArea, #printArea * { visibility: visible !important; }
+    #printArea { position: fixed; top: 0; left: 0;
+                 width: 100%; background: white; padding: 24px; }
+  }
+
+  /* SELECT FIX v4 - clean native appearance */
+  #classSelect, #examSelect {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+      -webkit-text-fill-color: #212529 !important;
+      background-image: none !important;
+      -webkit-appearance: auto !important;
+      -moz-appearance: auto !important;
+      appearance: auto !important;
+      opacity: 1 !important;
+  }
+  #classSelect option, #examSelect option {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+  }
+  #classSelect:focus, #examSelect:focus {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+      border-color: #2878EB !important;
+      box-shadow: 0 0 0 0.2rem rgba(40,120,235,0.25) !important;
+      outline: none !important;
+  }
+  #classSelect:-moz-focusring, #examSelect:-moz-focusring {
+      color: #212529 !important;
+      text-shadow: none !important;
+  }
