@@ -9,9 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
         intro.style.opacity = '0';
         
         setTimeout(() => {
-            // Hide intro and show main scene
+            // Hide intro and show main scene + navbar
             intro.classList.add('hidden');
             main.classList.remove('hidden');
+
             footer.classList.remove('hidden');
             
             // Trigger a small delay for the fade-in effect

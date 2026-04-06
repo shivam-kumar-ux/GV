@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application - Gyanoday Vidyalaya</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2878EB 0%, #1e62b7 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+
+        .section-header i {
+            color: #2878EB;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2878EB;
+            box-shadow: 0 0 0 3px rgba(40,120,235,0.1);
+            background: white;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 15px center;
+            background-repeat: no-repeat;
+            background-size: 18px;
+            padding-right: 50px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .upload-box {
+            border: 2px dashed #bdc3c7;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-box:hover {
+            border-color: #2878EB;
+            background: #f0f8ff;
+        }
+
+        .upload-box i {
+            font-size: 3rem;
+            color: #95a5a6;
+            margin-bottom: 15px;
+        }
+
+        .upload-box input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-text {
+            font-weight: 500;
+            color: #5a6c7d;
+            margin-bottom: 5px;
+        }
+
+        .upload-subtext {
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #8b5cf6 0%, #2878EB 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 auto 50px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(139,92,246,0.4);
+        }
+
+        .submit-btn i {
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .upload-box {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-briefcase"></i> Job Application</h1>
+            <p>Join the Gyanoday Vidyalaya Team - Shape Young Minds</p>
+        </div>
+
+        <div class="form-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Personal Information -->
+                <div class="section">
+                    <div class="section-header">
+                        <i class="fas fa-user"></i>
+                        Personal Information
+                    </div>
+                    <div class="form-group">
+                        <label>First Name <span class="required">*</span></label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name <span class="required">*</span></label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile 1 <span class="required">*</span></label>
+                        <input type="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel">
+                    </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div class="section">
+                    <div class="section-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        Professional Details
+                    </div>
+                    <div class="form-group">
+                        <label>Category <span class="required">*</span></label>
+                        <select required>
+                            <option value="">Select Category</option>
+                            <option>Teaching</option>
+                            <option>Administration</option>
+                            <option>Maintenance</option>
+                            <option>Counseling</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Designation <span class="required">*</span></label>
+                        <select required>
+                            <option value="">Select Designation</option>
+                            <option>TGT Mathematics</option>
+                            <option>Primary Teacher</option>
+                            <option>Admissions Counselor</option>
+                            <option>Facilities Supervisor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Experience <span class="required">*</span></label>
+                        <select required>
+                            <option value="">Select Experience</option>
+                            <option>0-2 Years</option>
+                            <option>2-5 Years</option>
+                            <option>5-10 Years</option>
+                            <option>10+ Years</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:1; margin-right:15px;">
+                            <label>Last Salary <span class="required">*</span></label>
+                            <input type="number" placeholder="₹ 0" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Expected Salary <span class="required">*</span></label>
+                            <input type="number" placeholder="₹ 0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- Application Details -->
+                <div class="section">
+                    <div class="section-header">
+                        <i class="fas fa-file-alt"></i>
+                        Application Details
+                    </div>
+                    <div class="form-group">
+                        <label>Apply For <span class="required">*</span></label>
+                        <select required>
+                            <option value="">Select Position</option>
+                            <option>TGT Mathematics</option>
+                            <option>Primary Teacher</option>
+                            <option>Admissions Counselor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>How did you know? <span class="required">*</span></label>
+                        <select required>
+                            <option value="">Select Source</option>
+                            <option>Website</option>
+                            <option>Facebook</option>
+                            <option>Instagram</option>
+                            <option>Referral</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea placeholder="Any additional information..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="section">
+                    <div class="section-header">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Documents
+                    </div>
+                    <div class="form-row" style="gap:20px;">
+                        <div class="form-group" style="flex:1;">
+                            <label class="upload-label">Resume <span class="required">*</span></label>
+                            <div class="upload-box">
+                                <i class="fas fa-file-pdf"></i>
+                                <div class="upload-text">Upload Resume</div>
+                                <div class="upload-subtext">PDF, DOC (Max 2MB)</div>
+                                <input type="file" accept=".pdf,.doc,.docx">
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label class="upload-label">Full Size Photo <span class="required">*</span></label>
+                            <div class="upload-box">
+                                <i class="fas fa-image"></i>
+                                <div class="upload-text">Upload Photo</div>
+                                <div class="upload-subtext">JPG, PNG (Max 1MB)</div>
+                                <input type="file" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" style="gap:20px;">
+                        <div class="form-group" style="flex:1;">
+                            <label class="upload-label">Passport Photo <span class="required">*</span></label>
+                            <div class="upload-box">
+                                <i class="fas fa-id-card"></i>
+                                <div class="upload-text">Passport Size Photo</div>
+                                <div class="upload-subtext">JPG, PNG (Max 500KB)</div>
+                                <input type="file" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label class="upload-label">Current Salary Proof (Optional)</label>
+                            <div class="upload-box">
+                                <i class="fas fa-receipt"></i>
+                                <div class="upload-text">Upload Proof</div>
+                                <div class="upload-subtext">Payslip/Bank Statement (Optional)</div>
+                                <input type="file" accept=".pdf,.jpg,.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            Submit Application
+        </button>
+    </div>
+
+    <script>
+        // Simple form handling demo
+        document.querySelector('.submit-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully! We will contact you within 48 hours.');
+        });
+
+        // Upload box styling
+        document.querySelectorAll('.upload-box').forEach(box => {
+            box.addEventListener('click', function() {
+                this.querySelector('input[type="file"]').click();
+            });
+        });
+    </script>
+</body>
+</html>

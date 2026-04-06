@@ -419,3 +419,55 @@ $(document).ready(function() {
     $(this).find('iframe').attr('src', $(this).find('iframe').attr('src'));
   });
 });
+
+// =========================================
+// NOTICES PAGE FUNCTIONALITY - BLACKBOXAI
+// =========================================
+$(document).ready(function() {
+  // Notification dot fade on notices.html visit
+  if (window.location.pathname.includes('notices.html')) {
+    $('.notification-dot').fadeOut(2000);
+  }
+
+  // Navbar active state for Notices
+  var current = window.location.pathname.split('/').pop();
+  if (current === 'notices.html' || current.includes('notices')) {
+    $('.nav-link[href="notices.html"]').addClass('active');
+  }
+
+  // Notices Filtering
+  $('.notice-filters .btn').on('click', function() {
+    var filter = $(this).data('filter');
+    
+    // Update active button
+    $('.notice-filters .btn').removeClass('active');
+    $(this).addClass('active');
+    
+    // Filter cards
+    if (filter === 'all') {
+      $('.notice-card').fadeIn(300).removeClass('d-none');
+    } else {
+      $('.notice-card').each(function() {
+        if ($(this).find('.badge').first().text().trim() === '[' + filter.toUpperCase() + ']') {
+          $(this).fadeIn(300).removeClass('d-none');
+        } else {
+          $(this).fadeOut(300).addClass('d-none');
+        }
+      });
+    }
+  });
+
+  // Blinking animation init
+  $('.blinking').each(function() {
+    var $this = $(this);
+    setTimeout(function() {
+      $this.addClass('blinking');
+    }, 500);
+  });
+
+  // Smooth hover effects
+  $('.notice-card').hover(
+    function() { $(this).addClass('shadow-lg'); },
+    function() { $(this).removeClass('shadow-lg'); }
+  );
+});

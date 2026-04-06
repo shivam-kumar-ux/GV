@@ -10373,6 +10373,11 @@ h6,
                  width: 100%; background: white; padding: 24px; }
   }
 
+  /* Navbar Button Spacing - BLACKBOXAI */
+  .get-job-btn {
+    margin-left: 1rem !important;
+  }
+
   /* SELECT FIX v4 - clean native appearance */
   #classSelect, #examSelect {
       color: #212529 !important;
@@ -10395,7 +10400,111 @@ h6,
       box-shadow: 0 0 0 0.2rem rgba(40,120,235,0.25) !important;
       outline: none !important;
   }
-  #classSelect:-moz-focusring, #examSelect:-moz-focusring {
+#classSelect:-moz-focusring, #examSelect:-moz-focusring {
       color: #212529 !important;
       text-shadow: none !important;
+  }
+
+  /* ========================================
+     NOTICES PAGE - BLACKBOXAI
+     ======================================== */
+
+  /* Notification Dot */
+  .notification-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #dc3545;
+    border-radius: 50%;
+    margin-left: 4px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+  }
+
+  /* News Ticker */
+  marquee {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Filter Buttons */
+  .notice-filters .btn {
+    min-width: 100px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .notice-filters .btn.active,
+  .notice-filters .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 120, 235, 0.4);
+  }
+
+  /* Notice Cards */
+  .notice-card {
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .notice-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .notice-card .card-body {
+    padding: 1.5rem;
+  }
+
+  /* Priority Notices */
+  .priority-notice {
+    border-left: 5px solid #dc3545 !important;
+    background: linear-gradient(135deg, #fff7f7 0%, #fff 100%);
+  }
+
+  /* NEW Badge */
+  .new-badge.blinking {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+  }
+
+  /* Responsive Grid */
+  @media (min-width: 992px) {
+    .notice-grid {
+      margin: 0 -15px;
+    }
+    .notice-grid > [class*="col-"] {
+      padding: 0 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .notice-filters {
+      flex-direction: column !important;
+      align-items: center;
+    }
+    .notice-filters .btn {
+      width: 200px !important;
+      margin-bottom: 8px;
+    }
+    .notice-card .card-body {
+      padding: 1.25rem;
+    }
+  }
+
+  /* Print Styles */
+  @media print {
+    .notice-filters { display: none !important; }
+    .priority-notice { box-shadow: none !important; border: 2px solid #dc3545 !important; }
+    .new-badge { animation: none !important; background: #dc3545 !important; }
   }

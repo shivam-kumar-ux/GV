@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Learning - Gyanoday Vidyalaya</title>
+    <title>Notices - Gyanoday Vidyalaya</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Discover our innovative learning methodologies at Gyanoday Vidyalaya. Interactive, student-centered learning for holistic development." name="description">
+    <meta content="Gyanoday Vidyalaya Notice Board - Latest Updates, Exams, Admissions, Events" name="description">
 
     <!-- Favicon -->
     <link href="img/H_logo.png" rel="icon">
@@ -17,11 +17,10 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
+    <!-- Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,7 +55,6 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid p-0 sticky-top bg-white shadow-sm">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
@@ -77,149 +75,179 @@
                         <div class="dropdown-menu m-0">
                             <a href="facilities.html" class="dropdown-item">Facilities</a>
                             <a href="choose.html" class="dropdown-item">Why Choose Us</a>
-                            <a href="learning.html" class="dropdown-item active">Learning</a>
                             <a href="gallery.html" class="dropdown-item">Gallery</a>
                             <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
                             <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
                     </div>
+                    <a href="notices.html" class="nav-item nav-link active">Notices</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="contact.html" class="btn btn-primary py-2 px-4 d-none d-lg-block">Enquiry Now</a>
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn">Get Admission</a>
+                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn">Get Job</a>
             </div>
         </nav>
     </div>
     <!-- Navbar End -->
 
-
-    <!-- Header Start -->
-    <div class="jumbotron jumbotron-fluid jumbotron-video position-relative" style="margin-bottom: 90px;">
-        <video class="video-background" id="headerVideo" autoplay loop playsinline>
-            <source src="vid/GV_intro.mp4" type="video/mp4">
-        </video>
+    <!-- Notices Hero Start -->
+    <div class="jumbotron jumbotron-fluid position-relative" style="margin-bottom: 90px; padding: 80px 0; background: linear-gradient(135deg, #2878EB 0%, #1e62b7 100%); color: white;">
         <div class="container text-center py-5">
-            <h1 class="text-white display-1">Learning Resources</h1>
-            <div class="d-inline-flex text-white mb-5">
-                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
-                <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                <p class="m-0 text-uppercase">Learning</p>
-            </div>
+            <h1 class="display-3 font-weight-bold mb-4">Notice Board & Latest Updates</h1>
+            <p class="lead mb-0">Last Updated: <strong>October 25, 2024</strong></p>
         </div>
     </div>
-    <!-- Header End -->
+    <!-- Notices Hero End -->
 
+    <!-- News Ticker Start -->
+    <div class="container-fluid bg-warning py-2 mb-4">
+        <div class="container">
+            <marquee behavior="scroll" direction="left" class="text-dark font-weight-bold">
+                🚨 Breaking News: Annual Sports Day on Nov 15 | Winter Vacation from Dec 20-31 | PTM on Nov 8 | Exam Schedule Released 🚨
+            </marquee>
+        </div>
+    </div>
+    <!-- News Ticker End -->
 
-    <!-- Learning Methodology Start -->
+    <!-- Notices Main Content Start -->
     <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row mx-0 justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center position-relative mb-5">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Approach</h6>
-                        <h1 class="display-4">Innovative Learning Methodologies</h1>
-                    </div>
-                </div>
+        <div class="container">
+            <!-- Filter Bar -->
+            <div class="notice-filters mb-4 d-flex flex-wrap justify-content-center gap-2">
+                <button class="btn btn-primary btn-sm active" data-filter="all">Show All</button>
+                <button class="btn btn-primary btn-sm" data-filter="exam">[Exam]</button>
+                <button class="btn btn-primary btn-sm" data-filter="admission">[Admission]</button>
+                <button class="btn btn-primary btn-sm" data-filter="event">[Events]</button>
+                <button class="btn btn-primary btn-sm" data-filter="holiday">[Holiday]</button>
             </div>
-            <div class="row">
-                <div class="col-lg-6 mb-5">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid h-100 w-100" src="img/learning-hero.jpg" alt="">
-                        <div class="bg-primary position-absolute h-100 w-100 d-flex flex-column justify-content-center text-center text-white p-5" style="right: -50%;">
-                            <h3 class="display-3 mb-3">Student-Centered</h3>
-                            <p class="mb-0">Our learning is tailored to individual needs and learning styles</p>
+
+            <!-- Notices Grid -->
+            <div class="row notice-grid" id="noticeGrid">
+                <!-- Priority Notice 1 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card priority-notice card h-100 shadow-lg border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="badge badge-danger new-badge blinking">NEW</span>
+                                <span class="text-muted small font-weight-bold">Oct 25, 2024</span>
+                            </div>
+                            <span class="badge badge-warning mb-2">[Exam]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Unit Test 1 Schedule Released - Priority</h5>
+                            <p class="card-text mb-3">Class 1-10 Unit Test 1 starts from Oct 28. Admit cards available at reception. Full timetable attached. Attendance mandatory.</p>
+                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Download Timetable PDF</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-5">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid h-100 w-100" src="img/learning-interactive.jpg" alt="">
-                        <div class="bg-secondary position-absolute h-100 w-100 d-flex flex-column justify-content-center text-center text-white p-5" style="left: -50%;">
-                            <h3 class="display-3 mb-3">Interactive</h3>
-                            <p class="mb-0">Hands-on activities and real-world applications</p>
+
+                <!-- Regular Notice 1 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 24, 2024</span>
+                            </div>
+                            <span class="badge badge-info mb-2">[Admission]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Session 2025-26 Admission Open</h5>
+                            <p class="card-text mb-3">Nursery to Class 11 admissions open. Last date Nov 15. Forms available at school office or download online.</p>
+                            <a href="admission.html" class="btn btn-primary btn-sm get-admission-btn">📎 Download Form</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <img class="img-fluid mb-4" src="img/learning-method-1.jpg" alt="">
-                    <h4>Blended Learning</h4>
-                    <p>Combination of traditional classroom teaching with digital tools and online resources for comprehensive learning.</p>
+
+                <!-- Priority Notice 2 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card priority-notice card h-100 shadow-lg border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="badge badge-danger new-badge blinking">NEW</span>
+                                <span class="text-muted small font-weight-bold">Oct 23, 2024</span>
+                            </div>
+                            <span class="badge badge-danger mb-2">[Holiday]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Dussehra Holiday Extended</h5>
+                            <p class="card-text mb-3">School closed till Oct 25 due to extended Dussehra celebrations. Reopen on Oct 26 (Saturday) half day.</p>
+                            <a href="#" class="btn btn-success btn-sm get-job-btn">📎 Official Notice</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <img class="img-fluid mb-4" src="img/learning-method-2.jpg" alt="">
-                    <h4>Project-Based Learning</h4>
-                    <p>Students engage in real-world projects that develop critical thinking, collaboration, and problem-solving skills.</p>
+
+                <!-- Regular Notice 2 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 22, 2024</span>
+                            </div>
+                            <span class="badge badge-success mb-2">[Event]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Diwali Special Assembly</h5>
+                            <p class="card-text mb-3">Diwali celebration assembly on Nov 1. Students to bring handmade diyas. Parents invited 10 AM.</p>
+                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Event Details</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <img class="img-fluid mb-4" src="img/learning-method-3.jpg" alt="">
-                    <h4>Flipped Classroom</h4>
-                    <p>Students learn content at home through videos and readings, while class time is used for interactive activities.</p>
+
+                <!-- Regular Notice 3 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 20, 2024</span>
+                            </div>
+                            <span class="badge badge-warning mb-2">[Exam]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Half Yearly Datesheet</h5>
+                            <p class="card-text mb-3">Class 6-10 Half Yearly exams from Nov 10-20. Practical exams for Science on Nov 22-25.</p>
+                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Download Datesheet</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <img class="img-fluid mb-4" src="img/learning-method-4.jpg" alt="">
-                    <h4>Experiential Learning</h4>
-                    <p>Learning through experience, reflection, conceptualization, and experimentation cycle.</p>
+
+                <!-- Regular Notice 4 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 18, 2024</span>
+                            </div>
+                            <span class="badge badge-info mb-2">[Admission]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Hostel Admission Notice</h5>
+                            <p class="card-text mb-3">Class 6+ hostel admissions open. Limited seats. Separate application form required.</p>
+                            <a href="hostel.html" class="btn btn-success btn-sm get-job-btn">📎 Hostel Form</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Notice 5 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 15, 2024</span>
+                            </div>
+                            <span class="badge badge-success mb-2">[Event]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Science Exhibition</h5>
+                            <p class="card-text mb-3">Inter-house science exhibition on Oct 30. Project submission deadline Oct 25.</p>
+                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Guidelines</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Notice 6 -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="notice-card card h-100 shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="text-muted small font-weight-bold">Oct 12, 2024</span>
+                            </div>
+                            <span class="badge badge-secondary mb-2">[Holiday]</span>
+                            <h5 class="card-title font-weight-bold mb-2">Guru Purnima Holiday</h5>
+                            <p class="card-text mb-3">School holiday on Oct 17 for Guru Purnima. Regular classes resume Oct 18.</p>
+                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Calendar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Learning Methodology End -->
-
-
-    <!-- Learning Tools Start -->
-    <div class="container-fluid py-5 bg-light">
-        <div class="container py-5">
-            <div class="row mx-0 justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center position-relative mb-5">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Digital Tools</h6>
-                        <h1 class="display-4">Technology in Learning</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="bg-white p-4 text-center h-100 border rounded">
-                        <div class="btn-icon bg-primary mb-3 mx-auto">
-                            <i class="fa fa-2x fa-laptop text-white"></i>
-                        </div>
-                        <h4>Smart Classes</h4>
-                        <p>Interactive smart boards and digital content delivery systems in every classroom.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="bg-white p-4 text-center h-100 border rounded">
-                        <div class="btn-icon bg-success mb-3 mx-auto">
-                            <i class="fa fa-2x fa-tablet-alt text-white"></i>
-                        </div>
-                        <h4>Learning Apps</h4>
-                        <p>Custom mobile apps for homework, assessments, and personalized learning paths.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="bg-white p-4 text-center h-100 border rounded">
-                        <div class="btn-icon bg-info mb-3 mx-auto">
-                            <i class="fa fa-2x fa-cloud text-white"></i>
-                        </div>
-                        <h4>Cloud Classroom</h4>
-                        <p>Cloud-based learning management system accessible from anywhere, anytime.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="bg-white p-4 text-center h-100 border rounded">
-                        <div class="btn-icon bg-warning mb-3 mx-auto">
-                            <i class="fa fa-2x fa-vr-cardboard text-white"></i>
-                        </div>
-                        <h4>VR Learning</h4>
-                        <p>Virtual reality experiences for immersive science and history lessons.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Learning Tools End -->
-
+    <!-- Notices Main Content End -->
 
     <!-- Footer Start -->
     <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
@@ -280,9 +308,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Designed with 
-                        <!--<i class="fa fa-heart text-danger"></i>--> 
-                        by 
+                    <p class="m-0">Designed with by 
                         <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a>
                     </p>
                 </div>
@@ -291,10 +317,8 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -304,8 +328,6 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
+    <!-- Javascript -->
     <script src="js/main.js"></script>
-</body>
 
-</html>
