@@ -2,6 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const intro = document.getElementById('intro-scene');
     const main = document.getElementById('main-scene');
     const footer = document.querySelector('.footer');
+    const footerInfo = document.querySelector('.footer-info');
+
+    if (footerInfo) {
+        const mapLinks = {
+            'Tilak Nagar, Nawada, Bihar': 'https://maps.google.com/?q=Tilak+Nagar+Nawada+Bihar',
+            'Telaiya Dam, Koderma, Jharkhand': 'https://maps.google.com/?q=Telaiya+Dam+Koderma+Jharkhand'
+        };
+
+        footerInfo.querySelectorAll('span').forEach((item) => {
+            const rawText = item.textContent.trim();
+            const normalized = rawText.replace(/^📍\s*/, '');
+            if (mapLinks[normalized] && !item.querySelector('a')) {
+                item.innerHTML = `📍 <a href="${mapLinks[normalized]}" target="_blank" rel="noopener noreferrer">${normalized}</a>`;
+            }
+        });
+    }
 
     // 1. Wait 4 seconds for the intro animation to play out
     setTimeout(() => {

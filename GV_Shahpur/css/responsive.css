@@ -1088,6 +1088,70 @@ img, video, iframe {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+
+  .container-fluid.bg-dark .row.py-2.px-lg-5 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .container-fluid.bg-dark .d-inline-flex.align-items-center.text-white,
+  .container-fluid.bg-dark .d-inline-flex.align-items-center {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 0.85rem;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .container-fluid.bg-dark .d-inline-flex.align-items-center > small.px-3,
+  .container-fluid.bg-dark .d-inline-flex.align-items-center > small.px-2.ml-2 {
+    display: none;
+  }
+
+  .container-fluid.bg-dark .d-inline-flex.align-items-center.text-white > small {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 !important;
+    font-size: 0.82rem;
+  }
+
+  .container-fluid.bg-dark .d-inline-flex.align-items-center a.text-white {
+    padding: 0.25rem 0.5rem !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .container-fluid.position-relative.bg-dark .navbar-brand h1,
+  .container-fluid.position-relative.overlay-top.bg-dark .navbar-brand h1 {
+    font-size: clamp(1.25rem, 7vw, 1.7rem) !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    word-break: break-word;
+    overflow: visible;
+  }
+
+  .container-fluid.position-relative.bg-dark .btn.btn-primary.btn-square,
+  .container-fluid.position-relative.overlay-top.bg-dark .btn.btn-primary.btn-square {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+  }
+
+  .container-fluid.position-relative.bg-dark .btn.btn-primary.btn-square i,
+  .container-fluid.position-relative.overlay-top.bg-dark .btn.btn-primary.btn-square i {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-size: 0.95rem;
+  }
+
+  .container-fluid.position-relative.bg-dark p,
+  .container-fluid.position-relative.overlay-top.bg-dark p {
+    overflow-wrap: anywhere;
+  }
 }
 
 

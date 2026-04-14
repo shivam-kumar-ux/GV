@@ -189,7 +189,40 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initScrollAnimations();
     renderPYQs(PYQ_DATA);
+    linkifyFooterContacts();
 });
+
+function linkifyFooterContacts() {
+    const footerItems = document.querySelectorAll('.footer-col li');
+    if (!footerItems.length) return;
+
+    footerItems.forEach((item) => {
+        if (item.querySelector('a')) return;
+
+        const text = item.textContent.replace(/\s+/g, ' ').trim();
+
+        if (text.includes('info@pyqhubindia.com')) {
+            item.innerHTML = item.innerHTML.replace(
+                'info@pyqhubindia.com',
+                '<a href="mailto:info@pyqhubindia.com">info@pyqhubindia.com</a>'
+            );
+        }
+
+        if (text.includes('+91 98765 43210')) {
+            item.innerHTML = item.innerHTML.replace(
+                '+91 98765 43210',
+                '<a href="tel:+919876543210">+91 98765 43210</a>'
+            );
+        }
+
+        if (text.includes('Jamshedpur, Jharkhand')) {
+            item.innerHTML = item.innerHTML.replace(
+                'Jamshedpur, Jharkhand',
+                '<a href="https://maps.google.com/?q=Jamshedpur+Jharkhand" target="_blank" rel="noopener noreferrer">Jamshedpur, Jharkhand</a>'
+            );
+        }
+    });
+}
 
 /* ── Loader ── */
 function initLoader() {
