@@ -22,6 +22,37 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!-- =====================================================
+         QUICK ENQUIRY FORM — inline styles
+         ===================================================== -->
+    <style>
+        /* Submit button loading state */
+        #qe-submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        /* Alert box shown inside the form card */
+        #qe-alert {
+            display: none;
+            margin-top: 14px;
+            border-radius: 5px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+        #qe-alert.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #qe-alert.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 
 <body>
@@ -62,9 +93,7 @@
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
             <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
                 <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
-                <div class="ml-2">
-                    <!--<h3 class="m-0 font-weight-bold" style="color: #2878EB;">GYANODAY VIDYALAYA</h3>-->
-                </div>
+                <div class="ml-2"></div>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -81,13 +110,15 @@
                             <a href="facilities.html" class="dropdown-item">Facilities</a>
                             <a href="choose.html" class="dropdown-item">Why Choose Us</a>
                             <a href="gallery.html" class="dropdown-item">Gallery</a>
-                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                            <a href="hostel.html" class="dropdown-item">Boarding &amp; Hostel</a>
                             <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
                     </div>
+                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="contact.html" class="btn btn-primary py-2 px-4 d-none d-lg-block">Enquiry Now</a>
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn">Get Admission</a>
+                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn">Get Job</a>
             </div>
         </nav>
     </div>
@@ -112,6 +143,8 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
+
+                <!-- ===== Left Content Column ===== -->
                 <div class="col-lg-8">
                     <div class="mb-5">
                         <div class="section-title position-relative mb-5">
@@ -120,7 +153,6 @@
                         </div>
                         <img class="img-fluid rounded w-100 mb-4" src="img/header.jpg" alt="Image">
                         <p>We at Gyanoday Vidyalaya believe that a conducive learning environment is essential for the overall development of students. Our campus is equipped with state-of-the-art facilities that cater to the academic, physical, and creative needs of our students.</p>
-                        
                         <p>From well-equipped laboratories to a spacious library, from sports facilities to smart classrooms - we provide everything needed for a holistic educational experience.</p>
 
                         <div class="bg-light p-4 mb-4">
@@ -153,22 +185,32 @@
                             <p>Spacious playground and indoor sports facilities for cricket, football, basketball, volleyball, and other sports.</p>
                         </div>
                     </div>
-               </div>
+                </div>
+                <!-- ===== /Left Content Column ===== -->
 
+
+                <!-- ===== Right Sidebar ===== -->
                 <div class="col-lg-4 mt-5 mt-lg-0">
+
+                    <!-- ==================== QUICK ENQUIRY FORM ==================== -->
                     <div class="bg-primary mb-5 py-3">
                         <h3 class="text-white py-3 px-4 m-0">Quick Enquiry</h3>
                         <div class="p-4">
-                            <form>
+                            <form id="quickEnquiryForm" novalidate>
                                 <div class="form-group">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" required>
+                                    <input id="qe-name" type="text"
+                                        class="form-control border-0"
+                                        placeholder="Your Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control border-0" placeholder="Phone Number" required>
+                                    <input id="qe-phone" type="tel"
+                                        class="form-control border-0"
+                                        placeholder="Phone Number" required
+                                        pattern="[0-9+\-\s]{7,15}">
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control border-0">
-                                        <option>Select Class</option>
+                                    <select id="qe-class" class="form-control border-0">
+                                        <option value="">Select Class</option>
                                         <option>Nursery</option>
                                         <option>LKG</option>
                                         <option>UKG</option>
@@ -179,12 +221,24 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <textarea class="form-control border-0" rows="3" placeholder="Message"></textarea>
+                                    <textarea id="qe-message"
+                                        class="form-control border-0"
+                                        rows="3" placeholder="Message"></textarea>
                                 </div>
-                                <button class="btn btn-block btn-secondary py-3" type="submit">Submit Enquiry</button>
+                                <button id="qe-submit-btn" class="btn btn-block btn-secondary py-3" type="submit">
+                                    <span id="qe-btn-text">Submit Enquiry</span>
+                                    <span id="qe-btn-spinner"
+                                        class="spinner-border spinner-border-sm ml-2"
+                                        role="status"
+                                        style="display:none;"></span>
+                                </button>
+
+                                <!-- Result alert shown inside the card -->
+                                <div id="qe-alert"></div>
                             </form>
                         </div>
                     </div>
+                    <!-- ==================== /QUICK ENQUIRY FORM ==================== -->
 
                     <div class="mb-5">
                         <h2 class="mb-3">Facilities</h2>
@@ -225,11 +279,14 @@
                         <div class="bg-light p-3">
                             <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-2"></i> Shahpur, Bihar</p>
                             <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-2"></i> +91 8002316898</p>
-                            <p class="mb-2"><i class="fa fa-envelope text-primary mr-2"></i> gyanodayvidyalaya2018@gmail.com</p>
+                            <p class="mb-2"><i class="fa fa-envelope text-primary mr-2"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f78667e71707b7e6669767b667e737e667e2d2f2e275f78727e7673317c7072">[email&#160;protected]</a></p>
                             <p class="mb-0"><i class="fa fa-globe text-primary mr-2"></i> www.gyanodayvidyalaya.com</p>
                         </div>
                     </div>
+
                 </div>
+                <!-- ===== /Right Sidebar ===== -->
+
             </div>
         </div>
     </div>
@@ -257,7 +314,7 @@
                     <h3 class="text-white mb-4">Get In Touch</h3>
                     <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
                     <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
-                    <p><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</p>
+                    <p><i class="fa fa-envelope mr-2"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deb9a7bfb0b1babfa7a8b7baa7bfb2bfa7bfeceeefe69eb9b3bfb7b2f0bdb1b3">[email&#160;protected]</a></p>
                     <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -291,15 +348,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.
-                    </p>
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Designed with 
-                        <!--<i class="fa fa-heart text-danger"></i>--> 
-                        by 
-                        <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a>
-                    </p>
+                    <p class="m-0">Designed by <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a></p>
                 </div>
             </div>
         </div>
@@ -312,15 +364,114 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
     <script src="js/main.js"></script>
-</body>
 
+    <!-- =====================================================
+         QUICK ENQUIRY FORM — Google Sheets submission script
+         ===================================================== -->
+    <script>
+    (function () {
+        "use strict";
+
+        // ▶ PASTE YOUR DEPLOYED WEB-APP URL HERE
+        // Use the SAME Apps Script URL from the contact page
+        // (the script handles both sheets automatically via the "source" field)
+        var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUkl-mzcOiyl84qiseIzUTLOViq0NowMh4PhVyUtVbVP5uI0_zudG5y7PnCoNUwNki/exec";
+
+        var form      = document.getElementById("quickEnquiryForm");
+        var alertBox  = document.getElementById("qe-alert");
+        var submitBtn = document.getElementById("qe-submit-btn");
+        var btnText   = document.getElementById("qe-btn-text");
+        var btnSpinner= document.getElementById("qe-btn-spinner");
+
+        function setLoading(on) {
+            submitBtn.disabled    = on;
+            btnText.textContent   = on ? "Sending…" : "Submit Enquiry";
+            btnSpinner.style.display = on ? "inline-block" : "none";
+        }
+
+        function showAlert(type, msg) {
+            alertBox.className = type;   // "success" or "error"
+            alertBox.innerHTML = msg;
+        }
+
+        function hideAlert() {
+            alertBox.className = "";
+            alertBox.innerHTML = "";
+        }
+
+        function validPhone(v) {
+            return /^[0-9+\-\s]{7,15}$/.test(v.trim());
+        }
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            hideAlert();
+
+            var name    = document.getElementById("qe-name").value.trim();
+            var phone   = document.getElementById("qe-phone").value.trim();
+            var cls     = document.getElementById("qe-class").value.trim();
+            var message = document.getElementById("qe-message").value.trim();
+
+            /* Client-side validation */
+            if (!name)  { showAlert("error", "<i class='fa fa-exclamation-circle mr-1'></i> Please enter your name.");          return; }
+            if (!phone || !validPhone(phone)) { showAlert("error", "<i class='fa fa-exclamation-circle mr-1'></i> Please enter a valid phone number."); return; }
+
+            setLoading(true);
+
+            var payload = {
+                source:  "Quick Enquiry – Facilities",   // identifies which form
+                name:    name,
+                phone:   phone,
+                class:   cls     || "Not Selected",
+                message: message || "—"
+            };
+
+            /* JSONP call — avoids CORS issues with Apps Script */
+            var cbName = "_qeCallback_" + Date.now();
+            var url    = APPS_SCRIPT_URL + "?callback=" + cbName + "&" + new URLSearchParams(payload).toString();
+            var script = document.createElement("script");
+            script.src = url;
+
+            var timer = setTimeout(function () {
+                cleanup();
+                showAlert("error", "<i class='fa fa-clock mr-1'></i> Request timed out. Please try again.");
+            }, 10000);
+
+            function cleanup() {
+                setLoading(false);
+                if (script.parentNode) document.head.removeChild(script);
+                delete window[cbName];
+                clearTimeout(timer);
+            }
+
+            window[cbName] = function (response) {
+                cleanup();
+                if (response && response.result === "success") {
+                    showAlert("success",
+                        "<i class='fa fa-check-circle mr-1'></i>" +
+                        "<strong>Enquiry submitted!</strong> We'll contact you shortly.");
+                    form.reset();
+                } else {
+                    showAlert("error",
+                        "<i class='fa fa-times-circle mr-1'></i>" +
+                        "Something went wrong. Please try again.");
+                }
+            };
+
+            script.onerror = function () {
+                cleanup();
+                showAlert("error",
+                    "<i class='fa fa-times-circle mr-1'></i> Could not reach server. Please check your connection.");
+            };
+
+            document.head.appendChild(script);
+        });
+    })();
+    </script>
+</body>
 </html>

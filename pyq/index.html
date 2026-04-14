@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PYQ Hub India — Previous Year Questions for All Competitive Exams</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">PYQ Hub India</div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+<img src="Img/logo.png" alt="PYQ Hub Logo" class="logo-icon">
+                <span>PYQ<strong>Hub</strong></span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#exams" class="nav-link">Exams</a></li>
+                <li><a href="#pyqs" class="nav-link">Papers</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-ghost">Login</a>
+                <a href="#" class="btn-nav-cta">Sign Up Free</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        <div class="hero-orb orb-3"></div>
+        <div class="hero-grid-overlay"></div>
+
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                India's #1 PYQ Repository · Trusted by 1M+ Students
+            </div>
+            <h1 class="hero-title">
+                Ace Every Exam<br>with <em>Real Papers</em>
+            </h1>
+            <p class="hero-sub">
+                Sainik School · Navodaya · JEE · NEET · Olympiads · RIMC · RMS · CUET<br>
+                5+ years of actual exam papers — free, searchable, downloadable.
+            </p>
+
+            <div class="search-card">
+                <div class="search-row">
+                    <div class="search-field">
+                        <label><i class="fas fa-graduation-cap"></i> Exam</label>
+                        <select id="heroExam">
+                            <option value="">All Exams</option>
+                            <option value="Sainik School">Sainik School</option>
+                            <option value="Navodaya">Navodaya Vidyalaya</option>
+                            <option value="JEE">JEE Main/Advanced</option>
+                            <option value="NEET">NEET</option>
+                            <option value="Olympiads">Olympiads</option>
+                            <option value="RIMC">RIMC</option>
+                            <option value="RMS">RMS</option>
+                            <option value="CUET">CUET</option>
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <label><i class="fas fa-layer-group"></i> Class</label>
+                        <select id="heroClass">
+                            <option value="">All Classes</option>
+                            <option value="5">Class 5</option>
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <label><i class="fas fa-book-open"></i> Subject</label>
+                        <select id="heroSubject">
+                            <option value="">All Subjects</option>
+                            <option value="Maths">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                            <option value="English">English</option>
+                            <option value="GK">GK / Intelligence</option>
+                        </select>
+                    </div>
+                    <button class="search-btn" id="heroSearchBtn">
+                        <i class="fas fa-search"></i>
+                        <span>Find Papers</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="50000">0</span>+
+                    <span class="stat-label">Question Papers</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="1000000">0</span>+
+                    <span class="stat-label">Students Helped</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="15">0</span>+
+                    <span class="stat-label">Exams Covered</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="5">0</span>
+                    <span class="stat-label">Years of PYQs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <div class="scroll-wheel"></div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Exams Strip -->
+    <div class="exam-strip">
+        <div class="strip-track">
+            <span>Sainik School</span><span class="dot">◆</span>
+            <span>Navodaya</span><span class="dot">◆</span>
+            <span>JEE Main</span><span class="dot">◆</span>
+            <span>JEE Advanced</span><span class="dot">◆</span>
+            <span>NEET</span><span class="dot">◆</span>
+            <span>RIMC</span><span class="dot">◆</span>
+            <span>RMS</span><span class="dot">◆</span>
+            <span>CUET</span><span class="dot">◆</span>
+            <span>Olympiads</span><span class="dot">◆</span>
+            <span>Netarhat</span><span class="dot">◆</span>
+            <span>Simultala</span><span class="dot">◆</span>
+            <!-- Duplicate for loop -->
+            <span>Sainik School</span><span class="dot">◆</span>
+            <span>Navodaya</span><span class="dot">◆</span>
+            <span>JEE Main</span><span class="dot">◆</span>
+            <span>JEE Advanced</span><span class="dot">◆</span>
+            <span>NEET</span><span class="dot">◆</span>
+            <span>RIMC</span><span class="dot">◆</span>
+            <span>RMS</span><span class="dot">◆</span>
+            <span>CUET</span><span class="dot">◆</span>
+        </div>
+    </div>
+
+    <!-- Exams Section -->
+    <section id="exams" class="section exams-section">
+        <div class="container">
+            <div class="section-label">Popular Exams</div>
+            <h2 class="section-title">Choose Your<br><em>Battleground</em></h2>
+            <p class="section-sub">Click any exam to instantly browse all its previous year papers</p>
+
+            <div class="exams-grid">
+                <div class="exam-card" data-exam="Sainik School" data-color="#FF6B35">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">🎖️</div>
+                    <div class="exam-info">
+                        <h3>Sainik School</h3>
+                        <p>AISSEE — All India Sainik School Entrance Exam</p>
+                        <div class="exam-chips">
+                            <span>Class 6</span>
+                            <span>Class 9</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="exam-card" data-exam="Navodaya" data-color="#6C63FF">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">🏫</div>
+                    <div class="exam-info">
+                        <h3>Navodaya Vidyalaya</h3>
+                        <p>JNVST — Jawahar Navodaya Vidyalaya Selection Test</p>
+                        <div class="exam-chips">
+                            <span>Class 6</span>
+                            <span>Class 9</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="exam-card" data-exam="JEE" data-color="#00C9A7">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">⚙️</div>
+                    <div class="exam-info">
+                        <h3>JEE Main & Advanced</h3>
+                        <p>IIT/NIT Engineering Entrance — National Level</p>
+                        <div class="exam-chips">
+                            <span>Class 11</span>
+                            <span>Class 12</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="exam-card" data-exam="NEET" data-color="#FF4D6D">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">🩺</div>
+                    <div class="exam-info">
+                        <h3>NEET</h3>
+                        <p>National Medical Entrance — AIIMS, MBBS, BDS</p>
+                        <div class="exam-chips">
+                            <span>Class 11</span>
+                            <span>Class 12</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="exam-card" data-exam="RIMC" data-color="#F9A826">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">⚔️</div>
+                    <div class="exam-info">
+                        <h3>RIMC & RMS</h3>
+                        <p>Rashtriya Indian Military & Military School</p>
+                        <div class="exam-chips">
+                            <span>Class 6</span>
+                            <span>Class 9</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="exam-card" data-exam="Olympiads" data-color="#845EC2">
+                    <div class="card-glow"></div>
+                    <div class="exam-emoji">🏆</div>
+                    <div class="exam-info">
+                        <h3>Olympiads</h3>
+                        <p>SOF IMO, NSO, IEO — Class 1 to 12</p>
+                        <div class="exam-chips">
+                            <span>All Classes</span>
+                        </div>
+                    </div>
+                    <div class="exam-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PYQ Section -->
+    <section id="pyqs" class="section pyq-section">
+        <div class="container">
+            <div class="section-label">Question Papers</div>
+            <h2 class="section-title">Browse & Download<br><em>PYQ Papers</em></h2>
+
+            <div class="pyq-wrapper">
+                <!-- Sidebar Filter -->
+                <aside class="filter-sidebar">
+                    <div class="filter-header">
+                        <i class="fas fa-sliders-h"></i> Filter Papers
+                    </div>
+                    <div class="filter-body">
+                        <div class="filter-block">
+                            <label>Exam</label>
+                            <select id="examFilter">
+                                <option value="">All Exams</option>
+                                <option value="Sainik School">Sainik School</option>
+                                <option value="Navodaya">Navodaya</option>
+                                <option value="JEE">JEE</option>
+                                <option value="NEET">NEET</option>
+                                <option value="RIMC">RIMC</option>
+                                <option value="RMS">RMS</option>
+                                <option value="Olympiads">Olympiads</option>
+                            </select>
+                        </div>
+                        <div class="filter-block">
+                            <label>Year</label>
+                            <select id="yearFilter">
+                                <option value="">All Years</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                        <div class="filter-block">
+                            <label>Class</label>
+                            <select id="classFilter">
+                                <option value="">All Classes</option>
+                                <option value="5">Class 5</option>
+                                <option value="6">Class 6</option>
+                                <option value="9">Class 9</option>
+                                <option value="11">Class 11</option>
+                                <option value="12">Class 12</option>
+                            </select>
+                        </div>
+                        <div class="filter-block">
+                            <label>Subject</label>
+                            <select id="subjectFilter">
+                                <option value="">All Subjects</option>
+                                <option value="Maths">Maths</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="GK">GK</option>
+                            </select>
+                        </div>
+                        <button class="clear-btn" id="clearFilters">
+                            <i class="fas fa-times"></i> Clear All Filters
+                        </button>
+                    </div>
+
+                    <!-- Folder Structure Guide -->
+                    <div class="folder-guide">
+                        <div class="folder-guide-title">
+                            <i class="fas fa-folder-tree"></i> How to Add Papers
+                        </div>
+                        <div class="folder-tree">
+                            <div class="ftree-item root">📁 pyqs/</div>
+                            <div class="ftree-item l1">📁 sainik-school/</div>
+                            <div class="ftree-item l2">📁 class-6/</div>
+                            <div class="ftree-item l3">📁 2024/</div>
+                            <div class="ftree-item l4">📄 maths.pdf</div>
+                            <div class="ftree-item l4">📄 gk.pdf</div>
+                            <div class="ftree-item l3">📁 2023/</div>
+                            <div class="ftree-item l2">📁 class-9/</div>
+                            <div class="ftree-item l1">📁 jee/</div>
+                            <div class="ftree-item l2">📁 2024/</div>
+                            <div class="ftree-item l3">📄 paper1.pdf</div>
+                        </div>
+                        <p class="folder-tip">Then update <code>PYQ_DATA</code> in <code>script.js</code> with the correct file paths!</p>
+                    </div>
+                </aside>
+
+                <!-- PYQ Grid -->
+                <div class="pyq-main">
+                    <div class="pyq-toolbar">
+                        <div class="results-count" id="resultsCount">Showing all papers</div>
+                        <div class="sort-row">
+                            <select id="sortFilter">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="az">A → Z</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pyq-grid" id="pyqGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="no-results hidden" id="noResults">
+                        <div class="no-results-icon">🔍</div>
+                        <h3>No papers found</h3>
+                        <p>Try adjusting your filters or <button onclick="clearFiltersAction()">clear all</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-label">Why Choose Us</div>
+            <h2 class="section-title">Everything You Need<br>to <em>Crack the Exam</em></h2>
+
+            <div class="features-grid">
+                <div class="feature-card fc-wide">
+                    <div class="feature-icon-big">📥</div>
+                    <h3>Instant PDF Download</h3>
+                    <p>Download any question paper or solution instantly — no signup required for basic papers.</p>
+                    <div class="feature-tag">Free Access</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-big">🗂️</div>
+                    <h3>Organized by Exam & Year</h3>
+                    <p>Papers sorted neatly by exam, class, subject, and year for fastest access.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-big">🔎</div>
+                    <h3>Smart Search & Filter</h3>
+                    <p>Find exactly what you need in seconds with our multi-filter search system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-big">📱</div>
+                    <h3>Mobile Optimized</h3>
+                    <p>Study on the go — our site works perfectly on any phone, tablet, or desktop.</p>
+                </div>
+                <div class="feature-card fc-wide">
+                    <div class="feature-icon-big">📅</div>
+                    <h3>5+ Years Archive</h3>
+                    <p>Complete collection of PYQs from 2020 to 2024 for all major Indian competitive exams.</p>
+                    <div class="feature-tag">2020–2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-orb"></div>
+        <div class="container">
+            <div class="cta-inner">
+                <div class="cta-badge">Start Today — It's Free</div>
+                <h2>Stop Guessing.<br>Start Practising <em>Real Papers.</em></h2>
+                <p>Join over 10 lakh students who use PYQ Hub India to prepare smarter.</p>
+                <div class="cta-actions">
+                    <a href="#pyqs" class="cta-btn-primary">
+                        <i class="fas fa-bolt"></i> Browse Papers Now
+                    </a>
+                    <a href="#exams" class="cta-btn-ghost">
+                        Explore Exams
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">📚 PYQHub India</div>
+                    <p>India's most complete previous year question paper platform for competitive exams from Class 5 to 12.</p>
+                    <div class="socials">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Exams</h4>
+                    <ul>
+                        <li><a href="#">Sainik School</a></li>
+                        <li><a href="#">Navodaya</a></li>
+                        <li><a href="#">JEE Main</a></li>
+                        <li><a href="#">NEET</a></li>
+                        <li><a href="#">RIMC / RMS</a></li>
+                        <li><a href="#">Olympiads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>By Class</h4>
+                    <ul>
+                        <li><a href="#">Class 5 – 6</a></li>
+                        <li><a href="#">Class 7 – 8</a></li>
+                        <li><a href="#">Class 9 – 10</a></li>
+                        <li><a href="#">Class 11 – 12</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@pyqhubindia.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jamshedpur, Jharkhand</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 PYQ Hub India. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">DMCA</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

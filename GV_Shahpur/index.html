@@ -100,7 +100,7 @@
     <!-- Header Start -->
     <div class="jumbotron jumbotron-fluid jumbotron-video position-relative" style="margin-bottom: 90px; min-height: 100vh;">
         <!-- Video Background -->
-        <video class="video-background" id="headerVideo" autoplay loop playsinline>
+            <video class="video-background" id="headerVideo" autoplay loop playsinline preload="metadata">
             <source src="vid/GV_intro.mp4" type="video/mp4">
         </video>
         <!-- Header Content Card -->
@@ -410,7 +410,7 @@
             </div>
         </div>
         <!--Student Achievement Slider End-->
-        <div class="row justify-content-center bg-image mx-0 mb-5">
+        <!--<div class="row justify-content-center bg-image mx-0 mb-5">
             <div class="col-lg-6 py-5">
                 <div class="bg-white p-5 my-5">
                     <h1 class="text-center mb-4">Admission Open for Session 2025-26</h1>
@@ -459,7 +459,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- Academics End -->
 
 
@@ -606,7 +606,7 @@
                             </div>
                             <div class="mt-n1">
                                 <h4>Email Us</h4>
-                                <p class="m-0">gyanodayvidyalaya2018@gmail.com</p>
+                                <a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
                             </div>
                         </div>
                         <!--<div class="d-flex align-items-center">
@@ -626,32 +626,36 @@
                         <h1 class="display-4">Send Us A Message</h1>
                     </div>
                     <div class="contact-form">
-                        <form>
+                        <form id="indexContactForm" novalidate>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Name" required="required">
+                                    <input id="ic-name" type="text" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Name" required>
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="tel" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Phone" required="required">
+                                    <input id="ic-phone" type="tel" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Phone" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Email (Optional)">
+                                <input id="ic-email" type="email" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Email (Optional)">
                             </div>
                             <div class="form-group">
-                                <select class="form-control border-top-0 border-right-0 border-left-0 p-0">
-                                    <option>Select Enquiry Type</option>
+                                <select id="ic-enquiry" class="form-control border-top-0 border-right-0 border-left-0 p-0">
+                                    <option value="">Select Enquiry Type</option>
                                     <option>Admission Enquiry</option>
                                     <option>General Inquiry</option>
                                     <option>Feedback</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5" placeholder="Message" required="required"></textarea>
+                                <textarea id="ic-message" class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5" placeholder="Message" required></textarea>
                             </div>
                             <div>
-                                <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
+                                <button id="ic-submit-btn" class="btn btn-primary py-3 px-5" type="submit">
+                                    <span id="ic-btn-text">Send Message</span>
+                                    <span id="ic-btn-spinner" class="spinner-border spinner-border-sm ml-2" role="status" style="display:none;"></span>
+                                </button>
                             </div>
+                            <div id="ic-alert" style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;"></div>
                         </form>
                     </div>
                 </div>
@@ -682,7 +686,7 @@
                     <h3 class="text-white mb-4">Get In Touch</h3>
                     <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
                     <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
-                    <p><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</p>
+                    <p><i class="fa fa-envelope mr-2"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d0ced6d9d8d3d6cec1ded3ced6dbd6ced68587868ff7d0dad6dedb99d4d8da">[email&#160;protected]</a></p>
                     <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -743,9 +747,88 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Javascript -->
     <script src="js/main.js"></script>
-</body>
 
+    <!-- =====================================================
+         INDEX PAGE — Contact Form -> Google Sheets
+         ===================================================== -->
+    <style>
+        #ic-submit-btn:disabled{opacity:.7;cursor:not-allowed;}
+    </style>
+    <script>
+    (function(){
+        "use strict";
+        var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+
+        var form      = document.getElementById("indexContactForm");
+        var alertBox  = document.getElementById("ic-alert");
+        var submitBtn = document.getElementById("ic-submit-btn");
+        var btnText   = document.getElementById("ic-btn-text");
+        var btnSpinner= document.getElementById("ic-btn-spinner");
+
+        function setLoading(on){
+            submitBtn.disabled = on;
+            btnText.textContent = on ? "Sending…" : "Send Message";
+            btnSpinner.style.display = on ? "inline-block" : "none";
+        }
+        function showAlert(type, msg){
+            alertBox.style.display="block";
+            alertBox.style.background   = type==="success"?"#d4edda":"#f8d7da";
+            alertBox.style.color        = type==="success"?"#155724":"#721c24";
+            alertBox.style.border       = "1px solid "+(type==="success"?"#c3e6cb":"#f5c6cb");
+            alertBox.innerHTML=msg;
+        }
+        function hideAlert(){ alertBox.style.display="none"; alertBox.innerHTML=""; }
+        function validPhone(v){ return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+
+        form.addEventListener("submit",function(e){
+            e.preventDefault(); hideAlert();
+            var name    = document.getElementById("ic-name").value.trim();
+            var phone   = document.getElementById("ic-phone").value.trim();
+            var email   = document.getElementById("ic-email").value.trim();
+            var enquiry = document.getElementById("ic-enquiry").value.trim();
+            var message = document.getElementById("ic-message").value.trim();
+
+            if(!name)  { showAlert("error","Please enter your name."); return; }
+            if(!phone||!validPhone(phone)){ showAlert("error","Please enter a valid phone number."); return; }
+            if(!message){ showAlert("error","Please enter a message."); return; }
+
+            setLoading(true);
+            var payload={ source:"Home Page Contact", name:name, phone:phone, email:email||"--", enquiry:enquiry||"Not Selected", message:message };
+            var cbName="_icCb_"+Date.now();
+            var url=APPS_SCRIPT_URL+"?callback="+cbName+"&"+new URLSearchParams(payload).toString();
+            var script=document.createElement("script");
+            script.src=url;
+
+            var timer=setTimeout(function(){ cleanup(); showAlert("error","Request timed out. Please try again."); },10000);
+            function cleanup(){ setLoading(false); if(script.parentNode) document.head.removeChild(script); delete window[cbName]; clearTimeout(timer); }
+
+            window[cbName]=function(r){
+                cleanup();
+                if(r&&r.result==="success"){ showAlert("success","<strong>Message sent!</strong> We will get back to you soon."); form.reset(); }
+                else{ showAlert("error","Something went wrong. Please try again."); }
+            };
+            script.onerror=function(){ cleanup(); showAlert("error","Could not reach server. Check your connection."); };
+            document.head.appendChild(script);
+        });
+    })();
+    </script>
+
+    <!-- VIDEO SCROLL FIX -->
+    <script>
+    (function(){
+        var video=document.getElementById("headerVideo");
+        if(!video) return;
+        var jumbotron=video.closest(".jumbotron")||video.parentElement;
+        function handleScroll(){
+            var scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+            var threshold=jumbotron?(jumbotron.offsetTop+jumbotron.offsetHeight):400;
+            if(scrollTop>threshold){ if(!video.paused) video.pause(); video.muted=true; }
+            else{ video.muted=false; if(video.paused){ var p=video.play(); if(p) p.catch(function(){ video.muted=true; video.play(); }); } }
+        }
+        var t; window.addEventListener("scroll",function(){ clearTimeout(t); t=setTimeout(handleScroll,50); },{passive:true});
+        handleScroll();
+    })();
+    </script>
+</body>
 </html>
