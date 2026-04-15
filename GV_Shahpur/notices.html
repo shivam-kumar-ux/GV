@@ -110,144 +110,469 @@
     <!-- News Ticker End -->
 
     <!-- Notices Main Content Start -->
-    <div class="container-fluid py-5">
+
+    <!-- Inline styles for this section -->
+    <style>
+        /* ── Notice Board Layout ── */
+        .nb-wrapper { background: #f4f7ff; padding: 50px 0 70px; }
+
+        /* Search + Filter Bar */
+        .nb-controls { background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(40,120,235,.10); padding: 22px 28px; margin-bottom: 36px; }
+        .nb-search-wrap { position: relative; }
+        .nb-search-wrap .fa-search { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); color: #2878EB; }
+        #nbSearch { padding-left: 38px; border-radius: 30px; border: 2px solid #e0eaff; font-size: .95rem; height: 44px; }
+        #nbSearch:focus { border-color: #2878EB; box-shadow: 0 0 0 3px rgba(40,120,235,.15); outline: none; }
+
+        .nb-filter-btn { border-radius: 25px; font-weight: 600; font-size: .82rem; padding: 6px 18px; border: 2px solid transparent; transition: all .25s; cursor: pointer; }
+        .nb-filter-btn.all    { background:#2878EB; color:#fff; border-color:#2878EB; }
+        .nb-filter-btn.exam   { background:#fff3cd; color:#856404; border-color:#ffc107; }
+        .nb-filter-btn.event  { background:#d4edda; color:#155724; border-color:#28a745; }
+        .nb-filter-btn.holiday{ background:#cce5ff; color:#004085; border-color:#17a2b8; }
+        .nb-filter-btn.admission{ background:#f8d7da; color:#721c24; border-color:#dc3545; }
+        .nb-filter-btn.general{ background:#e2e3e5; color:#383d41; border-color:#6c757d; }
+        .nb-filter-btn:not(.all):not(.active-filter) { background:#fff; }
+        .nb-filter-btn.active-filter, .nb-filter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.15); opacity: 1 !important; }
+
+        .nb-count-badge { background: #e8f0ff; color: #2878EB; border-radius: 20px; padding: 3px 12px; font-size: .8rem; font-weight: 700; }
+
+        /* Timeline Column */
+        .nb-timeline { position: relative; padding-left: 28px; }
+        .nb-timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,#2878EB 0%,#F14D5D 100%); border-radius:3px; }
+
+        /* Notice Item */
+        .nb-item { position: relative; background: #fff; border-radius: 14px; box-shadow: 0 3px 18px rgba(40,120,235,.08); margin-bottom: 22px; padding: 22px 24px; transition: all .3s ease; border-left: 5px solid #e0eaff; }
+        .nb-item:hover { transform: translateX(6px); box-shadow: 0 8px 30px rgba(40,120,235,.18); }
+        .nb-item.pinned { border-left-color: #dc3545; background: linear-gradient(135deg,#fff7f7 0%,#fff 100%); }
+        .nb-item::before { content:''; position:absolute; left:-35px; top:24px; width:14px; height:14px; border-radius:50%; background:#2878EB; border:3px solid #fff; box-shadow:0 0 0 3px #2878EB; }
+        .nb-item.pinned::before { background:#dc3545; box-shadow:0 0 0 3px #dc3545; }
+
+        /* Tags & Badges */
+        .nb-tag { display:inline-block; border-radius:20px; padding:3px 12px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-right:6px; }
+        .nb-tag.exam     { background:#fff3cd; color:#856404; }
+        .nb-tag.event    { background:#d4edda; color:#155724; }
+        .nb-tag.holiday  { background:#cce5ff; color:#004085; }
+        .nb-tag.admission{ background:#f8d7da; color:#721c24; }
+        .nb-tag.general  { background:#e2e3e5; color:#383d41; }
+
+        .nb-new { background:#dc3545; color:#fff; border-radius:20px; padding:2px 10px; font-size:.72rem; font-weight:700; animation: nb-blink 1.2s infinite; }
+        @keyframes nb-blink { 0%,50%{opacity:1} 51%,100%{opacity:.3} }
+
+        .nb-pin-icon { color:#dc3545; margin-right:4px; }
+
+        .nb-date { font-size:.78rem; color:#aaa; font-weight:600; }
+        .nb-title { font-family:'Jost',sans-serif; font-size:1.05rem; font-weight:700; color:#120F2D; margin: 6px 0 6px; }
+        .nb-body  { font-size:.9rem; color:#6B6A75; margin-bottom:10px; line-height:1.6; }
+
+        .nb-attach { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600; border-radius:8px; padding:5px 14px; text-decoration:none; transition:all .2s; }
+        .nb-attach.primary { background:#e8f0ff; color:#2878EB; }
+        .nb-attach.success { background:#d4edda; color:#155724; }
+        .nb-attach:hover { filter:brightness(.92); transform:translateY(-1px); }
+
+        /* Sidebar */
+        .nb-sidebar-card { background:#fff; border-radius:14px; box-shadow:0 3px 18px rgba(40,120,235,.08); padding:24px; margin-bottom:24px; }
+        .nb-sidebar-card h6 { font-family:'Jost',sans-serif; font-weight:700; color:#120F2D; font-size:1rem; border-bottom:2px solid #e8f0ff; padding-bottom:10px; margin-bottom:14px; }
+
+        .nb-stat { text-align:center; padding:12px; border-radius:10px; }
+        .nb-stat .num { font-size:1.8rem; font-weight:700; font-family:'Jost',sans-serif; color:#2878EB; }
+        .nb-stat .lbl { font-size:.75rem; color:#aaa; font-weight:600; text-transform:uppercase; }
+
+        .nb-quick-link { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid #f0f0f0; text-decoration:none; color:#120F2D; font-size:.88rem; font-weight:600; transition:color .2s; }
+        .nb-quick-link:last-child { border-bottom:none; }
+        .nb-quick-link:hover { color:#2878EB; text-decoration:none; }
+        .nb-quick-link .icon { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.8rem; flex-shrink:0; }
+
+        /* Empty state */
+        .nb-empty { text-align:center; padding:60px 20px; color:#aaa; }
+        .nb-empty i { font-size:3rem; margin-bottom:12px; display:block; }
+
+        /* Pagination */
+        .nb-page-btn { width:36px; height:36px; border-radius:8px; border:2px solid #e0eaff; background:#fff; color:#2878EB; font-weight:700; cursor:pointer; transition:all .2s; }
+        .nb-page-btn.active, .nb-page-btn:hover { background:#2878EB; color:#fff; border-color:#2878EB; }
+
+        /* Hidden items */
+        .nb-item.nb-hidden { display:none; }
+
+        @media(max-width:768px){
+            .nb-timeline { padding-left:18px; }
+            .nb-item::before { left:-25px; width:12px; height:12px; }
+            .nb-controls { padding:16px; }
+        }
+    </style>
+
+    <div class="nb-wrapper">
         <div class="container">
-            <!-- Filter Bar -->
-            <div class="notice-filters mb-4 d-flex flex-wrap justify-content-center gap-2">
-                <button class="btn btn-primary btn-sm active" data-filter="all">Show All</button>
-                <button class="btn btn-primary btn-sm" data-filter="exam">[Exam]</button>
-                <button class="btn btn-primary btn-sm" data-filter="admission">[Admission]</button>
-                <button class="btn btn-primary btn-sm" data-filter="event">[Events]</button>
-                <button class="btn btn-primary btn-sm" data-filter="holiday">[Holiday]</button>
+            <div class="row">
+
+                <!-- ── Main Column ── -->
+                <div class="col-lg-8">
+
+                    <!-- Controls -->
+                    <div class="nb-controls">
+                        <!-- Search -->
+                        <div class="nb-search-wrap mb-3">
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="nbSearch" class="form-control w-100" placeholder="Search notices by title or keyword…">
+                        </div>
+                        <!-- Filter buttons -->
+                        <div class="d-flex flex-wrap" style="gap:8px;">
+                            <button class="nb-filter-btn all active-filter" data-cat="all">
+                                <i class="fa fa-th-list mr-1"></i> All
+                            </button>
+                            <button class="nb-filter-btn exam" data-cat="exam">
+                                <i class="fa fa-pen mr-1"></i> Exam
+                            </button>
+                            <button class="nb-filter-btn event" data-cat="event">
+                                <i class="fa fa-calendar-alt mr-1"></i> Events
+                            </button>
+                            <button class="nb-filter-btn holiday" data-cat="holiday">
+                                <i class="fa fa-umbrella-beach mr-1"></i> Holiday
+                            </button>
+                            <button class="nb-filter-btn admission" data-cat="admission">
+                                <i class="fa fa-user-plus mr-1"></i> Admission
+                            </button>
+                            <button class="nb-filter-btn general" data-cat="general">
+                                <i class="fa fa-info-circle mr-1"></i> General
+                            </button>
+                            <span class="nb-count-badge ml-auto align-self-center" id="nbCount">8 notices</span>
+                        </div>
+                    </div>
+
+                    <!-- Timeline of notices -->
+                    <div class="nb-timeline" id="nbTimeline">
+
+                        <!-- ── NOTICE 1 – PINNED ── -->
+                        <div class="nb-item pinned" data-cat="exam" data-title="Annual Examination Schedule 2024-25">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <i class="fa fa-thumbtack nb-pin-icon"></i>
+                                <span class="nb-tag exam">Exam</span>
+                                <span class="nb-new">NEW</span>
+                                <span class="nb-date ml-auto">Oct 25, 2024</span>
+                            </div>
+                            <div class="nb-title">Annual Examination Schedule 2024–25 Released</div>
+                            <div class="nb-body">The complete timetable for Annual Examinations (Class 1–12) has been released. Exams begin from <strong>November 4, 2024</strong>. Admit cards will be distributed through class teachers from Oct 28. All students must carry their admit card on every exam day. Attendance is mandatory.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="#" class="nb-attach primary"><i class="fa fa-file-pdf"></i> Timetable PDF</a>
+                                <a href="#" class="nb-attach success"><i class="fa fa-id-card"></i> Admit Card Info</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 2 – PINNED ── -->
+                        <div class="nb-item pinned" data-cat="admission" data-title="Session 2025-26 Admission Open">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <i class="fa fa-thumbtack nb-pin-icon"></i>
+                                <span class="nb-tag admission">Admission</span>
+                                <span class="nb-new">NEW</span>
+                                <span class="nb-date ml-auto">Oct 22, 2024</span>
+                            </div>
+                            <div class="nb-title">Admissions Open for Session 2025–26 (Nursery to Class 10)</div>
+                            <div class="nb-body">Gyanoday Vidyalaya invites applications for the new academic session. Seats are limited. Registration forms available at the school office (9 AM – 2 PM on working days) or download below. Last date to apply: <strong>December 31, 2024</strong>.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="admission.html" class="nb-attach primary"><i class="fa fa-download"></i> Download Form</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 3 ── -->
+                        <div class="nb-item" data-cat="event" data-title="Annual Sports Day November 15">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag event">Event</span>
+                                <span class="nb-date ml-auto">Oct 20, 2024</span>
+                            </div>
+                            <div class="nb-title">Annual Sports Day – November 15, 2024</div>
+                            <div class="nb-body">The Annual Sports Day will be held on <strong>November 15, 2024</strong> at the school ground. Students must report by 7:30 AM in sports uniform. Parents are cordially invited. Prize distribution ceremony at 11:00 AM.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="#" class="nb-attach primary"><i class="fa fa-file-alt"></i> Programme Schedule</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 4 ── -->
+                        <div class="nb-item" data-cat="event" data-title="PTM Parent Teacher Meeting November 8">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag event">Event</span>
+                                <span class="nb-date ml-auto">Oct 18, 2024</span>
+                            </div>
+                            <div class="nb-title">Parent-Teacher Meeting (PTM) – November 8, 2024</div>
+                            <div class="nb-body">PTM for all classes will be held on <strong>November 8, 2024</strong> from 9:00 AM to 12:00 PM. Parents are requested to collect the progress report and discuss their ward's academic performance with subject teachers. Attendance of parents is strongly encouraged.</div>
+                        </div>
+
+                        <!-- ── NOTICE 5 ── -->
+                        <div class="nb-item" data-cat="holiday" data-title="Winter Vacation December 20 to 31">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag holiday">Holiday</span>
+                                <span class="nb-date ml-auto">Oct 15, 2024</span>
+                            </div>
+                            <div class="nb-title">Winter Vacation: December 20 – December 31, 2024</div>
+                            <div class="nb-body">School will remain closed for Winter Vacation from <strong>December 20 to December 31, 2024</strong>. Classes will resume on <strong>January 2, 2025</strong>. A special revision class schedule for Board students will be shared separately.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="#" class="nb-attach primary"><i class="fa fa-calendar"></i> Annual Calendar</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 6 ── -->
+                        <div class="nb-item" data-cat="event" data-title="Science Exhibition October 30">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag event">Event</span>
+                                <span class="nb-date ml-auto">Oct 15, 2024</span>
+                            </div>
+                            <div class="nb-title">Inter-House Science Exhibition – October 30, 2024</div>
+                            <div class="nb-body">An inter-house Science Exhibition will be organized on <strong>October 30, 2024</strong>. All students of Classes 6–12 are encouraged to participate. Project submission deadline is <strong>October 25, 2024</strong>. Download the participation guidelines below.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="#" class="nb-attach primary"><i class="fa fa-file-alt"></i> Guidelines PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 7 ── -->
+                        <div class="nb-item" data-cat="admission" data-title="Hostel Admission Notice Class 6 and Above">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag admission">Admission</span>
+                                <span class="nb-date ml-auto">Oct 12, 2024</span>
+                            </div>
+                            <div class="nb-title">Hostel Admissions Open – Class 6 and Above</div>
+                            <div class="nb-body">Limited hostel seats are available for students of Class 6 and above for Session 2024–25. A separate application form is required. Facilities include nutritious meals, supervised study hours, and 24/7 warden support.</div>
+                            <div class="d-flex flex-wrap" style="gap:8px;">
+                                <a href="hostel.html" class="nb-attach success"><i class="fa fa-home"></i> Hostel Details</a>
+                                <a href="#" class="nb-attach primary"><i class="fa fa-download"></i> Application Form</a>
+                            </div>
+                        </div>
+
+                        <!-- ── NOTICE 8 ── -->
+                        <div class="nb-item" data-cat="general" data-title="Fee Submission Reminder October 2024">
+                            <div class="d-flex flex-wrap align-items-center mb-2" style="gap:6px;">
+                                <span class="nb-tag general">General</span>
+                                <span class="nb-date ml-auto">Oct 10, 2024</span>
+                            </div>
+                            <div class="nb-title">Fee Submission Reminder – October 2024</div>
+                            <div class="nb-body">Parents are reminded that October tuition fee is due by <strong>October 31, 2024</strong>. Fee can be paid at the school office on any working day between 9:00 AM and 1:00 PM. A late fine of ₹50/day will be levied after the due date.</div>
+                        </div>
+
+                        <!-- Empty state (shown when no results) -->
+                        <div class="nb-empty" id="nbEmpty" style="display:none;">
+                            <i class="fa fa-search"></i>
+                            <p class="font-weight-bold">No notices found</p>
+                            <p>Try a different keyword or category.</p>
+                        </div>
+
+                    </div><!-- /nb-timeline -->
+
+                </div><!-- /col-lg-8 -->
+
+                <!-- ── Sidebar ── -->
+                <div class="col-lg-4 mt-4 mt-lg-0">
+
+                    <!-- Stats -->
+                    <div class="nb-sidebar-card">
+                        <h6><i class="fa fa-chart-bar mr-2 text-primary"></i>Notice Summary</h6>
+                        <div class="row text-center">
+                            <div class="col-6 mb-3">
+                                <div class="nb-stat" style="background:#fff3cd;">
+                                    <div class="num" style="color:#856404;">2</div>
+                                    <div class="lbl">Exam</div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="nb-stat" style="background:#d4edda;">
+                                    <div class="num" style="color:#155724;">3</div>
+                                    <div class="lbl">Events</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="nb-stat" style="background:#cce5ff;">
+                                    <div class="num" style="color:#004085;">1</div>
+                                    <div class="lbl">Holiday</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="nb-stat" style="background:#f8d7da;">
+                                    <div class="num" style="color:#721c24;">2</div>
+                                    <div class="lbl">Admission</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="nb-sidebar-card">
+                        <h6><i class="fa fa-link mr-2 text-primary"></i>Quick Links</h6>
+                        <a href="admission.html" class="nb-quick-link">
+                            <div class="icon" style="background:#e8f0ff;color:#2878EB;"><i class="fa fa-user-plus"></i></div>
+                            Admissions 2025–26
+                        </a>
+                        <a href="academics.html" class="nb-quick-link">
+                            <div class="icon" style="background:#d4edda;color:#155724;"><i class="fa fa-book"></i></div>
+                            Academics &amp; Timetable
+                        </a>
+                        <a href="result.html" class="nb-quick-link">
+                            <div class="icon" style="background:#fff3cd;color:#856404;"><i class="fa fa-trophy"></i></div>
+                            Exam Results
+                        </a>
+                        <a href="hostel.html" class="nb-quick-link">
+                            <div class="icon" style="background:#f8d7da;color:#721c24;"><i class="fa fa-home"></i></div>
+                            Boarding &amp; Hostel
+                        </a>
+                        <a href="contact.html" class="nb-quick-link">
+                            <div class="icon" style="background:#e2e3e5;color:#383d41;"><i class="fa fa-phone"></i></div>
+                            Contact School
+                        </a>
+                    </div>
+
+                    <!-- Contact Card -->
+                    <div class="nb-sidebar-card" style="background:linear-gradient(135deg,#2878EB 0%,#1e62b7 100%);color:#fff;">
+                        <h6 style="color:#fff;border-bottom-color:rgba(255,255,255,.2);">
+                            <i class="fa fa-bell mr-2"></i>Stay Updated
+                        </h6>
+                        <p style="font-size:.88rem;color:rgba(255,255,255,.85);margin-bottom:14px;">
+                            Follow us on social media or contact the school office to receive notices directly.
+                        </p>
+                        <div class="d-flex" style="gap:10px;">
+                            <a href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank" class="btn btn-light btn-sm flex-fill text-primary font-weight-bold">
+                                <i class="fab fa-facebook-f mr-1"></i> Facebook
+                            </a>
+                            <a href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" class="btn btn-light btn-sm flex-fill font-weight-bold" style="color:#c13584;">
+                                <i class="fab fa-instagram mr-1"></i> Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                </div><!-- /sidebar -->
+
+            </div><!-- /row -->
+        </div><!-- /container -->
+    </div>
+
+    <!-- ── HOW TO UPDATE NOTICES – GUIDE ── -->
+    <div class="container-fluid py-5" style="background:#120F2D;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span style="background:rgba(40,120,235,.25);color:#7eb3ff;border-radius:20px;padding:4px 16px;font-size:.82rem;font-weight:700;letter-spacing:1px;">FOR WEBSITE MANAGER</span>
+                <h2 class="mt-3 text-white font-weight-bold">How to Update Notices</h2>
+                <p style="color:rgba(255,255,255,.6);max-width:600px;margin:0 auto;">Follow these simple steps each time you need to add, edit, or remove a notice from this page.</p>
             </div>
 
-            <!-- Notices Grid -->
-            <div class="row notice-grid" id="noticeGrid">
-                <!-- Priority Notice 1 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card priority-notice card h-100 shadow-lg border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="badge badge-danger new-badge blinking">NEW</span>
-                                <span class="text-muted small font-weight-bold">Oct 25, 2024</span>
-                            </div>
-                            <span class="badge badge-warning mb-2">[Exam]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Unit Test 1 Schedule Released - Priority</h5>
-                            <p class="card-text mb-3">Class 1-10 Unit Test 1 starts from Oct 28. Admit cards available at reception. Full timetable attached. Attendance mandatory.</p>
-                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Download Timetable PDF</a>
-                        </div>
+            <div class="row">
+                <!-- Step 1 -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div style="background:rgba(255,255,255,.05);border-radius:16px;padding:28px 22px;height:100%;border:1px solid rgba(255,255,255,.08);">
+                        <div style="width:44px;height:44px;background:#2878EB;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:16px;font-family:'Jost',sans-serif;font-weight:700;">1</div>
+                        <h6 class="text-white font-weight-bold mb-2">Open the File</h6>
+                        <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin:0;">Open <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">notices.html</code> in any text editor (Notepad, VS Code, etc.).</p>
                     </div>
                 </div>
-
-                <!-- Regular Notice 1 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 24, 2024</span>
-                            </div>
-                            <span class="badge badge-info mb-2">[Admission]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Session 2025-26 Admission Open</h5>
-                            <p class="card-text mb-3">Nursery to Class 11 admissions open. Last date Nov 15. Forms available at school office or download online.</p>
-                            <a href="admission.html" class="btn btn-primary btn-sm get-admission-btn">📎 Download Form</a>
-                        </div>
+                <!-- Step 2 -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div style="background:rgba(255,255,255,.05);border-radius:16px;padding:28px 22px;height:100%;border:1px solid rgba(255,255,255,.08);">
+                        <div style="width:44px;height:44px;background:#28a745;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:16px;font-family:'Jost',sans-serif;font-weight:700;">2</div>
+                        <h6 class="text-white font-weight-bold mb-2">Find the Section</h6>
+                        <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin:0;">Press <kbd style="background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:4px;padding:2px 7px;">Ctrl+F</kbd> and search for <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">id="nbTimeline"</code> to jump to the notices list.</p>
                     </div>
                 </div>
-
-                <!-- Priority Notice 2 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card priority-notice card h-100 shadow-lg border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="badge badge-danger new-badge blinking">NEW</span>
-                                <span class="text-muted small font-weight-bold">Oct 23, 2024</span>
-                            </div>
-                            <span class="badge badge-danger mb-2">[Holiday]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Dussehra Holiday Extended</h5>
-                            <p class="card-text mb-3">School closed till Oct 25 due to extended Dussehra celebrations. Reopen on Oct 26 (Saturday) half day.</p>
-                            <a href="#" class="btn btn-success btn-sm get-job-btn">📎 Official Notice</a>
-                        </div>
+                <!-- Step 3 -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div style="background:rgba(255,255,255,.05);border-radius:16px;padding:28px 22px;height:100%;border:1px solid rgba(255,255,255,.08);">
+                        <div style="width:44px;height:44px;background:#ffc107;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#212529;margin-bottom:16px;font-family:'Jost',sans-serif;font-weight:700;">3</div>
+                        <h6 class="text-white font-weight-bold mb-2">Copy a Notice Block</h6>
+                        <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin:0;">Copy any existing <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">&lt;div class="nb-item"&gt;…&lt;/div&gt;</code> block and paste it <strong style="color:#fff;">at the top</strong> of the list (just after the <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">nb-timeline</code> opening div).</p>
                     </div>
                 </div>
-
-                <!-- Regular Notice 2 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 22, 2024</span>
-                            </div>
-                            <span class="badge badge-success mb-2">[Event]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Diwali Special Assembly</h5>
-                            <p class="card-text mb-3">Diwali celebration assembly on Nov 1. Students to bring handmade diyas. Parents invited 10 AM.</p>
-                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Event Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regular Notice 3 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 20, 2024</span>
-                            </div>
-                            <span class="badge badge-warning mb-2">[Exam]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Half Yearly Datesheet</h5>
-                            <p class="card-text mb-3">Class 6-10 Half Yearly exams from Nov 10-20. Practical exams for Science on Nov 22-25.</p>
-                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Download Datesheet</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regular Notice 4 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 18, 2024</span>
-                            </div>
-                            <span class="badge badge-info mb-2">[Admission]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Hostel Admission Notice</h5>
-                            <p class="card-text mb-3">Class 6+ hostel admissions open. Limited seats. Separate application form required.</p>
-                            <a href="hostel.html" class="btn btn-success btn-sm get-job-btn">📎 Hostel Form</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regular Notice 5 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 15, 2024</span>
-                            </div>
-                            <span class="badge badge-success mb-2">[Event]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Science Exhibition</h5>
-                            <p class="card-text mb-3">Inter-house science exhibition on Oct 30. Project submission deadline Oct 25.</p>
-                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Guidelines</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regular Notice 6 -->
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="notice-card card h-100 shadow border-0">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="text-muted small font-weight-bold">Oct 12, 2024</span>
-                            </div>
-                            <span class="badge badge-secondary mb-2">[Holiday]</span>
-                            <h5 class="card-title font-weight-bold mb-2">Guru Purnima Holiday</h5>
-                            <p class="card-text mb-3">School holiday on Oct 17 for Guru Purnima. Regular classes resume Oct 18.</p>
-                            <a href="#" class="btn btn-primary btn-sm get-admission-btn">📎 Calendar</a>
-                        </div>
+                <!-- Step 4 -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div style="background:rgba(255,255,255,.05);border-radius:16px;padding:28px 22px;height:100%;border:1px solid rgba(255,255,255,.08);">
+                        <div style="width:44px;height:44px;background:#F14D5D;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:16px;font-family:'Jost',sans-serif;font-weight:700;">4</div>
+                        <h6 class="text-white font-weight-bold mb-2">Update the Details</h6>
+                        <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin:0;">Change the <strong style="color:#fff;">date</strong>, <strong style="color:#fff;">title</strong>, <strong style="color:#fff;">body text</strong>, and <strong style="color:#fff;">category tag</strong>. Also update <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">data-cat=""</code> and <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">data-title=""</code> attributes accordingly.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Category reference table -->
+            <div style="background:rgba(255,255,255,.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,.08);margin-top:10px;">
+                <h6 class="text-white font-weight-bold mb-4"><i class="fa fa-tag mr-2" style="color:#2878EB;"></i>Category Reference — use these exact values in <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">data-cat</code> and <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">nb-tag</code></h6>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4 mb-3">
+                        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+                            <span class="nb-tag exam">exam</span>
+                            <span style="color:rgba(255,255,255,.7);font-size:.85rem;">Exams, tests, admit cards, timetables</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-3">
+                        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+                            <span class="nb-tag event">event</span>
+                            <span style="color:rgba(255,255,255,.7);font-size:.85rem;">Sports day, PTM, exhibitions, functions</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-3">
+                        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+                            <span class="nb-tag holiday">holiday</span>
+                            <span style="color:rgba(255,255,255,.7);font-size:.85rem;">Vacations, holidays, school closures</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-3">
+                        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+                            <span class="nb-tag admission">admission</span>
+                            <span style="color:rgba(255,255,255,.7);font-size:.85rem;">New admissions, hostel, registration</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-3">
+                        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+                            <span class="nb-tag general">general</span>
+                            <span style="color:rgba(255,255,255,.7);font-size:.85rem;">Fees, uniform, general announcements</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 p-3" style="background:rgba(40,120,235,.15);border-radius:10px;border-left:4px solid #2878EB;">
+                    <p style="color:rgba(255,255,255,.85);font-size:.88rem;margin:0;"><strong style="color:#7eb3ff;"><i class="fa fa-thumbtack mr-1"></i> To PIN a notice</strong> (urgent/important): add the class <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">pinned</code> to the <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">nb-item</code> div and add the pin icon + NEW badge inside it (see existing pinned notices as reference). <br><br>
+                    <strong style="color:#7eb3ff;"><i class="fa fa-trash mr-1"></i> To REMOVE a notice</strong>: simply delete the entire <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">&lt;div class="nb-item"&gt;…&lt;/div&gt;</code> block. <br><br>
+                    <strong style="color:#7eb3ff;"><i class="fa fa-edit mr-1"></i> After any change</strong>: update the <code style="background:rgba(40,120,235,.3);color:#7eb3ff;padding:2px 6px;border-radius:4px;">Last Updated</code> date in the hero banner at the top of the page.</p>
+                </div>
+            </div>
+
         </div>
     </div>
-    <!-- Notices Main Content End -->
+
+    <!-- Inline JS for filter + search -->
+    <script>
+        (function () {
+            const items   = document.querySelectorAll('.nb-item');
+            const btns    = document.querySelectorAll('.nb-filter-btn');
+            const search  = document.getElementById('nbSearch');
+            const countEl = document.getElementById('nbCount');
+            const empty   = document.getElementById('nbEmpty');
+
+            let activeCat = 'all';
+
+            function applyFilters() {
+                const q = search.value.trim().toLowerCase();
+                let visible = 0;
+                items.forEach(function(item) {
+                    const cat   = item.getAttribute('data-cat') || '';
+                    const title = (item.getAttribute('data-title') || '').toLowerCase();
+                    const body  = item.querySelector('.nb-body') ? item.querySelector('.nb-body').textContent.toLowerCase() : '';
+                    const catOk  = (activeCat === 'all') || (cat === activeCat);
+                    const textOk = !q || title.includes(q) || body.includes(q);
+                    if (catOk && textOk) {
+                        item.classList.remove('nb-hidden');
+                        item.style.display = '';
+                        visible++;
+                    } else {
+                        item.classList.add('nb-hidden');
+                        item.style.display = 'none';
+                    }
+                });
+                countEl.textContent = visible + ' notice' + (visible !== 1 ? 's' : '');
+                empty.style.display = (visible === 0) ? 'block' : 'none';
+            }
+
+            btns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    btns.forEach(function(b) { b.classList.remove('active-filter'); });
+                    btn.classList.add('active-filter');
+                    activeCat = btn.getAttribute('data-cat');
+                    applyFilters();
+                });
+            });
+
+            search.addEventListener('input', applyFilters);
+        })();
+    </script>
+
 
     <!-- Footer Start -->
     <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
@@ -330,4 +655,3 @@
 
     <!-- Javascript -->
     <script src="js/main.js"></script>
-

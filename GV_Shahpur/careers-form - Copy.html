@@ -195,8 +195,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(135d
       <div class="fld"><label>Category <span class="req">*</span></label>
         <select id="category" required><option value="">— Select —</option><option>Teaching</option><option>Administration</option><option>Maintenance</option><option>Counseling</option></select></div>
       <div class="fld"><label>Designation <span class="req">*</span></label>
-        <select id="designation" required onchange="toggleOther('designation')"><option value="">— Select —</option><option>PGT - Upto class 12</option><option>TGT - Upto class 10</option><option>TGT - Upto class 8</option><option>PRT - Upto class 5</option><option>Pre - Primary Teacher</option><option value="Other">Other (please specify)</option></select></div>
-      <div class="fld" id="designationOtherWrap" style="display:none"><label>Please specify Designation <span class="req">*</span></label><input type="text" id="designationOther" placeholder="Enter your designation"></div>
+        <select id="designation" required><option value="">— Select —</option><option>PGT - Upto class 12</option><option>TGT - Upto class 10</option><option>TGT - Upto class 8</option><option>PRT - Upto class 5</option><option>Pre - Primary Teacher</option><option>Others</option></select></div>
       <div class="fld"><label>Experience <span class="req">*</span></label>
         <select id="experience" required><option value="">— Select —</option><option>Fresher</option><option>0–2 Years</option><option>2–5 Years</option><option>5–10 Years</option><option>10+ Years</option></select></div>
       <div class="two-col">
@@ -211,10 +210,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(135d
     <div class="sec">
       <div class="sec-title"><i class="fas fa-file-alt"></i> Application Details</div>
       <div class="fld"><label>Applying For <span class="req">*</span></label>
-        <select id="applyFor" required onchange="toggleOther('applyFor')"><option value="">— Select Position —</option><option>PGT - Upto class 12</option><option>TGT - Upto class 10</option><option>TGT - Upto class 8</option><option>PRT - Upto class 5</option><option>Pre - Primary Teacher</option><option value="Other">Other (please specify)</option></select></div>
-      <div class="fld" id="applyForOtherWrap" style="display:none"><label>Please specify Position <span class="req">*</span></label><input type="text" id="applyForOther" placeholder="Enter the position you are applying for"></div>
+        <select id="applyFor" required><option value="">— Select Position —</option><option>PGT - Upto class 12</option><option>TGT - Upto class 10</option><option>TGT - Upto class 8</option><option>PRT - Upto class 5</option><option>Pre - Primary Teacher</option><option>Others</option></select></div>
       <div class="fld"><label>Branch <span class="req">*</span></label>
-        <select id="branch" required><option value="">— Select —</option><option>Academics</option><option>Administartion</option><option>Maintainance</option></select></div>
+        <select id="branch" required><option value="">— Select —</option><option>Acadmics</option><option>Administration</option><option>Maintainance</option></select></div>
       <div class="fld"><label>How did you hear about us? <span class="req">*</span></label>
         <select id="howDidYouKnow" required><option value="">— Select —</option><option>School Website</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Referral</option><option>Newspaper</option><option>Other</option></select></div>
       <div class="fld"><label>Remarks</label><textarea id="remarks" placeholder="Tell us about yourself..."></textarea></div>
@@ -796,18 +794,6 @@ document.getElementById('appForm').addEventListener('submit', async function(e) 
     if (!el.value.trim()) { el.classList.add('inv'); valid = false; }
     else el.classList.remove('inv');
   });
-  // Validate "Other" specify fields
-  if (document.getElementById('designation').value === 'Other') {
-    var dOther = document.getElementById('designationOther');
-    if (!dOther.value.trim()) { dOther.classList.add('inv'); valid = false; }
-    else dOther.classList.remove('inv');
-  }
-  if (document.getElementById('applyFor').value === 'Other') {
-    var aOther = document.getElementById('applyForOther');
-    if (!aOther.value.trim()) { aOther.classList.add('inv'); valid = false; }
-    else aOther.classList.remove('inv');
-  }
-
   if (!valid) {
     showUserError('Please fill in all required fields marked with *.');
     document.querySelector('.inv') && document.querySelector('.inv').scrollIntoView({behavior:'smooth',block:'center'});
@@ -834,13 +820,11 @@ document.getElementById('appForm').addEventListener('submit', async function(e) 
       mobile         : document.getElementById('mobile').value.trim(),
       whatsapp       : document.getElementById('whatsapp').value.trim(),
       category       : document.getElementById('category').value,
-      designation        : document.getElementById('designation').value,
-      designationOther   : document.getElementById('designationOther').value.trim(),
-      experience         : document.getElementById('experience').value,
-      lastSalary         : document.getElementById('lastSalary').value,
-      expectedSalary     : document.getElementById('expectedSalary').value,
-      applyFor           : document.getElementById('applyFor').value,
-      applyForOther      : document.getElementById('applyForOther').value.trim(),
+      designation    : document.getElementById('designation').value,
+      experience     : document.getElementById('experience').value,
+      lastSalary     : document.getElementById('lastSalary').value,
+      expectedSalary : document.getElementById('expectedSalary').value,
+      applyFor       : document.getElementById('applyFor').value,
       branch         : document.getElementById('branch').value,
       howDidYouKnow  : document.getElementById('howDidYouKnow').value,
       remarks        : document.getElementById('remarks').value.trim(),
@@ -879,22 +863,6 @@ document.getElementById('appForm').addEventListener('submit', async function(e) 
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
   }
 });
-
-// Show/hide "Other specify" fields
-function toggleOther(fieldId) {
-  var sel = document.getElementById(fieldId);
-  var wrap = document.getElementById(fieldId + 'OtherWrap');
-  var input = document.getElementById(fieldId + 'Other');
-  if (sel.value === 'Other') {
-    wrap.style.display = 'block';
-    input.required = true;
-  } else {
-    wrap.style.display = 'none';
-    input.required = false;
-    input.value = '';
-    input.classList.remove('inv');
-  }
-}
 
 // Remove invalid styles on input
 document.querySelectorAll('input,select,textarea').forEach(function(el) {

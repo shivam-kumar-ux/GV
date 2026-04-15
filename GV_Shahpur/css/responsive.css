@@ -1117,7 +1117,7 @@ img, video, iframe {
     width: 100%;
     display: flex !important;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.45rem;
