@@ -1,250 +1,365 @@
 /* ============================================================
-   PYQ Hub India Ã¢â‚¬â€ Complete Script
+   PYQ Hub Complete Script
    
    HOW TO ADD REAL PYQ FILES (Folder Structure):
    -----------------------------------------------
-   Create folders like this in your project:
-   
-   pyqs/
-   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ sainik-school/
-   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ class-6/
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ 2024/
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ maths.pdf
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ gk.pdf
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ english.pdf
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ 2023/
-   Ã¢â€â€š   Ã¢â€â€š       Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ maths.pdf
-   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ class-9/
-   Ã¢â€â€š       Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ 2024/
-   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ navodaya/
-   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ class-6/
-   Ã¢â€â€š       Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ 2024/
-   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ jee/
-   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ 2024/
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ paper1-physics.pdf
-   Ã¢â€â€š   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ paper2-maths.pdf
-   Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ 2023/
-   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ neet/
-       Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ 2024/
-   
    Then update the PYQ_DATA array below with:
    - view: 'pyqs/sainik-school/class-6/2024/maths.pdf'
    - download: 'pyqs/sainik-school/class-6/2024/maths.pdf'
    ============================================================ */
 
 const PYQ_DATA = [
-    // Ã¢â€â‚¬Ã¢â€â‚¬ Sainik School Ã¢â€â‚¬Ã¢â€â‚¬
+    // 2025-2026 PYQs Added 
+    // Sainik School 2025-2026
     {
-        title: 'Sainik School Class 6 Ã¢â‚¬â€ Mathematics 2024',
+        title: 'Sainik School Class 6 — Mathematics 2026',
+        year: '2026', class: '6', subject: 'Maths', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Sainik School Class 6 — GK & Intelligence 2026',
+        year: '2026', class: '6', subject: 'GK', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Sainik School Class 6 — English 2026',
+        year: '2026', class: '6', subject: 'English', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Sainik School Class 6 — Mathematics 2025',
+        year: '2025', class: '6', subject: 'Maths', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Sainik School Class 9 — Maths 2026',
+        year: '2026', class: '9', subject: 'Maths', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Sainik School Class 9 — English 2025',
+        year: '2025', class: '9', subject: 'English', exam: 'Sainik School',
+        view: '#', download: '#'
+    },
+
+    // Navodaya 2025-2026
+    {
+        title: 'Navodaya Class 6 — Full Paper 2026',
+        year: '2026', class: '6', subject: 'Maths', exam: 'Navodaya',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Navodaya Class 6 — GK 2025',
+        year: '2025', class: '6', subject: 'GK', exam: 'Navodaya',
+        view: '#', download: '#'
+    },
+    {
+        title: 'Navodaya Class 9 — Full Paper 2026',
+        year: '2026', class: '9', subject: 'Maths', exam: 'Navodaya',
+        view: '#', download: '#'
+    },
+
+    // JEE 2025-2026
+    {
+        title: 'JEE Main 2026 — Physics Paper 1',
+        year: '2026', class: '12', subject: 'Physics', exam: 'JEE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'JEE Main 2026 — Chemistry Paper 1',
+        year: '2026', class: '12', subject: 'Chemistry', exam: 'JEE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'JEE Main 2026 — Maths Paper 2',
+        year: '2026', class: '12', subject: 'Maths', exam: 'JEE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'JEE Main 2025 — Physics',
+        year: '2025', class: '12', subject: 'Physics', exam: 'JEE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'JEE Advanced 2026 — Full Paper',
+        year: '2026', class: '12', subject: 'Maths', exam: 'JEE',
+        view: '#', download: '#'
+    },
+
+    // NEET 2025-2026
+    {
+        title: 'NEET 2026 — Biology',
+        year: '2026', class: '12', subject: 'Biology', exam: 'NEET',
+        view: '#', download: '#'
+    },
+    {
+        title: 'NEET 2026 — Physics',
+        year: '2026', class: '12', subject: 'Physics', exam: 'NEET',
+        view: '#', download: '#'
+    },
+    {
+        title: 'NEET 2026 — Chemistry',
+        year: '2026', class: '12', subject: 'Chemistry', exam: 'NEET',
+        view: '#', download: '#'
+    },
+    {
+        title: 'NEET 2025 — Full Paper',
+        year: '2025', class: '12', subject: 'Biology', exam: 'NEET',
+        view: '#', download: '#'
+    },
+
+    // CBSE 2025-2026
+    {
+        title: 'CBSE Class 10 Maths 2026',
+        year: '2026', class: '10', subject: 'Maths', exam: 'CBSE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CBSE Class 12 Physics 2026',
+        year: '2026', class: '12', subject: 'Physics', exam: 'CBSE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CBSE Class 10 Science 2025',
+        year: '2025', class: '10', subject: 'Physics', exam: 'CBSE',
+        view: '#', download: '#'
+    },
+
+    // Others 2025-2026
+    {
+        title: 'NDA 1 2026 — Mathematics',
+        year: '2026', class: 'Defence', subject: 'Maths', exam: 'NDA',
+        view: '#', download: '#'
+    },
+    {
+        title: 'RIMC Entrance 2026 — Maths',
+        year: '2026', class: '6', subject: 'Maths', exam: 'RIMC',
+        view: '#', download: '#'
+    },
+    {
+        title: 'BHU CHS Class 6 2026',
+        year: '2026', class: '6', subject: 'Maths', exam: 'BHU',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CUET UG 2026 — General Test',
+        year: '2026', class: '12', subject: 'GK', exam: 'CUET',
+        view: '#', download: '#'
+    },
+
+    // — Existing PYQs (2022-2024) —
+    // Sainik School
+    {
+        title: 'Sainik School Class 6, Mathematics 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2024/maths.pdf',
         download: 'pyqs/sainik-school/class-6/2024/maths.pdf'
     },
     {
-        title: 'Sainik School Class 6 Ã¢â‚¬â€ GK & Intelligence 2024',
+        title: 'Sainik School Class 6, GK & Intelligence 2024',
         year: '2024', class: '6', subject: 'GK', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2024/gk.pdf',
         download: 'pyqs/sainik-school/class-6/2024/gk.pdf'
     },
     {
-        title: 'Sainik School Class 6 Ã¢â‚¬â€ English 2023',
+        title: 'Sainik School Class 6, English 2023',
         year: '2023', class: '6', subject: 'English', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2023/english.pdf',
         download: 'pyqs/sainik-school/class-6/2023/english.pdf'
     },
     {
-        title: 'Sainik School Class 9 Ã¢â‚¬â€ Maths 2023',
+        title: 'Sainik School Class 9, Maths 2023',
         year: '2023', class: '9', subject: 'Maths', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-9/2023/maths.pdf',
         download: 'pyqs/sainik-school/class-9/2023/maths.pdf'
     },
     {
-        title: 'Sainik School Class 6 Ã¢â‚¬â€ Intelligence 2022',
+        title: 'Sainik School Class 6, Intelligence 2022',
         year: '2022', class: '6', subject: 'GK', exam: 'Sainik School',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ Navodaya Ã¢â€â‚¬Ã¢â€â‚¬
+    // Navodaya 
     {
-        title: 'Navodaya (JNVST) Class 6 Ã¢â‚¬â€ Full Paper 2024',
+        title: 'Navodaya (JNVST) Class 6, Full Paper 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Navodaya',
         view: 'pyqs/navodaya/class-6/2024/full-paper.pdf',
         download: 'pyqs/navodaya/class-6/2024/full-paper.pdf'
     },
     {
-        title: 'Navodaya (JNVST) Class 6 Ã¢â‚¬â€ Full Paper 2023',
+        title: 'Navodaya (JNVST) Class 6, Full Paper 2023',
         year: '2023', class: '6', subject: 'Maths', exam: 'Navodaya',
         view: '#', download: '#'
     },
     {
-        title: 'Navodaya Class 6 Ã¢â‚¬â€ GK & Language 2022',
+        title: 'Navodaya Class 6, GK & Language 2022',
         year: '2022', class: '6', subject: 'GK', exam: 'Navodaya',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ JEE Ã¢â€â‚¬Ã¢â€â‚¬
+    // JEE 
     {
-        title: 'JEE Main 2024 Ã¢â‚¬â€ Physics (Paper 1)',
+        title: 'JEE Main 2024, Physics (Paper 1)',
         year: '2024', class: '12', subject: 'Physics', exam: 'JEE',
         view: 'pyqs/jee/2024/physics-paper1.pdf',
         download: 'pyqs/jee/2024/physics-paper1.pdf'
     },
     {
-        title: 'JEE Main 2024 Ã¢â‚¬â€ Chemistry (Paper 1)',
+        title: 'JEE Main 2024, Chemistry (Paper 1)',
         year: '2024', class: '12', subject: 'Chemistry', exam: 'JEE',
         view: 'pyqs/jee/2024/chemistry-paper1.pdf',
         download: 'pyqs/jee/2024/chemistry-paper1.pdf'
     },
     {
-        title: 'JEE Main 2024 Ã¢â‚¬â€ Maths (Paper 2)',
+        title: 'JEE Main 2024, Maths (Paper 2)',
         year: '2024', class: '12', subject: 'Maths', exam: 'JEE',
         view: '#', download: '#'
     },
     {
-        title: 'JEE Advanced 2023 Ã¢â‚¬â€ Physics',
+        title: 'JEE Advanced 2023, Physics',
         year: '2023', class: '12', subject: 'Physics', exam: 'JEE',
         view: '#', download: '#'
     },
     {
-        title: 'JEE Main 2022 Ã¢â‚¬â€ Full Paper Set A',
+        title: 'JEE Main 2022, Full Paper Set A',
         year: '2022', class: '12', subject: 'Maths', exam: 'JEE',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ NEET Ã¢â€â‚¬Ã¢â€â‚¬
+    //  NEET 
     {
-        title: 'NEET 2024 Ã¢â‚¬â€ Biology',
+        title: 'NEET 2024, Biology',
         year: '2024', class: '12', subject: 'Biology', exam: 'NEET',
         view: 'pyqs/neet/2024/biology.pdf',
         download: 'pyqs/neet/2024/biology.pdf'
     },
     {
-        title: 'NEET 2024 Ã¢â‚¬â€ Physics',
+        title: 'NEET 2024, Physics',
         year: '2024', class: '12', subject: 'Physics', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2023 Ã¢â‚¬â€ Biology',
+        title: 'NEET 2023, Biology',
         year: '2023', class: '12', subject: 'Biology', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2023 Ã¢â‚¬â€ Chemistry',
+        title: 'NEET 2023, Chemistry',
         year: '2023', class: '12', subject: 'Chemistry', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2022 Ã¢â‚¬â€ Full Paper',
+        title: 'NEET 2022, Full Paper',
         year: '2022', class: '12', subject: 'Biology', exam: 'NEET',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ RIMC Ã¢â€â‚¬Ã¢â€â‚¬
+    // RIMC 
     {
-        title: 'RIMC Entrance 2024 Ã¢â‚¬â€ Maths',
+        title: 'RIMC Entrance 2024, Maths',
         year: '2024', class: '6', subject: 'Maths', exam: 'RIMC',
         view: '#', download: '#'
     },
     {
-        title: 'RIMC Entrance 2023 Ã¢â‚¬â€ English',
+        title: 'RIMC Entrance 2023, English',
         year: '2023', class: '6', subject: 'English', exam: 'RIMC',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ RMS Ã¢â€â‚¬Ã¢â€â‚¬
+    // RMS 
     {
-        title: 'RMS Ajmer Class 6 Ã¢â‚¬â€ Maths 2024',
+        title: 'RMS Ajmer Class 6, Maths 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'RMS',
         view: '#', download: '#'
     },
     {
-        title: 'RMS Ajmer Class 6 Ã¢â‚¬â€ English 2023',
+        title: 'RMS Ajmer Class 6, English 2023',
         year: '2023', class: '6', subject: 'English', exam: 'RMS',
         view: '#', download: '#'
     },
 
-    // Ã¢â€â‚¬Ã¢â€â‚¬ Olympiads Ã¢â€â‚¬Ã¢â€â‚¬
+    // Olympiads
     {
-        title: 'SOF IMO Class 6 Ã¢â‚¬â€ Maths Olympiad 2024',
+        title: 'SOF IMO Class 6, Maths Olympiad 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Olympiads',
         view: '#', download: '#'
     },
     {
-        title: 'SOF NSO Class 8 Ã¢â‚¬â€ Science Olympiad 2023',
+        title: 'SOF NSO Class 8, Science Olympiad 2023',
         year: '2023', class: '8', subject: 'Physics', exam: 'Olympiads',
         view: '#', download: '#'
     },
 
-    // â”€â”€ CBSE Boards â”€â”€
+    // CBSE Boards 
     {
-        title: 'CBSE Class 10 â€” Maths Standard 2024',
+        title: 'CBSE Class 10, Maths Standard 2024',
         year: '2024', class: '10', subject: 'Maths', exam: 'CBSE',
         view: '#', download: '#'
     },
     {
-        title: 'CBSE Class 12 â€” Physics 2023',
+        title: 'CBSE Class 12, Physics 2023',
         year: '2023', class: '12', subject: 'Physics', exam: 'CBSE',
         view: '#', download: '#'
     },
 
-    // â”€â”€ NDA â”€â”€
+    // NDA
     {
-        title: 'NDA 1 2024 â€” Mathematics',
+        title: 'NDA 1 2024, Mathematics',
         year: '2024', class: 'Defence', subject: 'Maths', exam: 'NDA',
         view: '#', download: '#'
     },
     {
-        title: 'NDA 2 2023 â€” General Ability Test',
+        title: 'NDA 2 2023, General Ability Test',
         year: '2023', class: 'Defence', subject: 'GK', exam: 'NDA',
         view: '#', download: '#'
     },
 
-    // â”€â”€ CDS â”€â”€
+    // CDS 
     {
-        title: 'CDS 1 2024 â€” Elementary Maths',
+        title: 'CDS 1 2024, Elementary Maths',
         year: '2024', class: 'Defence', subject: 'Maths', exam: 'CDS',
         view: '#', download: '#'
     },
     {
-        title: 'CDS 2 2023 â€” English',
+        title: 'CDS 2 2023, English',
         year: '2023', class: 'Defence', subject: 'English', exam: 'CDS',
         view: '#', download: '#'
     },
 
-    // â”€â”€ BHU â”€â”€
+    // BHU
     {
-        title: 'BHU CHS Class 6 â€” Entrance 2024',
+        title: 'BHU CHS Class 6, Entrance 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'BHU',
         view: '#', download: '#'
     },
     {
-        title: 'BHU CHS Class 9 â€” Entrance 2023',
+        title: 'BHU CHS Class 9, Entrance 2023',
         year: '2023', class: '9', subject: 'Maths', exam: 'BHU',
         view: '#', download: '#'
     },
 
-    // â”€â”€ Simultala Awasiya Vidyalaya â”€â”€
+    // Simultala Awasiya Vidyalaya
     {
-        title: 'Simultala Class 6 Mains â€” 2024',
+        title: 'Simultala Class 6 Mains, 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Simultala',
         view: '#', download: '#'
     },
 
-    // â”€â”€ Ram Krishan Mission â”€â”€
+    // Ram Krishan Mission
     {
-        title: 'RKM Vidyapith Class 6 â€” Selection 2024',
+        title: 'RKM Vidyapith Class 6, Selection 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Ram Krishan Mission',
         view: '#', download: '#'
     },
 
-    // â”€â”€ CUET â”€â”€
+    // CUET
     {
-        title: 'CUET UG 2024 â€” General Test',
+        title: 'CUET UG 2024, General Test',
         year: '2024', class: '12', subject: 'GK', exam: 'CUET',
         view: '#', download: '#'
     },
     {
-        title: 'CUET UG 2024 â€” Physics',
+        title: 'CUET UG 2024, Physics',
         year: '2024', class: '12', subject: 'Physics', exam: 'CUET',
         view: '#', download: '#'
     }
@@ -252,79 +367,79 @@ const PYQ_DATA = [
 
 const EXAM_DETAILS_DATA = {
     "Sainik School": {
-        emoji: "ðŸŽ–ï¸",
-        subtitle: "AISSEE â€” All India Sainik School Entrance Exam",
+        emoji: "⚔️",
+        subtitle: "AISSEE — All India Sainik School Entrance Exam",
         format: "<ul><li><strong>Class 6:</strong> Maths (150 marks), Intelligence (50), Language (50), GK (50). Total: 300 Marks.</li><li><strong>Class 9:</strong> Maths (200), Intelligence (50), English (50), General Science (50), Social Studies (50). Total: 400 Marks.</li><li><strong>Mode:</strong> OMR based written exam.</li></ul>",
         syllabus: "#"
     },
     "Navodaya": {
-        emoji: "ðŸ«",
-        subtitle: "JNVST â€” Jawahar Navodaya Vidyalaya Selection Test",
+        emoji: "🏫",
+        subtitle: "JNVST — Jawahar Navodaya Vidyalaya Selection Test",
         format: "<ul><li><strong>Class 6:</strong> Mental Ability (50 marks), Arithmetic (25 marks), Language (25 marks). Total: 100 Marks.</li><li><strong>Format:</strong> Objective multiple-choice questions. Time: 2 hours.</li></ul>",
         syllabus: "#"
     },
     "JEE": {
-        emoji: "âš™ï¸",
+        emoji: "⚡️",
         subtitle: "IIT/NIT Engineering Entrance",
         format: "<ul><li><strong>JEE Main:</strong> Physics, Chemistry, Maths (100 marks each). Total: 300 marks. Contains MCQs and Numerical Value questions.</li><li><strong>JEE Advanced:</strong> Two papers. Physics, Chemistry, Maths. Pattern varies every year.</li></ul>",
         syllabus: "#"
     },
     "NEET": {
-        emoji: "ðŸ©º",
+        emoji: "🩺",
         subtitle: "National Eligibility cum Entrance Test",
         format: "<ul><li><strong>Subjects:</strong> Physics (180), Chemistry (180), Botany (180), Zoology (180).</li><li><strong>Format:</strong> 200 MCQs (Attempt 180). Total: 720 Marks. Marking: +4 for correct, -1 for incorrect.</li></ul>",
         syllabus: "#"
     },
     "RIMC": {
-        emoji: "âš”ï¸",
+        emoji: "🎯",
         subtitle: "Rashtriya Indian Military College",
         format: "<ul><li><strong>Subjects:</strong> English (125 Marks), Mathematics (200 Marks), General Knowledge (75 Marks).</li><li><strong>Format:</strong> Descriptive mathematics and english. Objective GK.</li><li><strong>Interview:</strong> Viva Voce (50 Marks).</li></ul>",
         syllabus: "#"
     },
     "Olympiads": {
-        emoji: "ðŸ†",
+        emoji: "🏆",
         subtitle: "SOF IMO, NSO, IEO",
         format: "<ul><li><strong>Format:</strong> Logical Reasoning, Subject Specific section, and Achievers Section.</li><li><strong>Type:</strong> Objective MCQs. No negative marking.</li></ul>",
         syllabus: "#"
     },
     "CBSE": {
-        emoji: "ðŸ“",
+        emoji: "📚",
         subtitle: "Class 10th & 12th Board",
         format: "<ul><li><strong>Format:</strong> 80 Marks theory, 20 Marks internal assessment (typical).</li><li><strong>Sections:</strong> Objective type (MCQs), Short Answer, Long Answer.</li></ul>",
         syllabus: "#"
     },
     "NDA": {
-        emoji: "ðŸª–",
+        emoji: "🪖",
         subtitle: "National Defence Academy",
         format: "<ul><li><strong>Paper 1:</strong> Mathematics (300 Marks, 2.5 hours).</li><li><strong>Paper 2:</strong> General Ability Test (600 Marks, 2.5 hours - English 200, GK 400).</li><li><strong>SSB Interview:</strong> 900 Marks.</li></ul>",
         syllabus: "#"
     },
     "CDS": {
-        emoji: "âš”ï¸",
+        emoji: "⚔️",
         subtitle: "Combined Defence Services",
         format: "<ul><li><strong>For IMA/INA/AFA:</strong> English (100), GK (100), Elementary Maths (100).</li><li><strong>For OTA:</strong> English (100), General Knowledge (100).</li></ul>",
         syllabus: "#"
     },
     "BHU": {
-        emoji: "ðŸ›ï¸",
+        emoji: "🏛️",
         subtitle: "Banaras Hindu University (CHS)",
         format: "<ul><li><strong>Format:</strong> 100 MCQs (Maths, Science, Hindi, English, GK/Social). Total: 100 Marks.</li><li><strong>Level:</strong> Dependent on the admission class standard (Class 6, 9, or 11).</li></ul>",
         syllabus: "#"
     },
     "Simultala": {
-        emoji: "ðŸ«",
+        emoji: "🏫",
         subtitle: "Simultala Awasiya Vidyalaya",
         format: "<ul><li><strong>Prelims:</strong> Objective test (150 Marks).</li><li><strong>Mains:</strong> Two papers. Paper 1 (Maths 100, Reasoning 50). Paper 2 (Hindi 40, English 40, Science 40, SST 30). Total: 300 Marks.</li></ul>",
         syllabus: "#"
     },
     "Ram Krishan Mission": {
-        emoji: "ðŸ•‰ï¸",
+        emoji: "🕉️",
         subtitle: "RKM Vidyapith",
         format: "<ul><li><strong>Subjects:</strong> English, Mathematics, Bengali/Hindi, and General Science.</li><li><strong>Format:</strong> Written Descriptive and Objective mixing.</li></ul>",
         syllabus: "#"
     },
     "CUET": {
-        emoji: "ðŸŽ“",
+        emoji: "🎓",
         subtitle: "Common University Entrance Test",
         format: "<ul><li><strong>Section IA & IB:</strong> Languages (13 and 20 languages).</li><li><strong>Section II:</strong> Domain Specific Subjects (27 Subjects).</li><li><strong>Section III:</strong> General Test (Logic, Quant, GK).</li></ul>",
         syllabus: "#"
@@ -356,30 +471,30 @@ function linkifyFooterContacts() {
 
         const text = item.textContent.replace(/\s+/g, ' ').trim();
 
-        if (text.includes('info@pyqhubindia.com')) {
+        if (text.includes('gyanodayvidyalaya2018@gmail.com')) {
             item.innerHTML = item.innerHTML.replace(
-                'info@pyqhubindia.com',
-                '<a href="mailto:info@pyqhubindia.com">info@pyqhubindia.com</a>'
+                'gyanodayvidyalaya2018@gmail.co',
+                '<a href="mailto:gyanodayvidyalaya2018@gmail.co">gyanodayvidyalaya2018@gmail.co</a>'
             );
         }
 
-        if (text.includes('+91 98765 43210')) {
+        if (text.includes('+91 9955596394')) {
             item.innerHTML = item.innerHTML.replace(
-                '+91 98765 43210',
-                '<a href="tel:+919876543210">+91 98765 43210</a>'
+                '+91 99555 96394',
+                '<a href="tel:++919955596394">+91 99555 96394</a>'
             );
         }
 
-        if (text.includes('Jamshedpur, Jharkhand')) {
+        if (text.includes('Shahpur, Nawada, Bihar')) {
             item.innerHTML = item.innerHTML.replace(
-                'Jamshedpur, Jharkhand',
-                '<a href="https://maps.google.com/?q=Jamshedpur+Jharkhand" target="_blank" rel="noopener noreferrer">Jamshedpur, Jharkhand</a>'
+                'Shahpur, Nawada, Bihar',
+                '<a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin" target="_blank" rel="noopener noreferrer">Shahpur, Nawada, Bihar</a>'
             );
         }
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Loader Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Loader  */
 function initLoader() {
     const loader = document.getElementById('loader');
     window.addEventListener('load', () => {
@@ -389,7 +504,7 @@ function initLoader() {
     setTimeout(() => loader.classList.add('gone'), 2500);
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Cursor Glow Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Cursor Glow */
 function initCursorGlow() {
     const glow = document.getElementById('cursorGlow');
     if (!glow || window.matchMedia('(pointer: coarse)').matches) return;
@@ -399,7 +514,7 @@ function initCursorGlow() {
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Navbar Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Navbar  */
 function initNavbar() {
     const navbar    = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
@@ -437,7 +552,7 @@ function initNavbar() {
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Search Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Hero Search */
 function initHeroSearch() {
     const btn = document.getElementById('heroSearchBtn');
     if (!btn) return;
@@ -459,7 +574,7 @@ function initHeroSearch() {
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Filters Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Filters */
 function initFilters() {
     ['examFilter','yearFilter','classFilter','subjectFilter','sortFilter'].forEach(id => {
         document.getElementById(id)?.addEventListener('change', applyFilters);
@@ -497,7 +612,7 @@ window.clearFiltersAction = function() {
     renderPYQs(PYQ_DATA);
 };
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Render PYQs Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Render PYQs */
 function renderPYQs(data) {
     const grid    = document.getElementById('pyqGrid');
     const noRes   = document.getElementById('noResults');
@@ -526,9 +641,9 @@ function renderPYQs(data) {
                 <span class="pyq-year-badge">${item.year}</span>
             </div>
             <div class="pyq-tags">
-                <span class="pyq-tag">Ã°Å¸â€œÅ¡ ${item.exam}</span>
-                <span class="pyq-tag">Ã°Å¸Å½â€œ Class ${item.class}</span>
-                <span class="pyq-tag">Ã°Å¸â€œâ€“ ${item.subject}</span>
+                <span class="pyq-tag">${item.exam}</span>
+                <span class="pyq-tag">Class ${item.class}</span>
+                <span class="pyq-tag">${item.subject}</span>
             </div>
             <div class="pyq-actions">
                 <a href="${item.view}" target="_blank" class="pyq-btn pyq-btn-view">
@@ -543,7 +658,7 @@ function renderPYQs(data) {
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Exam Cards Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Exam Cards */
 function initExamCards() {
     const modal = document.getElementById('examModal');
     const overlay = document.getElementById('examModalOverlay');
@@ -605,7 +720,7 @@ function initExamCards() {
     });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Animated Counters Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Animated Counters */
 function initCounters() {
     const counters = document.querySelectorAll('.stat-num');
     if (!counters.length) return;
@@ -638,7 +753,7 @@ function initCounters() {
     counters.forEach(c => observer.observe(c));
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Scroll Animations Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Scroll Animations */
 function initScrollAnimations() {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {

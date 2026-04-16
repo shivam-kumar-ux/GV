@@ -1,5 +1,5 @@
 /* ============================================================
-   PYQ Hub India â€” Redesigned CSS
+   PYQ Hub India Redesigned CSS
    Font: Syne (headings) + DM Sans (body)
    Theme: Deep Navy + Electric Orange + White
    ============================================================ */
@@ -21,7 +21,7 @@
     --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* â”€â”€ Reset â”€â”€ */
+/* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -36,7 +36,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 select { font-family: inherit; }
 img { display: block; max-width: 100%; }
 
-/* â”€â”€ Cursor Glow â”€â”€ */
+/* Cursor Glow */
 .cursor-glow {
     position: fixed;
     width: 400px;
@@ -49,7 +49,7 @@ img { display: block; max-width: 100%; }
     transition: opacity 0.3s;
 }
 
-/* â”€â”€ Loader â”€â”€ */
+/* Loader */
 .loader {
     position: fixed;
     inset: 0;
@@ -79,7 +79,7 @@ img { display: block; max-width: 100%; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* â”€â”€ Navbar â”€â”€ */
+/* Navbar */
 .navbar {
     position: sticky;
     top: 0;
@@ -129,6 +129,9 @@ img { display: block; max-width: 100%; }
 }
 .logo-title strong {
     color: var(--orange);
+}
+.logo-icon + span {
+    display: block;
 }
 .logo-tagline {
     font-family: 'DM Sans', sans-serif;
@@ -200,7 +203,7 @@ img { display: block; max-width: 100%; }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* â”€â”€ Hero â”€â”€ */
+/* Hero */
 .hero {
     background: var(--navy);
     min-height: 100vh;
@@ -437,7 +440,7 @@ img { display: block; max-width: 100%; }
 }
 @keyframes scrollWheel { 0%,100%{top:6px;opacity:1} 50%{top:16px;opacity:0.3} }
 
-/* â”€â”€ Exam Strip â”€â”€ */
+/* Exam Strip */
 .exam-strip {
     background: var(--orange);
     overflow: hidden;
@@ -556,7 +559,7 @@ img { display: block; max-width: 100%; }
 }
 .exam-card:hover .exam-arrow { color: var(--orange); transform: translateX(4px); }
 
-/* â”€â”€ PYQ Section â”€â”€ */
+/* PYQ Section */
 .pyq-section { background: var(--light-bg); }
 .pyq-wrapper {
     display: grid;
@@ -990,15 +993,15 @@ img { display: block; max-width: 100%; }
 }
 .footer-bottom-links a:hover { color: white; }
 
-/* â”€â”€ Animations â”€â”€ */
+/* Animations */
 @keyframes fadeDown { from { opacity:0; transform:translateY(-15px); } to { opacity:1; transform:translateY(0); } }
 
-/* â”€â”€ Scrollbar â”€â”€ */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 10px; }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* Responsive */
 @media (max-width: 1100px) {
     .exams-grid { grid-template-columns: repeat(2, 1fr); }
     .features-grid { grid-template-columns: repeat(2, 1fr); }
