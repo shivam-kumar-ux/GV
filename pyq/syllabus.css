@@ -1,0 +1,823 @@
+/* ============================================================
+   Syllabus Page CSS — PYQ Hub India
+   Consistent with main site theme (Syne + DM Sans, blue palette)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+    --navy: #120F2D;
+    --navy2: #1A173A;
+    --orange: #2878EB;
+    --orange2: #1154b6;
+    --orange3: #EAF2FF;
+    --cream: #ECF4FF;
+    --white: #FFFFFF;
+    --muted: #7B8097;
+    --border: rgba(40, 120, 235, 0.12);
+    --card-bg: #181C2E;
+    --light-bg: #F4F7FF;
+    --text: #1A1D2E;
+    --text-soft: #4A4E65;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --shadow-sm: 0 2px 12px rgba(40, 120, 235, 0.06);
+    --shadow-md: 0 8px 32px rgba(40, 120, 235, 0.10);
+    --shadow-lg: 0 20px 60px rgba(40, 120, 235, 0.14);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light-bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+    background: var(--white);
+    border-bottom: 1px solid rgba(40, 120, 235, 0.08);
+    padding: 1.2rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 20px rgba(40, 120, 235, 0.06);
+}
+
+.header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    letter-spacing: -0.02em;
+}
+
+.header-title strong {
+    color: var(--orange);
+}
+
+.back-btn {
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.55rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 14px rgba(40, 120, 235, 0.25);
+}
+
+.back-btn:hover {
+    background: var(--orange2);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(40, 120, 235, 0.35);
+}
+
+/* ============================================================
+   PAGE HERO
+   ============================================================ */
+.page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #1e1a4a 50%, #0f2d6b 100%);
+    padding: 4rem 2rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(40, 120, 235, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(100, 160, 255, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.page-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(40, 120, 235, 0.2);
+    border: 1px solid rgba(40, 120, 235, 0.35);
+    color: #93c5fd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.page-hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--white);
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.page-hero-title span {
+    color: #60a5fa;
+}
+
+.page-hero-sub {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-stat strong {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+}
+
+.hero-stat span {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   LAYOUT CONTAINER
+   ============================================================ */
+.container {
+    max-width: 1240px;
+    margin: 2.5rem auto 4rem;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+    position: sticky;
+    top: 88px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(40, 120, 235, 0.08);
+    box-shadow: var(--shadow-sm);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(40, 120, 235, 0.2) transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(40, 120, 235, 0.2);
+    border-radius: 4px;
+}
+
+.sidebar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--light-bg);
+}
+
+.sidebar-title i {
+    color: var(--orange);
+    font-size: 0.85rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin-bottom: 0.2rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.88rem;
+    border-radius: 10px;
+    transition: var(--transition);
+    line-height: 1.3;
+}
+
+.nav-link i {
+    font-size: 0.78rem;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    background: var(--orange3);
+    color: var(--orange);
+    font-weight: 600;
+}
+
+.nav-link.active i,
+.nav-link:hover i {
+    opacity: 1;
+}
+
+.sidebar-tip {
+    margin-top: 1.2rem;
+    padding: 0.8rem 1rem;
+    background: var(--orange3);
+    border-radius: 10px;
+    border-left: 3px solid var(--orange);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--orange2);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.sidebar-tip i {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+/* ============================================================
+   SYLLABUS CARD
+   ============================================================ */
+.syllabus-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    border: 1px solid rgba(40, 120, 235, 0.07);
+    box-shadow: var(--shadow-sm);
+    scroll-margin-top: 96px;
+    animation: fadeUp 0.5s ease both;
+    transition: box-shadow 0.3s ease;
+}
+
+.syllabus-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Header */
+.syllabus-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(40, 120, 235, 0.07);
+}
+
+.syllabus-emoji {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--orange3), #dbeafe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    flex-shrink: 0;
+    border: 1px solid rgba(40, 120, 235, 0.1);
+}
+
+.syllabus-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.syllabus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    background: var(--orange3);
+    color: var(--orange2);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.tag-mode {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.tag-conducted {
+    background: #fefce8;
+    color: #854d0e;
+}
+
+/* Card Body */
+.syllabus-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 2rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--orange);
+}
+
+.syllabus-body h4 i {
+    color: var(--orange);
+    font-size: 0.9rem;
+}
+
+.syllabus-body p {
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.syllabus-body ul {
+    padding-left: 1.2rem;
+    color: var(--text-soft);
+    margin-bottom: 1.5rem;
+}
+
+.syllabus-body li {
+    margin-bottom: 0.4rem;
+    line-height: 1.55;
+}
+
+/* ============================================================
+   INFO GRID (4-box stats row)
+   ============================================================ */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    padding: 1.5rem;
+    background: var(--light-bg);
+    border-radius: var(--radius);
+    border: 1px solid rgba(40, 120, 235, 0.07);
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+}
+
+.info-box i {
+    font-size: 1rem;
+    color: var(--orange);
+    margin-bottom: 0.2rem;
+}
+
+.info-box strong {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.info-box span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.4;
+}
+
+/* ============================================================
+   EXAM TABLES
+   ============================================================ */
+.table-wrap {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(40, 120, 235, 0.1);
+    box-shadow: var(--shadow-sm);
+}
+
+.exam-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.exam-table thead {
+    background: linear-gradient(135deg, var(--navy), #1e2a5e);
+}
+
+.exam-table thead th {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.exam-table tbody tr {
+    border-bottom: 1px solid rgba(40, 120, 235, 0.06);
+    transition: background 0.15s ease;
+}
+
+.exam-table tbody tr:hover {
+    background: var(--orange3);
+}
+
+.exam-table tbody td {
+    padding: 0.8rem 1.1rem;
+    color: var(--text-soft);
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.exam-table tbody td strong {
+    color: var(--navy);
+}
+
+.exam-table .total-row td {
+    background: linear-gradient(135deg, var(--orange3), #e0f0ff);
+    color: var(--navy);
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+}
+
+/* ============================================================
+   SUBJECT GRID
+   ============================================================ */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.subject-block {
+    background: var(--light-bg);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(40, 120, 235, 0.08);
+    transition: var(--transition);
+}
+
+.subject-block:hover {
+    border-color: rgba(40, 120, 235, 0.2);
+    background: var(--orange3);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.subject-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(40, 120, 235, 0.1);
+}
+
+.subject-title i {
+    color: var(--orange);
+    font-size: 0.82rem;
+}
+
+.subject-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subject-block ul li {
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    border-bottom: none;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.subject-block ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 0.7rem;
+    top: 0.38rem;
+}
+
+/* ============================================================
+   CALLOUTS
+   ============================================================ */
+.callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.callout i {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.callout-info {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1e40af;
+}
+
+.callout-info i {
+    color: #2563EB;
+}
+
+.callout-warn {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    color: #92400e;
+}
+
+.callout-warn i {
+    color: #D97706;
+}
+
+/* ============================================================
+   PRO TIP
+   ============================================================ */
+.pro-tip {
+    background: linear-gradient(135deg, #FFF8E7, #FFF3CD);
+    border: 1px solid #F6D860;
+    border-radius: var(--radius);
+    padding: 1.1rem 1.4rem;
+    font-size: 0.9rem;
+    color: #7c5e00;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+}
+
+.pro-tip i {
+    color: #F59E0B;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.pro-tip strong {
+    color: #5c4400;
+    font-weight: 700;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.syllabus-footer {
+    background: var(--navy);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.footer-inner {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+}
+
+.footer-brand strong {
+    color: #60a5fa;
+}
+
+.syllabus-footer p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+        margin-top: 1.5rem;
+    }
+
+    .sidebar {
+        position: static;
+        max-height: none;
+    }
+
+    .syllabus-card {
+        padding: 1.8rem;
+    }
+
+    .subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-hero {
+        padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .hero-stats {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 1rem 1.2rem;
+    }
+
+    .header-title {
+        font-size: 1.1rem;
+    }
+
+    .back-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.82rem;
+    }
+
+    .syllabus-title {
+        font-size: 1.3rem;
+    }
+
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .syllabus-card {
+        padding: 1.4rem;
+        border-radius: var(--radius-lg);
+    }
+
+    .exam-table thead th,
+    .exam-table tbody td {
+        padding: 0.65rem 0.8rem;
+        font-size: 0.82rem;
+    }
+
+    .page-hero-title {
+        font-size: 1.7rem;
+    }
+
+    .hero-stats {
+        gap: 1.2rem;
+    }
+
+    .hero-stat strong {
+        font-size: 1.4rem;
+    }
+}

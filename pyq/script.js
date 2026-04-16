@@ -1,31 +1,31 @@
 /* ============================================================
-   PYQ Hub India — Complete Script
+   PYQ Hub India â€” Complete Script
    
    HOW TO ADD REAL PYQ FILES (Folder Structure):
    -----------------------------------------------
    Create folders like this in your project:
    
    pyqs/
-   ├── sainik-school/
-   │   ├── class-6/
-   │   │   ├── 2024/
-   │   │   │   ├── maths.pdf
-   │   │   │   ├── gk.pdf
-   │   │   │   └── english.pdf
-   │   │   └── 2023/
-   │   │       └── maths.pdf
-   │   └── class-9/
-   │       └── 2024/
-   ├── navodaya/
-   │   └── class-6/
-   │       └── 2024/
-   ├── jee/
-   │   ├── 2024/
-   │   │   ├── paper1-physics.pdf
-   │   │   └── paper2-maths.pdf
-   │   └── 2023/
-   └── neet/
-       └── 2024/
+   â”œâ”€â”€ sainik-school/
+   â”‚   â”œâ”€â”€ class-6/
+   â”‚   â”‚   â”œâ”€â”€ 2024/
+   â”‚   â”‚   â”‚   â”œâ”€â”€ maths.pdf
+   â”‚   â”‚   â”‚   â”œâ”€â”€ gk.pdf
+   â”‚   â”‚   â”‚   â””â”€â”€ english.pdf
+   â”‚   â”‚   â””â”€â”€ 2023/
+   â”‚   â”‚       â””â”€â”€ maths.pdf
+   â”‚   â””â”€â”€ class-9/
+   â”‚       â””â”€â”€ 2024/
+   â”œâ”€â”€ navodaya/
+   â”‚   â””â”€â”€ class-6/
+   â”‚       â””â”€â”€ 2024/
+   â”œâ”€â”€ jee/
+   â”‚   â”œâ”€â”€ 2024/
+   â”‚   â”‚   â”œâ”€â”€ paper1-physics.pdf
+   â”‚   â”‚   â””â”€â”€ paper2-maths.pdf
+   â”‚   â””â”€â”€ 2023/
+   â””â”€â”€ neet/
+       â””â”€â”€ 2024/
    
    Then update the PYQ_DATA array below with:
    - view: 'pyqs/sainik-school/class-6/2024/maths.pdf'
@@ -33,148 +33,303 @@
    ============================================================ */
 
 const PYQ_DATA = [
-    // ── Sainik School ──
+    // â”€â”€ Sainik School â”€â”€
     {
-        title: 'Sainik School Class 6 — Mathematics 2024',
+        title: 'Sainik School Class 6 â€” Mathematics 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2024/maths.pdf',
         download: 'pyqs/sainik-school/class-6/2024/maths.pdf'
     },
     {
-        title: 'Sainik School Class 6 — GK & Intelligence 2024',
+        title: 'Sainik School Class 6 â€” GK & Intelligence 2024',
         year: '2024', class: '6', subject: 'GK', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2024/gk.pdf',
         download: 'pyqs/sainik-school/class-6/2024/gk.pdf'
     },
     {
-        title: 'Sainik School Class 6 — English 2023',
+        title: 'Sainik School Class 6 â€” English 2023',
         year: '2023', class: '6', subject: 'English', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-6/2023/english.pdf',
         download: 'pyqs/sainik-school/class-6/2023/english.pdf'
     },
     {
-        title: 'Sainik School Class 9 — Maths 2023',
+        title: 'Sainik School Class 9 â€” Maths 2023',
         year: '2023', class: '9', subject: 'Maths', exam: 'Sainik School',
         view: 'pyqs/sainik-school/class-9/2023/maths.pdf',
         download: 'pyqs/sainik-school/class-9/2023/maths.pdf'
     },
     {
-        title: 'Sainik School Class 6 — Intelligence 2022',
+        title: 'Sainik School Class 6 â€” Intelligence 2022',
         year: '2022', class: '6', subject: 'GK', exam: 'Sainik School',
         view: '#', download: '#'
     },
 
-    // ── Navodaya ──
+    // â”€â”€ Navodaya â”€â”€
     {
-        title: 'Navodaya (JNVST) Class 6 — Full Paper 2024',
+        title: 'Navodaya (JNVST) Class 6 â€” Full Paper 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Navodaya',
         view: 'pyqs/navodaya/class-6/2024/full-paper.pdf',
         download: 'pyqs/navodaya/class-6/2024/full-paper.pdf'
     },
     {
-        title: 'Navodaya (JNVST) Class 6 — Full Paper 2023',
+        title: 'Navodaya (JNVST) Class 6 â€” Full Paper 2023',
         year: '2023', class: '6', subject: 'Maths', exam: 'Navodaya',
         view: '#', download: '#'
     },
     {
-        title: 'Navodaya Class 6 — GK & Language 2022',
+        title: 'Navodaya Class 6 â€” GK & Language 2022',
         year: '2022', class: '6', subject: 'GK', exam: 'Navodaya',
         view: '#', download: '#'
     },
 
-    // ── JEE ──
+    // â”€â”€ JEE â”€â”€
     {
-        title: 'JEE Main 2024 — Physics (Paper 1)',
+        title: 'JEE Main 2024 â€” Physics (Paper 1)',
         year: '2024', class: '12', subject: 'Physics', exam: 'JEE',
         view: 'pyqs/jee/2024/physics-paper1.pdf',
         download: 'pyqs/jee/2024/physics-paper1.pdf'
     },
     {
-        title: 'JEE Main 2024 — Chemistry (Paper 1)',
+        title: 'JEE Main 2024 â€” Chemistry (Paper 1)',
         year: '2024', class: '12', subject: 'Chemistry', exam: 'JEE',
         view: 'pyqs/jee/2024/chemistry-paper1.pdf',
         download: 'pyqs/jee/2024/chemistry-paper1.pdf'
     },
     {
-        title: 'JEE Main 2024 — Maths (Paper 2)',
+        title: 'JEE Main 2024 â€” Maths (Paper 2)',
         year: '2024', class: '12', subject: 'Maths', exam: 'JEE',
         view: '#', download: '#'
     },
     {
-        title: 'JEE Advanced 2023 — Physics',
+        title: 'JEE Advanced 2023 â€” Physics',
         year: '2023', class: '12', subject: 'Physics', exam: 'JEE',
         view: '#', download: '#'
     },
     {
-        title: 'JEE Main 2022 — Full Paper Set A',
+        title: 'JEE Main 2022 â€” Full Paper Set A',
         year: '2022', class: '12', subject: 'Maths', exam: 'JEE',
         view: '#', download: '#'
     },
 
-    // ── NEET ──
+    // â”€â”€ NEET â”€â”€
     {
-        title: 'NEET 2024 — Biology',
+        title: 'NEET 2024 â€” Biology',
         year: '2024', class: '12', subject: 'Biology', exam: 'NEET',
         view: 'pyqs/neet/2024/biology.pdf',
         download: 'pyqs/neet/2024/biology.pdf'
     },
     {
-        title: 'NEET 2024 — Physics',
+        title: 'NEET 2024 â€” Physics',
         year: '2024', class: '12', subject: 'Physics', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2023 — Biology',
+        title: 'NEET 2023 â€” Biology',
         year: '2023', class: '12', subject: 'Biology', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2023 — Chemistry',
+        title: 'NEET 2023 â€” Chemistry',
         year: '2023', class: '12', subject: 'Chemistry', exam: 'NEET',
         view: '#', download: '#'
     },
     {
-        title: 'NEET 2022 — Full Paper',
+        title: 'NEET 2022 â€” Full Paper',
         year: '2022', class: '12', subject: 'Biology', exam: 'NEET',
         view: '#', download: '#'
     },
 
-    // ── RIMC ──
+    // â”€â”€ RIMC â”€â”€
     {
-        title: 'RIMC Entrance 2024 — Maths',
+        title: 'RIMC Entrance 2024 â€” Maths',
         year: '2024', class: '6', subject: 'Maths', exam: 'RIMC',
         view: '#', download: '#'
     },
     {
-        title: 'RIMC Entrance 2023 — English',
+        title: 'RIMC Entrance 2023 â€” English',
         year: '2023', class: '6', subject: 'English', exam: 'RIMC',
         view: '#', download: '#'
     },
 
-    // ── RMS ──
+    // â”€â”€ RMS â”€â”€
     {
-        title: 'RMS Ajmer Class 6 — Maths 2024',
+        title: 'RMS Ajmer Class 6 â€” Maths 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'RMS',
         view: '#', download: '#'
     },
     {
-        title: 'RMS Ajmer Class 6 — English 2023',
+        title: 'RMS Ajmer Class 6 â€” English 2023',
         year: '2023', class: '6', subject: 'English', exam: 'RMS',
         view: '#', download: '#'
     },
 
-    // ── Olympiads ──
+    // â”€â”€ Olympiads â”€â”€
     {
-        title: 'SOF IMO Class 6 — Maths Olympiad 2024',
+        title: 'SOF IMO Class 6 â€” Maths Olympiad 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Olympiads',
         view: '#', download: '#'
     },
     {
-        title: 'SOF NSO Class 8 — Science Olympiad 2023',
+        title: 'SOF NSO Class 8 â€” Science Olympiad 2023',
         year: '2023', class: '8', subject: 'Physics', exam: 'Olympiads',
         view: '#', download: '#'
     },
+
+    // ── CBSE Boards ──
+    {
+        title: 'CBSE Class 10 — Maths Standard 2024',
+        year: '2024', class: '10', subject: 'Maths', exam: 'CBSE',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CBSE Class 12 — Physics 2023',
+        year: '2023', class: '12', subject: 'Physics', exam: 'CBSE',
+        view: '#', download: '#'
+    },
+
+    // ── NDA ──
+    {
+        title: 'NDA 1 2024 — Mathematics',
+        year: '2024', class: 'Defence', subject: 'Maths', exam: 'NDA',
+        view: '#', download: '#'
+    },
+    {
+        title: 'NDA 2 2023 — General Ability Test',
+        year: '2023', class: 'Defence', subject: 'GK', exam: 'NDA',
+        view: '#', download: '#'
+    },
+
+    // ── CDS ──
+    {
+        title: 'CDS 1 2024 — Elementary Maths',
+        year: '2024', class: 'Defence', subject: 'Maths', exam: 'CDS',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CDS 2 2023 — English',
+        year: '2023', class: 'Defence', subject: 'English', exam: 'CDS',
+        view: '#', download: '#'
+    },
+
+    // ── BHU ──
+    {
+        title: 'BHU CHS Class 6 — Entrance 2024',
+        year: '2024', class: '6', subject: 'Maths', exam: 'BHU',
+        view: '#', download: '#'
+    },
+    {
+        title: 'BHU CHS Class 9 — Entrance 2023',
+        year: '2023', class: '9', subject: 'Maths', exam: 'BHU',
+        view: '#', download: '#'
+    },
+
+    // ── Simultala Awasiya Vidyalaya ──
+    {
+        title: 'Simultala Class 6 Mains — 2024',
+        year: '2024', class: '6', subject: 'Maths', exam: 'Simultala',
+        view: '#', download: '#'
+    },
+
+    // ── Ram Krishan Mission ──
+    {
+        title: 'RKM Vidyapith Class 6 — Selection 2024',
+        year: '2024', class: '6', subject: 'Maths', exam: 'Ram Krishan Mission',
+        view: '#', download: '#'
+    },
+
+    // ── CUET ──
+    {
+        title: 'CUET UG 2024 — General Test',
+        year: '2024', class: '12', subject: 'GK', exam: 'CUET',
+        view: '#', download: '#'
+    },
+    {
+        title: 'CUET UG 2024 — Physics',
+        year: '2024', class: '12', subject: 'Physics', exam: 'CUET',
+        view: '#', download: '#'
+    }
 ];
+
+const EXAM_DETAILS_DATA = {
+    "Sainik School": {
+        emoji: "🎖️",
+        subtitle: "AISSEE — All India Sainik School Entrance Exam",
+        format: "<ul><li><strong>Class 6:</strong> Maths (150 marks), Intelligence (50), Language (50), GK (50). Total: 300 Marks.</li><li><strong>Class 9:</strong> Maths (200), Intelligence (50), English (50), General Science (50), Social Studies (50). Total: 400 Marks.</li><li><strong>Mode:</strong> OMR based written exam.</li></ul>",
+        syllabus: "#"
+    },
+    "Navodaya": {
+        emoji: "🏫",
+        subtitle: "JNVST — Jawahar Navodaya Vidyalaya Selection Test",
+        format: "<ul><li><strong>Class 6:</strong> Mental Ability (50 marks), Arithmetic (25 marks), Language (25 marks). Total: 100 Marks.</li><li><strong>Format:</strong> Objective multiple-choice questions. Time: 2 hours.</li></ul>",
+        syllabus: "#"
+    },
+    "JEE": {
+        emoji: "⚙️",
+        subtitle: "IIT/NIT Engineering Entrance",
+        format: "<ul><li><strong>JEE Main:</strong> Physics, Chemistry, Maths (100 marks each). Total: 300 marks. Contains MCQs and Numerical Value questions.</li><li><strong>JEE Advanced:</strong> Two papers. Physics, Chemistry, Maths. Pattern varies every year.</li></ul>",
+        syllabus: "#"
+    },
+    "NEET": {
+        emoji: "🩺",
+        subtitle: "National Eligibility cum Entrance Test",
+        format: "<ul><li><strong>Subjects:</strong> Physics (180), Chemistry (180), Botany (180), Zoology (180).</li><li><strong>Format:</strong> 200 MCQs (Attempt 180). Total: 720 Marks. Marking: +4 for correct, -1 for incorrect.</li></ul>",
+        syllabus: "#"
+    },
+    "RIMC": {
+        emoji: "⚔️",
+        subtitle: "Rashtriya Indian Military College",
+        format: "<ul><li><strong>Subjects:</strong> English (125 Marks), Mathematics (200 Marks), General Knowledge (75 Marks).</li><li><strong>Format:</strong> Descriptive mathematics and english. Objective GK.</li><li><strong>Interview:</strong> Viva Voce (50 Marks).</li></ul>",
+        syllabus: "#"
+    },
+    "Olympiads": {
+        emoji: "🏆",
+        subtitle: "SOF IMO, NSO, IEO",
+        format: "<ul><li><strong>Format:</strong> Logical Reasoning, Subject Specific section, and Achievers Section.</li><li><strong>Type:</strong> Objective MCQs. No negative marking.</li></ul>",
+        syllabus: "#"
+    },
+    "CBSE": {
+        emoji: "📝",
+        subtitle: "Class 10th & 12th Board",
+        format: "<ul><li><strong>Format:</strong> 80 Marks theory, 20 Marks internal assessment (typical).</li><li><strong>Sections:</strong> Objective type (MCQs), Short Answer, Long Answer.</li></ul>",
+        syllabus: "#"
+    },
+    "NDA": {
+        emoji: "🪖",
+        subtitle: "National Defence Academy",
+        format: "<ul><li><strong>Paper 1:</strong> Mathematics (300 Marks, 2.5 hours).</li><li><strong>Paper 2:</strong> General Ability Test (600 Marks, 2.5 hours - English 200, GK 400).</li><li><strong>SSB Interview:</strong> 900 Marks.</li></ul>",
+        syllabus: "#"
+    },
+    "CDS": {
+        emoji: "⚔️",
+        subtitle: "Combined Defence Services",
+        format: "<ul><li><strong>For IMA/INA/AFA:</strong> English (100), GK (100), Elementary Maths (100).</li><li><strong>For OTA:</strong> English (100), General Knowledge (100).</li></ul>",
+        syllabus: "#"
+    },
+    "BHU": {
+        emoji: "🏛️",
+        subtitle: "Banaras Hindu University (CHS)",
+        format: "<ul><li><strong>Format:</strong> 100 MCQs (Maths, Science, Hindi, English, GK/Social). Total: 100 Marks.</li><li><strong>Level:</strong> Dependent on the admission class standard (Class 6, 9, or 11).</li></ul>",
+        syllabus: "#"
+    },
+    "Simultala": {
+        emoji: "🏫",
+        subtitle: "Simultala Awasiya Vidyalaya",
+        format: "<ul><li><strong>Prelims:</strong> Objective test (150 Marks).</li><li><strong>Mains:</strong> Two papers. Paper 1 (Maths 100, Reasoning 50). Paper 2 (Hindi 40, English 40, Science 40, SST 30). Total: 300 Marks.</li></ul>",
+        syllabus: "#"
+    },
+    "Ram Krishan Mission": {
+        emoji: "🕉️",
+        subtitle: "RKM Vidyapith",
+        format: "<ul><li><strong>Subjects:</strong> English, Mathematics, Bengali/Hindi, and General Science.</li><li><strong>Format:</strong> Written Descriptive and Objective mixing.</li></ul>",
+        syllabus: "#"
+    },
+    "CUET": {
+        emoji: "🎓",
+        subtitle: "Common University Entrance Test",
+        format: "<ul><li><strong>Section IA & IB:</strong> Languages (13 and 20 languages).</li><li><strong>Section II:</strong> Domain Specific Subjects (27 Subjects).</li><li><strong>Section III:</strong> General Test (Logic, Quant, GK).</li></ul>",
+        syllabus: "#"
+    }
+};
 
 /* ============================================================
    DOM Ready
@@ -224,7 +379,7 @@ function linkifyFooterContacts() {
     });
 }
 
-/* ── Loader ── */
+/* â”€â”€ Loader â”€â”€ */
 function initLoader() {
     const loader = document.getElementById('loader');
     window.addEventListener('load', () => {
@@ -234,7 +389,7 @@ function initLoader() {
     setTimeout(() => loader.classList.add('gone'), 2500);
 }
 
-/* ── Cursor Glow ── */
+/* â”€â”€ Cursor Glow â”€â”€ */
 function initCursorGlow() {
     const glow = document.getElementById('cursorGlow');
     if (!glow || window.matchMedia('(pointer: coarse)').matches) return;
@@ -244,7 +399,7 @@ function initCursorGlow() {
     });
 }
 
-/* ── Navbar ── */
+/* â”€â”€ Navbar â”€â”€ */
 function initNavbar() {
     const navbar    = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
@@ -282,7 +437,7 @@ function initNavbar() {
     });
 }
 
-/* ── Hero Search ── */
+/* â”€â”€ Hero Search â”€â”€ */
 function initHeroSearch() {
     const btn = document.getElementById('heroSearchBtn');
     if (!btn) return;
@@ -304,7 +459,7 @@ function initHeroSearch() {
     });
 }
 
-/* ── Filters ── */
+/* â”€â”€ Filters â”€â”€ */
 function initFilters() {
     ['examFilter','yearFilter','classFilter','subjectFilter','sortFilter'].forEach(id => {
         document.getElementById(id)?.addEventListener('change', applyFilters);
@@ -342,7 +497,7 @@ window.clearFiltersAction = function() {
     renderPYQs(PYQ_DATA);
 };
 
-/* ── Render PYQs ── */
+/* â”€â”€ Render PYQs â”€â”€ */
 function renderPYQs(data) {
     const grid    = document.getElementById('pyqGrid');
     const noRes   = document.getElementById('noResults');
@@ -371,9 +526,9 @@ function renderPYQs(data) {
                 <span class="pyq-year-badge">${item.year}</span>
             </div>
             <div class="pyq-tags">
-                <span class="pyq-tag">📚 ${item.exam}</span>
-                <span class="pyq-tag">🎓 Class ${item.class}</span>
-                <span class="pyq-tag">📖 ${item.subject}</span>
+                <span class="pyq-tag">ðŸ“š ${item.exam}</span>
+                <span class="pyq-tag">ðŸŽ“ Class ${item.class}</span>
+                <span class="pyq-tag">ðŸ“– ${item.subject}</span>
             </div>
             <div class="pyq-actions">
                 <a href="${item.view}" target="_blank" class="pyq-btn pyq-btn-view">
@@ -388,25 +543,69 @@ function renderPYQs(data) {
     });
 }
 
-/* ── Exam Cards ── */
+/* â”€â”€ Exam Cards â”€â”€ */
 function initExamCards() {
+    const modal = document.getElementById('examModal');
+    const overlay = document.getElementById('examModalOverlay');
+    const closeBtn = document.getElementById('examModalClose');
+    const browseBtn = document.getElementById('modalBrowseBtn');
+
+    if (!modal) return;
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
     document.querySelectorAll('.exam-card').forEach(card => {
         // Set glow color
-        const color = card.dataset.color || '#FF5A1F';
-        card.querySelector('.card-glow').style.background =
-            `radial-gradient(circle at 0% 0%, ${color}18 0%, transparent 70%)`;
+        const color = card.dataset.color || '#2878EB';
+        card.querySelector('.card-glow').style.background = `radial-gradient(circle at 0% 0%, ${color}18 0%, transparent 70%)`;
 
         card.addEventListener('click', () => {
             const exam = card.dataset.exam;
-            const filter = document.getElementById('examFilter');
-            if (filter) filter.value = exam;
-            applyFilters();
-            document.getElementById('pyqs')?.scrollIntoView({ behavior: 'smooth' });
+            
+            // Setup Format
+            if (typeof EXAM_DETAILS_DATA !== 'undefined') {
+                const data = EXAM_DETAILS_DATA[exam];
+                if (data) {
+                    document.getElementById('modalEmoji').textContent = data.emoji;
+                    document.getElementById('modalTitle').textContent = exam;
+                    document.getElementById('modalSubtitle').textContent = data.subtitle;
+                    document.getElementById('modalFormatContent').innerHTML = data.format;
+                    
+                    // Redirect to the newly generated Syllabus detail page using a URL hash matching the exam
+                    const formattedId = exam.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    document.getElementById('modalSyllabusBtn').href = 'syllabus.html#syllabus-' + formattedId;
+                } else {
+                    document.getElementById('modalTitle').textContent = exam;
+                    document.getElementById('modalSubtitle').textContent = "";
+                    document.getElementById('modalFormatContent').innerHTML = "<p>Format details currently unavailable.</p>";
+                    document.getElementById('modalSyllabusBtn').href = 'syllabus.html';
+                }
+            }
+
+            // Setup Browse Button Event
+            browseBtn.onclick = (e) => {
+                e.preventDefault();
+                closeModal();
+                const filter = document.getElementById('examFilter');
+                if (filter) filter.value = exam;
+                if (typeof applyFilters === 'function') applyFilters();
+                document.getElementById('pyqs')?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            // Show Modal
+            modal.classList.add('active');
+            overlay.classList.add('active');
         });
     });
 }
 
-/* ── Animated Counters ── */
+/* â”€â”€ Animated Counters â”€â”€ */
 function initCounters() {
     const counters = document.querySelectorAll('.stat-num');
     if (!counters.length) return;
@@ -439,7 +638,7 @@ function initCounters() {
     counters.forEach(c => observer.observe(c));
 }
 
-/* ── Scroll Animations ── */
+/* â”€â”€ Scroll Animations â”€â”€ */
 function initScrollAnimations() {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
