@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    PYQ Hub India Ã¢â‚¬â€ Complete Script
    
    HOW TO ADD REAL PYQ FILES (Folder Structure):
@@ -572,7 +572,7 @@ function initExamCards() {
             if (typeof EXAM_DETAILS_DATA !== 'undefined') {
                 const data = EXAM_DETAILS_DATA[exam];
                 if (data) {
-                    document.getElementById('modalEmoji').textContent = data.emoji;
+
                     document.getElementById('modalTitle').textContent = exam;
                     document.getElementById('modalSubtitle').textContent = data.subtitle;
                     document.getElementById('modalFormatContent').innerHTML = data.format;
