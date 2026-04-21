@@ -10,7 +10,7 @@
 
 const PYQ_DATA = [
     // 2025-2026 PYQs Added 
-    // Sainik School 2025-2026
+    // Sainik School
     {
         title: 'Sainik School Class 6 — Mathematics 2026',
         year: '2026', class: '6', subject: 'Maths', exam: 'Sainik School',
@@ -42,7 +42,7 @@ const PYQ_DATA = [
         view: '#', download: '#'
     },
 
-    // Navodaya 2025-2026
+    // Navodaya
     {
         title: 'Navodaya Class 6 — Full Paper 2026',
         year: '2026', class: '6', subject: 'Maths', exam: 'Navodaya',
@@ -59,7 +59,7 @@ const PYQ_DATA = [
         view: '#', download: '#'
     },
 
-    // JEE 2025-2026
+    // JEE 
     {
         title: 'JEE Main 2026 - January — Full Paper',
         year: '2026', class: '12', subject: 'Aii-in-one', exam: 'JEE',
@@ -153,7 +153,7 @@ const PYQ_DATA = [
         download: 'pyqs/neet/Neet 2021.pdf'
     },
 
-    // CBSE 2025-2026
+    // CBSE 
     {
         title: 'CBSE Class 10 Maths 2026',
         year: '2026', class: '10', subject: 'Maths', exam: 'CBSE',
@@ -170,75 +170,134 @@ const PYQ_DATA = [
         view: '#', download: '#'
     },
 
-    // Others 2025-2026
+    // NDA
     {
-        title: 'NDA 1 2026 — Mathematics',
-        year: '2026', class: 'Defence', subject: 'Maths', exam: 'NDA',
-        view: '#', download: '#'
+        title: 'NDA 2 2025',
+        year: '2025', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 2, 2025.pdf', 
+        download: 'pyqs/nda/NDA 2, 2025.pdf'
     },
     {
-        title: 'RIMC Entrance 2026 — Maths',
-        year: '2026', class: '6', subject: 'Maths', exam: 'RIMC',
-        view: '#', download: '#'
+        title: 'NDA 1 2025',
+        year: '2025', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 1, 2025.pdf', 
+        download: 'pyqs/nda/NDA 1, 2025.pdf'
     },
+    {
+        title: 'NDA 2 2024',
+        year: '2024', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 2, 2024.pdf', 
+        download: 'pyqs/nda/NDA 2, 2024.pdf'
+    },
+    {
+        title: 'NDA 1 2024',
+        year: '2024', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 1, 2024.pdf', 
+        download: 'pyqs/nda/NDA 1, 2024.pdf'
+    },
+    {
+        title: 'NDA 2 2023',
+        year: '2023', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 2, 2023.pdf', 
+        download: 'pyqs/nda/NDA 2, 2023.pdf'
+    },
+    {
+        title: 'NDA 1 2023',
+        year: '2023', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 1, 2023.pdf', 
+        download: 'pyqs/nda/NDA 1, 2023.pdf'
+    },
+    {
+        title: 'NDA 2 2022',
+        year: '2022', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 2, 2022.pdf', 
+        download: 'pyqs/nda/NDA 2, 2022.pdf'
+    },
+    {
+        title: 'NDA 1 2022',
+        year: '2022', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 1, 2022.pdf', 
+        download: 'pyqs/nda/NDA 1, 2022.pdf'
+    },
+    {
+        title: 'NDA 2 2021',
+        year: '2021', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 2, 2021.pdf', 
+        download: 'pyqs/nda/NDA 2, 2021.pdf'
+    },
+    {
+        title: 'NDA 1 2021',
+        year: '2021', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'NDA',
+        view: 'pyqs/nda/NDA 1, 2021.pdf', 
+        download: 'pyqs/nda/NDA 1, 2021.pdf'
+    },
+
+
+    //CDS
+    {
+        title: 'CDS 1 2026',
+        year: '2026', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 1_2026.pdf', 
+        download: 'pyqs/cds/CDS 1_2026.pdf'
+    },
+    {
+        title: 'CDS 2 2025',
+        year: '2025', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 2_2025.pdf', 
+        download: 'pyqs/cds/CDS 2_2025.pdf'
+    },
+    {
+        title: 'CDS 1 2025',
+        year: '2025', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 1_2025.pdf', 
+        download: 'pyqs/cds/CDS 1_2025.pdf'
+    },
+    {
+        title: 'CDS 2 2024',
+        year: '2024', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 2_2024.pdf', 
+        download: 'pyqs/cds/CDS 2_2024.pdf'
+    },
+    {
+        title: 'CDS 1 2024',
+        year: '2024', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 1_2024.pdf', 
+        download: 'pyqs/cds/CDS 1_2024.pdf'
+    },{
+        title: 'CDS 2 2023',
+        year: '2023', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 2_2023.pdf', 
+        download: 'pyqs/cds/CDS 2_2023.pdf'
+    },
+    {
+        title: 'CDS 1 2023',
+        year: '2023', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 1_2023.pdf', 
+        download: 'pyqs/cds/CDS 1_2023.pdf'
+    },{
+        title: 'CDS 2 2022',
+        year: '2022', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 2_2022.pdf', 
+        download: 'pyqs/cds/CDS 2_2022.pdf'
+    },
+    {
+        title: 'CDS 1 2022',
+        year: '2022', class: 'Defence', subject: 'Maths + Eng. + GAT', exam: 'CDS',
+        view: 'pyqs/cds/CDS 1_2022.pdf', 
+        download: 'pyqs/cds/CDS 1_2022.pdf'
+    },
+
+    // BHU
     {
         title: 'BHU CHS Class 6 2026',
         year: '2026', class: '6', subject: 'Maths', exam: 'BHU',
         view: '#', download: '#'
     },
+
+    // CUET
     {
         title: 'CUET UG 2026 — General Test',
         year: '2026', class: '12', subject: 'GK', exam: 'CUET',
-        view: '#', download: '#'
-    },
-
-    // — Existing PYQs (2022-2024) —
-    // Sainik School
-    {
-        title: 'Sainik School Class 6, Mathematics 2024',
-        year: '2024', class: '6', subject: 'Maths', exam: 'Sainik School',
-        view: 'pyqs/sainik-school/class-6/2024/maths.pdf',
-        download: 'pyqs/sainik-school/class-6/2024/maths.pdf'
-    },
-    {
-        title: 'Sainik School Class 6, GK & Intelligence 2024',
-        year: '2024', class: '6', subject: 'GK', exam: 'Sainik School',
-        view: 'pyqs/sainik-school/class-6/2024/gk.pdf',
-        download: 'pyqs/sainik-school/class-6/2024/gk.pdf'
-    },
-    {
-        title: 'Sainik School Class 6, English 2023',
-        year: '2023', class: '6', subject: 'English', exam: 'Sainik School',
-        view: 'pyqs/sainik-school/class-6/2023/english.pdf',
-        download: 'pyqs/sainik-school/class-6/2023/english.pdf'
-    },
-    {
-        title: 'Sainik School Class 9, Maths 2023',
-        year: '2023', class: '9', subject: 'Maths', exam: 'Sainik School',
-        view: 'pyqs/sainik-school/class-9/2023/maths.pdf',
-        download: 'pyqs/sainik-school/class-9/2023/maths.pdf'
-    },
-    {
-        title: 'Sainik School Class 6, Intelligence 2022',
-        year: '2022', class: '6', subject: 'GK', exam: 'Sainik School',
-        view: '#', download: '#'
-    },
-
-    // Navodaya 
-    {
-        title: 'Navodaya (JNVST) Class 6, Full Paper 2024',
-        year: '2024', class: '6', subject: 'Maths', exam: 'Navodaya',
-        view: 'pyqs/navodaya/class-6/2024/full-paper.pdf',
-        download: 'pyqs/navodaya/class-6/2024/full-paper.pdf'
-    },
-    {
-        title: 'Navodaya (JNVST) Class 6, Full Paper 2023',
-        year: '2023', class: '6', subject: 'Maths', exam: 'Navodaya',
-        view: '#', download: '#'
-    },
-    {
-        title: 'Navodaya Class 6, GK & Language 2022',
-        year: '2022', class: '6', subject: 'GK', exam: 'Navodaya',
         view: '#', download: '#'
     },
 
@@ -279,53 +338,6 @@ const PYQ_DATA = [
         view: '#', download: '#'
     },
 
-    // CBSE Boards 
-    {
-        title: 'CBSE Class 10, Maths Standard 2024',
-        year: '2024', class: '10', subject: 'Maths', exam: 'CBSE',
-        view: '#', download: '#'
-    },
-    {
-        title: 'CBSE Class 12, Physics 2023',
-        year: '2023', class: '12', subject: 'Physics', exam: 'CBSE',
-        view: '#', download: '#'
-    },
-
-    // NDA
-    {
-        title: 'NDA 1 2024, Mathematics',
-        year: '2024', class: 'Defence', subject: 'Maths', exam: 'NDA',
-        view: '#', download: '#'
-    },
-    {
-        title: 'NDA 2 2023, General Ability Test',
-        year: '2023', class: 'Defence', subject: 'GK', exam: 'NDA',
-        view: '#', download: '#'
-    },
-
-    // CDS 
-    {
-        title: 'CDS 1 2024, Elementary Maths',
-        year: '2024', class: 'Defence', subject: 'Maths', exam: 'CDS',
-        view: '#', download: '#'
-    },
-    {
-        title: 'CDS 2 2023, English',
-        year: '2023', class: 'Defence', subject: 'English', exam: 'CDS',
-        view: '#', download: '#'
-    },
-
-    // BHU
-    {
-        title: 'BHU CHS Class 6, Entrance 2024',
-        year: '2024', class: '6', subject: 'Maths', exam: 'BHU',
-        view: '#', download: '#'
-    },
-    {
-        title: 'BHU CHS Class 9, Entrance 2023',
-        year: '2023', class: '9', subject: 'Maths', exam: 'BHU',
-        view: '#', download: '#'
-    },
 
     // Simultala Awasiya Vidyalaya
     {
@@ -338,18 +350,6 @@ const PYQ_DATA = [
     {
         title: 'RKM Vidyapith Class 6, Selection 2024',
         year: '2024', class: '6', subject: 'Maths', exam: 'Ram Krishan Mission',
-        view: '#', download: '#'
-    },
-
-    // CUET
-    {
-        title: 'CUET UG 2024, General Test',
-        year: '2024', class: '12', subject: 'GK', exam: 'CUET',
-        view: '#', download: '#'
-    },
-    {
-        title: 'CUET UG 2024, Physics',
-        year: '2024', class: '12', subject: 'Physics', exam: 'CUET',
         view: '#', download: '#'
     }
 ];
