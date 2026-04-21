@@ -61,51 +61,96 @@ const PYQ_DATA = [
 
     // JEE 2025-2026
     {
-        title: 'JEE Main 2026 — Physics Paper 1',
-        year: '2026', class: '12', subject: 'Physics', exam: 'JEE',
-        view: '#', download: '#'
+        title: 'JEE Main 2026 - January — Full Paper',
+        year: '2026', class: '12', subject: 'Aii-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - Jan,2026.pdf', 
+        download: 'pyqs/jee/JEE - Jan,2026.pdf'
     },
     {
-        title: 'JEE Main 2026 — Chemistry Paper 1',
-        year: '2026', class: '12', subject: 'Chemistry', exam: 'JEE',
-        view: '#', download: '#'
+        title: 'JEE Main 2026 - April — Full Paper',
+        year: '2026', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - April,2026.pdf', 
+        download: 'pyqs/jee/JEE - April,2026.pdf'
     },
     {
-        title: 'JEE Main 2026 — Maths Paper 2',
-        year: '2026', class: '12', subject: 'Maths', exam: 'JEE',
-        view: '#', download: '#'
+        title: 'JEE Main 2025 - January — Full Paper',
+        year: '2025', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - Jan,2025.pdf', 
+        download: 'pyqs/jee/JEE - Jan,2025.pdf'
     },
     {
-        title: 'JEE Main 2025 — Physics',
-        year: '2025', class: '12', subject: 'Physics', exam: 'JEE',
-        view: '#', download: '#'
+        title: 'JEE Main 2025 - April — Full Paper',
+        year: '2025', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - April,2025.pdf', 
+        download: 'pyqs/jee/JEE - April,2025.pdf'
     },
     {
-        title: 'JEE Advanced 2026 — Full Paper',
-        year: '2026', class: '12', subject: 'Maths', exam: 'JEE',
-        view: '#', download: '#'
+        title: 'JEE Main 2024 - January — Full Paper',
+        year: '2024', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - Jan,2024.pdf', 
+        download: 'pyqs/jee/JEE - Jan,2024.pdf'
+    },
+    {
+        title: 'JEE Main 2024 - April — Full Paper',
+        year: '2024', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - April,2024.pdf', 
+        download: 'pyqs/jee/JEE - April,2024.pdf'
+    },
+    {
+        title: 'JEE Main 2023 - January — Full Paper',
+        year: '2023', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - Jan,2023.pdf', 
+        download: 'pyqs/jee/JEE - Jan,2023.pdf'
+    },
+    {
+        title: 'JEE Main 2023 - April — Full Paper',
+        year: '2023', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - April,2023.pdf', 
+        download: 'pyqs/jee/JEE - April,2023.pdf'
+    },
+    {
+        title: 'JEE Main 2022 - April — Full Paper',
+        year: '2022', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - April,2022.pdf', 
+        download: 'pyqs/jee/JEE - April,2022.pdf'
+    },
+    {
+        title: 'JEE Main 2021 - August — Full Paper',
+        year: '2021', class: '12', subject: 'All-in-one', exam: 'JEE',
+        view: 'pyqs/jee/JEE - August,2021.pdf', 
+        download: 'pyqs/jee/JEE - August,2021.pdf'
     },
 
-    // NEET 2025-2026
+    // NEET 
     {
-        title: 'NEET 2026 — Biology',
-        year: '2026', class: '12', subject: 'Biology', exam: 'NEET',
-        view: '#', download: '#'
+        title: 'NEET 2025',
+        year: '2025', class: '12', subject: 'All-in-one', exam: 'NEET',
+        view: 'pyqs/neet/Neet 2025.pdf', 
+        download: 'pyqs/neet/Neet 2025.pdf'
     },
     {
-        title: 'NEET 2026 — Physics',
-        year: '2026', class: '12', subject: 'Physics', exam: 'NEET',
-        view: '#', download: '#'
+        title: 'NEET 2024',
+        year: '2024', class: '12', subject: 'All-in-one', exam: 'NEET',
+        view: 'pyqs/neet/Neet 2024.pdf', 
+        download: 'pyqs/neet/Neet 2024.pdf'
     },
     {
-        title: 'NEET 2026 — Chemistry',
-        year: '2026', class: '12', subject: 'Chemistry', exam: 'NEET',
-        view: '#', download: '#'
+        title: 'NEET 2023',
+        year: '2023', class: '12', subject: 'All-in-one', exam: 'NEET',
+        view: 'pyqs/neet/Neet 2023.pdf', 
+        download: 'pyqs/neet/Neet 2023.pdf'
     },
     {
-        title: 'NEET 2025 — Full Paper',
-        year: '2025', class: '12', subject: 'Biology', exam: 'NEET',
-        view: '#', download: '#'
+        title: 'NEET 2022',
+        year: '2022', class: '12', subject: 'All-in-one', exam: 'NEET',
+        view: 'pyqs/neet/Neet 2022.pdf', 
+        download: 'pyqs/neet/Neet 2022.pdf'
+    },
+    {
+        title: 'NEET 2021',
+        year: '2021', class: '12', subject: 'All-in-one', exam: 'NEET',
+        view: 'pyqs/neet/Neet 2021.pdf', 
+        download: 'pyqs/neet/Neet 2021.pdf'
     },
 
     // CBSE 2025-2026
@@ -197,62 +242,6 @@ const PYQ_DATA = [
         view: '#', download: '#'
     },
 
-    // JEE 
-    {
-        title: 'JEE Main 2024, Physics (Paper 1)',
-        year: '2024', class: '12', subject: 'Physics', exam: 'JEE',
-        view: 'pyqs/jee/2024/physics-paper1.pdf',
-        download: 'pyqs/jee/2024/physics-paper1.pdf'
-    },
-    {
-        title: 'JEE Main 2024, Chemistry (Paper 1)',
-        year: '2024', class: '12', subject: 'Chemistry', exam: 'JEE',
-        view: 'pyqs/jee/2024/chemistry-paper1.pdf',
-        download: 'pyqs/jee/2024/chemistry-paper1.pdf'
-    },
-    {
-        title: 'JEE Main 2024, Maths (Paper 2)',
-        year: '2024', class: '12', subject: 'Maths', exam: 'JEE',
-        view: '#', download: '#'
-    },
-    {
-        title: 'JEE Advanced 2023, Physics',
-        year: '2023', class: '12', subject: 'Physics', exam: 'JEE',
-        view: '#', download: '#'
-    },
-    {
-        title: 'JEE Main 2022, Full Paper Set A',
-        year: '2022', class: '12', subject: 'Maths', exam: 'JEE',
-        view: '#', download: '#'
-    },
-
-    //  NEET 
-    {
-        title: 'NEET 2024, Biology',
-        year: '2024', class: '12', subject: 'Biology', exam: 'NEET',
-        view: 'pyqs/neet/2024/biology.pdf',
-        download: 'pyqs/neet/2024/biology.pdf'
-    },
-    {
-        title: 'NEET 2024, Physics',
-        year: '2024', class: '12', subject: 'Physics', exam: 'NEET',
-        view: '#', download: '#'
-    },
-    {
-        title: 'NEET 2023, Biology',
-        year: '2023', class: '12', subject: 'Biology', exam: 'NEET',
-        view: '#', download: '#'
-    },
-    {
-        title: 'NEET 2023, Chemistry',
-        year: '2023', class: '12', subject: 'Chemistry', exam: 'NEET',
-        view: '#', download: '#'
-    },
-    {
-        title: 'NEET 2022, Full Paper',
-        year: '2022', class: '12', subject: 'Biology', exam: 'NEET',
-        view: '#', download: '#'
-    },
 
     // RIMC 
     {
@@ -559,12 +548,10 @@ function initHeroSearch() {
     btn.addEventListener('click', () => {
         const exam    = document.getElementById('heroExam').value;
         const cls     = document.getElementById('heroClass').value;
-        const subject = document.getElementById('heroSubject').value;
 
         // Apply to sidebar filters
         if (document.getElementById('examFilter'))    document.getElementById('examFilter').value    = exam;
         if (document.getElementById('classFilter'))   document.getElementById('classFilter').value   = cls;
-        if (document.getElementById('subjectFilter')) document.getElementById('subjectFilter').value = subject;
 
         // Scroll to PYQ section
         document.getElementById('pyqs')?.scrollIntoView({ behavior: 'smooth' });
@@ -576,7 +563,7 @@ function initHeroSearch() {
 
 /* Filters */
 function initFilters() {
-    ['examFilter','yearFilter','classFilter','subjectFilter','sortFilter'].forEach(id => {
+    ['examFilter','yearFilter','classFilter','sortFilter'].forEach(id => {
         document.getElementById(id)?.addEventListener('change', applyFilters);
     });
     document.getElementById('clearFilters')?.addEventListener('click', clearFiltersAction);
@@ -586,14 +573,12 @@ function applyFilters() {
     const exam    = (document.getElementById('examFilter')?.value    || '').toLowerCase();
     const year    = (document.getElementById('yearFilter')?.value    || '');
     const cls     = (document.getElementById('classFilter')?.value   || '');
-    const subject = (document.getElementById('subjectFilter')?.value || '').toLowerCase();
     const sort    = document.getElementById('sortFilter')?.value || 'newest';
 
     let filtered = PYQ_DATA.filter(item => {
         return (!exam    || item.exam.toLowerCase().includes(exam))    &&
                (!year    || item.year    === year)                     &&
-               (!cls     || item.class   === cls)                      &&
-               (!subject || item.subject.toLowerCase().includes(subject));
+               (!cls     || item.class   === cls);
     });
 
     // Sort
@@ -605,7 +590,7 @@ function applyFilters() {
 }
 
 window.clearFiltersAction = function() {
-    ['examFilter','yearFilter','classFilter','subjectFilter'].forEach(id => {
+    ['examFilter','yearFilter','classFilter'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
