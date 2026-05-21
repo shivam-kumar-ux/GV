@@ -1,0 +1,205 @@
+/* GV Shahpur Admin Panel — matches school theme */
+:root {
+  --gv-primary: #2878EB;
+  --gv-secondary: #F14D5D;
+  --gv-dark: #120F2D;
+  --gv-navy: #1F4E79;
+  --gv-light: #ECF4FF;
+  --gv-sidebar-w: 260px;
+}
+
+body.admin-body {
+  font-family: "Open Sans", sans-serif;
+  background: #f4f7ff;
+  min-height: 100vh;
+}
+
+.admin-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #2878EB 100%);
+  padding: 24px;
+}
+
+.admin-login-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  max-width: 420px;
+  width: 100%;
+  padding: 40px 36px;
+}
+
+.admin-login-card img {
+  height: 72px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--gv-sidebar-w);
+  background: var(--gv-dark);
+  color: #fff;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform 0.3s;
+}
+
+.admin-sidebar .brand {
+  padding: 20px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.admin-sidebar .brand img {
+  height: 52px;
+  margin-bottom: 8px;
+}
+
+.admin-sidebar .brand h6 {
+  font-family: "Jost", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+  color: #fff;
+  background: rgba(40, 120, 235, 0.2);
+  border-left-color: var(--gv-primary);
+  text-decoration: none;
+}
+
+.admin-main {
+  margin-left: var(--gv-sidebar-w);
+  padding: 24px 28px 40px;
+  min-height: 100vh;
+}
+
+.admin-topbar {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(40, 120, 235, 0.08);
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-topbar h4 {
+  font-family: "Jost", sans-serif;
+  font-weight: 700;
+  color: var(--gv-dark);
+  margin: 0;
+}
+
+.admin-section {
+  display: none;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(40, 120, 235, 0.08);
+  padding: 24px;
+}
+
+.admin-section.active {
+  display: block;
+}
+
+.admin-card-item {
+  border: 1px solid #e8f0ff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: #fafbff;
+}
+
+.admin-card-item .form-group {
+  margin-bottom: 10px;
+}
+
+.admin-card-item label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gv-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.btn-gv-primary {
+  background: var(--gv-primary);
+  border-color: var(--gv-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.btn-gv-primary:hover {
+  background: #1e62b7;
+  border-color: #1e62b7;
+  color: #fff;
+}
+
+.btn-gv-danger {
+  background: var(--gv-secondary);
+  border-color: var(--gv-secondary);
+  color: #fff;
+}
+
+.admin-preview-img {
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #e8f0ff;
+}
+
+.admin-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  min-width: 280px;
+}
+
+.admin-nested {
+  border-left: 3px solid var(--gv-primary);
+  padding-left: 14px;
+  margin: 12px 0;
+}
+
+@media (max-width: 991px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  .admin-main {
+    margin-left: 0;
+  }
+}

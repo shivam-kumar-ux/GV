@@ -79,7 +79,7 @@
         </style>
     </head>
 
-    <body>
+    <body data-gv-page="result">
         <!-- Topbar Start -->
         <div class="container-fluid bg-dark">
             <div class="row py-2 px-lg-5">
@@ -94,16 +94,16 @@
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
                     <div class="d-inline-flex align-items-center">
-                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
                         </a>
                         <small class="px-3">|</small>
-                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank">
-                            <i class="fab fa-instagram"></i>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram" style="font-size:1rem;"></i>
                         </a>
                         <small class="px-3">|</small>
-                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank">
-                            <i class="fab fa-youtube"></i>
+                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube" style="font-size:1rem;"></i>
                         </a>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                     <div class="col-lg-8">
                         <div class="section-title text-center position-relative mb-5">
                             <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Check Results</h6>
-                            <h1 class="display-4">Search Your Results</h1>
+                            <h1 class="display-4" style="color:#1F4E79;">Search Your Results</h1>
                             <!-- <p class="mb-4">Enter your class, exam, and admission number to view your academic results.</p> -->
                         </div>
                         <div class="bg-white p-5 shadow">
@@ -231,7 +231,7 @@
                 <div class="col-lg-6">
                     <div class="section-title text-center position-relative mb-4">
                         <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>
-                        <h1 class="display-4">Top Performers</h1>
+                        <h1 class="display-4" style="color:#1F4E79;">Top Performers</h1>
                     </div>
                 </div>
             </div>
@@ -840,6 +840,21 @@
                 return 'rgba('+r+','+g+','+b+','+a+')';
             }
 
+            /* Dark blue text override (feedback: replace black/dark text with #0B2A4A) */
+            (function applyRbyDarkBlueTextOverride(){
+                try{
+                    document.querySelectorAll('#resultsByYearSection, #resultsByYearSection *')
+                        .forEach(function(el){
+                            var c = window.getComputedStyle(el).color;
+                            // Update only common dark-gray/black-ish values
+                            if(c === 'rgb(0, 0, 0)' || c === 'rgb(33, 37, 41)' || c === 'rgb(51, 51, 51)' || c === 'rgb(85, 85, 85)' || c === 'rgb(68, 68, 68)' ){
+                                el.style.color = '#0B2A4A';
+                            }
+                        });
+                }catch(e){}
+            })();
+
+
             function medalClass(rank) {
                 if (rank===1) return 'rby-medal-1';
                 if (rank===2) return 'rby-medal-2';
@@ -932,6 +947,17 @@
             renderTabs();
             renderPanel();
             renderStats();
+
+            window.gvRerenderResultsByYear = function () {
+                if (window.GV_CONTENT && window.GV_CONTENT.resultsByYear) {
+                    RBY_DATA = window.GV_CONTENT.resultsByYear;
+                    years = Object.keys(RBY_DATA).sort(function (a, b) { return b - a; });
+                    activeYear = years[0] || activeYear;
+                }
+                renderTabs();
+                renderPanel();
+                renderStats();
+            };
         })();
         </script>
         <!-- ===== RESULTS BY YEAR SECTION END ===== -->
@@ -1040,6 +1066,12 @@
         <script src="lib/counterup/counterup.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        <script src="js/firebase-config.js"></script>
+        <script src="js/gv-default-content.js"></script>
+        <script src="js/gv-firebase.js"></script>
+        <script src="js/gv-render.js"></script>
 
         <!-- Result JS inline fallback -->
         <script>

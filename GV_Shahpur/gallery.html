@@ -23,100 +23,325 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
-    
+
     <style>
-        .gallery-item {
-            position: relative;
+        /* ============================================
+           GALLERY PAGE — CUSTOM STYLES
+           ============================================ */
+
+        /* ---- Section headings ---- */
+        .gal-section-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 5px 18px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+        .gal-section-tag.yt  { background: rgba(255,0,0,0.1);   color: #cc0000; border: 1px solid rgba(255,0,0,0.25); }
+        .gal-section-tag.ig  { background: rgba(193,53,132,0.1); color: #c13584; border: 1px solid rgba(193,53,132,0.25); }
+        .gal-section-tag.mem { background: rgba(40,120,235,0.1); color: #1F4E79; border: 1px solid rgba(40,120,235,0.25); }
+
+        /* ============================================
+           YOUTUBE SECTION
+           ============================================ */
+        #section-youtube {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #0d1f35 100%);
+            padding: 70px 0;
             overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-        .gallery-overlay h5 {
-            color: white;
-            margin: 0;
-            font-size: 16px;
-        }
-        .gallery-overlay p {
-            color: #ccc;
-            margin: 5px 0 0 0;
-            font-size: 14px;
-        }
-        .video-thumbnail {
             position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
         }
-        .video-thumbnail img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .play-button {
+        #section-youtube .section-title h1 { color: #fff; }
+        #section-youtube .section-title h6 { color: #aaa; }
+
+        /* Decorative dotted background (copied from result.html design) */
+        #section-youtube .yt-dots-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        #section-youtube .yt-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .yt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+        .yt-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1d2f56;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .yt-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+
+        .yt-thumb-wrap {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 */
+            background: #111;
+        }
+        .yt-thumb-wrap img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+        .yt-thumb-wrap iframe {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            border: none;
+            display: none;
+        }
+        .yt-thumb-wrap.playing img,
+        .yt-thumb-wrap.playing .yt-play-btn { display: none !important; }
+        .yt-thumb-wrap.playing iframe { display: block; }
+
+        .yt-play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(40, 120, 235, 0.9);
+            width: 64px; height: 64px;
+            background: rgba(204,0,0,0.92);
             border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.25s, transform 0.25s;
+            pointer-events: none;
+        }
+        .yt-card:hover .yt-play-btn { background: #cc0000; transform: translate(-50%, -50%) scale(1.1); }
+        .yt-play-btn i { color: #fff; font-size: 24px; margin-left: 4px; }
+
+        .yt-info { padding: 14px 16px 16px; }
+        .yt-info h6 { color: #f1f1f1; font-family: 'Jost', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; line-height: 1.4; }
+        .yt-info span { color: #aaa; font-size: 0.75rem; }
+
+        /* ============================================
+           INSTAGRAM SECTION
+           ============================================ */
+        #section-instagram { background: #fafafa; padding: 70px 0; }
+
+        .ig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+        .ig-card {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .ig-card:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(0,0,0,0.14); }
+
+        /* Native Instagram embed wrapper */
+        .ig-embed-wrap {
+            width: 100%;
+            min-height: 480px;
+            overflow: hidden;
+        }
+        .ig-embed-wrap blockquote.instagram-media {
+            margin: 0 !important;
+            min-width: unset !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* ============================================
+           MEMORIES / YEAR-WISE SECTION
+           ============================================ */
+        #section-memories { background: #fff; padding: 70px 0; }
+
+        /* Dark blue text override (feedback: replace black/dark text with #0B2A4A) */
+        #section-youtube,
+        #section-instagram,
+        #section-memories { color: #0B2A4A; }
+
+
+        /* --- Year filter pills --- */
+        .year-filter-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        .yr-pill {
+            cursor: pointer;
+            border: 2px solid #dee2e6;
+            background: transparent;
+            color: #0B2A4A;
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 1px;
+            padding: 8px 24px;
+            border-radius: 50px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .yr-pill::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, #1F4E79, #2878EB);
+            opacity: 0;
+            transition: opacity 0.25s;
+            border-radius: 50px;
+            z-index: 0;
+        }
+        .yr-pill span { position: relative; z-index: 1; }
+        .yr-pill:hover { border-color: #2878EB; color: #2878EB; transform: translateY(-2px); }
+        .yr-pill.active { border-color: transparent; color: #fff; }
+        .yr-pill.active::before { opacity: 1; }
+        .yr-pill.active span { color: #fff; }
+
+        /* --- Year panel --- */
+        .yr-panel { display: none; animation: yrFadeIn 0.45s ease both; }
+        .yr-panel.active { display: block; }
+        @keyframes yrFadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Event block inside a year --- */
+        .event-block { margin-bottom: 56px; }
+        .event-header {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .event-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1F4E79, #2878EB);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .event-title { font-family: 'Jost', sans-serif; font-weight: 700; font-size: 1.25rem; color: #1F4E79; margin: 0; }
+        .event-date  { font-size: 0.8rem; color: #0B2A4A; margin: 0; }
+
+
+        /* --- Photo grid --- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: #e9ecef;
             cursor: pointer;
-            transition: background 0.3s ease;
+            animation: photoIn 0.4s ease both;
         }
-        .play-button:hover {
-            background: #2878EB;
+        @keyframes photoIn {
+            from { opacity: 0; transform: scale(0.94); }
+            to   { opacity: 1; transform: scale(1); }
         }
-        .play-button i {
-            color: white;
-            font-size: 30px;
-            margin-left: 5px;
+        .photo-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+            display: block;
         }
-        .year-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #2878EB;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+        .photo-item:hover img { transform: scale(1.08); }
+
+        .photo-item .photo-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex; align-items: flex-end;
+            padding: 10px 12px;
+        }
+        .photo-item:hover .photo-overlay { opacity: 1; }
+        .photo-overlay span { color: #fff; font-size: 0.78rem; font-weight: 600; }
+
+        /* Hidden extra photos */
+        .photo-item.hidden-photo { display: none; }
+        .photo-item.hidden-photo.revealed { display: block; }
+
+        /* More button */
+        .btn-more-photos {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 9px 24px;
+            border-radius: 50px;
+            border: 2px solid #2878EB;
+            background: transparent;
+            color: #2878EB;
+            font-family: 'Jost', sans-serif;
             font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
-        .nav-pills .nav-link.active {
-            background-color: #2878EB;
+        .btn-more-photos:hover { background: #2878EB; color: #fff; }
+        .btn-more-photos i { font-size: 0.8rem; transition: transform 0.25s; }
+        .btn-more-photos.expanded i { transform: rotate(180deg); }
+
+        /* ============================================
+           LIGHTBOX
+           ============================================ */
+        #gal-lightbox {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.94);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
-        .nav-pills .nav-link {
-            color: #333;
+        #gal-lightbox.open { display: flex; }
+        #gal-lightbox img {
+            max-width: 90vw;
+            max-height: 82vh;
+            border-radius: 8px;
+            box-shadow: 0 0 60px rgba(0,0,0,0.7);
+            object-fit: contain;
         }
+        #lb-caption { color: rgba(255,255,255,0.7); margin-top: 14px; font-size: 0.85rem; }
+        #lb-close {
+            position: absolute; top: 20px; right: 24px;
+            color: #fff; font-size: 2rem; cursor: pointer;
+            background: none; border: none; line-height: 1;
+            transition: color 0.2s;
+        }
+        #lb-close:hover { color: #ffc107; }
+        #lb-prev, #lb-next {
+            position: absolute; top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: none; color: #fff;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        #lb-prev { left: 18px; }
+        #lb-next { right: 18px; }
+        #lb-prev:hover, #lb-next:hover { background: rgba(255,255,255,0.25); }
     </style>
 </head>
 
-<body>
+<body data-gv-page="gallery">
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark">
         <div class="row py-2 px-lg-5">
@@ -129,18 +354,18 @@
                     <small>Affiliation No.-331280</small>
                 </div>
             </div>
-            <div class="col-lg-6 text-center text-lg-right">
+<div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
+                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
                     </a>
                     <small class="px-3">|</small>
-                    <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank">
-                        <i class="fab fa-instagram"></i>
+                    <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram" style="font-size:1rem;"></i>
                     </a>
                     <small class="px-3">|</small>
-                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank">
-                        <i class="fab fa-youtube"></i>
+                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube" style="font-size:1rem;"></i>
                     </a>
                 </div>
             </div>
@@ -155,7 +380,6 @@
             <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
                 <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
                 <div class="ml-2">
-                    <!--<h3 class="m-0 font-weight-bold" style="color: #2878EB;">GYANODAY VIDYALAYA</h3>-->
                 </div>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -202,356 +426,103 @@
     <!-- Header End -->
 
 
-    <!-- Gallery Filter Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="section-title text-center position-relative mb-5">
-                <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Memories</h6>
-                <h1 class="display-4">Events & Activities Gallery</h1>
-            </div>
-            
-            <div class="row mb-4">
-                <div class="col-12 text-center">
-                    <ul class="nav nav-pills justify-center mb-4" id="galleryTabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="all-tab" data-toggle="pill" href="#all">All Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="annual-tab" data-toggle="pill" href="#annual">Annual Function</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="sports-tab" data-toggle="pill" href="#sports">Sports Day</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="exhibition-tab" data-toggle="pill" href="#exhibition">Exhibition</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="cultural-tab" data-toggle="pill" href="#cultural">Cultural</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <!-- ================================================
+         SECTION 1 — YOUTUBE VIDEOS
+         ================================================ -->
+    <div id="section-youtube">
+        <!-- Decorative dotted background -->
+        <div class="yt-dots-overlay">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0.06;">
+                <defs>
+                    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1.5" fill="#fff"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dots)"/>
+            </svg>
+        </div>
 
-            <div class="tab-content" id="galleryTabsContent">
-                <!-- All Events Tab -->
-                <div class="tab-pane fade show active" id="all">
-                    <h3 class="mb-4">Annual Function 2023</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-1.jpg" alt="Annual Function">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Annual Function</h5>
-                                    <p>Annual function celebration</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-2.jpg" alt="Cultural Dance">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Cultural Dance</h5>
-                                    <p>Student performances</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-3.jpg" alt="Prize Distribution">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Prize Distribution</h5>
-                                    <p>Awarding top students</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3 class="mb-4 mt-5">Sports Day 2023</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-4.jpg" alt="Sports Day">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Sports Day</h5>
-                                    <p>Annual sports competition</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-5.jpg" alt="Race">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Track Events</h5>
-                                    <p>Running competition</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-6.jpg" alt="Winner">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Winners</h5>
-                                    <p>Sports awards</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3 class="mb-4 mt-5">Science Exhibition 2022</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-1.jpg" alt="Exhibition">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Science Exhibition</h5>
-                                    <p>Student projects</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-2.jpg" alt="Projects">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Innovation</h5>
-                                    <p>Science models</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-3.jpg" alt="Exhibition">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Exhibition</h5>
-                                    <p>Display of projects</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3 class="mb-4 mt-5">Videos</h3>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="video-thumbnail">
-                                <img src="img/header.jpg" alt="Video Thumbnail">
-                                <div class="play-button">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="year-badge">2023</div>
-                            </div>
-                            <h5>Annual Function Highlights 2023</h5>
-                            <p class="text-muted">Duration: 5:30 | Views: 1500+</p>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="video-thumbnail">
-                                <img src="img/about.jpg" alt="Video Thumbnail">
-                                <div class="play-button">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="year-badge">2023</div>
-                            </div>
-                            <h5>Sports Day 2023 Highlights</h5>
-                            <p class="text-muted">Duration: 8:15 | Views: 1200+</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Annual Function Tab -->
-                <div class="tab-pane fade" id="annual">
-                    <h3 class="mb-4">Annual Function Gallery</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-1.jpg" alt="Annual Function">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Annual Function</h5>
-                                    <p>2023 Celebration</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-2.jpg" alt="Annual Function">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Annual Function</h5>
-                                    <p>2022 Celebration</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-3.jpg" alt="Annual Function">
-                                <div class="year-badge">2021</div>
-                                <div class="gallery-overlay">
-                                    <h5>Annual Function</h5>
-                                    <p>2021 Celebration</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sports Day Tab -->
-                <div class="tab-pane fade" id="sports">
-                    <h3 class="mb-4">Sports Day Gallery</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-4.jpg" alt="Sports Day">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Sports Day</h5>
-                                    <p>Annual sports</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-5.jpg" alt="Sports Day">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Sports Day</h5>
-                                    <p>Annual sports</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/courses-6.jpg" alt="Sports Day">
-                                <div class="year-badge">2021</div>
-                                <div class="gallery-overlay">
-                                    <h5>Sports Day</h5>
-                                    <p>Annual sports</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Exhibition Tab -->
-                <div class="tab-pane fade" id="exhibition">
-                    <h3 class="mb-4">Exhibition Gallery</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-1.jpg" alt="Science Exhibition">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Science Exhibition</h5>
-                                    <p>Student projects</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-2.jpg" alt="Art Exhibition">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Art Exhibition</h5>
-                                    <p>Creative artworks</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/team-3.jpg" alt="Exhibition">
-                                <div class="year-badge">2021</div>
-                                <div class="gallery-overlay">
-                                    <h5>Exhibition</h5>
-                                    <p>Annual display</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cultural Tab -->
-                <div class="tab-pane fade" id="cultural">
-                    <h3 class="mb-4">Cultural Events Gallery</h3>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/testimonial-1.jpg" alt="Cultural">
-                                <div class="year-badge">2023</div>
-                                <div class="gallery-overlay">
-                                    <h5>Festival Celebration</h5>
-                                    <p>Cultural programs</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/testimonial-2.jpg" alt="Cultural">
-                                <div class="year-badge">2022</div>
-                                <div class="gallery-overlay">
-                                    <h5>Festival Celebration</h5>
-                                    <p>Cultural programs</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="gallery-item">
-                                <img src="img/feature.jpg" alt="Cultural">
-                                <div class="year-badge">2021</div>
-                                <div class="gallery-overlay">
-                                    <h5>Festival Celebration</h5>
-                                    <p>Cultural programs</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="yt-content">
+            <div class="container py-2">
+                <div class="section-title text-center position-relative mb-5">
+                <span class="gal-section-tag yt"><i class="fab fa-youtube mr-2"></i>YouTube Channel</span>
+                <h1 class="display-4" style="color:#fff;">Watch Our Videos</h1>
+                <p style="color:#aaa; max-width:520px; margin:10px auto 0; font-size:0.95rem;">Live from Gyanoday Vidyalaya's official YouTube channel — events, achievements & more.</p>
+                <a href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"
+                   style="display:inline-block;margin-top:14px;padding:7px 22px;border:1px solid rgba(255,0,0,0.5);border-radius:50px;color:#ff4444;font-size:0.8rem;font-weight:600;text-decoration:none;transition:all 0.25s;"
+                   onmouseover="this.style.background='#cc0000';this.style.color='#fff';this.style.borderColor='#cc0000';"
+                   onmouseout="this.style.background='transparent';this.style.color='#ff4444';this.style.borderColor='rgba(255,0,0,0.5)';">
+                    <i class="fab fa-youtube mr-1"></i> Visit Full Channel
+                </a>
             </div>
 
-            <!-- Video Section -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h2 class="mb-4 text-center">Video Gallery</h2>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="video-thumbnail">
-                        <img src="img/header.jpg" alt="Video">
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="year-badge">2023</div>
-                    </div>
-                    <h5>Annual Function Video</h5>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="video-thumbnail">
-                        <img src="img/about.jpg" alt="Video">
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="year-badge">2023</div>
-                    </div>
-                    <h5>Sports Day Video</h5>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="video-thumbnail">
-                        <img src="img/feature.jpg" alt="Video">
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="year-badge">2022</div>
-                    </div>
-                    <h5>Exhibition Video</h5>
-                </div>
+            <div class="yt-grid" id="ytGrid">
+                <!-- Cards rendered by JS — replace VIDEO_ID values with real YouTube video IDs -->
             </div>
         </div>
     </div>
-    <!-- Gallery Filter End -->
+
+
+    <!-- ================================================
+         SECTION 2 — INSTAGRAM POSTS
+         ================================================ -->
+    <div id="section-instagram">
+        <div class="container py-2">
+            <div class="section-title text-center position-relative mb-5">
+                <span class="gal-section-tag ig"><i class="fab fa-instagram mr-2"></i>Instagram</span>
+                <h1 class="display-4" style="color:#1F4E79;">Latest on Instagram</h1>
+                <p style="color:#103c69; max-width:520px; margin:10px auto 0; font-size:0.95rem;">Follow us <a href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" style="color:#c13584;font-weight:600;">@gyanodayvidyalaya</a> for daily moments from campus life.</p>
+            </div>
+
+            <div class="ig-grid" id="igGrid">
+                <!-- Instagram native embeds injected by JS -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"
+                   class="btn btn-lg px-5"
+                   style="border:2px solid #c13584;color:#c13584;border-radius:50px;font-family:'Jost',sans-serif;font-weight:600;transition:all 0.25s;"
+                   onmouseover="this.style.background='#c13584';this.style.color='#fff';"
+                   onmouseout="this.style.background='transparent';this.style.color='#c13584';">
+                    <i class="fab fa-instagram mr-2"></i>View All Posts
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================================================
+         SECTION 3 — OUR MEMORIES (YEAR-WISE)
+         ================================================ -->
+    <div id="section-memories">
+        <div class="container py-2">
+            <div class="section-title text-center position-relative mb-4">
+                <span class="gal-section-tag mem"><i class="fa fa-images mr-2"></i>Our Memories</span>
+                <h1 class="display-4" style="color:#1F4E79;">Events Through the Years</h1>
+                <p style="color:#666; max-width:520px; margin:10px auto 0; font-size:0.95rem;">Select a year to relive the moments — every event, every smile, every achievement.</p>
+            </div>
+
+            <!-- Year filter pills -->
+            <div class="year-filter-wrap" id="yearFilterWrap">
+                <!-- Injected by JS -->
+            </div>
+
+            <!-- Year panels -->
+            <div id="yearPanels">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lightbox -->
+    <div id="gal-lightbox">
+        <button id="lb-close">&times;</button>
+        <button id="lb-prev"><i class="fa fa-chevron-left"></i></button>
+        <img id="lb-img" src="" alt="">
+        <p id="lb-caption"></p>
+        <button id="lb-next"><i class="fa fa-chevron-right"></i></button>
+    </div>
 
 
     <!-- Footer Start -->
@@ -593,31 +564,22 @@
                     <div class="map-container">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin" 
-                            width="100%" 
-                            height="250" 
-                            style="border:0; border-radius: 10px;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
+                            width="100%" height="250" style="border:0; border-radius: 10px;" 
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256,256,256,.1) !important;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.
-                    </p>
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Designed with 
-                        <!--<i class="fa fa-heart text-danger"></i>--> 
-                        by 
-                        <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a>
-                    </p>
+                    <p class="m-0">Designed with by <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a></p>
                 </div>
             </div>
         </div>
@@ -636,15 +598,412 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/gv-default-content.js"></script>
+    <script src="js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
+
+    <!-- Instagram embed script (required for native embeds) -->
+    <script async defer src="https://www.instagram.com/embed.js"></script>
+
     <script>
-        // Simple video play button functionality
-        $('.play-button').click(function() {
-            alert('Video would play here. Please add your video file path.');
+    // ================================================================
+    //  GALLERY DATA
+    //  ---------------------------------------------------------------
+    //  YOUTUBE: Replace the `id` values below with real YouTube video
+    //  IDs from your school's channel. The ID is the part after
+    //  "watch?v=" in a YouTube URL, e.g. "dQw4w9WgXcQ".
+    //
+    //  INSTAGRAM: Replace the `url` values with real public post URLs
+    //  from https://www.instagram.com/gyanodayvidyalaya/
+    //
+    //  MEMORIES: Replace photo paths and add real events/years.
+    //  Add `photo: "img/gallery/your-image.jpg"` for each photo.
+    //  The first 4 show by default; extras appear on "Show More".
+    // ================================================================
+
+    /* ---------- YOUTUBE VIDEOS ---------- */
+    var YT_VIDEOS = [
+        {
+            id:    "REPLACE_VIDEO_ID_1",          // ← paste real YouTube video ID
+            title: "Annual Function 2024 Highlights",
+            date:  "Dec 2024"
+        },
+        {
+            id:    "REPLACE_VIDEO_ID_2",
+            title: "Result Celebration — Sainik School Toppers",
+            date:  "Apr 2025"
+        },
+        {
+            id:    "REPLACE_VIDEO_ID_3",
+            title: "Sports Day 2024",
+            date:  "Feb 2024"
+        }
+    ];
+
+    /* ---------- INSTAGRAM POSTS ---------- */
+    // Paste the full URL of each public Instagram post from the school's account.
+    var IG_POSTS = [
+        "https://www.instagram.com/p/REPLACE_POST_ID_1/",   // ← real post URL
+        "https://www.instagram.com/p/REPLACE_POST_ID_2/",
+        "https://www.instagram.com/p/REPLACE_POST_ID_3/",
+        "https://www.instagram.com/p/REPLACE_POST_ID_4/"
+    ];
+
+    /* ---------- MEMORIES DATA ---------- */
+    // Structure:
+    //   year  → array of events
+    //   event → { title, icon (emoji), date, photos: [{src, caption}] }
+    // First 4 photos show immediately; rest appear on "Show More".
+    var MEMORIES = {
+        "2025": [
+            {
+                title: "Annual Function 2025",
+                icon:  "🎭",
+                date:  "December 2025",
+                photos: [
+                    { src: "img/courses-1.jpg", caption: "Opening ceremony" },
+                    { src: "img/courses-2.jpg", caption: "Cultural dance performance" },
+                    { src: "img/courses-3.jpg", caption: "Prize distribution" },
+                    { src: "img/courses-4.jpg", caption: "Drama presentation" },
+                    { src: "img/courses-5.jpg", caption: "Musical evening" },
+                    { src: "img/courses-6.jpg", caption: "Guest of honour speech" },
+                    { src: "img/about.jpg",     caption: "Group photograph" }
+                ]
+            },
+            {
+                title: "Result Celebration — Board & Competitive Exams",
+                icon:  "🏆",
+                date:  "April 2025",
+                photos: [
+                    { src: "img/result/yash.jpg",     caption: "Yash Raj — Sainik School AIR 58" },
+                    { src: "img/result/shivam.JPG",   caption: "Shivam Kumar — Sainik School AIR 113" },
+                    { src: "img/result/anjali.JPG",   caption: "Anjali Kumari — Simultala & Sainik School" },
+                    { src: "img/result/sunny.JPG",    caption: "Sunny Kumar — CBSE Board Topper" },
+                    { src: "img/result/supriya.JPG",  caption: "Supriya Rani — Girls' Topper" },
+                    { src: "img/result/shivansh.jpg", caption: "Shivansh Singh — RIMC Bihar Topper" }
+                ]
+            },
+            {
+                title: "Republic Day 2025",
+                icon:  "🇮🇳",
+                date:  "January 2025",
+                photos: [
+                    { src: "img/header.jpg",    caption: "Flag hoisting ceremony" },
+                    { src: "img/feature.jpg",   caption: "March past" },
+                    { src: "img/about.jpg",     caption: "Cultural programme" },
+                    { src: "img/team-1.jpg",    caption: "NCC contingent" },
+                    { src: "img/about.jpg",     caption: "Cultural programme" },
+                    { src: "img/team-1.jpg",    caption: "NCC contingent" }
+                ]
+            }
+        ],
+        "2024": [
+            {
+                title: "Annual Function 2024",
+                icon:  "🎭",
+                date:  "December 2024",
+                photos: [
+                    { src: "img/courses-1.jpg", caption: "Stage performance" },
+                    { src: "img/courses-2.jpg", caption: "Dance competition" },
+                    { src: "img/courses-3.jpg", caption: "Award ceremony" },
+                    { src: "img/courses-4.jpg", caption: "Talent show" },
+                    { src: "img/courses-5.jpg", caption: "Cultural items" },
+                    { src: "img/team-1.jpg",    caption: "Teachers felicitation" }
+                ]
+            },
+            {
+                title: "Sports Day 2024",
+                icon:  "⚽",
+                date:  "February 2024",
+                photos: [
+                    { src: "img/courses-4.jpg", caption: "March past" },
+                    { src: "img/courses-5.jpg", caption: "100m sprint" },
+                    { src: "img/courses-6.jpg", caption: "Long jump" },
+                    { src: "img/team-2.jpg",    caption: "Tug of war" },
+                    { src: "img/team-3.jpg",    caption: "Winners podium" }
+                ]
+            },
+            {
+                title: "Result Celebration 2024 — Sainik School Toppers",
+                icon:  "🎖️",
+                date:  "April 2024",
+                photos: [
+                    { src: "img/result/kanhaiya.JPG", caption: "Kanhaiya Jee — JH State Topper" },
+                    { src: "img/result/roushan.JPG",  caption: "Roushan Kr Yadav — Sainik School" },
+                    { src: "img/team-1.jpg",          caption: "Certificate distribution" },
+                    { src: "img/team-2.jpg",          caption: "Group photo with teachers" }
+                ]
+            }
+        ],
+        "2023": [
+            {
+                title: "Annual Function 2023",
+                icon:  "🎭",
+                date:  "December 2023",
+                photos: [
+                    { src: "img/courses-1.jpg", caption: "Stage decoration" },
+                    { src: "img/courses-2.jpg", caption: "Cultural dance" },
+                    { src: "img/courses-3.jpg", caption: "Prize distribution" },
+                    { src: "img/courses-4.jpg", caption: "Drama" },
+                    { src: "img/courses-5.jpg", caption: "Singing competition" }
+                ]
+            },
+            {
+                title: "Science Exhibition 2023",
+                icon:  "🔬",
+                date:  "November 2023",
+                photos: [
+                    { src: "img/team-1.jpg", caption: "Student project displays" },
+                    { src: "img/team-2.jpg", caption: "Working models" },
+                    { src: "img/team-3.jpg", caption: "Innovation corner" },
+                    { src: "img/feature.jpg", caption: "Judges evaluation" },
+                    { src: "img/about.jpg",  caption: "Best project award" }
+                ]
+            },
+            {
+                title: "Sports Day 2023",
+                icon:  "⚽",
+                date:  "February 2023",
+                photos: [
+                    { src: "img/courses-4.jpg", caption: "Athletics" },
+                    { src: "img/courses-5.jpg", caption: "Track events" },
+                    { src: "img/courses-6.jpg", caption: "Awards" },
+                    { src: "img/team-2.jpg",    caption: "Group sports" }
+                ]
+            }
+        ]
+    };
+
+    // ================================================================
+    //  RENDERERS
+    // ================================================================
+
+    /* ---- YouTube ---- */
+    window.gvRenderYT = function renderYT() {
+        var grid = document.getElementById('ytGrid');
+        if (!grid) return;
+        var html = '';
+        YT_VIDEOS.forEach(function(v) {
+            var thumbUrl = v.id.startsWith('REPLACE')
+                ? 'img/header.jpg'  // placeholder until real ID added
+                : 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg';
+            html += '<div class="yt-card" onclick="playYT(this,\'' + v.id + '\')">' +
+                '<div class="yt-thumb-wrap">' +
+                    '<img src="' + thumbUrl + '" alt="' + v.title + '" onerror="this.src=\'img/header.jpg\'">' +
+                    '<div class="yt-play-btn"><i class="fas fa-play"></i></div>' +
+                    '<iframe data-src="https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>' +
+                '</div>' +
+                '<div class="yt-info"><h6>' + v.title + '</h6><span><i class="fab fa-youtube mr-1" style="color:#cc0000;"></i>' + v.date + '</span></div>' +
+            '</div>';
         });
+        grid.innerHTML = html;
+    };
+    window.gvRenderYT();
+
+    function playYT(card, videoId) {
+        if (videoId.startsWith('REPLACE')) {
+            window.open('https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng', '_blank');
+            return;
+        }
+        var wrap = card.querySelector('.yt-thumb-wrap');
+        var iframe = wrap.querySelector('iframe');
+        iframe.src = iframe.getAttribute('data-src');
+        wrap.classList.add('playing');
+    }
+
+    /* ---- Instagram ---- */
+    window.gvRenderIG = function renderIG() {
+        var grid = document.getElementById('igGrid');
+        if (!grid) return;
+        var html = '';
+        IG_POSTS.forEach(function(url) {
+            if (url.includes('REPLACE')) {
+                // Placeholder card until real URLs are added
+                html += '<div class="ig-card" style="min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#ccc;gap:10px;">' +
+                    '<i class="fab fa-instagram" style="font-size:2.5rem;color:#c13584;"></i>' +
+                    '<p style="font-size:0.82rem;text-align:center;padding:0 20px;color:#aaa;">Add a real Instagram post URL in the <code>IG_POSTS</code> array to display it here.</p>' +
+                    '<a href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" style="color:#c13584;font-size:0.8rem;font-weight:600;">@gyanodayvidyalaya</a>' +
+                '</div>';
+            } else {
+                html += '<div class="ig-card"><div class="ig-embed-wrap">' +
+                    '<blockquote class="instagram-media" data-instgrm-permalink="' + url + '" data-instgrm-version="14" style="width:100%;min-width:unset;max-width:100%;margin:0;"></blockquote>' +
+                '</div></div>';
+            }
+        });
+        grid.innerHTML = html;
+        // Re-process embeds after injecting
+        if (window.instgrm && window.instgrm.Embeds) {
+            window.instgrm.Embeds.process();
+        }
+    };
+    window.gvRenderIG();
+
+    /* ---- Memories / Year-wise ---- */
+    window.gvRenderMemories = function renderMemories() {
+        var filterWrap = document.getElementById('yearFilterWrap');
+        var panelWrap  = document.getElementById('yearPanels');
+        if (!filterWrap || !panelWrap) return;
+
+        var years = Object.keys(MEMORIES).sort(function(a,b){ return b-a; });
+        var activeYear = years[0];
+
+        // Build year pills
+        var pillsHtml = '';
+        years.forEach(function(yr) {
+            pillsHtml += '<button class="yr-pill' + (yr===activeYear?' active':'') + '" data-year="' + yr + '"><span>' + yr + '</span></button>';
+        });
+        filterWrap.innerHTML = pillsHtml;
+
+        // Build all year panels
+        var panelsHtml = '';
+        years.forEach(function(yr) {
+            panelsHtml += '<div class="yr-panel' + (yr===activeYear?' active':'') + '" id="yr-panel-' + yr + '">';
+            var events = MEMORIES[yr];
+            events.forEach(function(ev, ei) {
+                panelsHtml += buildEventBlock(ev, yr + '-' + ei);
+            });
+            panelsHtml += '</div>';
+        });
+        panelWrap.innerHTML = panelsHtml;
+
+        // Pill click
+        filterWrap.addEventListener('click', function(e) {
+            var btn = e.target.closest('.yr-pill');
+            if (!btn) return;
+            var yr = btn.getAttribute('data-year');
+            // Update pills
+            filterWrap.querySelectorAll('.yr-pill').forEach(function(p){ p.classList.remove('active'); });
+            btn.classList.add('active');
+            // Update panels
+            panelWrap.querySelectorAll('.yr-panel').forEach(function(p){ p.classList.remove('active'); });
+            var panel = document.getElementById('yr-panel-' + yr);
+            if (panel) panel.classList.add('active');
+        });
+    };
+    window.gvRenderMemories();
+
+    document.addEventListener('gvContentReady', function () {
+        if (window.GV_CONTENT && window.GV_CONTENT.gallery) {
+            window.YT_VIDEOS = GV_CONTENT.gallery.youtube || YT_VIDEOS;
+            window.IG_POSTS = GV_CONTENT.gallery.instagram || IG_POSTS;
+            window.MEMORIES = GV_CONTENT.gallery.memories || MEMORIES;
+        }
+        if (window.gvRenderYT) window.gvRenderYT();
+        if (window.gvRenderIG) window.gvRenderIG();
+        if (window.gvRenderMemories) window.gvRenderMemories();
+    });
+
+    function buildEventBlock(ev, uid) {
+        var photos = ev.photos;
+        var firstFour = photos.slice(0, 4);
+        var rest      = photos.slice(4);
+
+        var gridHtml = '';
+        firstFour.forEach(function(p, i) {
+            gridHtml += photoCard(p, uid, i, false);
+        });
+        rest.forEach(function(p, i) {
+            gridHtml += photoCard(p, uid, i + 4, true);
+        });
+
+        var moreBtn = rest.length > 0
+            ? '<button class="btn-more-photos" onclick="toggleMore(this,\'' + uid + '\')">' +
+                '<i class="fa fa-chevron-down"></i>' +
+                '<span>' + rest.length + ' more photos</span>' +
+              '</button>'
+            : '';
+
+        return '<div class="event-block">' +
+            '<div class="event-header">' +
+                '<div class="event-icon">' + ev.icon + '</div>' +
+                '<div>' +
+                    '<h4 class="event-title">' + ev.title + '</h4>' +
+                    '<p class="event-date"><i class="fa fa-calendar-alt mr-1"></i>' + ev.date + '</p>' +
+                '</div>' +
+            '</div>' +
+            '<div class="photo-grid" id="grid-' + uid + '">' + gridHtml + '</div>' +
+            moreBtn +
+        '</div>';
+    }
+
+    function photoCard(photo, uid, index, hidden) {
+        var cls = 'photo-item' + (hidden ? ' hidden-photo' : '');
+        return '<div class="' + cls + '" data-uid="' + uid + '" data-index="' + index + '" style="animation-delay:' + (index*0.05) + 's" onclick="openLightbox(\'' + uid + '\',' + index + ')">' +
+            '<img src="' + photo.src + '" alt="' + photo.caption + '" loading="lazy" onerror="this.parentElement.style.background=\'#dee2e6\'">' +
+            '<div class="photo-overlay"><span>' + photo.caption + '</span></div>' +
+        '</div>';
+    }
+
+    function toggleMore(btn, uid) {
+        var hidden = document.querySelectorAll('#grid-' + uid + ' .hidden-photo');
+        var expanded = btn.classList.contains('expanded');
+        hidden.forEach(function(el) {
+            if (expanded) { el.classList.remove('revealed'); }
+            else          { el.classList.add('revealed'); }
+        });
+        btn.classList.toggle('expanded');
+        if (expanded) {
+            btn.innerHTML = '<i class="fa fa-chevron-down"></i><span>' + hidden.length + ' more photos</span>';
+        } else {
+            btn.innerHTML = '<i class="fa fa-chevron-up"></i><span>Show less</span>';
+        }
+    }
+
+    // ---- Lightbox ----
+    var lbImages = [];
+    var lbCurrent = 0;
+
+    function openLightbox(uid, startIndex) {
+        // Gather all photo items for this event (revealed or not, for full nav)
+        var items = document.querySelectorAll('[data-uid="' + uid + '"]');
+        lbImages = [];
+        items.forEach(function(el) {
+            lbImages.push({
+                src:     el.querySelector('img').src,
+                caption: el.querySelector('.photo-overlay span').textContent
+            });
+        });
+        lbCurrent = startIndex;
+        showLbImage();
+        document.getElementById('gal-lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function showLbImage() {
+        var img = lbImages[lbCurrent];
+        document.getElementById('lb-img').src = img.src;
+        document.getElementById('lb-caption').textContent = img.caption + '  (' + (lbCurrent+1) + ' / ' + lbImages.length + ')';
+    }
+
+    document.getElementById('lb-close').onclick = function() {
+        document.getElementById('gal-lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    };
+    document.getElementById('lb-prev').onclick = function() {
+        lbCurrent = (lbCurrent - 1 + lbImages.length) % lbImages.length;
+        showLbImage();
+    };
+    document.getElementById('lb-next').onclick = function() {
+        lbCurrent = (lbCurrent + 1) % lbImages.length;
+        showLbImage();
+    };
+    document.getElementById('gal-lightbox').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        var lb = document.getElementById('gal-lightbox');
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') { lb.classList.remove('open'); document.body.style.overflow=''; }
+        if (e.key === 'ArrowLeft')  { lbCurrent=(lbCurrent-1+lbImages.length)%lbImages.length; showLbImage(); }
+        if (e.key === 'ArrowRight') { lbCurrent=(lbCurrent+1)%lbImages.length; showLbImage(); }
+    });
     </script>
 </body>
 

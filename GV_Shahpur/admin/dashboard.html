@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard - GV Shahpur Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link href="../img/H_logo.png" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="brand">
+            <img src="../img/H_logo.png" alt="GV">
+            <h6>Website Admin</h6>
+        </div>
+        <nav class="py-2">
+            <a href="#" class="admin-nav-link active" data-section="overview"><i class="fa fa-home"></i> Overview</a>
+            <a href="#" class="admin-nav-link" data-section="achievers"><i class="fa fa-trophy"></i> Achievers</a>
+            <a href="#" class="admin-nav-link" data-section="alumni"><i class="fa fa-user-graduate"></i> Alumni</a>
+            <a href="#" class="admin-nav-link" data-section="programs"><i class="fa fa-book"></i> Programs</a>
+            <a href="#" class="admin-nav-link" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
+            <a href="#" class="admin-nav-link" data-section="youtube"><i class="fab fa-youtube"></i> Videos</a>
+            <a href="#" class="admin-nav-link" data-section="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="admin-nav-link" data-section="memories"><i class="fa fa-images"></i> Events</a>
+            <a href="#" class="admin-nav-link" data-section="hostel"><i class="fa fa-utensils"></i> Hostel Menu</a>
+            <a href="#" class="admin-nav-link" data-section="disclosure"><i class="fa fa-file-pdf"></i> Disclosure</a>
+            <a href="#" class="admin-nav-link" data-section="notices"><i class="fa fa-bell"></i> Notices</a>
+        </nav>
+        <div class="p-3 border-top" style="border-color:rgba(255,255,255,.1)!important;">
+            <a href="../index.html" class="admin-nav-link" target="_blank"><i class="fa fa-external-link-alt"></i> View Website</a>
+            <a href="#" class="admin-nav-link" id="btnLogout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <div>
+                <button class="btn btn-sm btn-outline-secondary d-lg-none mr-2" id="btnToggleSidebar"><i class="fa fa-bars"></i></button>
+                <h4 id="sectionTitle">Overview</h4>
+            </div>
+            <div>
+                <span class="text-muted small mr-3" id="adminUserEmail"></span>
+                <button class="btn btn-success btn-sm" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save All Changes</button>
+            </div>
+        </div>
+
+        <div id="adminToast" class="admin-toast"></div>
+
+        <!-- Overview -->
+        <section class="admin-section active" id="sec-overview">
+            <h5 class="font-weight-bold mb-3">Welcome</h5>
+            <p>Manage all dynamic content for the Gyanoday Vidyalaya Shahpur website. Changes appear on the live site after you click <strong>Save All Changes</strong>.</p>
+            <div class="row mt-4">
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#e8f0ff;">
+                        <h6 class="font-weight-bold text-primary">First-time setup</h6>
+                        <ol class="small pl-3 mb-0">
+                            <li>Configure <code>js/firebase-config.js</code></li>
+                            <li>Deploy Firestore &amp; Storage rules from <code>firebase/</code></li>
+                            <li>Create admin user in Firebase Authentication</li>
+                            <li>Click <strong>Import Website Data</strong> below</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#fff3cd;">
+                        <h6 class="font-weight-bold">Where files are stored</h6>
+                        <ul class="small pl-3 mb-0">
+                            <li><strong>Text &amp; links</strong> → Cloud Firestore</li>
+                            <li><strong>Photos &amp; PDFs</strong> → Firebase Storage (<code>gv-shahpur/</code>)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-primary mt-2" id="btnSeedData"><i class="fa fa-database mr-1"></i>Import Current Website Data to Firebase</button>
+            <p class="small text-muted mt-2" id="lastSavedInfo"></p>
+        </section>
+
+        <!-- Achievers -->
+        <section class="admin-section" id="sec-achievers">
+            <p class="text-muted small">Shown on Home &amp; Results pages (top 10 students).</p>
+            <div id="achieversList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddAchiever"><i class="fa fa-plus mr-1"></i>Add Student</button>
+        </section>
+
+        <!-- Alumni -->
+        <section class="admin-section" id="sec-alumni">
+            <div id="alumniList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddAlumni"><i class="fa fa-plus mr-1"></i>Add Alumni</button>
+        </section>
+
+        <!-- Programs -->
+        <section class="admin-section" id="sec-programs">
+            <p class="text-muted small">Academics page — routine &amp; syllabus PDFs per class.</p>
+            <div id="programsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddProgram"><i class="fa fa-plus mr-1"></i>Add Program</button>
+        </section>
+
+        <!-- Year Results -->
+        <section class="admin-section" id="sec-results">
+            <p class="text-muted small">Results page — year tabs, exams, student photos &amp; stats.</p>
+            <div class="form-row mb-3">
+                <div class="col-md-4">
+                    <label>Manage Year</label>
+                    <select class="form-control" id="resultsYearSelect"></select>
+                </div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteYear">Delete Year</button>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Total Selections</label><input type="number" class="form-control" id="rbySelections"></div>
+                <div class="col-md-4"><label>Exams Qualified</label><input type="number" class="form-control" id="rbyExams"></div>
+                <div class="col-md-4"><label>Rank Holders</label><input type="number" class="form-control" id="rbyToppers"></div>
+            </div>
+            <div id="resultsExamsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
+        </section>
+
+        <!-- YouTube -->
+        <section class="admin-section" id="sec-youtube">
+            <div id="youtubeList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddYoutube"><i class="fa fa-plus mr-1"></i>Add Video</button>
+        </section>
+
+        <!-- Instagram -->
+        <section class="admin-section" id="sec-instagram">
+            <div id="instagramList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddInstagram"><i class="fa fa-plus mr-1"></i>Add Post URL</button>
+        </section>
+
+        <!-- Memories / Events -->
+        <section class="admin-section" id="sec-memories">
+            <div class="form-row mb-3">
+                <div class="col-md-4">
+                    <label>Event Year</label>
+                    <select class="form-control" id="memoriesYearSelect"></select>
+                </div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddMemYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteMemYear">Delete Year</button>
+                </div>
+            </div>
+            <div id="memoriesEventsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddEvent"><i class="fa fa-plus mr-1"></i>Add Event</button>
+        </section>
+
+        <!-- Hostel -->
+        <section class="admin-section" id="sec-hostel">
+            <div class="form-group">
+                <label>Hostel Menu PDF</label>
+                <input type="text" class="form-control mb-2" id="hostelMenuUrl" placeholder="URL or path to PDF">
+                <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
+                <small class="text-muted">Upload replaces the menu on hostel.html</small>
+            </div>
+        </section>
+
+        <!-- Disclosure -->
+        <section class="admin-section" id="sec-disclosure">
+            <div id="disclosureList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddDisclosure"><i class="fa fa-plus mr-1"></i>Add Document</button>
+        </section>
+
+        <!-- Notices -->
+        <section class="admin-section" id="sec-notices">
+            <div class="form-group">
+                <label>Scrolling Notice (marquee)</label>
+                <textarea class="form-control" id="noticeTicker" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Last Updated text</label>
+                <input type="text" class="form-control" id="noticeLastUpdated">
+            </div>
+            <hr>
+            <div id="noticesList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddNotice"><i class="fa fa-plus mr-1"></i>Add Notice</button>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/gv-default-content.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/admin-app.js"></script>
+</body>
+</html>
