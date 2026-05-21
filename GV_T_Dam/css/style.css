@@ -1903,8 +1903,8 @@ pre code {
 }
 
 .form-control:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #495057;
+  color: #495057;
+  text-shadow: none;
 }
 
 .form-control:focus {
@@ -3753,8 +3753,8 @@ input[type="button"].btn-block {
 }
 
 .custom-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #495057;
+  color: #495057;
+  text-shadow: none;
 }
 
 .custom-select-sm {
@@ -9787,7 +9787,9 @@ h6,
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
-  color: #2878EB;
+  background: #1a5cc4 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
 }
 
 @media (max-width: 991.98px) {
@@ -10025,13 +10027,6 @@ h6,
     background: #2878EB;
 }
 
-/* Student Achievement Slider Styles */
-.student-slider-container {
-    overflow: hidden;
-    width: 100%;
-    padding: 20px 0;
-    margin-bottom: 30px;
-}
 
 .student-slider-track {
     display: flex;
@@ -10216,3 +10211,300 @@ h6,
         font-size: 11px;
     }
 }
+
+    /* MOBILE SINGLE-CARD RESPONSIVE FIX - BLACKBOXAI */
+    @media (max-width: 768px) {
+        .student-slider-container {
+            overflow: hidden;
+            padding: 0 2.5vw;
+        }
+        
+        .student-slider-track {
+            width: calc(95vw * 8) !important;
+            justify-content: flex-start !important;
+            gap: 0 !important;
+        }
+        
+        .student-slide {
+            flex: 0 0 95vw !important;
+            margin: 0 2.5vw 4vw 2.5vw !important;
+        }
+        
+        .student-card {
+            width: 90vw !important;
+            height: 60vh !important;
+            min-height: 400px;
+            padding: 5vw !important;
+            overflow: hidden !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            box-sizing: border-box;
+        }
+        
+        .student-overlay {
+            padding: 5vw 5vw 3vw !important;
+            word-break: break-word;
+        }
+        
+        .student-info {
+            margin-bottom: 3vw;
+        }
+        
+        .student-name {
+            font-size: clamp(16px, 4vw, 20px) !important;
+        }
+        
+        .student-achievement {
+            font-size: clamp(12px, 3.5vw, 14px) !important;
+        }
+        
+        .student-details {
+            padding: 4vw !important;
+            max-height: 30vh !important;
+            overflow-y: auto;
+            margin: 0 -5vw -3vw -5vw !important;
+        }
+        
+        .student-details p {
+            font-size: clamp(12px, 3vw, 14px) !important;
+            margin-bottom: 2vw !important;
+            line-height: 1.4;
+        }
+        
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-95vw * 4));
+            }
+        }
+        
+        .student-slider-container:hover .student-slider-track {
+            animation-play-state: paused !important;
+        }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+        .student-card {
+            padding: 8vw !important;
+            min-height: 350px !important;
+        }
+        
+        .student-details {
+            max-height: 25vh !important;
+        }
+    }
+/* Academics Page Custom Styles */
+.academic-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.routine-btn, .syllabus-btn {
+  flex: 1;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.routine-btn {
+  background: #2878EB;
+  color: white;
+}
+
+.syllabus-btn {
+  background: #28a745;
+  color: white;
+}
+
+.routine-btn:hover {
+  background: #1e62b7;
+  transform: translateY(-2px);
+}
+
+.syllabus-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .academic-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Modal Styles */
+.academic-modal iframe {
+  border: none;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+}
+
+@media (max-width: 768px) {
+  .academic-modal iframe {
+    height: 60vh;
+  }
+}
+
+/*Code for result page styles*/
+.rc-header {
+    background: #1F4E79; color: #fff;
+    padding: 14px 18px; text-align: center;
+    border-radius: 6px 6px 0 0;
+  }
+  .rc-info {
+    background: #f8f9fa; border: 1px solid #dee2e6;
+    padding: 12px 18px; margin-bottom: 14px;
+  }
+  @media print {
+    body * { visibility: hidden !important; }
+    #printArea, #printArea * { visibility: visible !important; }
+    #printArea { position: fixed; top: 0; left: 0;
+                 width: 100%; background: white; padding: 24px; }
+  }
+
+  /* Navbar Button Spacing - BLACKBOXAI */
+  .get-job-btn {
+    margin-left: 1rem !important;
+  }
+
+  /* SELECT FIX v4 - clean native appearance */
+  #classSelect, #examSelect {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+      -webkit-text-fill-color: #212529 !important;
+      background-image: none !important;
+      -webkit-appearance: auto !important;
+      -moz-appearance: auto !important;
+      appearance: auto !important;
+      opacity: 1 !important;
+  }
+  #classSelect option, #examSelect option {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+  }
+  #classSelect:focus, #examSelect:focus {
+      color: #212529 !important;
+      background-color: #ffffff !important;
+      border-color: #2878EB !important;
+      box-shadow: 0 0 0 0.2rem rgba(40,120,235,0.25) !important;
+      outline: none !important;
+  }
+#classSelect:-moz-focusring, #examSelect:-moz-focusring {
+      color: #212529 !important;
+      text-shadow: none !important;
+  }
+
+  /* ========================================
+     NOTICES PAGE - BLACKBOXAI
+     ======================================== */
+
+  /* Notification Dot */
+  .notification-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #dc3545;
+    border-radius: 50%;
+    margin-left: 4px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+  }
+
+  /* News Ticker */
+  marquee {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Filter Buttons */
+  .notice-filters .btn {
+    min-width: 100px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .notice-filters .btn.active,
+  .notice-filters .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 120, 235, 0.4);
+  }
+
+  /* Notice Cards */
+  .notice-card {
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .notice-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .notice-card .card-body {
+    padding: 1.5rem;
+  }
+
+  /* Priority Notices */
+  .priority-notice {
+    border-left: 5px solid #dc3545 !important;
+    background: linear-gradient(135deg, #fff7f7 0%, #fff 100%);
+  }
+
+  /* NEW Badge */
+  .new-badge.blinking {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+  }
+
+  /* Responsive Grid */
+  @media (min-width: 992px) {
+    .notice-grid {
+      margin: 0 -15px;
+    }
+    .notice-grid > [class*="col-"] {
+      padding: 0 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .notice-filters {
+      flex-direction: column !important;
+      align-items: center;
+    }
+    .notice-filters .btn {
+      width: 200px !important;
+      margin-bottom: 8px;
+    }
+    .notice-card .card-body {
+      padding: 1.25rem;
+    }
+  }
+
+  /* Print Styles */
+  @media print {
+    .notice-filters { display: none !important; }
+    .priority-notice { box-shadow: none !important; border: 2px solid #dc3545 !important; }
+    .new-badge { animation: none !important; background: #dc3545 !important; }
+  }
