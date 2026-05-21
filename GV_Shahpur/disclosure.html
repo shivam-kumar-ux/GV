@@ -115,7 +115,7 @@
     </style>
 </head>
 
-<body>
+<body data-gv-page="disclosure">
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark">
         <div class="row py-2 px-lg-5">
@@ -205,7 +205,7 @@
                 <p class="lead mb-5">All required documents for transparency and compliance</p>
             </div>
             
-            <div class="disclosure-grid">
+            <div class="disclosure-grid" id="gvDisclosureGrid">
                 <!-- Document 1 -->
                 <div class="doc-card" data-toggle="modal" data-target="#doc1Modal">
                     <div class="doc-icon">
@@ -308,8 +308,9 @@
         </div>
     </div>
     <!-- Disclosure Documents End -->
+    <div id="gvDisclosureModals"></div>
 
-    <!-- Document Modals (13 total) -->
+    <!-- Document Modals (13 total) — fallback when Firebase is offline -->
     
     <!-- Modal 1 -->
     <div class="modal fade" id="doc1Modal">
@@ -603,6 +604,12 @@
     
     <!-- Main JS -->
     <script src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/gv-default-content.js"></script>
+    <script src="js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
     
     <!-- Disclosure Protection JS -->
     <script>

@@ -23,7 +23,7 @@
     <link href="css/responsive.css" rel="stylesheet">
 </head>
 
-<body>
+<body data-gv-page="notices">
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark">
         <div class="row py-2 px-lg-5">
@@ -94,7 +94,7 @@
     <div class="jumbotron jumbotron-fluid position-relative" style="margin-bottom: 90px; padding: 80px 0; background: linear-gradient(135deg, #2878EB 0%, #1e62b7 100%); color: white;">
         <div class="container text-center py-5">
             <h1 class="display-3 font-weight-bold mb-4">Notice Board & Latest Updates</h1>
-            <p class="lead mb-0">Last Updated: <strong>October 25, 2024</strong></p>
+            <p class="lead mb-0">Last Updated: <strong id="gvNoticeLastUpdated">October 25, 2024</strong></p>
         </div>
     </div>
     <!-- Notices Hero End -->
@@ -102,7 +102,7 @@
     <!-- News Ticker Start -->
     <div class="container-fluid bg-warning py-2 mb-4">
         <div class="container">
-            <marquee behavior="scroll" direction="left" class="text-dark font-weight-bold">
+            <marquee behavior="scroll" direction="left" class="text-dark font-weight-bold" id="gvNoticeTicker">
                 🚨 Breaking News: Annual Sports Day on Nov 15 | Winter Vacation from Dec 20-31 | PTM on Nov 8 | Exam Schedule Released 🚨
             </marquee>
         </div>
@@ -527,26 +527,27 @@
         </div>
     </div>
 
-    <!-- Inline JS for filter + search -->
+    <!-- Inline JS for filter + search (runs after Firebase renders notices) -->
     <script>
-        (function () {
-            const items   = document.querySelectorAll('.nb-item');
-            const btns    = document.querySelectorAll('.nb-filter-btn');
-            const search  = document.getElementById('nbSearch');
-            const countEl = document.getElementById('nbCount');
-            const empty   = document.getElementById('nbEmpty');
+        function gvInitNoticeFilters() {
+            var items   = document.querySelectorAll('#nbTimeline .nb-item');
+            var btns    = document.querySelectorAll('.nb-filter-btn');
+            var search  = document.getElementById('nbSearch');
+            var countEl = document.getElementById('nbCount');
+            var empty   = document.getElementById('nbEmpty');
+            if (!search || !countEl) return;
 
-            let activeCat = 'all';
+            var activeCat = 'all';
 
             function applyFilters() {
-                const q = search.value.trim().toLowerCase();
-                let visible = 0;
+                var q = search.value.trim().toLowerCase();
+                var visible = 0;
                 items.forEach(function(item) {
-                    const cat   = item.getAttribute('data-cat') || '';
-                    const title = (item.getAttribute('data-title') || '').toLowerCase();
-                    const body  = item.querySelector('.nb-body') ? item.querySelector('.nb-body').textContent.toLowerCase() : '';
-                    const catOk  = (activeCat === 'all') || (cat === activeCat);
-                    const textOk = !q || title.includes(q) || body.includes(q);
+                    var cat   = item.getAttribute('data-cat') || '';
+                    var title = (item.getAttribute('data-title') || '').toLowerCase();
+                    var body  = item.querySelector('.nb-body') ? item.querySelector('.nb-body').textContent.toLowerCase() : '';
+                    var catOk  = (activeCat === 'all') || (cat === activeCat);
+                    var textOk = !q || title.indexOf(q) >= 0 || body.indexOf(q) >= 0;
                     if (catOk && textOk) {
                         item.classList.remove('nb-hidden');
                         item.style.display = '';
@@ -557,20 +558,25 @@
                     }
                 });
                 countEl.textContent = visible + ' notice' + (visible !== 1 ? 's' : '');
-                empty.style.display = (visible === 0) ? 'block' : 'none';
+                if (empty) empty.style.display = (visible === 0) ? 'block' : 'none';
             }
 
             btns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
+                btn.onclick = function() {
                     btns.forEach(function(b) { b.classList.remove('active-filter'); });
                     btn.classList.add('active-filter');
                     activeCat = btn.getAttribute('data-cat');
                     applyFilters();
-                });
+                };
             });
 
-            search.addEventListener('input', applyFilters);
-        })();
+            search.oninput = applyFilters;
+            applyFilters();
+        }
+        document.addEventListener('gvContentReady', gvInitNoticeFilters);
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(gvInitNoticeFilters, 800);
+        });
     </script>
 
 
@@ -655,3 +661,9 @@
 
     <!-- Javascript -->
     <script src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/gv-default-content.js"></script>
+    <script src="js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
