@@ -26,7 +26,7 @@
     <link href="css/responsive.css" rel="stylesheet">
 </head>
 
-<body>
+<body data-gv-page="hostel">
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark">
         <div class="row py-2 px-lg-5">
@@ -68,26 +68,26 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav mx-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About Us</a>
-                    <a href="academics.html" class="nav-item nav-link">Academics</a>
-                    <a href="result.html" class="nav-item nav-link">Results</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="facilities.html" class="dropdown-item">Facilities</a>
-                            <a href="choose.html" class="dropdown-item">Why Choose Us</a>
-                            <a href="gallery.html" class="dropdown-item">Gallery</a>
-                            <a href="hostel.html" class="dropdown-item active">Boarding & Hostel</a>
-                            <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
+                    <div class="navbar-nav mx-auto py-0">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About Us</a>
+                        <a href="academics.html" class="nav-item nav-link">Academics</a>
+                        <a href="result.html" class="nav-item nav-link">Results</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="facilities.html" class="dropdown-item">Facilities</a>
+                                <a href="choose.html" class="dropdown-item">Why Choose Us</a>
+                                <a href="gallery.html" class="dropdown-item">Gallery</a>
+                                <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                                <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
+                            </div>
                         </div>
+                        <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn">Get Admission</a>
-                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn">Get Job</a>
+                    <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get Admission</a>
+                    <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
             </div>
         </nav>
     </div>
@@ -267,7 +267,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="bg-white p-5 rounded shadow">
-                        <iframe src="docs/hostel-menu.pdf#view=FitH" width="100%" height="800px" style="border: none; border-radius: 10px;"></iframe>
+                        <iframe id="gvHostelMenuFrame" src="docs/hostel-menu.pdf#view=FitH" width="100%" height="800px" style="border: none; border-radius: 10px;"></iframe>
                     </div>
                     <div class="text-center mt-4">
                         <p class="lead mb-0">Balanced nutrition for optimal growth & concentration</p>
@@ -446,6 +446,13 @@
 
     <!-- Template JS -->
     <script src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script>window.GV_SITE_ID = "shahpur";</script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
 </body>
 
 </html>

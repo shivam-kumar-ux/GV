@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard — GV Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link href="../GV_Shahpur/img/H_logo.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="brand">
+            <img src="../GV_Shahpur/img/H_logo.png" alt="GV">
+            <h6>GV Admin Portal</h6>
+        </div>
+        <div class="px-3 py-2">
+            <label class="small text-white-50 mb-1">Website</label>
+            <select class="form-control form-control-sm" id="siteSelector"></select>
+        </div>
+        <nav class="py-2" id="shahpurNav">
+            <a href="#" class="admin-nav-link active" data-section="overview"><i class="fa fa-home"></i> Overview</a>
+            <a href="#" class="admin-nav-link admin-only-nav d-none" data-section="staff"><i class="fa fa-users-cog"></i> Staff Approvals</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="achievers"><i class="fa fa-trophy"></i> Achievers</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="alumni"><i class="fa fa-user-graduate"></i> Alumni</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="programs"><i class="fa fa-book"></i> Programs</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="youtube"><i class="fab fa-youtube"></i> Videos</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="memories"><i class="fa fa-images"></i> Events</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="hostel"><i class="fa fa-utensils"></i> Hostel Menu</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="disclosure"><i class="fa fa-file-pdf"></i> Disclosure</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="notices"><i class="fa fa-bell"></i> Notices</a>
+        </nav>
+        <div class="p-3 border-top" style="border-color:rgba(255,255,255,.1)!important;">
+            <a href="#" class="admin-nav-link" id="linkViewSite" target="_blank"><i class="fa fa-external-link-alt"></i> View Website</a>
+            <a href="index.html" class="admin-nav-link"><i class="fa fa-th"></i> Portal Home</a>
+            <a href="#" class="admin-nav-link" id="btnLogout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <div>
+                <button class="btn btn-sm btn-outline-secondary d-lg-none mr-2" id="btnToggleSidebar"><i class="fa fa-bars"></i></button>
+                <h4 id="sectionTitle">Overview</h4>
+            </div>
+            <div>
+                <span class="badge badge-secondary mr-2" id="userRoleBadge">staff</span>
+                <span class="text-muted small mr-3" id="adminUserEmail"></span>
+                <button class="btn btn-success btn-sm shahpur-only" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save Changes</button>
+            </div>
+        </div>
+
+        <div id="adminToast" class="admin-toast"></div>
+
+        <section class="admin-section active" id="sec-overview">
+            <h5 class="font-weight-bold mb-3">Welcome, <span id="welcomeName"></span></h5>
+            <p id="overviewDesc">Manage Gyanoday Vidyalaya Shahpur website content. T. Dam and PYQ will be added later.</p>
+            <div class="alert alert-info shahpur-only" id="siteInactiveAlert" style="display:none;">
+                This campus is not enabled yet. Only <strong>Shahpur</strong> can be edited now.
+            </div>
+            <div class="row mt-3 shahpur-only">
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#e8f0ff;">
+                        <h6 class="font-weight-bold text-primary">Shahpur — first import</h6>
+                        <p class="small mb-2">Copy current Shahpur HTML content into Firebase once.</p>
+                        <button class="btn btn-outline-primary btn-sm" id="btnSeedData"><i class="fa fa-database mr-1"></i>Import Shahpur Data</button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#fff3cd;">
+                        <h6 class="font-weight-bold">Storage</h6>
+                        <ul class="small pl-3 mb-0">
+                            <li>Firestore: <code>siteContent/shahpur</code></li>
+                            <li>Files: <code>gv-shahpur/</code> in Storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="small text-muted shahpur-only" id="lastSavedInfo"></p>
+        </section>
+
+        <section class="admin-section admin-only-sec" id="sec-staff">
+            <h5 class="font-weight-bold">Staff approval</h5>
+            <p class="text-muted small">Approve school staff so they can log in and edit website content.</p>
+            <div id="pendingStaffList" class="mt-3"></div>
+            <hr>
+            <h6 class="font-weight-bold">Approved staff</h6>
+            <div id="approvedStaffList" class="mt-2"></div>
+        </section>
+
+        <section class="admin-section shahpur-sec" id="sec-achievers">
+            <p class="text-muted small">Home &amp; Results — top performers.</p>
+            <div id="achieversList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddAchiever"><i class="fa fa-plus mr-1"></i>Add Student</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-alumni">
+            <div id="alumniList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddAlumni"><i class="fa fa-plus mr-1"></i>Add Alumni</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-programs">
+            <p class="text-muted small">Academics — routine &amp; syllabus PDFs.</p>
+            <div id="programsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddProgram"><i class="fa fa-plus mr-1"></i>Add Program</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-results">
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Year</label><select class="form-control" id="resultsYearSelect"></select></div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteYear">Delete Year</button>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Total Selections</label><input type="number" class="form-control" id="rbySelections"></div>
+                <div class="col-md-4"><label>Exams Qualified</label><input type="number" class="form-control" id="rbyExams"></div>
+                <div class="col-md-4"><label>Rank Holders</label><input type="number" class="form-control" id="rbyToppers"></div>
+            </div>
+            <div id="resultsExamsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-youtube"><div id="youtubeList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddYoutube">Add Video</button></section>
+        <section class="admin-section shahpur-sec" id="sec-instagram"><div id="instagramList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddInstagram">Add Post</button></section>
+        <section class="admin-section shahpur-sec" id="sec-memories">
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Year</label><select class="form-control" id="memoriesYearSelect"></select></div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddMemYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteMemYear">Delete Year</button>
+                </div>
+            </div>
+            <div id="memoriesEventsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddEvent">Add Event</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-hostel">
+            <div class="form-group">
+                <label>Hostel Menu PDF</label>
+                <input type="text" class="form-control mb-2" id="hostelMenuUrl">
+                <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
+            </div>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-disclosure">
+            <div id="disclosureList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddDisclosure">Add Document</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-notices">
+            <div class="form-group"><label>Scrolling notice</label><textarea class="form-control" id="noticeTicker" rows="2"></textarea></div>
+            <div class="form-group"><label>Last updated</label><input type="text" class="form-control" id="noticeLastUpdated"></div>
+            <hr><div id="noticesList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddNotice">Add Notice</button>
+        </section>
+
+        <section class="admin-section" id="sec-coming-soon" style="display:none;">
+            <div class="text-center py-5 text-muted">
+                <i class="fa fa-tools fa-3x mb-3"></i>
+                <h5>Coming soon</h5>
+                <p>This campus will be available in a future update.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-staff.js"></script>
+    <script src="js/admin-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function staffDoc() {
+      return get(/databases/$(database)/documents/staffUsers/$(request.auth.uid));
+    }
+
+    function isApprovedStaff() {
+      return signedIn() && staffDoc().data.status == 'approved';
+    }
+
+    function isAdmin() {
+      return isApprovedStaff() && staffDoc().data.role == 'admin';
+    }
+
+    // Public website content (read by visitors)
+    match /siteContent/{siteId} {
+      allow read: if true;
+      allow write: if isApprovedStaff();
+    }
+
+    // Staff ID → email lookup (login only; minimal data)
+    match /staffLoginIndex/{staffId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // Staff profiles
+    match /staffUsers/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.status in ['pending', 'approved'];
+      allow update: if isAdmin()
+        || (signedIn() && request.auth.uid == userId
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['phone', 'department']));
+    }
+  }
+}
