@@ -21,27 +21,79 @@
     return JSON.parse(JSON.stringify(o));
   }
 
+  function getYouTubeId(url) {
+    if (!url) return "";
+    if (url.length === 11 && !url.includes("/") && !url.includes("?")) {
+      return url;
+    }
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : url;
+  }
+
+  function iconSuggestionsHtml(targetId) {
+    var icons = [
+      { cls: "fa-book", label: "Book" },
+      { cls: "fa-graduation-cap", label: "Grad" },
+      { cls: "fa-school", label: "School" },
+      { cls: "fa-chalkboard-teacher", label: "Teacher" },
+      { cls: "fa-microscope", label: "Science" },
+      { cls: "fa-calculator", label: "Math" },
+      { cls: "fa-laptop-code", label: "Computer" },
+      { cls: "fa-brain", label: "Brain" }
+    ];
+    var html = '<div class="mt-1 icon-suggestions" style="line-height: 1.8;">';
+    icons.forEach(function (ico) {
+      html += '<button type="button" class="btn btn-xs btn-outline-secondary py-0 px-1 mr-1 mb-1 btn-icon-suggest" style="font-size: 11px;" data-icon="' + ico.cls + '" data-target="' + targetId + '">' +
+        '<i class="fa ' + ico.cls + ' mr-1"></i>' + ico.label + '</button>';
+    });
+    html += '</div>';
+    return html;
+  }
+
   function fileInputHtml(id, accept) {
-    return '<input type="file" class="form-control-file gv-file" data-target="' + id + '" accept="' + (accept || "image/*") + '">';
+    return '<div class="d-flex align-items-center mt-1">' +
+      '<input type="file" class="form-control-file gv-file" data-target="' + id + '" accept="' + (accept || "image/*") + '">' +
+      '<button type="button" class="btn btn-sm btn-primary ml-2 btn-gv-upload" disabled style="white-space: nowrap;">Upload</button>' +
+      '</div>';
   }
 
   function bindFileUploads(container) {
     container.querySelectorAll(".gv-file").forEach(function (inp) {
+      var containerDiv = inp.closest("div");
+      var btn = containerDiv ? containerDiv.querySelector(".btn-gv-upload") : null;
+      
       inp.onchange = function () {
-        var file = inp.files[0];
-        if (!file) return;
-        var folder = inp.getAttribute("data-folder") || "uploads";
-        var target = document.getElementById(inp.getAttribute("data-target"));
-        inp.disabled = true;
-        GVFirebase.uploadFile(file, folder).then(function (url) {
-          if (target) target.value = url;
-          toast("File uploaded.");
-        }).catch(function (e) {
-          toast(e.message, "danger");
-        }).finally(function () {
-          inp.disabled = false;
-        });
+        if (btn) {
+          btn.disabled = !inp.files[0];
+        }
       };
+
+      if (btn) {
+        btn.onclick = function () {
+          var file = inp.files[0];
+          if (!file) {
+            toast("Please choose a file first.", "warning");
+            return;
+          }
+          var folder = inp.getAttribute("data-folder") || "uploads";
+          var target = document.getElementById(inp.getAttribute("data-target"));
+          inp.disabled = true;
+          btn.disabled = true;
+          GVFirebase.uploadFile(file, folder).then(function (url) {
+            if (target) {
+              target.value = url;
+              target.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            toast("File uploaded successfully.");
+          }).catch(function (e) {
+            toast(e.message, "danger");
+          }).finally(function () {
+            inp.disabled = false;
+            btn.disabled = false;
+          });
+        };
+      }
     });
   }
 
@@ -160,7 +212,9 @@
         '<div class="form-row">' +
         '<div class="col-md-4"><label>Title</label><input class="form-control pr-title" value="' + (p.title || "") + '"></div>' +
         '<div class="col-md-4"><label>Age Label</label><input class="form-control pr-age" value="' + (p.ageLabel || "") + '"></div>' +
-        '<div class="col-md-4"><label>Icon class (fa-book)</label><input class="form-control pr-icon" value="' + (p.icon || "fa-book") + '"></div>' +
+        '<div class="col-md-4"><label>Icon class (fa-book)</label><input class="form-control pr-icon" id="pr-icon-' + idx + '" value="' + (p.icon || "fa-book") + '">' +
+        iconSuggestionsHtml("pr-icon-" + idx) +
+        '</div>' +
         '</div><div class="form-group"><label>Description</label><textarea class="form-control pr-desc" rows="2">' + (p.description || "") + '</textarea></div>' +
         '<div class="form-row">' +
         '<div class="col-md-6"><label>Routine PDF URL</label><input class="form-control pr-routine" id="pr-r-' + idx + '" value="' + (p.routineUrl || "") + '">' + fileInputHtml("pr-r-" + idx, "application/pdf") + '</div>' +
@@ -173,6 +227,17 @@
     });
     box.querySelectorAll(".btn-del-prog").forEach(function (btn) {
       btn.onclick = function () { content.programs.splice(+btn.getAttribute("data-i"), 1); renderPrograms(); };
+    });
+    box.querySelectorAll(".btn-icon-suggest").forEach(function (btn) {
+      btn.onclick = function () {
+        var iconClass = btn.getAttribute("data-icon");
+        var targetInput = document.getElementById(btn.getAttribute("data-target"));
+        if (targetInput) {
+          targetInput.value = iconClass;
+          targetInput.dispatchEvent(new Event('input', { bubbles: true }));
+          syncProgramsFromForm();
+        }
+      };
     });
     box.querySelectorAll("input,textarea").forEach(function (el) { el.oninput = syncProgramsFromForm; });
   }
@@ -245,12 +310,19 @@
       });
       div.querySelector(".btn-add-student").onclick = function () {
         syncResultsFromForm();
-        yd.exams[ei].results.push({ rank: 1, name: "", meta: "", photo: "" });
+        var currentYd = content.resultsByYear[currentResultsYear];
+        if (currentYd && currentYd.exams && currentYd.exams[ei]) {
+          if (!currentYd.exams[ei].results) currentYd.exams[ei].results = [];
+          currentYd.exams[ei].results.push({ rank: 1, name: "", meta: "", photo: "" });
+        }
         renderResultsExams();
       };
       div.querySelector(".btn-del-exam").onclick = function () {
         syncResultsFromForm();
-        yd.exams.splice(ei, 1);
+        var currentYd = content.resultsByYear[currentResultsYear];
+        if (currentYd && currentYd.exams) {
+          currentYd.exams.splice(ei, 1);
+        }
         renderResultsExams();
       };
     });
@@ -260,8 +332,13 @@
     box.querySelectorAll(".btn-del-student").forEach(function (btn) {
       btn.onclick = function () {
         syncResultsFromForm();
+        var currentYd = content.resultsByYear[currentResultsYear];
         var parts = btn.getAttribute("data-id").split("-");
-        yd.exams[+parts[0]].results.splice(+parts[1], 1);
+        var ei = +parts[0];
+        var ri = +parts[1];
+        if (currentYd && currentYd.exams && currentYd.exams[ei] && currentYd.exams[ei].results) {
+          currentYd.exams[ei].results.splice(ri, 1);
+        }
         renderResultsExams();
       };
     });
@@ -316,13 +393,17 @@
     box.innerHTML = "";
     if (!content.gallery) content.gallery = {};
     (content.gallery.youtube || []).forEach(function (v, idx) {
+      var fullUrl = v.id;
+      if (v.id && !v.id.includes("http") && !v.id.includes("youtu")) {
+        fullUrl = "https://www.youtube.com/watch?v=" + v.id;
+      }
       var div = document.createElement("div");
       div.className = "admin-card-item";
       div.innerHTML =
         '<div class="d-flex justify-content-between mb-2"><strong>Video ' + (idx + 1) + '</strong><button class="btn btn-sm btn-gv-danger btn-del-yt" data-i="' + idx + '">Delete</button></div>' +
         '<div class="form-row">' +
-        '<div class="col-md-4"><label>YouTube Video ID</label><input class="form-control yt-id" value="' + (v.id || "") + '" placeholder="from watch?v=..."></div>' +
-        '<div class="col-md-5"><label>Title</label><input class="form-control yt-title" value="' + (v.title || "") + '"></div>' +
+        '<div class="col-md-5"><label>YouTube Video URL</label><input class="form-control yt-url" value="' + fullUrl + '" placeholder="e.g. https://www.youtube.com/watch?v=..."></div>' +
+        '<div class="col-md-4"><label>Title</label><input class="form-control yt-title" value="' + (v.title || "") + '"></div>' +
         '<div class="col-md-3"><label>Date</label><input class="form-control yt-date" value="' + (v.date || "") + '"></div></div>';
       box.appendChild(div);
     });
@@ -335,7 +416,9 @@
   function syncYoutube() {
     var list = [];
     document.querySelectorAll("#youtubeList .admin-card-item").forEach(function (card) {
-      list.push({ id: card.querySelector(".yt-id").value, title: card.querySelector(".yt-title").value, date: card.querySelector(".yt-date").value });
+      var urlValue = card.querySelector(".yt-url").value;
+      var extractedId = getYouTubeId(urlValue);
+      list.push({ id: extractedId, title: card.querySelector(".yt-title").value, date: card.querySelector(".yt-date").value });
     });
     if (!content.gallery) content.gallery = {};
     content.gallery.youtube = list;
@@ -418,12 +501,19 @@
       });
       div.querySelector(".btn-add-photo").onclick = function () {
         syncMemoriesFromForm();
-        events[ei].photos.push({ src: "", caption: "" });
+        var currentEvents = content.gallery.memories[currentMemYear];
+        if (currentEvents && currentEvents[ei]) {
+          if (!currentEvents[ei].photos) currentEvents[ei].photos = [];
+          currentEvents[ei].photos.push({ src: "", caption: "" });
+        }
         renderMemoriesEvents();
       };
       div.querySelector(".btn-del-event").onclick = function () {
         syncMemoriesFromForm();
-        events.splice(ei, 1);
+        var currentEvents = content.gallery.memories[currentMemYear];
+        if (currentEvents) {
+          currentEvents.splice(ei, 1);
+        }
         renderMemoriesEvents();
       };
     });
@@ -433,7 +523,12 @@
     box.querySelectorAll(".btn-del-photo").forEach(function (btn) {
       btn.onclick = function () {
         syncMemoriesFromForm();
-        events[+btn.getAttribute("data-ei")].photos.splice(+btn.getAttribute("data-pi"), 1);
+        var currentEvents = content.gallery.memories[currentMemYear];
+        var ei = +btn.getAttribute("data-ei");
+        var pi = +btn.getAttribute("data-pi");
+        if (currentEvents && currentEvents[ei] && currentEvents[ei].photos) {
+          currentEvents[ei].photos.splice(pi, 1);
+        }
         renderMemoriesEvents();
       };
     });
@@ -459,18 +554,42 @@
 
   /* ---------- Hostel ---------- */
   function renderHostel() {
-    document.getElementById("hostelMenuUrl").value = (content.hostel && content.hostel.menuPdfUrl) || "";
-    document.getElementById("hostelMenuFile").onchange = function () {
-      var file = this.files[0];
-      if (!file) return;
-      GVFirebase.uploadFile(file, "hostel").then(function (url) {
-        document.getElementById("hostelMenuUrl").value = url;
-        if (!content.hostel) content.hostel = {};
-        content.hostel.menuPdfUrl = url;
-        toast("Menu PDF uploaded.");
-      });
+    var hostelUrlInput = document.getElementById("hostelMenuUrl");
+    var hostelFileInput = document.getElementById("hostelMenuFile");
+    var hostelUploadBtn = document.getElementById("btnHostelMenuUpload");
+
+    hostelUrlInput.value = (content.hostel && content.hostel.menuPdfUrl) || "";
+
+    hostelFileInput.onchange = function () {
+      if (hostelUploadBtn) {
+        hostelUploadBtn.disabled = !hostelFileInput.files[0];
+      }
     };
-    document.getElementById("hostelMenuUrl").oninput = function () {
+
+    if (hostelUploadBtn) {
+      hostelUploadBtn.onclick = function () {
+        var file = hostelFileInput.files[0];
+        if (!file) {
+          toast("Please choose a file first.", "warning");
+          return;
+        }
+        hostelFileInput.disabled = true;
+        hostelUploadBtn.disabled = true;
+        GVFirebase.uploadFile(file, "hostel").then(function (url) {
+          hostelUrlInput.value = url;
+          if (!content.hostel) content.hostel = {};
+          content.hostel.menuPdfUrl = url;
+          toast("Menu PDF uploaded successfully.");
+        }).catch(function (e) {
+          toast(e.message, "danger");
+        }).finally(function () {
+          hostelFileInput.disabled = false;
+          hostelUploadBtn.disabled = false;
+        });
+      };
+    }
+
+    hostelUrlInput.oninput = function () {
       if (!content.hostel) content.hostel = {};
       content.hostel.menuPdfUrl = this.value;
     };

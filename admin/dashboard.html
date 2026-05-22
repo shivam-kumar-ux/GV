@@ -104,6 +104,22 @@
         </section>
         <section class="admin-section shahpur-sec" id="sec-programs">
             <p class="text-muted small">Academics — routine &amp; syllabus PDFs.</p>
+            <div class="card mb-3 shadow-sm border-0">
+                <div class="card-body p-3 bg-light rounded">
+                    <h6 class="font-weight-bold mb-2 text-primary"><i class="fa fa-info-circle mr-1"></i> Icon Suggestions for Programs</h6>
+                    <p class="small text-muted mb-2">Here are some recommended FontAwesome icon classes you can use when adding or updating programs:</p>
+                    <div class="d-flex flex-wrap">
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-book text-primary mr-1"></i> fa-book (General Study)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-graduation-cap text-primary mr-1"></i> fa-graduation-cap (Graduation)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-school text-primary mr-1"></i> fa-school (Schooling)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-chalkboard-teacher text-primary mr-1"></i> fa-chalkboard-teacher (Teacher/Lecture)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-microscope text-primary mr-1"></i> fa-microscope (Science)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-calculator text-primary mr-1"></i> fa-calculator (Mathematics)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-laptop-code text-primary mr-1"></i> fa-laptop-code (Computer/IT)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-brain text-primary mr-1"></i> fa-brain (Mind/Logic)</span>
+                    </div>
+                </div>
+            </div>
             <div id="programsList"></div>
             <button class="btn btn-outline-primary btn-sm" id="btnAddProgram"><i class="fa fa-plus mr-1"></i>Add Program</button>
         </section>
@@ -123,7 +139,21 @@
             <div id="resultsExamsList"></div>
             <button class="btn btn-outline-primary btn-sm" id="btnAddExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
         </section>
-        <section class="admin-section shahpur-sec" id="sec-youtube"><div id="youtubeList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddYoutube">Add Video</button></section>
+        <section class="admin-section shahpur-sec" id="sec-youtube">
+            <div class="card mb-3 shadow-sm border-0">
+                <div class="card-body p-3 bg-light rounded">
+                    <h6 class="font-weight-bold mb-2 text-danger"><i class="fab fa-youtube mr-1"></i> How to get YouTube Video URL</h6>
+                    <ol class="small text-muted pl-3 mb-0">
+                        <li>Open the YouTube video you want to add in your browser.</li>
+                        <li>Copy the URL from the browser's address bar (e.g., <code>https://www.youtube.com/watch?v=...</code>).</li>
+                        <li>Alternatively, click the <strong>Share</strong> button below the video and click <strong>Copy Link</strong> (e.g., <code>https://youtu.be/...</code>).</li>
+                        <li>Paste that URL into the <strong>YouTube Video URL</strong> field below.</li>
+                    </ol>
+                </div>
+            </div>
+            <div id="youtubeList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddYoutube">Add Video</button>
+        </section>
         <section class="admin-section shahpur-sec" id="sec-instagram"><div id="instagramList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddInstagram">Add Post</button></section>
         <section class="admin-section shahpur-sec" id="sec-memories">
             <div class="form-row mb-3">
@@ -140,7 +170,10 @@
             <div class="form-group">
                 <label>Hostel Menu PDF</label>
                 <input type="text" class="form-control mb-2" id="hostelMenuUrl">
-                <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
+                <div class="d-flex align-items-center mt-1">
+                    <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
+                    <button type="button" class="btn btn-sm btn-primary ml-2" id="btnHostelMenuUpload" disabled style="white-space: nowrap;">Upload</button>
+                </div>
             </div>
         </section>
         <section class="admin-section shahpur-sec" id="sec-disclosure">
