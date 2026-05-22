@@ -1,10 +1,11 @@
 /**
- * GV Shahpur Admin Dashboard
+ * GV Admin Dashboard — site content editor (Shahpur active)
  */
 (function () {
   var content = null;
   var currentResultsYear = null;
   var currentMemYear = null;
+  var activeSite = "shahpur";
 
   function toast(msg, type) {
     var el = document.getElementById("adminToast");
@@ -602,7 +603,7 @@
   function initButtons() {
     document.getElementById("btnSaveAll").onclick = saveAll;
     document.getElementById("btnLogout").onclick = function () {
-      GVFirebase.signOut().then(function () { window.location.href = "index.html"; });
+      GVFirebase.signOut().then(function () { window.location.href = "login.html"; });
     };
     document.getElementById("btnSeedData").onclick = function () {
       if (!confirm("Import default website data to Firebase? This overwrites Firestore content.")) return;
@@ -692,24 +693,72 @@
     });
   }
 
-  function boot() {
-    if (!GVFirebase.isConfigured()) {
-      alert("Configure js/firebase-config.js first. See FIREBASE_SETUP.md");
-      window.location.href = "index.html";
-      return;
-    }
-    GVFirebase.onAuthChanged(function (user) {
-      if (!user || !GVFirebase.isAdminUser(user)) {
-        window.location.href = "index.html";
-        return;
-      }
-      document.getElementById("adminUserEmail").textContent = user.email;
+  function initSiteSelector() {
+    var sel = document.getElementById("siteSelector");
+    var sites = window.GV_SITES || {};
+    sel.innerHTML = "";
+    Object.keys(sites).forEach(function (id) {
+      var s = sites[id];
+      var opt = document.createElement("option");
+      opt.value = id;
+      opt.textContent = s.label + (s.active ? "" : " (soon)");
+      if (!s.active) opt.disabled = true;
+      if (id === activeSite) opt.selected = true;
+      sel.appendChild(opt);
     });
-    GVFirebase.loadSiteContent().then(function (c) {
-      content = deepClone(c);
-      initNav();
-      initButtons();
-      renderAll();
+    sel.onchange = function () {
+      activeSite = sel.value;
+      GVFirebase.setActiveSite(activeSite);
+      updateSiteUI();
+      if (GVFirebase.getSiteConfig(activeSite).active) {
+        GVFirebase.loadSiteContent(activeSite).then(function (c) {
+          content = deepClone(c);
+          renderAll();
+        });
+      }
+    };
+    document.getElementById("linkViewSite").href = GVFirebase.getSiteConfig(activeSite).publicPath + "index.html";
+  }
+
+  function updateSiteUI() {
+    var isActive = GVFirebase.getSiteConfig(activeSite).active;
+    document.querySelectorAll(".shahpur-only").forEach(function (el) {
+      el.classList.toggle("d-none", !isActive);
+    });
+    document.querySelectorAll(".shahpur-sec, .shahpur-section").forEach(function (el) {
+      el.style.display = isActive ? "" : "none";
+    });
+    var alertEl = document.getElementById("siteInactiveAlert");
+    if (alertEl) alertEl.style.display = isActive ? "none" : "block";
+    var saveBtn = document.getElementById("btnSaveAll");
+    if (saveBtn) saveBtn.disabled = !isActive;
+  }
+
+  function boot() {
+    GVAuth.guardDashboard(function (session) {
+      document.getElementById("adminUserEmail").textContent =
+        session.profile.name + " (" + session.profile.staffId + ")";
+      document.getElementById("welcomeName").textContent = session.profile.name;
+      var badge = document.getElementById("userRoleBadge");
+      badge.textContent = session.profile.role;
+      badge.className = "badge mr-2 " + (session.profile.role === "admin" ? "badge-danger" : "badge-secondary");
+
+      if (GVFirebase.isAdminRole(session.profile)) {
+        GVStaffAdmin.showAdminNav(true);
+        GVStaffAdmin.initStaffSection();
+      }
+
+      activeSite = "shahpur";
+      GVFirebase.setActiveSite(activeSite);
+      initSiteSelector();
+      updateSiteUI();
+
+      GVFirebase.loadSiteContent("shahpur").then(function (c) {
+        content = deepClone(c);
+        initNav();
+        initButtons();
+        renderAll();
+      });
     });
   }
 
