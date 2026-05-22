@@ -35,6 +35,12 @@
             <a href="#" class="admin-nav-link shahpur-section" data-section="disclosure"><i class="fa fa-file-pdf"></i> Disclosure</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="notices"><i class="fa fa-bell"></i> Notices</a>
         </nav>
+        <nav class="py-2" id="pyqNav" style="display:none;">
+            <a href="#" class="admin-nav-link pyq-section active" data-section="pyq-overview"><i class="fa fa-home"></i> PYQ Overview</a>
+            <a href="#" class="admin-nav-link pyq-section" data-section="pyq-exams"><i class="fa fa-graduation-cap"></i> Exams</a>
+            <a href="#" class="admin-nav-link pyq-section" data-section="pyq-papers"><i class="fa fa-file-pdf"></i> Question Papers</a>
+            <a href="#" class="admin-nav-link admin-only-nav d-none pyq-section" data-section="staff"><i class="fa fa-users-cog"></i> Staff Approvals</a>
+        </nav>
         <div class="p-3 border-top" style="border-color:rgba(255,255,255,.1)!important;">
             <a href="#" class="admin-nav-link" id="linkViewSite" target="_blank"><i class="fa fa-external-link-alt"></i> View Website</a>
             <a href="index.html" class="admin-nav-link"><i class="fa fa-th"></i> Portal Home</a>
@@ -51,7 +57,8 @@
             <div>
                 <span class="badge badge-secondary mr-2" id="userRoleBadge">staff</span>
                 <span class="text-muted small mr-3" id="adminUserEmail"></span>
-                <button class="btn btn-success btn-sm shahpur-only" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save Changes</button>
+                <button class="btn btn-success btn-sm site-edit-btn shahpur-only" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save Changes</button>
+                <button class="btn btn-success btn-sm site-edit-btn pyq-only d-none" id="btnSavePyq"><i class="fa fa-save mr-1"></i>Save PYQ</button>
             </div>
         </div>
 
@@ -187,6 +194,34 @@
             <button class="btn btn-outline-primary btn-sm" id="btnAddNotice">Add Notice</button>
         </section>
 
+        <section class="admin-section pyq-sec" id="sec-pyq-overview">
+            <h5 class="font-weight-bold mb-3">PYQ Hub</h5>
+            <p class="text-muted small">Manage exams and previous year question papers shown on <a href="../pyq/index.html" target="_blank">PYQ Hub</a>.</p>
+            <div class="row mt-3" id="pyqStats"></div>
+            <div class="p-4 rounded mb-3" style="background:#e8f0ff;">
+                <h6 class="font-weight-bold text-primary">First-time import</h6>
+                <p class="small mb-2">Copy existing papers from <code>pyq-default.js</code> into Firestore once.</p>
+                <button class="btn btn-outline-primary btn-sm" id="btnSeedPyq"><i class="fa fa-database mr-1"></i>Import PYQ Data</button>
+            </div>
+            <p class="small text-muted">After saving, run GitHub Action <strong>Sync public site from Firestore</strong> so the live PYQ page updates.</p>
+        </section>
+        <section class="admin-section pyq-sec" id="sec-pyq-exams">
+            <p class="text-muted small">Exam categories appear in PYQ Hub modals (emoji, subtitle, format HTML).</p>
+            <div id="pyqExamsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddPyqExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
+        </section>
+        <section class="admin-section pyq-sec" id="sec-pyq-papers">
+            <div class="form-row mb-3">
+                <div class="col-md-4">
+                    <label>Filter by exam</label>
+                    <select class="form-control" id="pyqPaperFilter"><option value="">All exams</option></select>
+                </div>
+            </div>
+            <p class="text-muted small">Upload PDF to Storage — URLs fill View/Download fields automatically.</p>
+            <div id="pyqPapersList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddPyqPaper"><i class="fa fa-plus mr-1"></i>Add Question Paper</button>
+        </section>
+
         <section class="admin-section" id="sec-coming-soon" style="display:none;">
             <div class="text-center py-5 text-muted">
                 <i class="fa fa-tools fa-3x mb-3"></i>
@@ -204,9 +239,11 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/sites/pyq-default.js"></script>
     <script src="../js/gv-firebase.js"></script>
     <script src="js/admin-auth.js"></script>
     <script src="js/admin-staff.js"></script>
+    <script src="js/admin-pyq.js"></script>
     <script src="js/admin-app.js"></script>
 </body>
 </html>

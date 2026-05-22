@@ -1,0 +1,52 @@
+# Sync Firestore → static JS (Shahpur + PYQ), then deploy to gh-pages.
+# Run manually after saving in admin.
+
+name: Sync public site from Firestore
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install firebase-admin
+        run: npm install firebase-admin
+
+      - name: Sync static content from Firestore
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GV_SITE_DOC: all
+        run: node scripts/build-static-data.js
+
+      - name: Generate firebase-config.js
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+          GV_SUPER_ADMIN_EMAILS: ${{ secrets.GV_SUPER_ADMIN_EMAILS }}
+        run: |
+          node scripts/generate-firebase-config.js
+          test -f js/firebase-config.js
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: .
+          force_orphan: true
+          commit_message: "Sync public site from Firestore"

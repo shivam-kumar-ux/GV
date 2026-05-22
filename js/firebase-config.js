@@ -1,19 +1,15 @@
-/**
- * Copy to firebase-config.js and fill in your Firebase project values.
- */
 window.GV_FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAgMETN4ulWEYARQaeS56e93o5nFPSv9zM",
+  authDomain: "gyanoday-vidyalaya.firebaseapp.com",
+  projectId: "gyanoday-vidyalaya",
+  storageBucket: "gyanoday-vidyalaya.firebasestorage.app",
+  messagingSenderId: "291996204385",
+  appId: "1:291996204385:web:e27becd9974fa4b932d920",
+  measurementId: "G-R4D5EB1XZR"
 };
 
-/** Emails that become admin automatically on signup (optional bootstrap) */
-window.GV_SUPER_ADMIN_EMAILS = ["principal@gyanodayvidyalaya.com"];
+window.GV_SUPER_ADMIN_EMAILS = ["shivamkumar174440@gmail.com"];
 
-/** Campus websites managed by this admin panel */
 window.GV_SITES = {
   shahpur: {
     label: "Gyanoday Vidyalaya — Shahpur",
