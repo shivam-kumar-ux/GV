@@ -3,7 +3,7 @@
  */
 var GVPyqAdmin = (function () {
   var content = null;
-  var toastFn = function () {};
+  var toastFn = function () { };
 
   var EXAM_PRESETS = [
     "Sainik School", "Navodaya", "JEE", "NEET", "CBSE", "NDA", "CDS",
@@ -47,7 +47,7 @@ var GVPyqAdmin = (function () {
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
       var containerDiv = inp.closest("div");
       var btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
-      
+
       inp.onchange = function () {
         if (btn) btn.disabled = !inp.files[0];
       };
@@ -226,7 +226,7 @@ var GVPyqAdmin = (function () {
     var lines = text.split(/\r?\n/);
     var html = "";
     var inList = false;
-    lines.forEach(function(l) {
+    lines.forEach(function (l) {
       l = l.trim();
       if (!l) return;
       if (l.startsWith("•") || l.startsWith("-")) {
