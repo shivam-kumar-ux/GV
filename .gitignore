@@ -68,7 +68,7 @@ node_modules/
 # dataconnect generated files
 .dataconnect
 # GV secrets — never commit real Firebase config
-js/firebase-config.js
+# js/firebase-config.js
 
 # Accidental key dumps
 *keys*.txt
