@@ -87,7 +87,7 @@
   function uploadFile(file, folder, siteId, onProgress) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
     if (!storage) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
-    
+
     if (typeof siteId === "function") {
       onProgress = siteId;
       siteId = null;
@@ -96,10 +96,10 @@
 
     var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
-    
+
     var uploadTask = storage.ref(path).put(file);
     if (typeof onProgress === "function") {
-      uploadTask.on('state_changed', function(snapshot) {
+      uploadTask.on('state_changed', function (snapshot) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         onProgress(progress);
       });

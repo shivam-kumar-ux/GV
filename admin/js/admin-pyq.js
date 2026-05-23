@@ -69,16 +69,16 @@ var GVPyqAdmin = (function () {
 
           if (progressBar) progressBar.classList.remove("d-none");
           if (barInner) {
-             barInner.style.width = "0%";
-             barInner.textContent = "0%";
+            barInner.style.width = "0%";
+            barInner.textContent = "0%";
           }
 
-          var onProgress = function(percent) {
-             var p = Math.round(percent) + "%";
-             if (barInner) {
-                barInner.style.width = p;
-                barInner.textContent = p;
-             }
+          var onProgress = function (percent) {
+            var p = Math.round(percent) + "%";
+            if (barInner) {
+              barInner.style.width = p;
+              barInner.textContent = p;
+            }
           };
 
           GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers", onProgress).then(function (url) {
@@ -97,7 +97,7 @@ var GVPyqAdmin = (function () {
           }).finally(function () {
             inp.disabled = false;
             btn.disabled = false;
-            setTimeout(function() {
+            setTimeout(function () {
               if (progressBar) progressBar.classList.add("d-none");
             }, 3000);
           });
