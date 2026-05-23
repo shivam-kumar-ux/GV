@@ -36,26 +36,43 @@ var GVPyqAdmin = (function () {
   }
 
   function fileInputHtml(targetId, accept) {
-    return '<input type="file" class="form-control-file gv-file pyq-file" data-target="' + targetId + '" accept="' + (accept || "application/pdf") + '">';
+    return '<div class="d-flex align-items-center mt-1">' +
+      '<input type="file" class="form-control-file gv-file pyq-file" data-target="' + targetId + '" accept="' + (accept || "application/pdf") + '">' +
+      '<button type="button" class="btn btn-sm btn-primary ml-2 btn-pyq-upload" disabled style="white-space: nowrap;">Upload</button>' +
+      '</div>';
   }
 
   function bindUploads(root) {
     if (!root) return;
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
+      var containerDiv = inp.closest("div");
+      var btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
+      
       inp.onchange = function () {
-        var file = inp.files[0];
-        if (!file) return;
-        var target = document.getElementById(inp.getAttribute("data-target"));
-        inp.disabled = true;
-        GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers").then(function (url) {
-          if (target) target.value = url;
-          toastFn("PDF uploaded.");
-        }).catch(function (e) {
-          toastFn(e.message || "Upload failed", "danger");
-        }).finally(function () {
-          inp.disabled = false;
-        });
+        if (btn) btn.disabled = !inp.files[0];
       };
+
+      if (btn) {
+        btn.onclick = function () {
+          var file = inp.files[0];
+          if (!file) return;
+          var target = document.getElementById(inp.getAttribute("data-target"));
+          inp.disabled = true;
+          btn.disabled = true;
+          GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers").then(function (url) {
+            if (target) {
+              target.value = url;
+              target.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            toastFn("PDF uploaded.");
+          }).catch(function (e) {
+            toastFn(e.message || "Upload failed", "danger");
+          }).finally(function () {
+            inp.disabled = false;
+            btn.disabled = false;
+          });
+        };
+      }
     });
   }
 
@@ -87,7 +104,7 @@ var GVPyqAdmin = (function () {
         '<div class="col-md-4"><label>Subtitle</label><input class="form-control ex-sub" value="' + esc(details.subtitle || "") + '"></div>' +
         '<div class="col-md-2"><label><input type="checkbox" class="ex-active" ' + (ex.active !== false ? "checked" : "") + '> Active</label></div>' +
         '</div>' +
-        '<div class="form-group mt-2"><label>Format / details (HTML)</label><textarea class="form-control ex-format" rows="3">' + esc(details.format || "") + '</textarea></div>';
+        '<div class="form-group mt-2"><label>Exam Details (No HTML)</label><textarea class="form-control ex-format" rows="4" placeholder="Enter details (use • or - for lists)">' + esc(htmlToPlain(details.format || "")) + '</textarea></div>';
       box.appendChild(div);
     });
     box.querySelectorAll(".pyq-del-exam").forEach(function (btn) {
@@ -115,7 +132,7 @@ var GVPyqAdmin = (function () {
       content.examDetails[name] = {
         emoji: card.querySelector(".ex-emoji").value.trim(),
         subtitle: card.querySelector(".ex-sub").value.trim(),
-        format: card.querySelector(".ex-format").value,
+        format: plainToHtml(card.querySelector(".ex-format").value),
         syllabus: (content.examDetails[name] && content.examDetails[name].syllabus) || "#"
       };
     });
@@ -197,6 +214,31 @@ var GVPyqAdmin = (function () {
 
   function esc(s) {
     return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  }
+
+  function htmlToPlain(html) {
+    if (!html) return "";
+    return html.replace(/<li>/gi, '• ').replace(/<\/li>/gi, '\n').replace(/<br\s*[\/]?>/gi, '\n').replace(/<\/p>/gi, '\n\n').replace(/<[^>]+>/g, '').replace(/\n\s*\n/g, '\n').trim();
+  }
+
+  function plainToHtml(text) {
+    if (!text) return "";
+    var lines = text.split(/\r?\n/);
+    var html = "";
+    var inList = false;
+    lines.forEach(function(l) {
+      l = l.trim();
+      if (!l) return;
+      if (l.startsWith("•") || l.startsWith("-")) {
+        if (!inList) { html += "<ul>"; inList = true; }
+        html += "<li>" + esc(l.substring(1).trim()) + "</li>";
+      } else {
+        if (inList) { html += "</ul>"; inList = false; }
+        html += "<p>" + esc(l) + "</p>";
+      }
+    });
+    if (inList) html += "</ul>";
+    return html;
   }
 
   function syncAll() {

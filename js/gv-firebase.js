@@ -249,6 +249,7 @@
     signOut: signOut,
     onAuthChanged: onAuthChanged,
     getStaffProfile: getStaffProfile,
+    isSuperAdminEmail: isSuperAdminEmail,
     canAccessPanel: canAccessPanel,
     isAdminRole: isAdminRole,
     requireApprovedUser: requireApprovedUser,
