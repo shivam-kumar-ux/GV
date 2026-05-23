@@ -35,18 +35,23 @@ var GVPyqAdmin = (function () {
     return Object.keys(set).sort();
   }
 
-  function fileInputHtml(targetId, accept) {
+  function fileInputHtml(pid, accept) {
     return '<div class="d-flex align-items-center mt-1">' +
-      '<input type="file" class="form-control-file gv-file pyq-file" data-target="' + targetId + '" accept="' + (accept || "application/pdf") + '">' +
+      '<input type="file" class="form-control-file gv-file pyq-file" data-pid="' + pid + '" accept="' + (accept || "application/pdf") + '">' +
       '<button type="button" class="btn btn-sm btn-primary ml-2 btn-pyq-upload" disabled style="white-space: nowrap;">Upload</button>' +
+      '</div>' +
+      '<div class="progress mt-2 d-none pyq-progress" style="height: 10px;">' +
+      '<div class="progress-bar bg-success pyq-progress-bar" style="width: 0%; font-size: 8px;">0%</div>' +
       '</div>';
   }
 
   function bindUploads(root) {
     if (!root) return;
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
-      var containerDiv = inp.closest("div");
+      var containerDiv = inp.closest("div").parentElement;
       var btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
+      var progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
+      var barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
 
       inp.onchange = function () {
         if (btn) btn.disabled = !inp.files[0];
@@ -56,20 +61,45 @@ var GVPyqAdmin = (function () {
         btn.onclick = function () {
           var file = inp.files[0];
           if (!file) return;
-          var target = document.getElementById(inp.getAttribute("data-target"));
+          var pid = inp.getAttribute("data-pid");
+          var targetView = document.getElementById("pp-view-" + pid);
+          var targetDl = document.getElementById("pp-dl-" + pid);
           inp.disabled = true;
           btn.disabled = true;
-          GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers").then(function (url) {
-            if (target) {
-              target.value = url;
-              target.dispatchEvent(new Event('input', { bubbles: true }));
+
+          if (progressBar) progressBar.classList.remove("d-none");
+          if (barInner) {
+            barInner.style.width = "0%";
+            barInner.textContent = "0%";
+          }
+
+          var onProgress = function (percent) {
+            var p = Math.round(percent) + "%";
+            if (barInner) {
+              barInner.style.width = p;
+              barInner.textContent = p;
             }
+          };
+
+          GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers", onProgress).then(function (url) {
+            if (targetView) {
+              targetView.value = url;
+              targetView.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            if (targetDl) {
+              targetDl.value = url;
+              targetDl.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            if (barInner) barInner.textContent = "Uploaded!";
             toastFn("PDF uploaded.");
           }).catch(function (e) {
             toastFn(e.message || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
             btn.disabled = false;
+            setTimeout(function () {
+              if (progressBar) progressBar.classList.add("d-none");
+            }, 3000);
           });
         };
       }
@@ -169,7 +199,7 @@ var GVPyqAdmin = (function () {
         '</div>' +
         '<div class="form-row mt-2">' +
         '<div class="col-md-6"><label>View URL</label><input class="form-control pp-view" id="pp-view-' + esc(pid) + '" value="' + esc(p.view || p.viewUrl || "") + '">' +
-        fileInputHtml("pp-view-" + pid, "application/pdf") + '</div>' +
+        fileInputHtml(pid, "application/pdf") + '</div>' +
         '<div class="col-md-6"><label>Download URL</label><input class="form-control pp-dl" id="pp-dl-' + esc(pid) + '" value="' + esc(p.download || p.downloadUrl || "") + '"></div>' +
         '</div>';
       box.appendChild(div);
