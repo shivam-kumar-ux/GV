@@ -84,13 +84,28 @@
     return db.collection("siteContent").doc(contentDocId()).set(content, { merge: false });
   }
 
-  function uploadFile(file, folder, siteId) {
+  function uploadFile(file, folder, siteId, onProgress) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
     if (!storage) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
+    
+    if (typeof siteId === "function") {
+      onProgress = siteId;
+      siteId = null;
+    }
     if (siteId) setActiveSite(siteId);
+
     var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
-    return storage.ref(path).put(file).then(function () {
+    
+    var uploadTask = storage.ref(path).put(file);
+    if (typeof onProgress === "function") {
+      uploadTask.on('state_changed', function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        onProgress(progress);
+      });
+    }
+
+    return uploadTask.then(function () {
       return storage.ref(path).getDownloadURL();
     });
   }
