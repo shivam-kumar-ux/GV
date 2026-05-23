@@ -62,7 +62,7 @@
     container.querySelectorAll(".gv-file").forEach(function (inp) {
       var containerDiv = inp.closest("div");
       var btn = containerDiv ? containerDiv.querySelector(".btn-gv-upload") : null;
-      
+
       inp.onchange = function () {
         if (btn) {
           btn.disabled = !inp.files[0];
@@ -155,7 +155,7 @@
     var list = [];
     document.querySelectorAll("#achieversList .admin-card-item").forEach(function (card, idx) {
       var details = [];
-      try { details = JSON.parse(card.querySelector(".ach-details").value || "[]"); } catch (e) {}
+      try { details = JSON.parse(card.querySelector(".ach-details").value || "[]"); } catch (e) { }
       list.push({
         name: card.querySelector(".ach-name").value,
         class: card.querySelector(".ach-class").value,
