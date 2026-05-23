@@ -62,7 +62,7 @@
     container.querySelectorAll(".gv-file").forEach(function (inp) {
       var containerDiv = inp.closest("div");
       var btn = containerDiv ? containerDiv.querySelector(".btn-gv-upload") : null;
-      
+
       inp.onchange = function () {
         if (btn) {
           btn.disabled = !inp.files[0];
@@ -107,6 +107,9 @@
         document.querySelectorAll(".admin-section").forEach(function (s) { s.classList.remove("active"); });
         document.getElementById("sec-" + sec).classList.add("active");
         document.getElementById("sectionTitle").textContent = link.textContent.trim();
+        if (window.innerWidth < 992) {
+          document.getElementById("adminSidebar").classList.remove("open");
+        }
       };
     });
     document.getElementById("btnToggleSidebar").onclick = function () {
@@ -152,7 +155,7 @@
     var list = [];
     document.querySelectorAll("#achieversList .admin-card-item").forEach(function (card, idx) {
       var details = [];
-      try { details = JSON.parse(card.querySelector(".ach-details").value || "[]"); } catch (e) {}
+      try { details = JSON.parse(card.querySelector(".ach-details").value || "[]"); } catch (e) { }
       list.push({
         name: card.querySelector(".ach-name").value,
         class: card.querySelector(".ach-class").value,
@@ -706,12 +709,24 @@
   }
 
   function saveAll() {
-    syncAllFromForms();
     var btn = document.getElementById("btnSaveAll");
     btn.disabled = true;
+    if (activeSite === "pyq") {
+      GVPyqAdmin.syncAll();
+      GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq").then(function () {
+        toast("PYQ Hub saved! Run Sync workflow, then refresh the public PYQ page.");
+      }).catch(function (e) {
+        toast(e.message, "danger");
+      }).finally(function () {
+        btn.disabled = false;
+      });
+      return;
+    }
+    syncAllFromForms();
     GVFirebase.saveSiteContent(content).then(function () {
       toast("All changes saved! Website will update on refresh.");
-      document.getElementById("lastSavedInfo").textContent = "Last saved: " + new Date().toLocaleString();
+      var info = document.getElementById("lastSavedInfo");
+      if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
     }).catch(function (e) {
       toast(e.message, "danger");
     }).finally(function () {
@@ -721,8 +736,10 @@
 
   function initButtons() {
     document.getElementById("btnSaveAll").onclick = saveAll;
+    var btnPyq = document.getElementById("btnSavePyq");
+    if (btnPyq) btnPyq.onclick = saveAll;
     document.getElementById("btnLogout").onclick = function () {
-      GVFirebase.signOut().then(function () { window.location.href = "login.html"; });
+      GVFirebase.signOut().then(function () { window.location.replace("login.html"); });
     };
     document.getElementById("btnSeedData").onclick = function () {
       if (!confirm("Import default website data to Firebase? This overwrites Firestore content.")) return;
@@ -829,28 +846,99 @@
       activeSite = sel.value;
       GVFirebase.setActiveSite(activeSite);
       updateSiteUI();
-      if (GVFirebase.getSiteConfig(activeSite).active) {
-        GVFirebase.loadSiteContent(activeSite).then(function (c) {
+      if (!GVFirebase.getSiteConfig(activeSite).active) return;
+      GVFirebase.loadSiteContent(activeSite).then(function (c) {
+        if (activeSite === "pyq") {
+          GVPyqAdmin.setContent(deepClone(c));
+          GVPyqAdmin.renderAll();
+        } else {
           content = deepClone(c);
           renderAll();
-        });
-      }
+        }
+      });
     };
     document.getElementById("linkViewSite").href = GVFirebase.getSiteConfig(activeSite).publicPath + "index.html";
   }
 
   function updateSiteUI() {
-    var isActive = GVFirebase.getSiteConfig(activeSite).active;
+    var cfg = GVFirebase.getSiteConfig(activeSite);
+    var isActive = cfg.active;
+    var isShahpur = activeSite === "shahpur" && isActive;
+    var isPyq = activeSite === "pyq" && isActive;
+
+    document.getElementById("shahpurNav").style.display = isShahpur ? "" : "none";
+    document.getElementById("pyqNav").style.display = isPyq ? "" : "none";
+
     document.querySelectorAll(".shahpur-only").forEach(function (el) {
-      el.classList.toggle("d-none", !isActive);
+      el.classList.toggle("d-none", !isShahpur);
     });
-    document.querySelectorAll(".shahpur-sec, .shahpur-section").forEach(function (el) {
-      el.style.display = isActive ? "" : "none";
+    document.querySelectorAll(".pyq-only").forEach(function (el) {
+      el.classList.toggle("d-none", !isPyq);
     });
+    document.querySelectorAll(".shahpur-sec").forEach(function (el) {
+      el.style.display = isShahpur ? "" : "none";
+    });
+    document.querySelectorAll(".pyq-sec").forEach(function (el) {
+      el.style.display = isPyq ? "" : "none";
+    });
+
+    var isAdminUser = document.getElementById("userRoleBadge").textContent === "admin";
+    document.querySelectorAll("#shahpurNav .admin-nav-link, #pyqNav .admin-nav-link").forEach(function (l) {
+      l.style.display = "";
+    });
+    document.querySelectorAll("#shahpurNav .admin-nav-link[data-section]").forEach(function (l) {
+      if (l.classList.contains("admin-only-nav")) return;
+      l.style.display = isShahpur ? "" : "none";
+    });
+    document.querySelectorAll("#pyqNav .admin-nav-link").forEach(function (l) {
+      if (l.getAttribute("data-section") === "staff") return;
+      l.style.display = isPyq ? "" : "none";
+    });
+    document.querySelectorAll(".admin-only-nav").forEach(function (l) {
+      l.style.display = isAdminUser ? "" : "none";
+    });
+
     var alertEl = document.getElementById("siteInactiveAlert");
     if (alertEl) alertEl.style.display = isActive ? "none" : "block";
-    var saveBtn = document.getElementById("btnSaveAll");
-    if (saveBtn) saveBtn.disabled = !isActive;
+
+    document.querySelectorAll(".site-edit-btn").forEach(function (btn) {
+      btn.disabled = !isActive;
+      btn.style.display = "none";
+    });
+    if (isShahpur) {
+      var s = document.getElementById("btnSaveAll");
+      if (s) s.style.display = "";
+    }
+    if (isPyq) {
+      var p = document.getElementById("btnSavePyq");
+      if (p) p.style.display = "";
+    }
+
+    var desc = document.getElementById("overviewDesc");
+    if (desc) {
+      desc.textContent = isPyq
+        ? "Manage PYQ Hub exams and question papers."
+        : isShahpur
+          ? "Manage Gyanoday Vidyalaya Shahpur website content."
+          : "This campus is not enabled yet.";
+    }
+
+    if (isPyq) {
+      document.getElementById("sectionTitle").textContent = "PYQ Overview";
+      document.querySelectorAll(".pyq-section").forEach(function (l) { l.classList.remove("active"); });
+      var first = document.querySelector('.pyq-section[data-section="pyq-overview"]');
+      if (first) first.classList.add("active");
+      document.querySelectorAll(".admin-section").forEach(function (s) { s.classList.remove("active"); });
+      var ov = document.getElementById("sec-pyq-overview");
+      if (ov) ov.classList.add("active");
+    } else if (isShahpur) {
+      document.getElementById("sectionTitle").textContent = "Overview";
+      document.querySelectorAll(".admin-section").forEach(function (s) { s.classList.remove("active"); });
+      var so = document.getElementById("sec-overview");
+      if (so) so.classList.add("active");
+    }
+
+    document.getElementById("linkViewSite").href = cfg.publicPath + "index.html";
   }
 
   function boot() {
@@ -872,11 +960,18 @@
       initSiteSelector();
       updateSiteUI();
 
+      GVPyqAdmin.init({ toast: toast });
+
       GVFirebase.loadSiteContent("shahpur").then(function (c) {
         content = deepClone(c);
         initNav();
         initButtons();
         renderAll();
+        return GVFirebase.loadSiteContent("pyq");
+      }).then(function (pyqC) {
+        GVPyqAdmin.setContent(deepClone(pyqC));
+      }).catch(function () {
+        GVPyqAdmin.setContent(deepClone(window.GV_PYQ_DEFAULT_CONTENT || { papers: [], examDetails: {}, exams: [] }));
       });
     });
   }

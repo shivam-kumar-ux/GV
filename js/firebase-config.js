@@ -26,10 +26,10 @@ window.GV_SITES = {
     active: false
   },
   pyq: {
-    label: "PYQ Portal",
+    label: "PYQ Hub",
     contentDoc: "pyq",
     storagePrefix: "gv-pyq",
     publicPath: "../pyq/",
-    active: false
+    active: true
   }
 };

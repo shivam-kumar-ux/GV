@@ -42,7 +42,7 @@ if (process.env.FIREBASE_MEASUREMENT_ID) {
 lines.push("};", "", `window.GV_SUPER_ADMIN_EMAILS = ${JSON.stringify(superAdmins)};`, "", "window.GV_SITES = {");
 lines.push('  shahpur: { label: "Gyanoday Vidyalaya — Shahpur", contentDoc: "shahpur", storagePrefix: "gv-shahpur", publicPath: "../GV_Shahpur/", active: true },');
 lines.push('  t_dam: { label: "Gyanoday Vidyalaya — T. Dam", contentDoc: "t_dam", storagePrefix: "gv-t-dam", publicPath: "../GV_T_Dam/", active: false },');
-lines.push('  pyq: { label: "PYQ Portal", contentDoc: "pyq", storagePrefix: "gv-pyq", publicPath: "../pyq/", active: false }');
+lines.push('  pyq: { label: "PYQ Hub", contentDoc: "pyq", storagePrefix: "gv-pyq", publicPath: "../pyq/", active: true }');
 lines.push("};", "");
 
 const outPath = path.join(__dirname, "..", "js", "firebase-config.js");

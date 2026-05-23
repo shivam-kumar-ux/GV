@@ -43,7 +43,12 @@
   }
 
   function mergeDefaults(data) {
-    var base = JSON.parse(JSON.stringify(global.GV_DEFAULT_CONTENT || {}));
+    var base;
+    if (activeSiteId === "pyq" || contentDocId() === "pyq") {
+      base = JSON.parse(JSON.stringify(global.GV_PYQ_DEFAULT_CONTENT || { papers: [], examDetails: {}, exams: [] }));
+    } else {
+      base = JSON.parse(JSON.stringify(global.GV_DEFAULT_CONTENT || {}));
+    }
     if (!data) return base;
     return Object.assign(base, data);
   }

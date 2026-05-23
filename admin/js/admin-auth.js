@@ -96,34 +96,34 @@ var GVAuth = (function () {
       var alertEl = document.getElementById("signupAlert");
       alertEl.classList.add("d-none");
       try {
-      GVFirebase.signUpStaff({
-        name: document.getElementById("suName").value.trim(),
-        staffId: document.getElementById("suStaffId").value.trim(),
-        email: document.getElementById("suEmail").value.trim(),
-        phone: document.getElementById("suPhone").value.trim(),
-        designation: document.getElementById("suDesignation").value,
-        department: document.getElementById("suDepartment").value.trim(),
-        campus: document.getElementById("suCampus").value,
-        password: pw
-      }).then(function (res) {
-        var el = document.getElementById("signupAlert");
-        if (res.profile.status === "approved") {
-          el.className = "alert alert-success";
-          el.innerHTML = "<strong>Account created.</strong> You are an administrator. Redirecting…";
-          el.classList.remove("d-none");
-          setTimeout(function () { window.location.href = "dashboard.html"; }, 1500);
-        } else {
-          el.className = "alert alert-success";
-          el.innerHTML = "<strong>Registration submitted.</strong> Wait for admin approval, then login with your Staff ID or email.";
-          el.classList.remove("d-none");
+        GVFirebase.signUpStaff({
+          name: document.getElementById("suName").value.trim(),
+          staffId: document.getElementById("suStaffId").value.trim(),
+          email: document.getElementById("suEmail").value.trim(),
+          phone: document.getElementById("suPhone").value.trim(),
+          designation: document.getElementById("suDesignation").value,
+          department: document.getElementById("suDepartment").value.trim(),
+          campus: document.getElementById("suCampus").value,
+          password: pw
+        }).then(function (res) {
+          var el = document.getElementById("signupAlert");
+          if (res.profile.status === "approved") {
+            el.className = "alert alert-success";
+            el.innerHTML = "<strong>Account created.</strong> You are an administrator. Redirecting…";
+            el.classList.remove("d-none");
+            setTimeout(function () { window.location.href = "dashboard.html"; }, 1500);
+          } else {
+            el.className = "alert alert-success";
+            el.innerHTML = "<strong>Registration submitted.</strong> Wait for admin approval, then login with your Staff ID or email.";
+            el.classList.remove("d-none");
+            btn.disabled = false;
+            setTimeout(function () { window.location.href = "pending.html"; }, 2500);
+          }
+        }).catch(function (err) {
+          showAlert("signupAlert", firebaseErrorMessage(err), "danger");
           btn.disabled = false;
-          setTimeout(function () { window.location.href = "pending.html"; }, 2500);
-        }
-      }).catch(function (err) {
-        showAlert("signupAlert", firebaseErrorMessage(err), "danger");
-        btn.disabled = false;
-        btn.innerHTML = btnHtml;
-      });
+          btn.innerHTML = btnHtml;
+        });
       } catch (err) {
         showAlert("signupAlert", firebaseErrorMessage(err), "danger");
         btn.disabled = false;
@@ -150,7 +150,7 @@ var GVAuth = (function () {
       });
     });
     document.getElementById("btnPendingLogout").onclick = function () {
-      GVFirebase.signOut().then(function () { window.location.href = "index.html"; });
+      GVFirebase.signOut().then(function () { window.location.replace("index.html"); });
     };
   }
 
