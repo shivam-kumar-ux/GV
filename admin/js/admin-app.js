@@ -107,6 +107,9 @@
         document.querySelectorAll(".admin-section").forEach(function (s) { s.classList.remove("active"); });
         document.getElementById("sec-" + sec).classList.add("active");
         document.getElementById("sectionTitle").textContent = link.textContent.trim();
+        if (window.innerWidth < 992) {
+          document.getElementById("adminSidebar").classList.remove("open");
+        }
       };
     });
     document.getElementById("btnToggleSidebar").onclick = function () {
@@ -736,7 +739,7 @@
     var btnPyq = document.getElementById("btnSavePyq");
     if (btnPyq) btnPyq.onclick = saveAll;
     document.getElementById("btnLogout").onclick = function () {
-      GVFirebase.signOut().then(function () { window.location.href = "login.html"; });
+      GVFirebase.signOut().then(function () { window.location.replace("login.html"); });
     };
     document.getElementById("btnSeedData").onclick = function () {
       if (!confirm("Import default website data to Firebase? This overwrites Firestore content.")) return;

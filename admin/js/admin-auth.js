@@ -150,7 +150,7 @@ var GVAuth = (function () {
       });
     });
     document.getElementById("btnPendingLogout").onclick = function () {
-      GVFirebase.signOut().then(function () { window.location.href = "index.html"; });
+      GVFirebase.signOut().then(function () { window.location.replace("index.html"); });
     };
   }
 
