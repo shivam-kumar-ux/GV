@@ -127,7 +127,7 @@
   function onAuthChanged(cb) {
     if (!initFirebase()) {
       cb(null);
-      return function () {};
+      return function () { };
     }
     return auth.onAuthStateChanged(cb);
   }
@@ -200,12 +200,12 @@
   function requireApprovedUser() {
     return auth.currentUser
       ? getStaffProfile().then(function (p) {
-          if (!p) throw new Error("Staff profile missing. Contact administrator.");
-          if (p.status === "pending") throw new Error("pending");
-          if (p.status === "rejected") throw new Error("Your account was not approved.");
-          if (p.status !== "approved") throw new Error("Account not active.");
-          return { user: auth.currentUser, profile: p };
-        })
+        if (!p) throw new Error("Staff profile missing. Contact administrator.");
+        if (p.status === "pending") throw new Error("pending");
+        if (p.status === "rejected") throw new Error("Your account was not approved.");
+        if (p.status !== "approved") throw new Error("Account not active.");
+        return { user: auth.currentUser, profile: p };
+      })
       : Promise.reject(new Error("Not signed in"));
   }
 
@@ -249,6 +249,7 @@
     signOut: signOut,
     onAuthChanged: onAuthChanged,
     getStaffProfile: getStaffProfile,
+    isSuperAdminEmail: isSuperAdminEmail,
     canAccessPanel: canAccessPanel,
     isAdminRole: isAdminRole,
     requireApprovedUser: requireApprovedUser,

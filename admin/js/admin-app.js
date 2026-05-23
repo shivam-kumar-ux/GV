@@ -6,6 +6,7 @@
   var currentResultsYear = null;
   var currentMemYear = null;
   var activeSite = "shahpur";
+  var sessionProfile = null;
 
   function toast(msg, type) {
     var el = document.getElementById("adminToast");
@@ -102,6 +103,10 @@
       link.onclick = function (e) {
         e.preventDefault();
         var sec = link.getAttribute("data-section");
+        if (sec === "staff" && (!sessionProfile || !GVFirebase.isSuperAdminEmail(sessionProfile.email))) {
+          toast("Access denied. Super admin only.", "danger");
+          return;
+        }
         document.querySelectorAll(".admin-nav-link").forEach(function (l) { l.classList.remove("active"); });
         link.classList.add("active");
         document.querySelectorAll(".admin-section").forEach(function (s) { s.classList.remove("active"); });
@@ -882,7 +887,7 @@
       el.style.display = isPyq ? "" : "none";
     });
 
-    var isAdminUser = document.getElementById("userRoleBadge").textContent === "admin";
+    var isSuperAdmin = sessionProfile && GVFirebase.isSuperAdminEmail(sessionProfile.email);
     document.querySelectorAll("#shahpurNav .admin-nav-link, #pyqNav .admin-nav-link").forEach(function (l) {
       l.style.display = "";
     });
@@ -895,7 +900,7 @@
       l.style.display = isPyq ? "" : "none";
     });
     document.querySelectorAll(".admin-only-nav").forEach(function (l) {
-      l.style.display = isAdminUser ? "" : "none";
+      l.style.display = isSuperAdmin ? "" : "none";
     });
 
     var alertEl = document.getElementById("siteInactiveAlert");
@@ -916,10 +921,10 @@
 
     var desc = document.getElementById("overviewDesc");
     if (desc) {
-      desc.textContent = isPyq
-        ? "Manage PYQ Hub exams and question papers."
+      desc.innerHTML = isPyq
+        ? "Manage PYQ Hub exams, categories, and question papers. Update the repository of previous year question papers here, and they will be instantly available to students on the public PYQ Portal."
         : isShahpur
-          ? "Manage Gyanoday Vidyalaya Shahpur website content."
+          ? "Manage Gyanoday Vidyalaya Shahpur website content. Update top achievers, alumni stories, programs, events, notices, and other dynamic sections to keep the Shahpur campus website up-to-date."
           : "This campus is not enabled yet.";
     }
 
@@ -943,6 +948,7 @@
 
   function boot() {
     GVAuth.guardDashboard(function (session) {
+      sessionProfile = session.profile;
       document.getElementById("adminUserEmail").textContent =
         session.profile.name + " (" + session.profile.staffId + ")";
       document.getElementById("welcomeName").textContent = session.profile.name;
@@ -950,9 +956,11 @@
       badge.textContent = session.profile.role;
       badge.className = "badge mr-2 " + (session.profile.role === "admin" ? "badge-danger" : "badge-secondary");
 
-      if (GVFirebase.isAdminRole(session.profile)) {
+      if (GVFirebase.isSuperAdminEmail(session.profile.email)) {
         GVStaffAdmin.showAdminNav(true);
         GVStaffAdmin.initStaffSection();
+      } else {
+        GVStaffAdmin.showAdminNav(false);
       }
 
       activeSite = "shahpur";
