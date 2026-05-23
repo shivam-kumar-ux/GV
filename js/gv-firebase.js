@@ -42,6 +42,27 @@
     return getSiteConfig(activeSiteId).storagePrefix || ("gv-" + activeSiteId);
   }
 
+  function deepMerge(target, source) {
+    if (!source || typeof source !== "object") return target;
+    Object.keys(source).forEach(function (key) {
+      var sv = source[key];
+      var tv = target[key];
+      if (
+        sv &&
+        typeof sv === "object" &&
+        !Array.isArray(sv) &&
+        tv &&
+        typeof tv === "object" &&
+        !Array.isArray(tv)
+      ) {
+        deepMerge(tv, sv);
+      } else {
+        target[key] = sv;
+      }
+    });
+    return target;
+  }
+
   function mergeDefaults(data) {
     var base;
     if (activeSiteId === "pyq" || contentDocId() === "pyq") {
@@ -50,7 +71,7 @@
       base = JSON.parse(JSON.stringify(global.GV_DEFAULT_CONTENT || {}));
     }
     if (!data) return base;
-    return Object.assign(base, data);
+    return deepMerge(base, data);
   }
 
   function loadSiteContent(siteId) {
@@ -97,16 +118,24 @@
     var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
 
-    var uploadTask = storage.ref(path).put(file);
-    if (typeof onProgress === "function") {
-      uploadTask.on('state_changed', function (snapshot) {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        onProgress(progress);
-      });
-    }
+    var ref = storage.ref(path);
+    var uploadTask = ref.put(file);
 
-    return uploadTask.then(function () {
-      return storage.ref(path).getDownloadURL();
+    return new Promise(function (resolve, reject) {
+      uploadTask.on(
+        "state_changed",
+        function (snapshot) {
+          if (typeof onProgress === "function" && snapshot.totalBytes) {
+            onProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          }
+        },
+        function (err) {
+          reject(err);
+        },
+        function () {
+          ref.getDownloadURL().then(resolve).catch(reject);
+        }
+      );
     });
   }
 

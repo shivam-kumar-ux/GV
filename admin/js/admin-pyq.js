@@ -48,7 +48,7 @@ var GVPyqAdmin = (function () {
   function bindUploads(root) {
     if (!root) return;
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
-      var containerDiv = inp.closest("div").parentElement;
+      var containerDiv = inp.closest(".col-md-6, .admin-card-item");
       var btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
       var progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
       var barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
@@ -81,17 +81,23 @@ var GVPyqAdmin = (function () {
             }
           };
 
-          GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers", onProgress).then(function (url) {
+          GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers", "pyq", onProgress).then(function (url) {
             if (targetView) {
               targetView.value = url;
-              targetView.dispatchEvent(new Event('input', { bubbles: true }));
+              targetView.dispatchEvent(new Event("input", { bubbles: true }));
+              targetView.dispatchEvent(new Event("change", { bubbles: true }));
             }
             if (targetDl) {
               targetDl.value = url;
-              targetDl.dispatchEvent(new Event('input', { bubbles: true }));
+              targetDl.dispatchEvent(new Event("input", { bubbles: true }));
+              targetDl.dispatchEvent(new Event("change", { bubbles: true }));
             }
-            if (barInner) barInner.textContent = "Uploaded!";
-            toastFn("PDF uploaded.");
+            syncPapersFromForm();
+            if (barInner) barInner.textContent = "Saving…";
+            return GVFirebase.saveSiteContent(getContent(), "pyq");
+          }).then(function () {
+            if (barInner) barInner.textContent = "Done";
+            toastFn("PDF uploaded. View/Download URLs saved to PYQ Hub.");
           }).catch(function (e) {
             toastFn(e.message || "Upload failed", "danger");
           }).finally(function () {

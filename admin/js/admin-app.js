@@ -56,18 +56,38 @@
     return '<div class="d-flex align-items-center mt-1">' +
       '<input type="file" class="form-control-file gv-file" data-target="' + id + '" accept="' + (accept || "image/*") + '">' +
       '<button type="button" class="btn btn-sm btn-primary ml-2 btn-gv-upload" disabled style="white-space: nowrap;">Upload</button>' +
+      '</div>' +
+      '<div class="progress mt-2 d-none gv-upload-progress" style="height: 10px;">' +
+      '<div class="progress-bar bg-success gv-upload-progress-bar" style="width: 0%; font-size: 8px;">0%</div>' +
       '</div>';
+  }
+
+  function getUploadUi(inp) {
+    var fieldWrap = inp.closest(".col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .form-group, .admin-card-item");
+    if (!fieldWrap) fieldWrap = inp.parentElement && inp.parentElement.parentElement;
+    return {
+      btn: fieldWrap ? fieldWrap.querySelector(".btn-gv-upload") : null,
+      progressBar: fieldWrap ? fieldWrap.querySelector(".gv-upload-progress") : null,
+      barInner: fieldWrap ? fieldWrap.querySelector(".gv-upload-progress-bar") : null
+    };
+  }
+
+  function publishAfterUpload() {
+    if (activeSite === "pyq") {
+      GVPyqAdmin.syncAll();
+      return GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq");
+    }
+    syncAllFromForms();
+    return GVFirebase.saveSiteContent(content, activeSite);
   }
 
   function bindFileUploads(container) {
     container.querySelectorAll(".gv-file").forEach(function (inp) {
-      var containerDiv = inp.closest("div");
-      var btn = containerDiv ? containerDiv.querySelector(".btn-gv-upload") : null;
+      var ui = getUploadUi(inp);
+      var btn = ui.btn;
 
       inp.onchange = function () {
-        if (btn) {
-          btn.disabled = !inp.files[0];
-        }
+        if (btn) btn.disabled = !inp.files[0];
       };
 
       if (btn) {
@@ -81,17 +101,41 @@
           var target = document.getElementById(inp.getAttribute("data-target"));
           inp.disabled = true;
           btn.disabled = true;
-          GVFirebase.uploadFile(file, folder).then(function (url) {
+          if (ui.progressBar) ui.progressBar.classList.remove("d-none");
+          if (ui.barInner) {
+            ui.barInner.style.width = "0%";
+            ui.barInner.textContent = "0%";
+          }
+
+          var onProgress = function (percent) {
+            var p = Math.round(percent) + "%";
+            if (ui.barInner) {
+              ui.barInner.style.width = p;
+              ui.barInner.textContent = p;
+            }
+          };
+
+          GVFirebase.uploadFile(file, folder, activeSite, onProgress).then(function (url) {
             if (target) {
               target.value = url;
-              target.dispatchEvent(new Event('input', { bubbles: true }));
+              target.dispatchEvent(new Event("input", { bubbles: true }));
+              target.dispatchEvent(new Event("change", { bubbles: true }));
             }
-            toast("File uploaded successfully.");
+            if (ui.barInner) ui.barInner.textContent = "Saving…";
+            return publishAfterUpload();
+          }).then(function () {
+            if (ui.barInner) ui.barInner.textContent = "Done";
+            toast("File uploaded and saved. Refresh the public website to see changes.");
+            var info = document.getElementById("lastSavedInfo");
+            if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
           }).catch(function (e) {
-            toast(e.message, "danger");
+            toast(e.message || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
-            btn.disabled = false;
+            btn.disabled = !inp.files[0];
+            setTimeout(function () {
+              if (ui.progressBar) ui.progressBar.classList.add("d-none");
+            }, 2500);
           });
         };
       }
@@ -575,6 +619,8 @@
     };
 
     if (hostelUploadBtn) {
+      var hostelProgress = document.getElementById("hostelUploadProgress");
+      var hostelProgressBar = document.getElementById("hostelUploadProgressBar");
       hostelUploadBtn.onclick = function () {
         var file = hostelFileInput.files[0];
         if (!file) {
@@ -583,16 +629,33 @@
         }
         hostelFileInput.disabled = true;
         hostelUploadBtn.disabled = true;
-        GVFirebase.uploadFile(file, "hostel").then(function (url) {
+        if (hostelProgress) hostelProgress.classList.remove("d-none");
+        if (hostelProgressBar) {
+          hostelProgressBar.style.width = "0%";
+          hostelProgressBar.textContent = "0%";
+        }
+        GVFirebase.uploadFile(file, "hostel", activeSite, function (percent) {
+          var p = Math.round(percent) + "%";
+          if (hostelProgressBar) {
+            hostelProgressBar.style.width = p;
+            hostelProgressBar.textContent = p;
+          }
+        }).then(function (url) {
           hostelUrlInput.value = url;
           if (!content.hostel) content.hostel = {};
           content.hostel.menuPdfUrl = url;
-          toast("Menu PDF uploaded successfully.");
+          if (hostelProgressBar) hostelProgressBar.textContent = "Saving…";
+          return publishAfterUpload();
+        }).then(function () {
+          toast("Hostel menu uploaded and saved.");
         }).catch(function (e) {
           toast(e.message, "danger");
         }).finally(function () {
           hostelFileInput.disabled = false;
           hostelUploadBtn.disabled = false;
+          setTimeout(function () {
+            if (hostelProgress) hostelProgress.classList.add("d-none");
+          }, 2500);
         });
       };
     }
@@ -719,7 +782,7 @@
     if (activeSite === "pyq") {
       GVPyqAdmin.syncAll();
       GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq").then(function () {
-        toast("PYQ Hub saved! Run Sync workflow, then refresh the public PYQ page.");
+        toast("PYQ Hub saved! Refresh the public PYQ page to see updates.");
       }).catch(function (e) {
         toast(e.message, "danger");
       }).finally(function () {

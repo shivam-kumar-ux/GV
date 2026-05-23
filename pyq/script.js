@@ -17,11 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
     initHeroSearch();
     initFilters();
-    initExamCards();
     initCounters();
     initScrollAnimations();
-    renderPYQs(PYQ_DATA);
     linkifyFooterContacts();
+
+    var ready = window.GV_PYQ_READY || Promise.resolve();
+    ready.then(function () {
+        initExamCards();
+        renderPYQs(PYQ_DATA);
+    });
 });
 
 function linkifyFooterContacts() {

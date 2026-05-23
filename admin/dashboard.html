@@ -181,6 +181,9 @@
                     <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
                     <button type="button" class="btn btn-sm btn-primary ml-2" id="btnHostelMenuUpload" disabled style="white-space: nowrap;">Upload</button>
                 </div>
+                <div class="progress mt-2 d-none" id="hostelUploadProgress" style="height: 10px;">
+                    <div class="progress-bar bg-success" id="hostelUploadProgressBar" style="width: 0%; font-size: 8px;">0%</div>
+                </div>
             </div>
         </section>
         <section class="admin-section shahpur-sec" id="sec-disclosure">
@@ -203,7 +206,7 @@
                 <p class="small mb-2">Copy existing papers from <code>pyq-default.js</code> into Firestore once.</p>
                 <button class="btn btn-outline-primary btn-sm" id="btnSeedPyq"><i class="fa fa-database mr-1"></i>Import PYQ Data</button>
             </div>
-            <p class="small text-muted">After saving, run GitHub Action <strong>Sync public site from Firestore</strong> so the live PYQ page updates.</p>
+            <p class="small text-muted">PYQ Hub reads from Firestore on refresh. Use <strong>Sync public site from Firestore</strong> only if you need static backup files in the repo.</p>
         </section>
         <section class="admin-section pyq-sec" id="sec-pyq-exams">
             <p class="text-muted small">Exam categories appear in PYQ Hub modals (emoji, subtitle, format HTML).</p>
