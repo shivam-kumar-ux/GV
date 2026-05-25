@@ -103,8 +103,8 @@
           btn.disabled = true;
           if (ui.progressBar) ui.progressBar.classList.remove("d-none");
           if (ui.barInner) {
-            ui.barInner.style.width = "0%";
-            ui.barInner.textContent = "0%";
+            ui.barInner.style.width = "2%";
+            ui.barInner.textContent = "Preparing…";
           }
 
           var onProgress = function (percent) {
@@ -115,7 +115,15 @@
             }
           };
 
-          GVFirebase.uploadFile(file, folder, activeSite, onProgress).then(function (url) {
+          var uploadPromise = GVFirebase.uploadFile(file, folder, activeSite, onProgress);
+          if (!uploadPromise || typeof uploadPromise.then !== "function") {
+            toast("Upload could not start. Reload the page and try again.", "danger");
+            inp.disabled = false;
+            btn.disabled = !inp.files[0];
+            return;
+          }
+
+          uploadPromise.then(function (url) {
             if (target) {
               target.value = url;
               target.dispatchEvent(new Event("input", { bubbles: true }));
@@ -129,13 +137,24 @@
             var info = document.getElementById("lastSavedInfo");
             if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
           }).catch(function (e) {
-            toast(e.message || "Upload failed", "danger");
+            console.error("GV upload error:", e);
+            if (ui.barInner) {
+              ui.barInner.style.width = "100%";
+              ui.barInner.classList.remove("bg-success");
+              ui.barInner.classList.add("bg-danger");
+              ui.barInner.textContent = "Failed";
+            }
+            toast((e && e.message) || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
             btn.disabled = !inp.files[0];
             setTimeout(function () {
               if (ui.progressBar) ui.progressBar.classList.add("d-none");
-            }, 2500);
+              if (ui.barInner) {
+                ui.barInner.classList.remove("bg-danger");
+                ui.barInner.classList.add("bg-success");
+              }
+            }, 4000);
           });
         };
       }
@@ -1010,6 +1029,9 @@
   }
 
   function boot() {
+    if (window.location.protocol === "file:") {
+      toast("Open admin via http://localhost or your live website — not by double-clicking the HTML file.", "danger");
+    }
     GVAuth.guardDashboard(function (session) {
       sessionProfile = session.profile;
       document.getElementById("adminUserEmail").textContent =

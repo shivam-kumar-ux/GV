@@ -157,6 +157,21 @@ a {
   background-color: transparent;
 }
 
+/* Force header contact text (phone + email) to be white on dark topbar */
+.container-fluid.bg-dark a,
+.container-fluid.bg-dark .text-white,
+.container-fluid.bg-dark small,
+.container-fluid.bg-dark .d-inline-flex.align-items-center.text-white {
+  color: #fff !important;
+}
+
+.container-fluid.bg-dark a:hover,
+.container-fluid.bg-dark a:focus {
+  color: #fff !important;
+  text-decoration: none;
+}
+
+
 a:hover {
   color: #1154b6;
   text-decoration: underline;
@@ -9841,12 +9856,14 @@ h6,
   bottom: 0;
   left: 0;
   z-index: 2;
-  background-color: #033374;
+  /* 60% transparency => 40% opacity */
+  background-color: rgba(3, 51, 116, 0.6);
   padding: 25px 35px;
   border-radius: 0 20px 20px 0;
   max-width: 500px;
   margin-bottom: 90px;
 }
+
 
 .header-content-card h5 {
   color: #fff !important;
@@ -10374,9 +10391,93 @@ h6,
   }
 
   /* Navbar Button Spacing - BLACKBOXAI */
-  .get-job-btn {
+.get-job-btn {
     margin-left: 1rem !important;
-  }
+}
+
+/* GV_Shahpur - Social icons in footer: make background white and keep original icons */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Ensure footer social icons are always visible on result.html too */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square i,
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square svg {
+  color: #2878EB !important; /* default facebook blue */
+}
+
+
+/* Social icon brand colors */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 a.btn.btn-primary.btn-square[href*="facebook" i] i {
+  color: #1877F2 !important;
+}
+
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 a.btn.btn-primary.btn-square[href*="instagram" i] i {
+  color: #F56040 !important; /* orange */
+}
+
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 a.btn.btn-primary.btn-square[href*="youtube" i] i {
+  color: #FF0000 !important; /* red */
+}
+
+/* Fallbacks: in case href selectors don't match due to whitespace/templating */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square .fa-facebook-f { color: #1877F2 !important; }
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square .fa-instagram { color: #F56040 !important; }
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .btn.btn-primary.btn-square .fa-youtube { color: #FF0000 !important; }
+
+
+
+
+/* GV_Shahpur - Force Navbar CTAs color to #033374 */
+
+/* Footer styling for all pages - BLACKBOXAI */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 {
+  color: #c9c9c9 !important;
+}
+
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 :not(h1):not(h2):not(h3) {
+  color: #c9c9c9 !important;
+}
+
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 h1,
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 h2,
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 h3 {
+  color: #ffffff !important;
+}
+
+/* Footer Brand span should remain white like headings */
+.container-fluid.position-relative.bg-dark.text-white-50.py-5 .gv-footer-brand {
+  color: #ffffff !important;
+}
+
+/* GV_Shahpur - Force Topbar info (CBSE/Phone/Email) to stay on a single line */
+.gv-topbar-info{
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
+.get-admission-btn,
+.get-job-btn {
+  background-color: #033374 !important;
+  border-color: #033374 !important;
+  color: #ffffff !important;
+}
+
+.get-admission-btn:hover,
+.get-admission-btn:focus,
+.get-admission-btn:active,
+.get-admission-btn.active,
+.get-job-btn:hover,
+.get-job-btn:focus,
+.get-job-btn:active,
+.get-job-btn.active {
+  background-color: #033374 !important;
+  border-color: #033374 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
 
   /* SELECT FIX v4 - clean native appearance */
   #classSelect, #examSelect {

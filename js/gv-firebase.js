@@ -20,8 +20,57 @@
     }
     db = global.firebase.firestore();
     auth = global.firebase.auth();
-    storage = typeof global.firebase.storage === "function" ? global.firebase.storage() : null;
+    storage = getStorageInstance();
     return true;
+  }
+
+  function getStorageInstance() {
+    if (!isConfigured() || typeof global.firebase.storage !== "function") return null;
+    try {
+      var cfg = global.GV_FIREBASE_CONFIG;
+      var app = global.firebase.app();
+      if (cfg && cfg.storageBucket) {
+        var bucket = cfg.storageBucket;
+        if (bucket.indexOf("gs://") !== 0) bucket = "gs://" + bucket;
+        return app.storage(bucket);
+      }
+      return global.firebase.storage();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function resolveContentType(file) {
+    if (file.type && file.type !== "application/octet-stream") return file.type;
+    var name = String(file.name || "").toLowerCase();
+    if (name.endsWith(".pdf")) return "application/pdf";
+    if (name.endsWith(".png")) return "image/png";
+    if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "image/jpeg";
+    if (name.endsWith(".webp")) return "image/webp";
+    if (name.endsWith(".gif")) return "image/gif";
+    return "";
+  }
+
+  function formatStorageError(err) {
+    var code = (err && err.code) || "";
+    var map = {
+      "storage/unauthorized": "Upload denied. Log out and log in again. Ensure Storage rules are deployed.",
+      "storage/canceled": "Upload was canceled.",
+      "storage/unknown": "Storage error. Enable Firebase Storage in the console.",
+      "storage/retry-limit-exceeded": "Network error during upload. Try again.",
+      "storage/invalid-checksum": "Upload failed verification. Try again.",
+      "storage/quota-exceeded": "Storage quota exceeded."
+    };
+    if (map[code]) return new Error(map[code]);
+    return err || new Error("Upload failed");
+  }
+
+  function ensureAuthForUpload() {
+    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    if (!auth) return Promise.reject(new Error("Firebase Auth is not loaded on this page."));
+    var user = auth.currentUser;
+    if (!user) return Promise.reject(new Error("Not signed in. Log out and log in again before uploading."));
+    return user.getIdToken(true).then(function () { return user; });
   }
 
   function getSiteConfig(siteId) {
@@ -106,36 +155,84 @@
   }
 
   function uploadFile(file, folder, siteId, onProgress) {
-    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
-    if (!storage) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
-
     if (typeof siteId === "function") {
       onProgress = siteId;
       siteId = null;
     }
     if (siteId) setActiveSite(siteId);
 
-    var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
+    var contentType = resolveContentType(file);
+    if (!contentType) {
+      return Promise.reject(new Error("Only PDF and image files (JPG, PNG, WEBP, GIF) are allowed."));
+    }
+    if (file.size > 15 * 1024 * 1024) {
+      return Promise.reject(new Error("File is too large. Maximum size is 15 MB."));
+    }
 
-    var ref = storage.ref(path);
-    var uploadTask = ref.put(file);
+    return ensureAuthForUpload().then(function () {
+      var st = getStorageInstance();
+      if (!st) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
 
-    return new Promise(function (resolve, reject) {
-      uploadTask.on(
-        "state_changed",
-        function (snapshot) {
-          if (typeof onProgress === "function" && snapshot.totalBytes) {
-            onProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          }
-        },
-        function (err) {
-          reject(err);
-        },
-        function () {
-          ref.getDownloadURL().then(resolve).catch(reject);
+      var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
+      var ref = st.ref(path);
+      var metadata = { contentType: contentType };
+      var uploadTask = ref.put(file, metadata);
+
+      if (typeof onProgress === "function") onProgress(1);
+
+      uploadTask.on("state_changed", function (snapshot) {
+        if (typeof onProgress !== "function") return;
+        var pct;
+        if (snapshot.totalBytes > 0) {
+          pct = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        } else if (file.size > 0) {
+          pct = Math.min(99, (snapshot.bytesTransferred / file.size) * 100);
+        } else {
+          pct = snapshot.state === "success" ? 100 : 5;
         }
-      );
+        onProgress(Math.max(1, Math.min(100, pct)));
+      });
+
+      var timeoutMs = 120000;
+      var timeoutId = setTimeout(function () {
+        try { uploadTask.cancel(); } catch (e) { /* ignore */ }
+      }, timeoutMs);
+
+      function finishUpload() {
+        clearTimeout(timeoutId);
+        return ref.getDownloadURL();
+      }
+
+      if (typeof uploadTask.then === "function") {
+        return uploadTask.then(finishUpload).catch(function (err) {
+          clearTimeout(timeoutId);
+          if (err && err.code === "storage/canceled") {
+            throw new Error("Upload timed out after 2 minutes. Check your connection and Firebase Storage setup.");
+          }
+          throw formatStorageError(err);
+        });
+      }
+
+      return new Promise(function (resolve, reject) {
+        uploadTask.on(
+          "state_changed",
+          function (snapshot) {
+            if (typeof onProgress !== "function") return;
+            var pct = snapshot.totalBytes > 0
+              ? (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              : 5;
+            onProgress(Math.max(1, Math.min(100, pct)));
+          },
+          function (err) {
+            clearTimeout(timeoutId);
+            reject(formatStorageError(err));
+          },
+          function () {
+            finishUpload().then(resolve).catch(reject);
+          }
+        );
+      });
     });
   }
 

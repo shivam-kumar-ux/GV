@@ -5,14 +5,18 @@
     <meta charset="utf-8">
     <title>Gyanoday Vidyalaya - Best School in Bihar</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Gyanoday Vidyalaya - Providing quality education from Nursery to 12th Grade. Visit us at https://gyanodayvidyalaya.com/" name="description">
+    <meta
+        content="Gyanoday Vidyalaya - Providing quality education from Nursery to 12th Grade. Visit us at https://gyanodayvidyalaya.com/"
+        name="description">
 
     <!-- Favicon -->
     <link href="img/H_logo.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -24,24 +28,340 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- Responsive CSS (Mobile-First) -->
     <link href="css/responsive.css" rel="stylesheet">
+    <style>
+        /* Performer carousel hover details fix: only open info on hovered image */
+        @media (hover: hover) {
+
+            /* Disable container-wide hover triggering multiple cards */
+            .student-slider-container:hover .student-card {
+                transform: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .student-slider-container:hover .student-card img {
+                transform: none;
+            }
+
+            .student-slider-container:hover .student-details {
+                max-height: 0;
+                opacity: 0;
+                padding: 0 20px;
+            }
+
+            /* Enable hover effects specifically on the individual card being hovered */
+            .student-card:hover {
+                transform: translateY(-15px) !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+                z-index: 5;
+            }
+
+            .student-card:hover img {
+                transform: scale(1.1) !important;
+            }
+
+            .student-card:hover .student-details {
+                max-height: 200px !important;
+                opacity: 1 !important;
+                padding: 20px !important;
+            }
+        }
+
+        /* ===== Home: fullscreen video hero + scroll navbar ===== */
+        :root {
+            --gv-topbar-h: 42px;
+            --gv-navbar-h: 76px;
+        }
+
+        body[data-gv-page="home"] {
+            overflow-x: hidden;
+        }
+
+        body[data-gv-page="home"] .gv-home-topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            margin: 0;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap {
+            position: fixed;
+            top: var(--gv-topbar-h);
+            left: 0;
+            right: 0;
+            z-index: 1040;
+            transform: translateY(-110%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.4s ease, opacity 0.35s ease, visibility 0.35s;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
+        }
+
+        body[data-gv-page="home"] .gv-home-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+            margin: 0 !important;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 40%, rgba(0, 0, 0, 0.45) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-logo {
+            position: absolute;
+            top: calc(var(--gv-topbar-h) + 14px);
+            left: 28px;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-logo img {
+            height: 70px;
+            width: auto;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-brand {
+            color: #fff;
+            font-family: "Jost", serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+            letter-spacing: 0.5px;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .header-content-card {
+            z-index: 10;
+            margin-bottom: 48px;
+        }
+
+        body[data-gv-page="home"] .gv-scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+            opacity: 0.9;
+            animation: gvBounce 2s infinite;
+        }
+
+        body[data-gv-page="home"] .gv-scroll-hint i {
+            display: block;
+            font-size: 1.25rem;
+            margin-top: 4px;
+        }
+
+        @keyframes gvBounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(8px);
+            }
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed .gv-scroll-hint {
+            display: none;
+        }
+
+        /* Enquiry popup on load */
+        .gv-enquiry-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .gv-enquiry-overlay.gv-enquiry-show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gv-enquiry-card {
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 28px 28px 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            animation: gvCardIn 0.35s ease;
+        }
+
+        @keyframes gvCardIn {
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .gv-enquiry-close {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .gv-enquiry-close:hover {
+            background: #e0e0e0;
+            color: #000;
+        }
+
+        .gv-enquiry-card {
+            text-align: center;
+        }
+
+        .gv-enquiry-logo {
+            width: 90px;
+            height: auto;
+            margin: 6px auto 10px;
+            display: block;
+        }
+
+        .gv-enquiry-card h4 {
+            color: #2878EB;
+            font-weight: 700;
+            margin-bottom: 6px;
+            padding-right: 0;
+        }
+
+        .gv-enquiry-card p {
+            margin: 0 auto 14px;
+            max-width: 420px;
+        }
+
+        /* Make name/phone placeholders/text fit better in the popup */
+        #gvEnquiryForm .form-row {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-right: -5px !important;
+            margin-left: -5px !important;
+        }
+
+        #gvEnquiryForm .form-control {
+            height: 48px;
+            /* Increased height for premium feel */
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-radius: 6px;
+            width: 100% !important;
+        }
+
+        #gvEnquiryForm textarea.form-control {
+            height: auto !important;
+        }
+
+        #gvEnquiryForm .form-group {
+            margin-bottom: 12px;
+        }
+
+        /* Specific height increase for the Select Enquiry Type dropdown */
+        #eq-enquiry {
+            height: 50px !important;
+            padding: 10px 14px;
+        }
+
+
+        @media (max-width: 767.98px) {
+            body[data-gv-page="home"] .gv-home-hero-logo img {
+                height: 52px;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-brand {
+                font-size: 1rem;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-logo {
+                left: 16px;
+                top: calc(var(--gv-topbar-h) + 10px);
+            }
+        }
+    </style>
 </head>
 
 <body data-gv-page="home">
-    <!-- Topbar Start -->
-    <div class="container-fluid bg-dark">
+    <!-- Topbar Start (always fixed on home) -->
+    <div id="gvHomeTopbar" class="container-fluid bg-dark gv-home-topbar">
         <div class="row py-2 px-lg-5">
             <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                <div class="d-inline-flex align-items-center text-white">
+                <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+                    <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                    <small class="px-2 ml-2">|</small>
                     <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
                     <small class="px-3">|</small>
                     <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
-                    <small class="px-2 ml-2">|</small>
-                    <small>Affiliation No.-331280</small>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank">
+                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/"
+                        target="_blank">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     <small class="px-3">|</small>
@@ -49,7 +369,8 @@
                         <i class="fab fa-instagram"></i>
                     </a>
                     <small class="px-3">|</small>
-                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank">
+                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
+                        target="_blank">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -58,10 +379,31 @@
     </div>
     <!-- Topbar End -->
 
+    <!-- Fullscreen video hero (loads first; navbar appears on scroll) -->
+    <header id="gvHomeHero" class="jumbotron jumbotron-fluid jumbotron-video gv-home-hero">
+        <video class="video-background" id="headerVideo" autoplay muted loop playsinline preload="metadata">
+            <source src="vid/GV_intro.mp4" type="video/mp4">
+        </video>
+        <a href="index.html" class="gv-home-hero-logo" id="gvHomeHeroLogo">
+            <!--<img src="img/H_logo.png" alt="Gyanoday Vidyalaya">-->
+            <div class="gv-home-hero-brand">
+                <!--<span>Gyanoday Vidyalaya</span>-->
+            </div>
+        </a>
+        <div class="header-content-card">
+            <h5 class="text-white mt-4 mb-4">Welcome to Gyanoday Vidyalaya</h5>
+            <h4 class="text-white display-1 mb-5">Shaping Future Leaders</h4>
+            <p class="text-white mb-4">Quality Education from Nursery to 12th Grade</p>
+        </div>
+        <div class="gv-scroll-hint" aria-hidden="true">
+            Scroll to explore
+            <i class="fa fa-chevron-down"></i>
+        </div>
+    </header>
 
-    <!-- Navbar Start -->
-    <div class="container-fluid p-0 sticky-top bg-white shadow-sm">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+    <!-- Navbar (hidden until user scrolls past hero; then fixed with topbar) -->
+    <div id="gvHomeNavbarWrap" class="container-fluid p-0 bg-white gv-home-navbar-wrap">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5" id="gvHomeNavbar">
             <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
                 <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
             </a>
@@ -69,347 +411,272 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About Us</a>
-                        <a href="academics.html" class="nav-item nav-link">Academics</a>
-                        <a href="result.html" class="nav-item nav-link">Results</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="facilities.html" class="dropdown-item">Facilities</a>
-                                <a href="choose.html" class="dropdown-item">Why Choose Us</a>
-                                <a href="gallery.html" class="dropdown-item">Gallery</a>
-                                <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
-                                <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
-                            </div>
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="academics.html" class="nav-item nav-link">Academics</a>
+                    <a href="result.html" class="nav-item nav-link">Results</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="facilities.html" class="dropdown-item">Facilities</a>
+                            <a href="choose.html" class="dropdown-item">Why Choose Us</a>
+                            <a href="gallery.html" class="dropdown-item">Gallery</a>
+                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                            <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
-                        <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get Admission</a>
-                    <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
+                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get
+                    Admission</a>
+                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
             </div>
         </nav>
     </div>
 
-    <!-- Navbar End -->
+    <!-- Enquiry popup (same fields as contact section) -->
+    <div id="gvEnquiryOverlay" class="gv-enquiry-overlay" role="dialog" aria-labelledby="gvEnquiryTitle"
+        aria-modal="true">
+        <div class="gv-enquiry-card">
+            <button type="button" class="gv-enquiry-close" id="gvEnquiryClose"
+                aria-label="Close enquiry form">&times;</button>
+            <img class="gv-enquiry-logo" src="img/H_logo.png" alt="Gyanoday Vidyalaya"
+                style="height: 100px; width:auto;">
+            <h4 id="gvEnquiryTitle">Send Us An Enquiry</h4>
+            <p class="text-muted small mb-3">Fill in your details and we will get back to you soon.</p>
 
-
-    <!-- Header Start -->
-    <div class="jumbotron jumbotron-fluid jumbotron-video position-relative" style="margin-bottom: 90px; min-height: 100vh;">
-        <!-- Video Background -->
-            <video class="video-background" id="headerVideo" autoplay loop playsinline preload="metadata">
-            <source src="vid/GV_intro.mp4" type="video/mp4">
-        </video>
-        <!-- Header Content Card -->
-        <div class="header-content-card">
-            <h5 class="text-white mt-4 mb-4">Welcome to Gyanoday Vidyalaya</h5>
-            <h4 class="text-white display-1 mb-5">Shaping Future Leaders</h4>
-            <p class="text-white mb-4">Quality Education from Nursery to 12th Grade</p>
-        </div>
-        <!-- Header Content Card End-->
-        <div class="container text-center my-5 py-5">
-            <div class="mx-auto mb-5" style="width: 100%; max-width: 600px;">
-                <div class="input-group">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Header End -->
-
-
-    <!-- About Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="img/about.jpg" style="object-fit: cover;">
+            <form id="gvEnquiryForm" novalidate>
+                <div class="form-row" style="display:flex; gap:10px;">
+                    <div class="col-6 form-group" style="flex:1;">
+                        <input id="eq-name" type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-6 form-group" style="flex:1;">
+                        <input id="eq-phone" type="tel" class="form-control" placeholder="Your Phone" required>
                     </div>
                 </div>
-                <div class="col-lg-7">
-                    <div class="section-title position-relative mb-4">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">About Us</h6>
-                        <h1 class="display-4">Welcome to Gyanoday Vidyalaya</h1>
-                    </div>
-                    <p>Gyanoday Vidyalaya is a premier educational institution dedicated to providing quality education to students from Nursery to 12th Grade. Our school is committed to nurturing young minds and shaping them into responsible citizens and future leaders.</p>
-                    <p>Located in Shahpur, Bihar, we have been serving the educational needs of our community since 2018. Our experienced faculty, modern infrastructure, and student-centric approach ensure that every child receives the best possible education.</p>
-                    <div class="row pt-3 mx-0">
-                        <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                            <div class="bg-success text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">15</h1>
-                                <h6 class="text-uppercase text-white">Classes<span class="d-block">Offered</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                            <div class="bg-primary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">25</h1>
-                                <h6 class="text-uppercase text-white">Qualified<span class="d-block">Teachers</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                            <div class="bg-secondary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">500</h1>
-                                <h6 class="text-uppercase text-white">Active<span class="d-block">Students</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                            <div class="bg-warning text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">10</h1>
-                                <h6 class="text-uppercase text-white">Years of<span class="d-block">Excellence</span></h6>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <input id="eq-email" type="email" class="form-control" placeholder="Your Email (Optional)">
                 </div>
-            </div>
+                <div class="form-group">
+                    <select id="eq-enquiry" class="form-control">
+                        <option value="">Select Enquiry Type</option>
+                        <option>Admission Enquiry</option>
+                        <option>General Inquiry</option>
+                        <option>Feedback</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="eq-message" class="form-control" rows="4" placeholder="Message" required></textarea>
+                </div>
+                <button id="eq-submit-btn" class="btn btn-primary btn-block py-3" type="submit">
+                    <span id="eq-btn-text">Send Message</span>
+                    <span id="eq-btn-spinner" class="spinner-border spinner-border-sm ml-2" role="status"
+                        style="display:none;"></span>
+                </button>
+                <div id="eq-alert"
+                    style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;"></div>
+            </form>
         </div>
     </div>
-    <!-- About End -->
 
-
-    <!-- Feature Start -->
-    <div class="container-fluid bg-image" style="margin: 90px 0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 my-5 pt-5 pb-lg-5">
-                    <div class="section-title position-relative mb-4">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Why Choose Us?</h6>
-                        <h1 class="display-4">Why Choose Gyanoday Vidyalaya for Your Child?</h1>
-                    </div>
-                    <p class="mb-4 pb-2">We are committed to providing the best educational experience for your child. Our focus is on overall development including academic excellence, character building, and extra-curricular activities.</p>
-                    <div class="d-flex mb-3">
-                        <div class="btn-icon bg-primary mr-4">
-                            <i class="fa fa-2x fa-graduation-cap text-white"></i>
-                        </div>
-                        <div class="mt-n1">
-                            <h4>Experienced Faculty</h4>
-                            <p>Our teachers are highly qualified and experienced in their respective subject, dedicated to helping every student succeed.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <div class="btn-icon bg-secondary mr-4">
-                            <i class="fa fa-2x fa-certificate text-white"></i>
-                        </div>
-                        <div class="mt-n1">
-                            <h4>CBSE Affiliated</h4>
-                            <p>Our school follows CBSE curriculum ensuring quality education and recognized certifications for higher studies.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <div class="btn-icon bg-warning mr-4">
-                            <i class="fa fa-2x fa-book-reader text-white"></i>
-                        </div>
-                        <div class="mt-n1">
-                            <h4>AI & Robotics labs</h4>
-                            <p>Modern infrastructure with AI & robotics lab equipped with latest technology for enhanced learning experience.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="btn-icon bg-success mr-4">
-                            <i class="fa fa-2x fa-futbol text-white"></i>
-                        </div>
-                        <div class="mt-n1">
-                            <h4>Sports & Activities</h4>
-                            <p class="m-0">Comprehensive sports program and extra-curricular activities for holistic development of students.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="img/feature.jpg" style="object-fit: cover;">
+    <div id="gvHomeMain">
+        <!-- Academics Start -->
+        <style>
+            /* Reduce whitespace between header and first academics heading (Home page only) */
+            body[data-gv-page="home"] .container-fluid.px-0.py-5 {
+                padding-top: 15px !important;
+            }
+        </style>
+        <!-- Student Achievement Slider Start -->
+        <div class="container-fluid px-0 py-5">
+            <div class="row mx-0 justify-content-center pt-5">
+                <div class="col-lg-6">
+                    <div class="section-title text-center position-relative mb-4">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>-->
+                        <h1 class="display-4">Our Top Performers</h1>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Feature End -->
 
-    <!-- Academics Start -->
-    <!-- Student Achievement Slider Start -->
-    <div class="container-fluid px-0 py-5">
-        <div class="row mx-0 justify-content-center pt-5">
-            <div class="col-lg-6">
-                <div class="section-title text-center position-relative mb-4">
-                    <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>
-                    <h1 class="display-4">Our Top Performers</h1>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Student Achievement Slider -->
-        <div class="student-slider-container">
-            <div class="student-slider-track" id="studentSlider">
-                <!-- Student 1 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/sunny.JPG" alt="Student 1">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Sunny Kumar</span>
-                                <span class="student-achievement">Rank 1 - Board Exam</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> CBSE Class 10</p>
-                                <!--<p><strong>Rank:</strong> </p>
+            <!-- Student Achievement Slider -->
+            <div class="student-slider-container">
+                <div class="student-slider-track" id="studentSlider">
+                    <!-- Student 1 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/sunny.JPG" alt="Student 1">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Sunny Kumar</span>
+                                    <span class="student-achievement">Rank 1 - Board Exam</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> </p>
                                 <p><strong>Marks Scored:</strong> </p>-->
-                                <p><strong>Achievement:</strong> School Topper</p>
+                                    <p><strong>Achievement:</strong> School Topper</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 2 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/supriya.JPG" alt="Student 2">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Supriya Rani</span>
-                                <span class="student-achievement">School Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> CBSE Class 10</p>
-                                <!--<p><strong>Rank:</strong> 2nd in District</p>
+                    <!-- Student 2 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/supriya.JPG" alt="Student 2">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Supriya Rani</span>
+                                    <span class="student-achievement">School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> 2nd in District</p>
                                 <p><strong>Marks Scored:</strong> 98%</p>-->
-                                <p><strong>Achievement:</strong> Girl's Topper</p>
+                                    <p><strong>Achievement:</strong> Girl's Topper</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 3 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/anjali.JPG" alt="Student 3">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Anjali Kumari</span>
-                                <span class="student-achievement">Class - VI</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya </p>
-                                <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
-                                <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Student 4 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/ankit.JPG" alt="Student 4">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Ankit Kumar</span>
-                                <span class="student-achievement">Class - VI</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> RMS Ajmer</p>
-                                <p><strong>Exam:</strong> Sainik School</p>
-                                <p><strong>Rank:</strong> 179</p>
+                    <!-- Student 3 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/anjali.JPG" alt="Student 3">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Anjali Kumari</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya </p>
+                                    <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
+                                    <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 5 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/kanhaiya.JPG" alt="Student 5">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Kanhaiya Jee</span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF Olympiads zonal winner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Student 6 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/pawan.JPG" alt="Student 6">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Pawan Kumar</span>
-                                <span class="student-achievement">RMS Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                    <!-- Student 4 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/ankit.JPG" alt="Student 4">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Ankit Kumar</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer</p>
+                                    <p><strong>Exam:</strong> Sainik School</p>
+                                    <p><strong>Rank:</strong> 179</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 7 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/roushan.JPG" alt="Student 7">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Roushan Kr Yadav </span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Student 8 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/shivam.JPG" alt="Student 8">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Shivam Kumar</span>
-                                <span class="student-achievement">Sainik School Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
-                                <p><strong>Rank:</strong> AIR 113</p>
-                                <p><strong>Marks Scored:</strong> 368/400</p>
-                                <p><strong>Class:</strong> IX </p>
+                    <!-- Student 5 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/kanhaiya.JPG" alt="Student 5">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Kanhaiya Jee</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF
+                                        Olympiads zonal winner</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 9 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/shivansh.jpg" alt="Student 9">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Shivansh Singh</span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads</p>
+                    <!-- Student 6 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/pawan.JPG" alt="Student 6">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Pawan Kumar</span>
+                                    <span class="student-achievement">RMS Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Student 10 -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/yash.jpg" alt="Student 10">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Yash Raj</span>
-                                <span class="student-achievement">2025 Jharkhand State Topper</span>
+                    <!-- Student 7 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/roushan.JPG" alt="Student 7">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Roushan Kr Yadav </span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023
+                                    </p>
+                                </div>
                             </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
-                                <p><strong>Rank:</strong> AIR 58 </p>
-                                <p><strong>Marks Scored:</strong> 292/300</p>
-                                <p><strong>Class:</strong> VI</p>
+                        </div>
+                    </div>
+                    <!-- Student 8 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivam.JPG" alt="Student 8">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivam Kumar</span>
+                                    <span class="student-achievement">Sainik School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
+                                    <p><strong>Rank:</strong> AIR 113</p>
+                                    <p><strong>Marks Scored:</strong> 368/400</p>
+                                    <p><strong>Class:</strong> IX </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 9 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivansh.jpg" alt="Student 9">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivansh Singh</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC
+                                        Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 10 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/yash.jpg" alt="Student 10">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Yash Raj</span>
+                                    <span class="student-achievement">2025 Jharkhand State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
+                                    <p><strong>Rank:</strong> AIR 58 </p>
+                                    <p><strong>Marks Scored:</strong> 292/300</p>
+                                    <p><strong>Class:</strong> VI</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--Student Achievement Slider End-->
-        <!--<div class="row justify-content-center bg-image mx-0 mb-5">
+            <!--Student Achievement Slider End-->
+            <!--<div class="row justify-content-center bg-image mx-0 mb-5">
             <div class="col-lg-6 py-5">
                 <div class="bg-white p-5 my-5">
                     <h1 class="text-center mb-4">Admission Open for Session 2025-26</h1>
@@ -459,101 +726,600 @@
             </div>
         </div>
     </div>-->
-    <!-- Academics End -->
+            <!-- Academics End -->
 
-
-    <!-- Alumni Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="section-title text-center position-relative mb-5">
-                <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Alumni</h6>
-                <h1 class="display-4">Meet Our Inspiration - Our Alumni</h1>
-            </div>
-            <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;" id="gvAlumniCarousel">
-                <!-- Alumni loaded from Firebase via js/gv-render.js -->
-            </div>
-        </div>
-    </div>
-    <!-- Alumni End -->
-
-
-    <!-- Testimonial Start -->
-    <div class="container-fluid bg-image py-5" style="margin: 90px 0;">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <div class="section-title position-relative mb-4">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Testimonials</h6>
-                        <h1 class="display-4">What Parents Say</h1>
-                    </div>
-                    <p class="m-0">We value feedback from our parents and community. Their satisfaction is our greatest achievement.</p>
-                </div>
-                <div class="col-lg-7">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="bg-white p-5">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <p>Gyanoday Vidyalaya has provided excellent education to my child. The teachers are supportive and the environment is very conducive for learning. Highly recommended!</p>
-                            <div class="d-flex flex-shrink-0 align-items-center mt-4">
-                                <img class="img-fluid mr-4" src="img/testimonial-2.jpg" alt="">
-                                <div>
-                                    <h5>Rajesh Kumar</h5>
-                                    <span>Parent</span>
+            <!-- About Start -->
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100" src="img/about.jpg"
+                                    style="object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">About Us</h6>-->
+                                <h1 class="display-4">Welcome to Gyanoday Vidyalaya</h1>
+                            </div>
+                            <p>Gyanoday Vidyalaya is a premier educational institution dedicated to providing quality
+                                education to students from Nursery to 12th Grade. Our school is committed to nurturing
+                                young
+                                minds and shaping them into responsible citizens and future leaders.</p>
+                            <p>Located in Shahpur, Bihar, we have been serving the educational needs of our community
+                                since
+                                2018. Our experienced faculty, modern infrastructure, and student-centric approach
+                                ensure
+                                that every child receives the best possible education.</p>
+                            <div class="row pt-3 mx-0">
+                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
+                                    <div class="bg-success text-center p-4">
+                                        <h1 class="text-white" data-toggle="counter-up">15</h1>
+                                        <h6 class="text-uppercase text-white">Classes<span
+                                                class="d-block">Offered</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
+                                    <div class="bg-primary text-center p-4">
+                                        <h1 class="text-white" data-toggle="counter-up">25</h1>
+                                        <h6 class="text-uppercase text-white">Qualified<span
+                                                class="d-block">Teachers</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
+                                    <div class="bg-secondary text-center p-4">
+                                        <h1 class="text-white" data-toggle="counter-up">500</h1>
+                                        <h6 class="text-uppercase text-white">Active<span
+                                                class="d-block">Students</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
+                                    <div class="bg-warning text-center p-4">
+                                        <h1 class="text-white" data-toggle="counter-up">10</h1>
+                                        <h6 class="text-uppercase text-white">Years of<span
+                                                class="d-block">Excellence</span></h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white p-5">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <p>We are very happy with the progress our daughter has made at Gyanoday Vidyalaya. The school focuses on overall development of students.</p>
-                            <div class="d-flex flex-shrink-0 align-items-center mt-4">
-                                <img class="img-fluid mr-4" src="img/testimonial-1.jpg" alt="">
-                                <div>
-                                    <h5>Priya Sharma</h5>
-                                    <span>Parent</span>
+                    </div>
+                </div>
+            </div>
+            <!-- About End -->
+
+
+            <!-- Feature Start -->
+            <div class="container-fluid bg-image" style="margin: 90px 0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7 my-5 pt-5 pb-lg-5">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Why Choose Us?</h6>-->
+                                <h1 class="display-4">Why Choose Gyanoday Vidyalaya for Your Child?</h1>
+                            </div>
+                            <p class="mb-4 pb-2">We are committed to providing the best educational experience for your
+                                child. Our focus is on overall development including academic excellence, character
+                                building, and extra-curricular activities.</p>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-primary mr-4">
+                                    <i class="fa fa-2x fa-graduation-cap text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>Experienced Faculty</h4>
+                                    <p>Our teachers are highly qualified and experienced in their respective subject,
+                                        dedicated to helping every student succeed.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-secondary mr-4">
+                                    <i class="fa fa-2x fa-certificate text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>CBSE Affiliated</h4>
+                                    <p>Our school follows CBSE curriculum ensuring quality education and recognized
+                                        certifications for higher studies.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-warning mr-4">
+                                    <i class="fa fa-2x fa-book-reader text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>AI & Robotics labs</h4>
+                                    <p>Modern infrastructure with AI & robotics lab equipped with latest technology for
+                                        enhanced learning experience.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="btn-icon bg-success mr-4">
+                                    <i class="fa fa-2x fa-futbol text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>Sports & Activities</h4>
+                                    <p class="m-0">Comprehensive sports program and extra-curricular activities for
+                                        holistic
+                                        development of students.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5" style="min-height: 500px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100" src="img/feature.jpg"
+                                    style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature End -->
+
+
+
+            <!-- Alumni Start -->
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="section-title text-center position-relative mb-5">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Alumni</h6>-->
+                        <h1 class="display-4">Meet Our Inspiration - Our Alumni</h1>
+                    </div>
+                    <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;"
+                        id="gvAlumniCarousel">
+                        <!-- Alumni loaded from Firebase via js/gv-render.js -->
+                    </div>
+                </div>
+            </div>
+            <!-- Alumni End -->
+
+
+            <!-- Testimonial Start -->
+            <div class="container-fluid bg-image py-5" style="margin: 90px 0;">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 mb-5 mb-lg-0">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Testimonials</h6>-->
+                                <h1 class="display-4">What Parents Say</h1>
+                            </div>
+                            <p class="m-0">We value feedback from our parents and community. Their satisfaction is our
+                                greatest achievement.</p>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="owl-carousel testimonial-carousel">
+                                <div class="bg-white p-5">
+                                    <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                                    <p>Gyanoday Vidyalaya has provided excellent education to my child. The teachers are
+                                        supportive and the environment is very conducive for learning. Highly
+                                        recommended!
+                                    </p>
+                                    <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                                        <img class="img-fluid mr-4" src="img/testimonial-2.jpg" alt="">
+                                        <div>
+                                            <h5>Rajesh Kumar</h5>
+                                            <span>Parent</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-5">
+                                    <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                                    <p>We are very happy with the progress our daughter has made at Gyanoday Vidyalaya.
+                                        The
+                                        school focuses on overall development of students.</p>
+                                    <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                                        <img class="img-fluid mr-4" src="img/testimonial-1.jpg" alt="">
+                                        <div>
+                                            <h5>Rahul Sharma</h5>
+                                            <span>Parent</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
+            <!-- Testimonial End -->
+
+            <!-- News & Events Custom Styles -->
+            <style>
+                .gv-events-grid {
+                    display: grid;
+
+                    grid-template-columns: repeat(4, 1fr);
+                    /* tighter spacing between cards */
+                    gap: 2px;
+                    margin-top: 40px;
+
+                }
 
 
-    <!-- Contact Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <div class="bg-light d-flex flex-column justify-content-center px-5" style="height: 450px;">
-                        <div class="d-flex align-items-center mb-5">
-                            <div class="btn-icon bg-primary mr-4">
-                                <i class="fa fa-2x fa-map-marker-alt text-white"></i>
+                .gv-event-card {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    background: #ffffff;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+                    height: 100%;
+                }
+
+                .gv-event-card.tall {
+                    grid-row: span 2;
+                }
+
+                .gv-event-card .card-img-wrap {
+                    position: relative;
+                    width: 100%;
+                    flex-grow: 1;
+                    overflow: hidden;
+                    background-color: #f5f5f5;
+                }
+
+                /* Enforce strict aspect ratio for small cards on desktop */
+                .gv-event-card.small .card-img-wrap {
+                    aspect-ratio: 4 / 3;
+                }
+
+                .gv-event-card.tall .card-img-wrap {
+                    height: 100%;
+                }
+
+                .gv-event-card img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+                }
+
+                /* Banner at bottom */
+                .gv-event-card .card-banner {
+                    background-color: #1d3a68;
+                    /* Slate deep blue matching user screenshot */
+                    color: #ffffff;
+                    text-align: center;
+                    padding: 12px 10px;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    letter-spacing: 0.5px;
+                    transition: background-color 0.3s ease;
+                    border-top: 1px solid rgba(255, 255, 255, 0.05);
+                }
+
+                /* Hover Overlay */
+                .gv-event-card .card-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(18, 15, 45, 0.85);
+                    /* Premium deep dark semi-transparent blue */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    padding: 24px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.4s ease, visibility 0.4s ease;
+                    z-index: 5;
+                }
+
+                .gv-event-card .overlay-content {
+                    transform: translateY(20px);
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    width: 100%;
+                }
+
+                .gv-event-card .overlay-title {
+                    color: #ffffff;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 700;
+                    font-size: 1.8rem;
+                    margin-bottom: 6px;
+                    line-height: 1.2;
+                }
+
+                .gv-event-card.small .overlay-title {
+                    font-size: 1.35rem;
+                }
+
+                .gv-event-card .overlay-desc {
+                    color: rgba(255, 255, 255, 0.85);
+                    font-size: 0.95rem;
+                    line-height: 1.4;
+                    margin-bottom: 20px;
+                }
+
+                .gv-event-card.small .overlay-desc {
+                    font-size: 0.85rem;
+                    margin-bottom: 15px;
+                }
+
+                /* Read More Button styling */
+                .gv-event-card .btn-read-more {
+                    display: inline-block;
+                    background-color: #2878EB;
+                    /* Primary site blue */
+                    color: #ffffff;
+                    border-radius: 50px;
+                    padding: 8px 24px;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    letter-spacing: 0.5px;
+                    border: 2px solid transparent;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    box-shadow: 0 4px 15px rgba(40, 120, 235, 0.3);
+                    width: fit-content;
+                }
+
+                .gv-event-card.small .btn-read-more {
+                    padding: 6px 18px;
+                    font-size: 0.85rem;
+                }
+
+                .gv-event-card .btn-read-more:hover {
+                    background-color: #ffffff;
+                    color: #2878EB;
+                    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+                    transform: translateY(-2px);
+                }
+
+                /* Hover States */
+                .gv-event-card:hover {
+                    transform: translateY(-6px);
+                    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+                }
+
+                .gv-event-card:hover img {
+                    transform: scale(1.08);
+                }
+
+                .gv-event-card:hover .card-overlay {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .gv-event-card:hover .overlay-content {
+                    transform: translateY(0);
+                }
+
+                .gv-event-card:hover .card-banner {
+                    background-color: #2878EB;
+                    /* Highlights banner color with active primary blue */
+                }
+
+                /* Responsive Breakpoints */
+                @media (max-width: 1199px) {
+                    .gv-events-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 20px;
+                    }
+
+                    .gv-event-card.tall {
+                        grid-row: span 1;
+                        height: auto;
+                    }
+
+                    .gv-event-card.tall .card-img-wrap {
+                        aspect-ratio: 4 / 3;
+                    }
+                }
+
+                @media (max-width: 991px) {
+                    .gv-events-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                @media (max-width: 575px) {
+                    .gv-events-grid {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .gv-event-card.small .card-img-wrap,
+                    .gv-event-card.tall .card-img-wrap {
+                        aspect-ratio: 16 / 10;
+                    }
+
+                    .gv-event-card .overlay-title {
+                        font-size: 1.5rem;
+                    }
+
+                    .gv-event-card .overlay-desc {
+                        font-size: 0.9rem;
+                    }
+                }
+            </style>
+
+            <!-- News & Events Section -->
+            <div class="container-fluid py-5 bg-light">
+                <div class="container py-5">
+                    <div class="section-title text-center position-relative mb-5">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Latest Happenings
+                    </h6>-->
+                        <h1 class="display-4">News & Events</h1>
+                    </div>
+
+                    <div class="gv-events-grid">
+                        <!-- 1. Tall Event Card (Smart Agriculture & Satellite Tech) -->
+                        <div class="gv-event-card tall">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-1.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?auto=format&fit=crop&w=800&q=80"
+                                    alt="Smart Agriculture Project">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Smart Agriculture</h3>
+                                        <p class="overlay-desc">Innovative school project demonstrating high-tech IoT
+                                            and
+                                            satellite monitoring in farming.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-n1">
-                                <h4>Our Location</h4>
-                                <p class="m-0">Shahpur, Bihar</p>
-                            </div>
+                            <div class="card-banner">Smart Agriculture</div>
                         </div>
-                        <div class="d-flex align-items-center mb-5">
-                            <div class="btn-icon bg-secondary mr-4">
-                                <i class="fa fa-2x fa-phone-alt text-white"></i>
+
+                        <!-- 2. Small Event Card (Space Science & Satellites) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-2.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80"
+                                    alt="Space Science Workshop">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Space Science</h3>
+                                        <p class="overlay-desc">Exploring satellite engineering and astronomy in our new
+                                            tech seminar.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-n1">
-                                <h4>Call Us</h4>
-                                <p class="m-0">+91 8002316898, +91 9955596394</p>
-                            </div>
+                            <div class="card-banner">Space Science</div>
                         </div>
-                        <div class="d-flex align-items-center mb-5">
-                            <div class="btn-icon bg-warning mr-4">
-                                <i class="fa fa-2x fa-envelope text-white"></i>
+
+                        <!-- 3. Small Event Card (Annual Sports Day) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-3.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1502224562085-639556652f33?auto=format&fit=crop&w=600&q=80"
+                                    alt="Annual Sports Meet">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Sports Meet</h3>
+                                        <p class="overlay-desc">A thrilling exhibition of athleticism, teamwork, and
+                                            healthy
+                                            competition.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-n1">
-                                <h4>Email Us</h4>
-                                <a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
-                            </div>
+                            <div class="card-banner">Sports Meet</div>
                         </div>
-                        <!--<div class="d-flex align-items-center">
+
+                        <!-- 4. Small Event Card (Robotics Lab) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-4.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
+                                    alt="Robotics Lab Session">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Robotics Lab</h3>
+                                        <p class="overlay-desc">Students building and programming automated robots in
+                                            the
+                                            state-of-the-art lab.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Robotics Lab</div>
+                        </div>
+
+                        <!-- 5. Small Event Card (Art & Craft Exhibition) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-5.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=600&q=80"
+                                    alt="Art & Craft Expo">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Art Exhibition</h3>
+                                        <p class="overlay-desc">A beautiful display of painting, craftwork, and pure
+                                            student
+                                            creativity.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Art Exhibition</div>
+                        </div>
+
+                        <!-- 6. Small Event Card (Cultural Festival) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-6.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80"
+                                    alt="Cultural Festival">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Cultural Fest</h3>
+                                        <p class="overlay-desc">Celebrating diversity with music, dance performances,
+                                            and
+                                            theater acts.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Cultural Fest</div>
+                        </div>
+
+                        <!-- 7. Small Event Card (Yoga Day) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-7.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80"
+                                    alt="Yoga Day Session">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Yoga Day</h3>
+                                        <p class="overlay-desc">Promoting mindfulness, health, and holistic well-being
+                                            on
+                                            international Yoga Day.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Yoga Day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- News & Events End -->
+
+            <!-- Contact Start -->
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 mb-5 mb-lg-0">
+                            <div class="bg-light d-flex flex-column justify-content-center px-5" style="height: 450px;">
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-primary mr-4">
+                                        <i class="fa fa-2x fa-map-marker-alt text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Our Location</h4>
+                                        <p class="m-0">Shahpur, Bihar</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-secondary mr-4">
+                                        <i class="fa fa-2x fa-phone-alt text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Call Us</h4>
+                                        <p class="m-0">+91 8002316898, +91 9955596394</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-warning mr-4">
+                                        <i class="fa fa-2x fa-envelope text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Email Us</h4>
+                                        <a
+                                            href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
+                                    </div>
+                                </div>
+                                <!--<div class="d-flex align-items-center">
                             <div class="btn-icon bg-success mr-4">
                                 <i class="fa fa-2x fa-globe text-white"></i>
                             </div>
@@ -562,226 +1328,407 @@
                                 <p class="m-0">www.gyanodayvidyalaya.com</p>
                             </div>
                         </div>-->
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="section-title position-relative mb-4">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Get In Touch</h6>
-                        <h1 class="display-4">Send Us A Message</h1>
-                    </div>
-                    <div class="contact-form">
-                        <form id="indexContactForm" novalidate>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input id="ic-name" type="text" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Name" required>
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input id="ic-phone" type="tel" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Phone" required>
-                                </div>
                             </div>
-                            <div class="form-group">
-                                <input id="ic-email" type="email" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder="Your Email (Optional)">
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Get In Touch</h6>-->
+                                <h1 class="display-4">Send Us A Message</h1>
                             </div>
-                            <div class="form-group">
-                                <select id="ic-enquiry" class="form-control border-top-0 border-right-0 border-left-0 p-0">
-                                    <option value="">Select Enquiry Type</option>
-                                    <option>Admission Enquiry</option>
-                                    <option>General Inquiry</option>
-                                    <option>Feedback</option>
-                                </select>
+                            <div class="contact-form">
+                                <form id="indexContactForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-6 form-group">
+                                            <input id="ic-name" type="text"
+                                                class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                                placeholder="Your Name" required>
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <input id="ic-phone" type="tel"
+                                                class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                                placeholder="Your Phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="ic-email" type="email"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                            placeholder="Your Email (Optional)">
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="ic-enquiry"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0">
+                                            <option value="">Select Enquiry Type</option>
+                                            <option>Admission Enquiry</option>
+                                            <option>General Inquiry</option>
+                                            <option>Feedback</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea id="ic-message"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5"
+                                            placeholder="Message" required></textarea>
+                                    </div>
+                                    <div>
+                                        <button id="ic-submit-btn" class="btn btn-primary py-3 px-5" type="submit">
+                                            <span id="ic-btn-text">Send Message</span>
+                                            <span id="ic-btn-spinner" class="spinner-border spinner-border-sm ml-2"
+                                                role="status" style="display:none;"></span>
+                                        </button>
+                                    </div>
+                                    <div id="ic-alert"
+                                        style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;">
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <textarea id="ic-message" class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5" placeholder="Message" required></textarea>
-                            </div>
-                            <div>
-                                <button id="ic-submit-btn" class="btn btn-primary py-3 px-5" type="submit">
-                                    <span id="ic-btn-text">Send Message</span>
-                                    <span id="ic-btn-spinner" class="spinner-border spinner-border-sm ml-2" role="status" style="display:none;"></span>
-                                </button>
-                            </div>
-                            <div id="ic-alert" style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;"></div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Contact End -->
+            <!-- Contact End -->
 
 
-    <!-- Footer Start -->
-    <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
-        <div class="container mt-5 pt-5">
-            <div class="row">
-                <div class="col-md-6 mb-5">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Gyanoday Vidyalaya</h1>
-                    </a>
-                    <p class="m-0">Gyanoday Vidyalaya is committed to providing quality education to students from Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible citizens and future leaders.</p>
-                    <div class="mt-3">
-                        <a class="btn btn-primary btn-square mr-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-primary btn-square mr-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a class="btn btn-primary btn-square" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i class="fab fa-youtube"></i></a>
+            <!-- Footer Start -->
+            <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
+                <div class="container mt-5 pt-5">
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <a href="index.html" class="navbar-brand">
+                                <h1 class="mt-n2 text-uppercase text-white">Gyanoday Vidyalaya</h1>
+                            </a>
+                            <p class="m-0">Gyanoday Vidyalaya is committed to providing quality education to students
+                                from
+                                Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible
+                                citizens and future leaders.</p>
+                            <div class="mt-3">
+                                <a class="btn btn-primary btn-square mr-2"
+                                    href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary btn-square mr-2"
+                                    href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a class="btn btn-primary btn-square"
+                                    href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
+                                        class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Get In Touch</h3>
+                            <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
+                            <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
+                            <p><i class="fa fa-envelope mr-2"></i><a
+                                    href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
+                            </p>
+                            <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Quick Links</h3>
+                            <div class="d-flex flex-column justify-content-start">
+                                <a class="text-white-50 mb-2" href="index.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Home</a>
+                                <a class="text-white-50 mb-2" href="about.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>About Us</a>
+                                <a class="text-white-50 mb-2" href="academics.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Academics</a>
+                                <a class="text-white-50 mb-2" href="gallery.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Gallery</a>
+                                <a class="text-white-50" href="contact.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Contact</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Location</h3>
+                            <div class="map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin"
+                                    width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen=""
+                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Get In Touch</h3>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
-                    <p><i class="fa fa-envelope mr-2"></i><a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a></p>
-                    <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Quick Links</h3>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white-50 mb-2" href="index.html" target="_blank"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                        <a class="text-white-50 mb-2" href="about.html" target="_blank"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                        <a class="text-white-50 mb-2" href="academics.html" target="_blank"><i class="fa fa-angle-right mr-2"></i>Academics</a>
-                        <a class="text-white-50 mb-2" href="gallery.html" target="_blank"><i class="fa fa-angle-right mr-2"></i>Gallery</a>
-                        <a class="text-white-50" href="contact.html" target="_blank"><i class="fa fa-angle-right mr-2"></i>Contact</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Location</h3>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin" 
-                            width="100%" 
-                            height="250" 
-                            style="border:0; border-radius: 10px;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+            <div class="container-fluid bg-dark text-white-50 border-top py-4"
+                style="border-color: rgba(256, 256, 256, .1) !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                            <p class="m-0">Copyright &copy; <a class="text-white"
+                                    href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-right">
+                            <p class="m-0">Designed by
+                                <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam
+                                    Kumar</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.
-                    </p>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Designed with 
-                        <!--<i class="fa fa-heart text-danger"></i>--> 
-                        by 
-                        <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
+            <!-- Footer End -->
+        </div><!-- /#gvHomeMain -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+                class="fa fa-angle-double-up"></i></a>
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
 
-    <!-- Firebase dynamic content -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script>window.GV_SITE_ID = "shahpur";</script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/sites/shahpur-default.js"></script>
-    <script src="../js/gv-firebase.js"></script>
-    <script src="js/gv-render.js"></script>
+        <!-- Firebase dynamic content -->
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        <script>window.GV_SITE_ID = "shahpur";</script>
+        <script src="../js/firebase-config.js"></script>
+        <script src="../js/sites/shahpur-default.js"></script>
+        <script src="../js/gv-firebase.js"></script>
+        <script src="js/gv-render.js"></script>
 
-    <!-- =====================================================
+        <!-- =====================================================
          INDEX PAGE — Contact Form -> Google Sheets
          ===================================================== -->
-    <style>
-        #ic-submit-btn:disabled{opacity:.7;cursor:not-allowed;}
-    </style>
-    <script>
-    (function(){
-        "use strict";
-        var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+        <style>
+            #ic-submit-btn:disabled {
+                opacity: .7;
+                cursor: not-allowed;
+            }
+        </style>
+        <script>
+            (function () {
+                "use strict";
+                var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
 
-        var form      = document.getElementById("indexContactForm");
-        var alertBox  = document.getElementById("ic-alert");
-        var submitBtn = document.getElementById("ic-submit-btn");
-        var btnText   = document.getElementById("ic-btn-text");
-        var btnSpinner= document.getElementById("ic-btn-spinner");
+                var form = document.getElementById("indexContactForm");
+                var alertBox = document.getElementById("ic-alert");
+                var submitBtn = document.getElementById("ic-submit-btn");
+                var btnText = document.getElementById("ic-btn-text");
+                var btnSpinner = document.getElementById("ic-btn-spinner");
 
-        function setLoading(on){
-            submitBtn.disabled = on;
-            btnText.textContent = on ? "Sending…" : "Send Message";
-            btnSpinner.style.display = on ? "inline-block" : "none";
-        }
-        function showAlert(type, msg){
-            alertBox.style.display="block";
-            alertBox.style.background   = type==="success"?"#d4edda":"#f8d7da";
-            alertBox.style.color        = type==="success"?"#155724":"#721c24";
-            alertBox.style.border       = "1px solid "+(type==="success"?"#c3e6cb":"#f5c6cb");
-            alertBox.innerHTML=msg;
-        }
-        function hideAlert(){ alertBox.style.display="none"; alertBox.innerHTML=""; }
-        function validPhone(v){ return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+                function setLoading(on) {
+                    submitBtn.disabled = on;
+                    btnText.textContent = on ? "Sending…" : "Send Message";
+                    btnSpinner.style.display = on ? "inline-block" : "none";
+                }
+                function showAlert(type, msg) {
+                    alertBox.style.display = "block";
+                    alertBox.style.background = type === "success" ? "#d4edda" : "#f8d7da";
+                    alertBox.style.color = type === "success" ? "#155724" : "#721c24";
+                    alertBox.style.border = "1px solid " + (type === "success" ? "#c3e6cb" : "#f5c6cb");
+                    alertBox.innerHTML = msg;
+                }
+                function hideAlert() { alertBox.style.display = "none"; alertBox.innerHTML = ""; }
+                function validPhone(v) { return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
 
-        form.addEventListener("submit",function(e){
-            e.preventDefault(); hideAlert();
-            var name    = document.getElementById("ic-name").value.trim();
-            var phone   = document.getElementById("ic-phone").value.trim();
-            var email   = document.getElementById("ic-email").value.trim();
-            var enquiry = document.getElementById("ic-enquiry").value.trim();
-            var message = document.getElementById("ic-message").value.trim();
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault(); hideAlert();
+                    var name = document.getElementById("ic-name").value.trim();
+                    var phone = document.getElementById("ic-phone").value.trim();
+                    var email = document.getElementById("ic-email").value.trim();
+                    var enquiry = document.getElementById("ic-enquiry").value.trim();
+                    var message = document.getElementById("ic-message").value.trim();
 
-            if(!name)  { showAlert("error","Please enter your name."); return; }
-            if(!phone||!validPhone(phone)){ showAlert("error","Please enter a valid phone number."); return; }
-            if(!message){ showAlert("error","Please enter a message."); return; }
+                    if (!name) { showAlert("error", "Please enter your name."); return; }
+                    if (!phone || !validPhone(phone)) { showAlert("error", "Please enter a valid phone number."); return; }
+                    if (!message) { showAlert("error", "Please enter a message."); return; }
 
-            setLoading(true);
-            var payload={ source:"Home Page Contact", name:name, phone:phone, email:email||"--", enquiry:enquiry||"Not Selected", message:message };
-            var cbName="_icCb_"+Date.now();
-            var url=APPS_SCRIPT_URL+"?callback="+cbName+"&"+new URLSearchParams(payload).toString();
-            var script=document.createElement("script");
-            script.src=url;
+                    setLoading(true);
+                    var payload = { source: "Home Page Contact", name: name, phone: phone, email: email || "--", enquiry: enquiry || "Not Selected", message: message };
+                    var cbName = "_icCb_" + Date.now();
+                    var url = APPS_SCRIPT_URL + "?callback=" + cbName + "&" + new URLSearchParams(payload).toString();
+                    var script = document.createElement("script");
+                    script.src = url;
 
-            var timer=setTimeout(function(){ cleanup(); showAlert("error","Request timed out. Please try again."); },10000);
-            function cleanup(){ setLoading(false); if(script.parentNode) document.head.removeChild(script); delete window[cbName]; clearTimeout(timer); }
+                    var timer = setTimeout(function () { cleanup(); showAlert("error", "Request timed out. Please try again."); }, 10000);
+                    function cleanup() { setLoading(false); if (script.parentNode) document.head.removeChild(script); delete window[cbName]; clearTimeout(timer); }
 
-            window[cbName]=function(r){
-                cleanup();
-                if(r&&r.result==="success"){ showAlert("success","<strong>Message sent!</strong> We will get back to you soon."); form.reset(); }
-                else{ showAlert("error","Something went wrong. Please try again."); }
-            };
-            script.onerror=function(){ cleanup(); showAlert("error","Could not reach server. Check your connection."); };
-            document.head.appendChild(script);
-        });
-    })();
-    </script>
+                    window[cbName] = function (r) {
+                        cleanup();
+                        if (r && r.result === "success") { showAlert("success", "<strong>Message sent!</strong> We will get back to you soon."); form.reset(); }
+                        else { showAlert("error", "Something went wrong. Please try again."); }
+                    };
+                    script.onerror = function () { cleanup(); showAlert("error", "Could not reach server. Check your connection."); };
+                    document.head.appendChild(script);
+                });
+            })();
+        </script>
 
-    <!-- VIDEO SCROLL FIX -->
-    <script>
-    (function(){
-        var video=document.getElementById("headerVideo");
-        if(!video) return;
-        var jumbotron=video.closest(".jumbotron")||video.parentElement;
-        function handleScroll(){
-            var scrollTop=window.pageYOffset||document.documentElement.scrollTop;
-            var threshold=jumbotron?(jumbotron.offsetTop+jumbotron.offsetHeight):400;
-            if(scrollTop>threshold){ if(!video.paused) video.pause(); video.muted=true; }
-            else{ video.muted=false; if(video.paused){ var p=video.play(); if(p) p.catch(function(){ video.muted=true; video.play(); }); } }
-        }
-        var t; window.addEventListener("scroll",function(){ clearTimeout(t); t=setTimeout(handleScroll,50); },{passive:true});
-        handleScroll();
-    })();
-    </script>
+        <!-- HOME: fullscreen hero, scroll navbar, enquiry popup -->
+        <script>
+            (function () {
+                "use strict";
+                var topbar = document.getElementById("gvHomeTopbar");
+                var hero = document.getElementById("gvHomeHero");
+                var navWrap = document.getElementById("gvHomeNavbarWrap");
+                var navEl = document.getElementById("gvHomeNavbar");
+                var video = document.getElementById("headerVideo");
+
+                function measureHeights() {
+                    if (topbar) {
+                        document.documentElement.style.setProperty("--gv-topbar-h", topbar.offsetHeight + "px");
+                    }
+                    if (navEl) {
+                        document.documentElement.style.setProperty("--gv-navbar-h", navEl.offsetHeight + "px");
+                    }
+                }
+
+                function handleHomeScroll() {
+                    if (!hero) return;
+                    measureHeights();
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    var revealAt = hero.offsetHeight - (topbar ? topbar.offsetHeight : 0) - 80;
+                    if (scrollTop > revealAt) {
+                        document.body.classList.add("gv-nav-revealed");
+                    } else {
+                        document.body.classList.remove("gv-nav-revealed");
+                    }
+                    if (video) {
+                        if (scrollTop > revealAt) {
+                            if (!video.paused) video.pause();
+                        } else if (video.paused) {
+                            var p = video.play();
+                            if (p) p.catch(function () { video.muted = true; video.play(); });
+                        }
+                    }
+                }
+
+                measureHeights();
+                window.addEventListener("resize", measureHeights);
+                var scrollTimer;
+                window.addEventListener("scroll", function () {
+                    clearTimeout(scrollTimer);
+                    scrollTimer = setTimeout(handleHomeScroll, 30);
+                }, { passive: true });
+                handleHomeScroll();
+
+                if (video) {
+                    video.muted = true;
+                    var playTry = video.play();
+                    if (playTry) playTry.catch(function () { /* autoplay blocked until interaction */ });
+                }
+
+                /* Enquiry popup */
+                var overlay = document.getElementById("gvEnquiryOverlay");
+                var closeBtn = document.getElementById("gvEnquiryClose");
+                var eqForm = document.getElementById("gvEnquiryForm");
+                var eqAlert = document.getElementById("eq-alert");
+                var eqSubmit = document.getElementById("eq-submit-btn");
+                var eqBtnText = document.getElementById("eq-btn-text");
+                var eqSpinner = document.getElementById("eq-btn-spinner");
+                var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+
+                function showEnquiryPopup() {
+                    if (!overlay) return;
+                    if (sessionStorage.getItem("gvEnquiryDismissed") === "1") return;
+                    setTimeout(function () {
+                        overlay.classList.add("gv-enquiry-show");
+                        document.body.style.overflow = "hidden";
+                    }, 800);
+                }
+
+                function hideEnquiryPopup(remember) {
+                    if (!overlay) return;
+                    overlay.classList.remove("gv-enquiry-show");
+                    document.body.style.overflow = "";
+                    if (remember) sessionStorage.setItem("gvEnquiryDismissed", "1");
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function () { hideEnquiryPopup(true); });
+                }
+                if (overlay) {
+                    overlay.addEventListener("click", function (e) {
+                        if (e.target === overlay) hideEnquiryPopup(true);
+                    });
+                }
+
+                function eqSetLoading(on) {
+                    if (!eqSubmit) return;
+                    eqSubmit.disabled = on;
+                    if (eqBtnText) eqBtnText.textContent = on ? "Sending…" : "Send Message";
+                    if (eqSpinner) eqSpinner.style.display = on ? "inline-block" : "none";
+                }
+                function eqShowAlert(type, msg) {
+                    if (!eqAlert) return;
+                    eqAlert.style.display = "block";
+                    eqAlert.style.background = type === "success" ? "#d4edda" : "#f8d7da";
+                    eqAlert.style.color = type === "success" ? "#155724" : "#721c24";
+                    eqAlert.style.border = "1px solid " + (type === "success" ? "#c3e6cb" : "#f5c6cb");
+                    eqAlert.innerHTML = msg;
+                }
+                function eqHideAlert() {
+                    if (!eqAlert) return;
+                    eqAlert.style.display = "none";
+                    eqAlert.innerHTML = "";
+                }
+                function validPhone(v) { return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+
+                if (eqForm) {
+                    eqForm.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        eqHideAlert();
+                        var name = document.getElementById("eq-name").value.trim();
+                        var phone = document.getElementById("eq-phone").value.trim();
+                        var email = document.getElementById("eq-email").value.trim();
+                        var enquiry = document.getElementById("eq-enquiry").value.trim();
+                        var message = document.getElementById("eq-message").value.trim();
+                        if (!name) { eqShowAlert("error", "Please enter your name."); return; }
+                        if (!phone || !validPhone(phone)) { eqShowAlert("error", "Please enter a valid phone number."); return; }
+                        if (!message) { eqShowAlert("error", "Please enter a message."); return; }
+                        eqSetLoading(true);
+                        var payload = {
+                            source: "Home Page Enquiry Popup",
+                            name: name,
+                            phone: phone,
+                            email: email || "--",
+                            enquiry: enquiry || "Not Selected",
+                            message: message
+                        };
+                        var cbName = "_eqCb_" + Date.now();
+                        var url = APPS_SCRIPT_URL + "?callback=" + cbName + "&" + new URLSearchParams(payload).toString();
+                        var script = document.createElement("script");
+                        script.src = url;
+                        var timer = setTimeout(function () {
+                            eqCleanup();
+                            eqShowAlert("error", "Request timed out. Please try again.");
+                        }, 10000);
+                        function eqCleanup() {
+                            eqSetLoading(false);
+                            if (script.parentNode) document.head.removeChild(script);
+                            delete window[cbName];
+                            clearTimeout(timer);
+                        }
+                        window[cbName] = function (r) {
+                            eqCleanup();
+                            if (r && r.result === "success") {
+                                eqShowAlert("success", "<strong>Message sent!</strong> We will get back to you soon.");
+                                eqForm.reset();
+                                setTimeout(function () { hideEnquiryPopup(true); }, 2200);
+                            } else {
+                                eqShowAlert("error", "Something went wrong. Please try again.");
+                            }
+                        };
+                        script.onerror = function () {
+                            eqCleanup();
+                            eqShowAlert("error", "Could not reach server. Check your connection.");
+                        };
+                        document.head.appendChild(script);
+                    });
+                }
+
+                showEnquiryPopup();
+            })();
+        </script>
 </body>
+
 </html>

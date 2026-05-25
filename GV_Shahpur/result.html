@@ -1,180 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Results - Gyanoday Vidyalaya</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Check your academic results online at Gyanoday Vidyalaya. Search by class and admission number." name="description">
 
-        <!-- Favicon -->
-        <link href="img/H_logo.png" rel="icon">
+<head>
+    <meta charset="utf-8">
+    <title>Results - Gyanoday Vidyalaya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Check your academic results online at Gyanoday Vidyalaya. Search by class and admission number."
+        name="description">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+    <!-- Favicon -->
+    <link href="img/H_logo.png" rel="icon">
 
-        <!-- Font Awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajaxcdn/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
-        <!-- Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-        <!-- Responsive CSS (Mobile-First) -->
-        <link href="css/responsive.css" rel="stylesheet">
-        <style>
-            #classSelect, #examSelect {
-                color: #212529 !important;
-                background-color: #ffffff !important;
-                -webkit-text-fill-color: #212529 !important;
-                background-image: none !important;
-                -webkit-appearance: auto !important;
-                -moz-appearance: auto !important;
-                appearance: auto !important;
-                opacity: 1 !important;
+    <!-- Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Responsive CSS (Mobile-First) -->
+    <link href="css/responsive.css" rel="stylesheet">
+    <style>
+        #classSelect,
+        #examSelect {
+            color: #212529 !important;
+            background-color: #ffffff !important;
+            -webkit-text-fill-color: #212529 !important;
+            background-image: none !important;
+            -webkit-appearance: auto !important;
+            -moz-appearance: auto !important;
+            appearance: auto !important;
+            opacity: 1 !important;
+        }
+
+        #classSelect option,
+        #examSelect option {
+            color: #212529 !important;
+            background-color: #ffffff !important;
+        }
+
+        .rc-header {
+            background: #1F4E79;
+            color: #fff;
+            padding: 14px 18px;
+            text-align: center;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .rc-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 12px 18px;
+            margin-bottom: 14px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden !important;
             }
-            #classSelect option, #examSelect option {
-                color: #212529 !important;
-                background-color: #ffffff !important;
+
+            #printArea,
+            #printArea * {
+                visibility: visible !important;
             }
-            .rc-header {
-                background: #1F4E79;
-                color: #fff;
-                padding: 14px 18px;
-                text-align: center;
-                border-radius: 6px 6px 0 0;
-            }
-            .rc-info {
-                background: #f8f9fa;
-                border: 1px solid #dee2e6;
-                padding: 12px 18px;
-                margin-bottom: 14px;
-            }
-            @media print {
-                body * { visibility: hidden !important; }
-                #printArea, #printArea * { visibility: visible !important; }
-                #printArea { position: fixed; top: 0; left: 0; width: 100%; background: white; padding: 24px; }
-            }
-            /* HARD RESET for select */
-            #classSelect, #examSelect {
-                all: unset;
-                display: block;
+
+            #printArea {
+                position: fixed;
+                top: 0;
+                left: 0;
                 width: 100%;
-                padding: 10px;
-                border: 1px solid #ced4da;
-                border-radius: 4px;
-                background-color: #fff;
-                color: #212529 !important;
-                font-size: 16px;
-                line-height: 1.5;
+                background: white;
+                padding: 24px;
+            }
+        }
+
+        /* HARD RESET for select */
+        #classSelect,
+        #examSelect {
+            all: unset;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #212529 !important;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Restore dropdown behavior */
+        #classSelect,
+        #examSelect {
+            appearance: auto;
+            -webkit-appearance: menulist;
+            -moz-appearance: menulist;
+        }
+
+        /* Performer carousel hover details fix: only open info on hovered image */
+        @media (hover: hover) {
+
+            /* Disable container-wide hover triggering multiple cards */
+            .student-slider-container:hover .student-card {
+                transform: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             }
 
-            /* Restore dropdown behavior */
-            #classSelect, #examSelect {
-                appearance: auto;
-                -webkit-appearance: menulist;
-                -moz-appearance: menulist;
+            .student-slider-container:hover .student-card img {
+                transform: none;
             }
-        </style>
-    </head>
 
-    <body data-gv-page="result">
-        <!-- Topbar Start -->
-        <div class="container-fluid bg-dark">
-            <div class="row py-2 px-lg-5">
-                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                    <div class="d-inline-flex align-items-center text-white">
-                        <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
-                        <small class="px-3">|</small>
-                        <small><i class="fa fa-envelope mr-2"></i><a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a></small>
-                        <small class="px-2 ml-2">|</small>
-                        <small>Affiliation No.-331280</small>
-                    </div>
+            .student-slider-container:hover .student-details {
+                max-height: 0;
+                opacity: 0;
+                padding: 0 20px;
+            }
+
+            /* Enable hover effects specifically on the individual card being hovered */
+            .student-card:hover {
+                transform: translateY(-15px) !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+                z-index: 5;
+            }
+
+            .student-card:hover img {
+                transform: scale(1.1) !important;
+            }
+
+            .student-card:hover .student-details {
+                max-height: 200px !important;
+                opacity: 1 !important;
+                padding: 20px !important;
+            }
+        }
+    </style>
+</head>
+
+<body data-gv-page="result">
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+        <div class="row py-2 px-lg-5">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+                    <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                    <small class="px-2 ml-2">|</small>
+                    <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
+                    <small class="px-3">|</small>
+                    <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
                 </div>
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank" aria-label="Facebook">
-                            <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
-                        </a>
-                        <small class="px-3">|</small>
-                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" aria-label="Instagram">
-                            <i class="fab fa-instagram" style="font-size:1rem;"></i>
-                        </a>
-                        <small class="px-3">|</small>
-                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank" aria-label="YouTube">
-                            <i class="fab fa-youtube" style="font-size:1rem;"></i>
-                        </a>
-                    </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"
+                        aria-label="Facebook">
+                        <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
+                    </a>
+                    <small class="px-3">|</small>
+                    <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"
+                        aria-label="Instagram">
+                        <i class="fab fa-instagram" style="font-size:1rem;"></i>
+                    </a>
+                    <small class="px-3">|</small>
+                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
+                        target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube" style="font-size:1rem;"></i>
+                    </a>
                 </div>
             </div>
         </div>
-        <!-- Topbar End -->
+    </div>
+    <!-- Topbar End -->
 
 
-        <!-- Navbar Start -->
-        <div class="container-fluid p-0 sticky-top bg-white shadow-sm">
-            <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
-                <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
-                    <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
-                    <div class="ml-2">
-                    </div>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About Us</a>
-                        <a href="academics.html" class="nav-item nav-link">Academics</a>
-                        <a href="result.html" class="nav-item nav-link">Results</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="facilities.html" class="dropdown-item">Facilities</a>
-                                <a href="choose.html" class="dropdown-item">Why Choose Us</a>
-                                <a href="gallery.html" class="dropdown-item">Gallery</a>
-                                <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
-                                <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
-                            </div>
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0 sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
+                <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
+                <div class="ml-2">
+                </div>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="academics.html" class="nav-item nav-link">Academics</a>
+                    <a href="result.html" class="nav-item nav-link">Results</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="facilities.html" class="dropdown-item">Facilities</a>
+                            <a href="choose.html" class="dropdown-item">Why Choose Us</a>
+                            <a href="gallery.html" class="dropdown-item">Gallery</a>
+                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                            <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
-                        <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get Admission</a>
-                    <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
+                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-            </nav>
-        </div>
-        <!-- Navbar End -->
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get
+                    Admission</a>
+                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
 
-        <!-- Header Start -->
-        <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
-            <div class="container text-center py-5">
-                <h1 class="text-white display-1">Student Results</h1>
-                <div class="d-inline-flex text-white mb-5">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
-                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">Results</p>
-                </div>
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">Student Results</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Results</p>
             </div>
         </div>
-        <!-- Header End -->
+    </div>
+    <!-- Header End -->
 
-        <!-- Result Search Form Start -->
-        <div class="container-fluid py-5 bg-light">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="section-title text-center position-relative mb-5">
-                            <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Check Results</h6>
-                            <h1 class="display-4" style="color:#1F4E79;">Search Your Results</h1>
-                            <!-- <p class="mb-4">Enter your class, exam, and admission number to view your academic results.</p> -->
-                        </div>
-                        <div class="bg-white p-5 shadow">
-                            <form id="resultForm">
-                                <!-- <div class="row">
+    <!-- Result Search Form Start -->
+    <div class="container-fluid py-5 bg-light">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title text-center position-relative mb-5">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Check Results</h6>-->
+                        <h1 class="display-4" style="color:#1F4E79;">Search Your Results</h1>
+                        <!-- <p class="mb-4">Enter your class, exam, and admission number to view your academic results.</p> -->
+                    </div>
+                    <div class="bg-white p-5 shadow">
+                        <form id="resultForm">
+                            <!-- <div class="row">
                                     <div class="col-md-4 mb-4">
                                         <label for="classSelect" class="font-weight-bold">Class</label>
                                         <select class="form-control" id="classSelect" required style="color:#212529!important;background:#fff!important;-webkit-text-fill-color:#212529!important;background-image:none!important;">
@@ -214,313 +282,372 @@
                                         <input type="text" class="form-control" id="admissionNo" placeholder="Enter Admission Number" required>
                                     </div>
                                 </div> -->
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg px-5"><a href="https://onlineresultportal.vercel.app/login/student" style="color: white; text-decoration: none;">Check Your Result</a></button>
-                                </div>
-                            </form>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5"><a
+                                        href="https://onlineresultportal.vercel.app/login/student"
+                                        style="color: white; text-decoration: none;">Check Your Result</a></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Result Search Form End -->
+
+    <!-- Our Achievers Start (Copied from index.html) -->
+    <div class="container-fluid px-0 py-5">
+        <div class="row mx-0 justify-content-center pt-5">
+            <div class="col-lg-6">
+                <div class="section-title text-center position-relative mb-4">
+                    <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>-->
+                    <h1 class="display-4" style="color:#1F4E79;">Top Performers</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Achievement Slider -->
+        <div class="student-slider-container">
+            <div class="student-slider-track" id="studentSlider">
+                <!-- All student slides copied from index.html -->
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/sunny.JPG" alt="Sunny Kumar">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Sunny Kumar</span>
+                                <span class="student-achievement">Rank 1 - Board Exam</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> CBSE Class 10</p>
+                                <p><strong>Achievement:</strong> School Topper</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/supriya.JPG" alt="Supriya Rani">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Supriya Rani</span>
+                                <span class="student-achievement">School Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> CBSE Class 10</p>
+                                <p><strong>Achievement:</strong> Girl's Topper</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/anjali.JPG" alt="Anjali Kumari">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Anjali Kumari</span>
+                                <span class="student-achievement">Class - VI</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya</p>
+                                <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
+                                <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/ankit.JPG" alt="Ankit Kumar">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Ankit Kumar</span>
+                                <span class="student-achievement">Class - VI</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> RMS Ajmer</p>
+                                <p><strong>Exam:</strong> Sainik School</p>
+                                <p><strong>Rank:</strong> 179</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/kanhaiya.JPG" alt="Kanhaiya Jee">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Kanhaiya Jee</span>
+                                <span class="student-achievement">State Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF
+                                    Olympiads zonal winner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/pawan.JPG" alt="Pawan Kumar">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Pawan Kumar</span>
+                                <span class="student-achievement">RMS Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/roushan.JPG" alt="Roushan Kr Yadav">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Roushan Kr Yadav</span>
+                                <span class="student-achievement">State Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/shivam.JPG" alt="Shivam Kumar">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Shivam Kumar</span>
+                                <span class="student-achievement">Sainik School Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
+                                <p><strong>Rank:</strong> AIR 113</p>
+                                <p><strong>Marks Scored:</strong> 368/400</p>
+                                <p><strong>Class:</strong> IX</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/shivansh.jpg" alt="Shivansh Singh">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Shivansh Singh</span>
+                                <span class="student-achievement">State Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC
+                                    Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-slide">
+                    <div class="student-card">
+                        <img src="img/result/yash.jpg" alt="Yash Raj">
+                        <div class="student-overlay">
+                            <div class="student-info">
+                                <span class="student-name">Yash Raj</span>
+                                <span class="student-achievement">2025 Jharkhand State Topper</span>
+                            </div>
+                            <div class="student-details">
+                                <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
+                                <p><strong>Rank:</strong> AIR 58</p>
+                                <p><strong>Marks Scored:</strong> 292/300</p>
+                                <p><strong>Class:</strong> VI</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Result Search Form End -->
-
-        <!-- Our Achievers Start (Copied from index.html) -->
-        <div class="container-fluid px-0 py-5">
-            <div class="row mx-0 justify-content-center pt-5">
-                <div class="col-lg-6">
-                    <div class="section-title text-center position-relative mb-4">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>
-                        <h1 class="display-4" style="color:#1F4E79;">Top Performers</h1>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Student Achievement Slider -->
-            <div class="student-slider-container">
-                <div class="student-slider-track" id="studentSlider">
-                    <!-- All student slides copied from index.html -->
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/sunny.JPG" alt="Sunny Kumar">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Sunny Kumar</span>
-                                    <span class="student-achievement">Rank 1 - Board Exam</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> CBSE Class 10</p>
-                                    <p><strong>Achievement:</strong> School Topper</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/supriya.JPG" alt="Supriya Rani">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Supriya Rani</span>
-                                    <span class="student-achievement">School Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> CBSE Class 10</p>
-                                    <p><strong>Achievement:</strong> Girl's Topper</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/anjali.JPG" alt="Anjali Kumari">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Anjali Kumari</span>
-                                    <span class="student-achievement">Class - VI</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya</p>
-                                    <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
-                                    <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/ankit.JPG" alt="Ankit Kumar">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Ankit Kumar</span>
-                                    <span class="student-achievement">Class - VI</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> RMS Ajmer</p>
-                                    <p><strong>Exam:</strong> Sainik School</p>
-                                    <p><strong>Rank:</strong> 179</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/kanhaiya.JPG" alt="Kanhaiya Jee">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Kanhaiya Jee</span>
-                                    <span class="student-achievement">State Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF Olympiads zonal winner</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/pawan.JPG" alt="Pawan Kumar">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Pawan Kumar</span>
-                                    <span class="student-achievement">RMS Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/roushan.JPG" alt="Roushan Kr Yadav">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Roushan Kr Yadav</span>
-                                    <span class="student-achievement">State Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/shivam.JPG" alt="Shivam Kumar">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Shivam Kumar</span>
-                                    <span class="student-achievement">Sainik School Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
-                                    <p><strong>Rank:</strong> AIR 113</p>
-                                    <p><strong>Marks Scored:</strong> 368/400</p>
-                                    <p><strong>Class:</strong> IX</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/shivansh.jpg" alt="Shivansh Singh">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Shivansh Singh</span>
-                                    <span class="student-achievement">State Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="student-slide">
-                        <div class="student-card">
-                            <img src="img/result/yash.jpg" alt="Yash Raj">
-                            <div class="student-overlay">
-                                <div class="student-info">
-                                    <span class="student-name">Yash Raj</span>
-                                    <span class="student-achievement">2025 Jharkhand State Topper</span>
-                                </div>
-                                <div class="student-details">
-                                    <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
-                                    <p><strong>Rank:</strong> AIR 58</p>
-                                    <p><strong>Marks Scored:</strong> 292/300</p>
-                                    <p><strong>Class:</strong> VI</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Our Achievers End -->
+    </div>
+    <!-- Our Achievers End -->
 
 
-        <!-- ===== RESULTS BY YEAR SECTION START ===== -->
-        <div class="container-fluid py-5" id="resultsByYearSection" style="background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #0d1f35 100%); overflow:hidden; position:relative;">
+    <!-- ===== RESULTS BY YEAR SECTION START ===== -->
+    <div class="container-fluid py-5" id="resultsByYearSection"
+        style="background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #0d1f35 100%); overflow:hidden; position:relative;">
 
-            <!-- Decorative background dots -->
-            <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0.06;">
-                    <defs><pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#fff"/></pattern></defs>
-                    <rect width="100%" height="100%" fill="url(#dots)"/>
-                </svg>
-            </div>
-
-            <div class="container py-4 position-relative">
-                <!-- Section heading -->
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-7 text-center rby-fadein" style="animation-delay:0s">
-                        <span style="display:inline-block;background:rgba(255,193,7,0.15);border:1px solid rgba(255,193,7,0.4);color:#ffc107;font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:16px;">Year-Wise Records</span>
-                        <h2 style="color:#fff;font-family:'Jost',sans-serif;font-weight:700;font-size:2.4rem;line-height:1.2;margin-bottom:12px;">Our <span style="color:#ffc107;">Exam Excellence</span><br>Through the Years</h2>
-                        <p style="color:rgba(255,255,255,0.55);font-size:0.95rem;max-width:500px;margin:0 auto;">Click any year to explore results across all competitive &amp; board examinations.</p>
-                    </div>
-                </div>
-
-                <!-- Year Tab Pills -->
-                <div class="rby-fadein" style="animation-delay:0.2s">
-                    <div id="rbyYearTabs" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px;">
-                        <!-- Tabs injected by JS -->
-                    </div>
-                </div>
-
-                <!-- Content Panel -->
-                <div id="rbyPanel" class="rby-fadein" style="animation-delay:0.35s;min-height:260px;">
-                    <!-- Cards injected by JS -->
-                </div>
-
-                <!-- Stats bar -->
-                <div id="rbyStats" class="rby-fadein" style="animation-delay:0.5s;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
-                    <!-- Stat chips injected by JS -->
-                </div>
-            </div>
+        <!-- Decorative background dots -->
+        <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0.06;">
+                <defs>
+                    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1.5" fill="#fff" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dots)" />
+            </svg>
         </div>
 
-        <style>
+        <div class="container py-4 position-relative">
+            <!-- Section heading -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-7 text-center rby-fadein" style="animation-delay:0s">
+                    <span
+                        style="display:inline-block;background:rgba(255,193,7,0.15);border:1px solid rgba(255,193,7,0.4);color:#ffc107;font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:16px;">Year-Wise
+                        Records</span>
+                    <h2
+                        style="color:#fff;font-family:'Jost',sans-serif;font-weight:700;font-size:2.4rem;line-height:1.2;margin-bottom:12px;">
+                        Our <span style="color:#ffc107;">Exam Excellence</span>Through the Years</h2>
+                    <p style="color:rgba(255,255,255,0.55);font-size:0.95rem;max-width:500px;margin:0 auto;">Click any
+                        year to explore results across all competitive &amp; board examinations.</p>
+                </div>
+            </div>
+
+            <!-- Year Tab Pills -->
+            <div class="rby-fadein" style="animation-delay:0.2s">
+                <div id="rbyYearTabs"
+                    style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px;">
+                    <!-- Tabs injected by JS -->
+                </div>
+            </div>
+
+            <!-- Content Panel -->
+            <div id="rbyPanel" class="rby-fadein" style="animation-delay:0.35s;min-height:260px;">
+                <!-- Cards injected by JS -->
+            </div>
+
+            <!-- Stats bar -->
+            <div id="rbyStats" class="rby-fadein"
+                style="animation-delay:0.5s;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+                <!-- Stat chips injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <style>
         /* ---- Fade-in animation ---- */
         .rby-fadein {
-            opacity:0;
+            opacity: 0;
             transform: translateY(24px);
             animation: rbyFadeUp 0.7s ease forwards;
         }
+
         @keyframes rbyFadeUp {
-            to { opacity:1; transform:translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ---- Year tab pill ---- */
         .rby-tab {
-            cursor:pointer;
-            border:2px solid rgba(255,255,255,0.18);
-            background:transparent;
-            color:rgba(255,255,255,0.65);
-            font-family:'Jost',sans-serif;
-            font-weight:600;
-            font-size:0.9rem;
-            letter-spacing:1px;
-            padding:9px 26px;
-            border-radius:50px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.18);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.65);
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 9px 26px;
+            border-radius: 50px;
             transition: all 0.28s ease;
-            position:relative;
-            overflow:hidden;
+            position: relative;
+            overflow: hidden;
         }
+
         .rby-tab::before {
-            content:'';
-            position:absolute;
-            inset:0;
-            background:linear-gradient(135deg,#ffc107,#ff8f00);
-            opacity:0;
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #ffc107, #ff8f00);
+            opacity: 0;
             transition: opacity 0.28s;
-            border-radius:50px;
-            z-index:0;
+            border-radius: 50px;
+            z-index: 0;
         }
-        .rby-tab span { position:relative;z-index:1; }
-        .rby-tab:hover { border-color:rgba(255,193,7,0.5); color:#fff; transform:translateY(-2px); }
-        .rby-tab.active { border-color:transparent; color:#1a2f4e; }
-        .rby-tab.active::before { opacity:1; }
-        .rby-tab.active span { color:#1a2f4e; font-weight:700; }
+
+        .rby-tab span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .rby-tab:hover {
+            border-color: rgba(255, 193, 7, 0.5);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .rby-tab.active {
+            border-color: transparent;
+            color: #1a2f4e;
+        }
+
+        .rby-tab.active::before {
+            opacity: 1;
+        }
+
+        .rby-tab.active span {
+            color: #1a2f4e;
+            font-weight: 700;
+        }
 
         /* ---- Exam category card ---- */
         .rby-card {
-            background:rgba(255,255,255,0.04);
-            border:1px solid rgba(255,255,255,0.1);
-            border-radius:16px;
-            padding:20px 18px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 18px 16px;
             transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-            cursor:default;
+            cursor: default;
             animation: rbyCardIn 0.45s ease both;
-            position:relative;
-            overflow:hidden;
-            height:100%;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
         }
+
         @keyframes rbyCardIn {
-            from { opacity:0; transform:translateY(18px) scale(0.97); }
-            to   { opacity:1; transform:translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
+
         .rby-card:hover {
-            transform:translateY(-5px);
-            border-color:rgba(255,193,7,0.4);
-            background:rgba(255,255,255,0.07);
+            transform: translateY(-5px);
+            border-color: rgba(255, 193, 7, 0.4);
+            background: rgba(255, 255, 255, 0.07);
         }
+
         .rby-card-accent {
-            position:absolute;
-            top:0;left:0;
-            width:4px;height:100%;
-            border-radius:16px 0 0 16px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 16px 0 0 16px;
         }
+
         .rby-exam-icon {
-            width:40px;height:40px;border-radius:10px;
-            display:flex;align-items:center;justify-content:center;
-            font-size:1.05rem;
-            flex-shrink:0;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            flex-shrink: 0;
         }
+
         .rby-exam-name {
-            font-family:'Jost',sans-serif;
-            font-weight:700;
-            color:#fff;
-            font-size:0.92rem;
-            line-height:1.3;
+            font-family: 'Jost', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.92rem;
+            line-height: 1.3;
         }
 
         /* ---- Photo grid of winners ---- */
@@ -530,6 +657,7 @@
             gap: 10px;
             margin-top: 14px;
         }
+
         .rby-photo-item {
             display: flex;
             flex-direction: column;
@@ -539,99 +667,148 @@
             max-width: 100px;
             animation: rbyPhotoIn 0.4s ease both;
         }
+
         @keyframes rbyPhotoIn {
-            from { opacity:0; transform:scale(0.85); }
-            to   { opacity:1; transform:scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         .rby-photo-wrap {
-            position:relative;
-            width:62px;height:62px;
-            border-radius:50%;
-            margin-bottom:7px;
-            flex-shrink:0;
+            position: relative;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            margin-bottom: 7px;
+            flex-shrink: 0;
         }
+
         .rby-photo-wrap img {
-            width:62px;height:62px;
-            border-radius:50%;
-            object-fit:cover;
-            object-position:top;
-            display:block;
-            border:2px solid rgba(255,255,255,0.15);
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            border: 2px solid rgba(255, 255, 255, 0.15);
             transition: border-color 0.25s;
         }
+
         .rby-photo-item:hover .rby-photo-wrap img {
             border-color: #ffc107;
         }
+
         .rby-photo-initials {
-            width:62px;height:62px;
-            border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            font-family:'Jost',sans-serif;
-            font-weight:700;
-            font-size:1.1rem;
-            color:#fff;
-            border:2px solid rgba(255,255,255,0.15);
-            flex-shrink:0;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Jost', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
         }
+
         /* Rank medal badge overlaid on photo */
         .rby-medal {
-            position:absolute;
-            bottom:-2px;right:-2px;
-            width:20px;height:20px;
-            border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            font-size:0.7rem;
-            font-weight:800;
-            border:2px solid #0d1f35;
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            border: 2px solid #0d1f35;
         }
-        .rby-medal-1 { background:#FFD700; color:#5a3e00; }
-        .rby-medal-2 { background:#C0C0C0; color:#333; }
-        .rby-medal-3 { background:#CD7F32; color:#fff; }
-        .rby-medal-n { background:rgba(255,255,255,0.2); color:#fff; font-size:0.55rem; }
+
+        .rby-medal-1 {
+            background: #FFD700;
+            color: #5a3e00;
+        }
+
+        .rby-medal-2 {
+            background: #C0C0C0;
+            color: #333;
+        }
+
+        .rby-medal-3 {
+            background: #CD7F32;
+            color: #fff;
+        }
+
+        .rby-medal-n {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.55rem;
+        }
+
         .rby-pname {
-            font-size:0.72rem;
-            color:rgba(255,255,255,0.9);
-            font-weight:600;
-            text-align:center;
-            line-height:1.25;
-            margin-bottom:2px;
-            word-break:break-word;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.25;
+            margin-bottom: 2px;
+            word-break: break-word;
         }
+
         .rby-pmeta {
-            font-size:0.62rem;
-            color:rgba(255,255,255,0.42);
-            text-align:center;
-            line-height:1.2;
+            font-size: 0.62rem;
+            color: rgba(255, 255, 255, 0.42);
+            text-align: center;
+            line-height: 1.2;
         }
 
         /* ---- Stat chip ---- */
         .rby-stat {
-            background:rgba(255,255,255,0.06);
-            border:1px solid rgba(255,255,255,0.12);
-            border-radius:50px;
-            padding:8px 22px;
-            display:flex;align-items:center;gap:10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            padding: 8px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
         .rby-stat-num {
-            font-family:'Jost',sans-serif;
-            font-weight:700;font-size:1.35rem;
-            color:#ffc107;
+            font-family: 'Jost', sans-serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: #ffc107;
         }
+
         .rby-stat-label {
-            font-size:0.76rem;color:rgba(255,255,255,0.5);
-            text-transform:uppercase;letter-spacing:1px;
-            line-height:1.3;
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.3;
         }
 
         /* ---- Empty year ---- */
         .rby-empty {
-            text-align:center;padding:48px 20px;
-            color:rgba(255,255,255,0.3);
-            font-size:0.9rem;
+            text-align: center;
+            padding: 48px 20px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
         }
-        </style>
+    </style>
 
-        <script>
+    <script>
         // ============================================================
         //  RESULTS BY YEAR — DATA + RENDERER
         //  Each result entry supports:
@@ -650,9 +827,9 @@
                         icon: "📋",
                         color: "#4CAF50",
                         results: [
-                            { rank:1, name:"Sunny Kumar",   meta:"School Topper",    photo:"img/result/sunny.JPG" },
-                            { rank:2, name:"Supriya Rani",  meta:"Girls' Topper",    photo:"img/result/supriya.JPG" },
-                            { rank:3, name:"Rahul Kumar",   meta:"94.6%",            photo:"" }
+                            { rank: 1, name: "Sunny Kumar", meta: "School Topper", photo: "img/result/sunny.JPG" },
+                            { rank: 2, name: "Supriya Rani", meta: "Girls' Topper", photo: "img/result/supriya.JPG" },
+                            { rank: 3, name: "Rahul Kumar", meta: "94.6%", photo: "" }
                         ]
                     },
                     {
@@ -660,9 +837,9 @@
                         icon: "🎖️",
                         color: "#2196F3",
                         results: [
-                            { rank:1, name:"Yash Raj",      meta:"AIR 58 | Cl. VI",  photo:"img/result/yash.jpg" },
-                            { rank:2, name:"Shivam Kumar",  meta:"AIR 113 | Cl. IX", photo:"img/result/shivam.JPG" },
-                            { rank:3, name:"Anjali Kumari", meta:"Bihar Girls Tpr",  photo:"img/result/anjali.JPG" }
+                            { rank: 1, name: "Yash Raj", meta: "AIR 58 | Cl. VI", photo: "img/result/yash.jpg" },
+                            { rank: 2, name: "Shivam Kumar", meta: "AIR 113 | Cl. IX", photo: "img/result/shivam.JPG" },
+                            { rank: 3, name: "Anjali Kumari", meta: "Bihar Girls Tpr", photo: "img/result/anjali.JPG" }
                         ]
                     },
                     {
@@ -670,7 +847,7 @@
                         icon: "🏫",
                         color: "#9C27B0",
                         results: [
-                            { rank:1, name:"Shivansh Singh", meta:"Bihar State Topper", photo:"img/result/shivansh.jpg" }
+                            { rank: 1, name: "Shivansh Singh", meta: "Bihar State Topper", photo: "img/result/shivansh.jpg" }
                         ]
                     },
                     {
@@ -678,8 +855,8 @@
                         icon: "⚔️",
                         color: "#FF5722",
                         results: [
-                            { rank:1, name:"Ankit Kumar",  meta:"RMS Ajmer AIR 179", photo:"img/result/ankit.JPG" },
-                            { rank:2, name:"Pawan Kumar",  meta:"RMS Ajmer",          photo:"img/result/pawan.JPG" }
+                            { rank: 1, name: "Ankit Kumar", meta: "RMS Ajmer AIR 179", photo: "img/result/ankit.JPG" },
+                            { rank: 2, name: "Pawan Kumar", meta: "RMS Ajmer", photo: "img/result/pawan.JPG" }
                         ]
                     },
                     {
@@ -687,8 +864,8 @@
                         icon: "🏡",
                         color: "#00BCD4",
                         results: [
-                            { rank:1, name:"Anjali Kumari", meta:"Selected", photo:"img/result/anjali.JPG" },
-                            { rank:2, name:"Pawan Kumar",   meta:"Selected", photo:"img/result/pawan.JPG" }
+                            { rank: 1, name: "Anjali Kumari", meta: "Selected", photo: "img/result/anjali.JPG" },
+                            { rank: 2, name: "Pawan Kumar", meta: "Selected", photo: "img/result/pawan.JPG" }
                         ]
                     },
                     {
@@ -696,8 +873,8 @@
                         icon: "📚",
                         color: "#FF9800",
                         results: [
-                            { rank:1, name:"Priya Kumari",  meta:"Selected", photo:"" },
-                            { rank:2, name:"Amit Kumar",    meta:"Selected", photo:"" }
+                            { rank: 1, name: "Priya Kumari", meta: "Selected", photo: "" },
+                            { rank: 2, name: "Amit Kumar", meta: "Selected", photo: "" }
                         ]
                     },
                     {
@@ -705,7 +882,7 @@
                         icon: "🌄",
                         color: "#8BC34A",
                         results: [
-                            { rank:1, name:"Rohit Kumar",   meta:"Selected", photo:"" }
+                            { rank: 1, name: "Rohit Kumar", meta: "Selected", photo: "" }
                         ]
                     }
                 ]
@@ -718,8 +895,8 @@
                         icon: "📋",
                         color: "#4CAF50",
                         results: [
-                            { rank:1, name:"Ravi Shankar",  meta:"Topper 96.2%",       photo:"" },
-                            { rank:2, name:"Neha Kumari",   meta:"Girls Tpr 94.8%",    photo:"" }
+                            { rank: 1, name: "Ravi Shankar", meta: "Topper 96.2%", photo: "" },
+                            { rank: 2, name: "Neha Kumari", meta: "Girls Tpr 94.8%", photo: "" }
                         ]
                     },
                     {
@@ -727,8 +904,8 @@
                         icon: "🎖️",
                         color: "#2196F3",
                         results: [
-                            { rank:1, name:"Kanhaiya Jee",  meta:"JH State Topper",   photo:"img/result/kanhaiya.JPG" },
-                            { rank:2, name:"Vivek Kumar",   meta:"AIR 92 | Cl. VI",   photo:"" }
+                            { rank: 1, name: "Kanhaiya Jee", meta: "JH State Topper", photo: "img/result/kanhaiya.JPG" },
+                            { rank: 2, name: "Vivek Kumar", meta: "AIR 92 | Cl. VI", photo: "" }
                         ]
                     },
                     {
@@ -736,7 +913,7 @@
                         icon: "🏫",
                         color: "#9C27B0",
                         results: [
-                            { rank:1, name:"Aditya Raj",    meta:"Selected",           photo:"" }
+                            { rank: 1, name: "Aditya Raj", meta: "Selected", photo: "" }
                         ]
                     },
                     {
@@ -744,8 +921,8 @@
                         icon: "⚔️",
                         color: "#FF5722",
                         results: [
-                            { rank:1, name:"Saurabh Kumar", meta:"RMS Bengaluru",      photo:"" },
-                            { rank:2, name:"Tushar Yadav",  meta:"RMS Ajmer",          photo:"" }
+                            { rank: 1, name: "Saurabh Kumar", meta: "RMS Bengaluru", photo: "" },
+                            { rank: 2, name: "Tushar Yadav", meta: "RMS Ajmer", photo: "" }
                         ]
                     },
                     {
@@ -753,8 +930,8 @@
                         icon: "📚",
                         color: "#FF9800",
                         results: [
-                            { rank:1, name:"Deepak Kumar",  meta:"Selected",           photo:"" },
-                            { rank:2, name:"Sima Devi",     meta:"Selected",           photo:"" }
+                            { rank: 1, name: "Deepak Kumar", meta: "Selected", photo: "" },
+                            { rank: 2, name: "Sima Devi", meta: "Selected", photo: "" }
                         ]
                     },
                     {
@@ -762,7 +939,7 @@
                         icon: "🏡",
                         color: "#00BCD4",
                         results: [
-                            { rank:1, name:"Aman Kumar",    meta:"Selected",           photo:"" }
+                            { rank: 1, name: "Aman Kumar", meta: "Selected", photo: "" }
                         ]
                     }
                 ]
@@ -775,8 +952,8 @@
                         icon: "📋",
                         color: "#4CAF50",
                         results: [
-                            { rank:1, name:"Abhishek Kumar", meta:"Topper 95.4%",      photo:"" },
-                            { rank:2, name:"Pooja Singh",    meta:"Girls Tpr 93.2%",   photo:"" }
+                            { rank: 1, name: "Abhishek Kumar", meta: "Topper 95.4%", photo: "" },
+                            { rank: 2, name: "Pooja Singh", meta: "Girls Tpr 93.2%", photo: "" }
                         ]
                     },
                     {
@@ -784,8 +961,8 @@
                         icon: "🎖️",
                         color: "#2196F3",
                         results: [
-                            { rank:1, name:"Roushan Kr Yadav", meta:"JH State Topper", photo:"img/result/roushan.JPG" },
-                            { rank:2, name:"Mukesh Kumar",     meta:"AIR 144",          photo:"" }
+                            { rank: 1, name: "Roushan Kr Yadav", meta: "JH State Topper", photo: "img/result/roushan.JPG" },
+                            { rank: 2, name: "Mukesh Kumar", meta: "AIR 144", photo: "" }
                         ]
                     },
                     {
@@ -793,7 +970,7 @@
                         icon: "⚔️",
                         color: "#FF5722",
                         results: [
-                            { rank:1, name:"Sudhanshu Kumar", meta:"RMS Chail",         photo:"" }
+                            { rank: 1, name: "Sudhanshu Kumar", meta: "RMS Chail", photo: "" }
                         ]
                     },
                     {
@@ -801,8 +978,8 @@
                         icon: "📚",
                         color: "#FF9800",
                         results: [
-                            { rank:1, name:"Ananya Kumari",  meta:"Selected",           photo:"" },
-                            { rank:2, name:"Rahul Paswan",   meta:"Selected",           photo:"" }
+                            { rank: 1, name: "Ananya Kumari", meta: "Selected", photo: "" },
+                            { rank: 2, name: "Rahul Paswan", meta: "Selected", photo: "" }
                         ]
                     },
                     {
@@ -810,72 +987,72 @@
                         icon: "🌄",
                         color: "#8BC34A",
                         results: [
-                            { rank:1, name:"Sanjay Kumar",   meta:"Selected",           photo:"" }
+                            { rank: 1, name: "Sanjay Kumar", meta: "Selected", photo: "" }
                         ]
                     }
                 ]
             }
         };
 
-        (function() {
-            var years = Object.keys(RBY_DATA).sort(function(a,b){ return b-a; });
+        (function () {
+            var years = Object.keys(RBY_DATA).sort(function (a, b) { return b - a; });
             var activeYear = years[0];
 
             // Generate a consistent pastel-ish bg color from a name string
             function nameColor(name) {
-                var palette = ['#c0392b','#8e44ad','#2980b9','#16a085','#d35400','#1a5276','#6c3483','#1e8449'];
+                var palette = ['#c0392b', '#8e44ad', '#2980b9', '#16a085', '#d35400', '#1a5276', '#6c3483', '#1e8449'];
                 var hash = 0;
-                for (var i=0;i<name.length;i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
+                for (var i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
                 return palette[Math.abs(hash) % palette.length];
             }
 
             function initials(name) {
                 var parts = name.trim().split(' ');
                 if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-                return name.slice(0,2).toUpperCase();
+                return name.slice(0, 2).toUpperCase();
             }
 
             function hexToRgba(hex, a) {
-                var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-                return 'rgba('+r+','+g+','+b+','+a+')';
+                var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+                return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
             }
 
             /* Dark blue text override (feedback: replace black/dark text with #0B2A4A) */
-            (function applyRbyDarkBlueTextOverride(){
-                try{
+            (function applyRbyDarkBlueTextOverride() {
+                try {
                     document.querySelectorAll('#resultsByYearSection, #resultsByYearSection *')
-                        .forEach(function(el){
+                        .forEach(function (el) {
                             var c = window.getComputedStyle(el).color;
                             // Update only common dark-gray/black-ish values
-                            if(c === 'rgb(0, 0, 0)' || c === 'rgb(33, 37, 41)' || c === 'rgb(51, 51, 51)' || c === 'rgb(85, 85, 85)' || c === 'rgb(68, 68, 68)' ){
+                            if (c === 'rgb(0, 0, 0)' || c === 'rgb(33, 37, 41)' || c === 'rgb(51, 51, 51)' || c === 'rgb(85, 85, 85)' || c === 'rgb(68, 68, 68)') {
                                 el.style.color = '#0B2A4A';
                             }
                         });
-                }catch(e){}
+                } catch (e) { }
             })();
 
 
             function medalClass(rank) {
-                if (rank===1) return 'rby-medal-1';
-                if (rank===2) return 'rby-medal-2';
-                if (rank===3) return 'rby-medal-3';
+                if (rank === 1) return 'rby-medal-1';
+                if (rank === 2) return 'rby-medal-2';
+                if (rank === 3) return 'rby-medal-3';
                 return 'rby-medal-n';
             }
             function medalLabel(rank) {
-                if (rank===1) return '1';
-                if (rank===2) return '2';
-                if (rank===3) return '3';
-                return '#'+rank;
+                if (rank === 1) return '1';
+                if (rank === 2) return '2';
+                if (rank === 3) return '3';
+                return '#' + rank;
             }
 
             function renderTabs() {
                 var container = document.getElementById('rbyYearTabs');
                 container.innerHTML = '';
-                years.forEach(function(yr) {
+                years.forEach(function (yr) {
                     var btn = document.createElement('button');
                     btn.className = 'rby-tab' + (yr === activeYear ? ' active' : '');
                     btn.innerHTML = '<span>' + yr + '</span>';
-                    btn.onclick = function() {
+                    btn.onclick = function () {
                         activeYear = yr;
                         renderTabs();
                         renderPanel();
@@ -890,15 +1067,15 @@
                 if (r.photo) {
                     return '<div class="rby-photo-wrap">' +
                         '<img src="' + r.photo + '" alt="' + r.name + '" ' +
-                            'onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\';">' +
+                        'onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\';">' +
                         '<div class="rby-photo-initials" style="display:none;background:' + nameColor(r.name) + ';">' + initials(r.name) + '</div>' +
                         medalHtml +
-                    '</div>';
+                        '</div>';
                 }
                 return '<div class="rby-photo-wrap">' +
                     '<div class="rby-photo-initials" style="background:' + nameColor(r.name) + ';">' + initials(r.name) + '</div>' +
                     medalHtml +
-                '</div>';
+                    '</div>';
             }
 
             function renderPanel() {
@@ -909,28 +1086,28 @@
                     return;
                 }
                 var cols = '';
-                data.exams.forEach(function(exam, i) {
+                data.exams.forEach(function (exam, i) {
                     var photoItems = '';
-                    exam.results.forEach(function(r, j) {
-                        photoItems += '<div class="rby-photo-item" style="animation-delay:' + (i*0.07 + j*0.05) + 's">' +
+                    exam.results.forEach(function (r, j) {
+                        photoItems += '<div class="rby-photo-item" style="animation-delay:' + (i * 0.07 + j * 0.05) + 's">' +
                             photoOrInitials(r, exam.color) +
                             '<div class="rby-pname">' + r.name + '</div>' +
                             '<div class="rby-pmeta">' + r.meta + '</div>' +
-                        '</div>';
+                            '</div>';
                     });
                     var iconBg = hexToRgba(exam.color, 0.15);
                     cols += '<div class="col-md-6 col-lg-4 mb-4">' +
                         '<div class="rby-card" style="animation-delay:' + (i * 0.07) + 's">' +
-                            '<div class="rby-card-accent" style="background:' + exam.color + ';"></div>' +
-                            '<div style="padding-left:10px;">' +
-                                '<div style="display:flex;align-items:center;gap:10px;">' +
-                                    '<div class="rby-exam-icon" style="background:' + iconBg + ';color:' + exam.color + ';border:1px solid ' + hexToRgba(exam.color,0.3) + ';">' + exam.icon + '</div>' +
-                                    '<div class="rby-exam-name">' + exam.name + '</div>' +
-                                '</div>' +
-                                '<div class="rby-photo-grid">' + photoItems + '</div>' +
-                            '</div>' +
+                        '<div class="rby-card-accent" style="background:' + exam.color + ';"></div>' +
+                        '<div style="padding-left:10px;">' +
+                        '<div style="display:flex;align-items:center;gap:10px;">' +
+                        '<div class="rby-exam-icon" style="background:' + iconBg + ';color:' + exam.color + ';border:1px solid ' + hexToRgba(exam.color, 0.3) + ';">' + exam.icon + '</div>' +
+                        '<div class="rby-exam-name">' + exam.name + '</div>' +
                         '</div>' +
-                    '</div>';
+                        '<div class="rby-photo-grid">' + photoItems + '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
                 });
                 panel.innerHTML = '<div class="row">' + cols + '</div>';
             }
@@ -959,368 +1136,386 @@
                 renderStats();
             };
         })();
-        </script>
-        <!-- ===== RESULTS BY YEAR SECTION END ===== -->
+    </script>
+    <!-- ===== RESULTS BY YEAR SECTION END ===== -->
 
 
-        <!-- Results Modal -->
-        <div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white py-2">
-                        <div>
-                            <h5 class="modal-title mb-0">
-                                <i class="fa fa-graduation-cap mr-2"></i>Gyanoday Vidyalaya
-                            </h5>
-                            <small id="resultSubtitle" class="text-white-50"></small>
-                        </div>
-                        <button type="button" class="close text-white" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
+    <!-- Results Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white py-2">
+                    <div>
+                        <h5 class="modal-title mb-0">
+                            <i class="fa fa-graduation-cap mr-2"></i>Gyanoday Vidyalaya
+                        </h5>
+                        <small id="resultSubtitle" class="text-white-50"></small>
                     </div>
-                    <div class="modal-body">
-                        <div id="resultSpinner" class="text-center py-5">
-                            <div class="spinner-border text-primary" role="status"></div>
-                            <p class="mt-3 text-muted">Fetching your result...</p>
-                        </div>
-                        <div id="resultContent" style="display:none;"></div>
-                        <div id="resultError" class="alert alert-danger mt-3" style="display:none;"></div>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="resultSpinner" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-3 text-muted">Fetching your result...</p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" id="printBtn" onclick="printResult()" style="display:none;">
-                            <i class="fa fa-print mr-1"></i> Print Result
-                        </button>
+                    <div id="resultContent" style="display:none;"></div>
+                    <div id="resultError" class="alert alert-danger mt-3" style="display:none;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="printBtn" onclick="printResult()"
+                        style="display:none;">
+                        <i class="fa fa-print mr-1"></i> Print Result
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <a href="index.html" class="navbar-brand">
+                        <h1 class="mt-n2 text-uppercase text-white">Gyanoday Vidyalaya</h1>
+                    </a>
+                    <p class="m-0">Gyanoday Vidyalaya is committed to providing quality education to students from
+                        Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible citizens
+                        and future leaders.</p>
+                    <div class="mt-3">
+                        <a class="btn btn-primary btn-square mr-2"
+                            href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="https://www.instagram.com/gyanodayvidyalaya/"
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-primary btn-square"
+                            href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Get In Touch</h3>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
+                    <p><i class="fa fa-envelope mr-2"></i><a
+                            href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a></p>
+                    <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-white-50 mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>About
+                            Us</a>
+                        <a class="text-white-50 mb-2" href="academics.html"><i
+                                class="fa fa-angle-right mr-2"></i>Academics</a>
+                        <a class="text-white-50 mb-2" href="result.html"><i
+                                class="fa fa-angle-right mr-2"></i>Results</a>
+                        <a class="text-white-50 mb-2" href="gallery.html"><i
+                                class="fa fa-angle-right mr-2"></i>Gallery</a>
+                        <a class="text-white-50" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Location</h3>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin"
+                            width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Footer Start -->
-        <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
-            <div class="container mt-5 pt-5">
-                <div class="row">
-                    <div class="col-md-6 mb-5">
-                        <a href="index.html" class="navbar-brand">
-                            <h1 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Gyanoday Vidyalaya</h1>
-                        </a>
-                        <p class="m-0">Gyanoday Vidyalaya is committed to providing quality education to students from Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible citizens and future leaders.</p>
-                        <div class="mt-3">
-                            <a class="btn btn-primary btn-square mr-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-square mr-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-primary btn-square" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 border-top py-4"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday
+                            Vidyalaya</a>. All Rights Reserved.</p>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h3 class="text-white mb-4">Get In Touch</h3>
-                        <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
-                        <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
-                        <p><i class="fa fa-envelope mr-2"></i><a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a></p>
-                        <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h3 class="text-white mb-4">Quick Links</h3>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-white-50 mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-white-50 mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                            <a class="text-white-50 mb-2" href="academics.html"><i class="fa fa-angle-right mr-2"></i>Academics</a>
-                            <a class="text-white-50 mb-2" href="result.html"><i class="fa fa-angle-right mr-2"></i>Results</a>
-                            <a class="text-white-50 mb-2" href="gallery.html"><i class="fa fa-angle-right mr-2"></i>Gallery</a>
-                            <a class="text-white-50" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h3 class="text-white mb-4">Location</h3>
-                        <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0">Designed by <a class="text-white"
+                            href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a></p>
                 </div>
             </div>
         </div>
-        <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                        <p class="m-0">Copyright &copy; <a class="text-white" href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-right">
-                        <p class="m-0">Designed with by <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam Kumar</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+    </div>
+    <!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+            class="fa fa-angle-double-up"></i></a>
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/counterup/counterup.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-        <script>window.GV_SITE_ID = "shahpur";</script>
-        <script src="../js/firebase-config.js"></script>
-        <script src="../js/sites/shahpur-default.js"></script>
-        <script src="../js/gv-firebase.js"></script>
-        <script src="js/gv-render.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script>window.GV_SITE_ID = "shahpur";</script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
 
-        <!-- Result JS inline fallback -->
-        <script>
-// ==========================================================
-// GYANODAY VIDYALAYA — RESULT FETCH
-// ==========================================================
-$(document).ready(function () {
+    <!-- Result JS inline fallback -->
+    <script>
+        // ==========================================================
+        // GYANODAY VIDYALAYA — RESULT FETCH
+        // ==========================================================
+        $(document).ready(function () {
 
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbx0S7pS8tK8vAmO1w1_t0q6EGgmV7TjGzhjtoioqjSD-qCmeT7t6cfouz0HyvD2O4/exec';
+            var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbx0S7pS8tK8vAmO1w1_t0q6EGgmV7TjGzhjtoioqjSD-qCmeT7t6cfouz0HyvD2O4/exec';
 
-  var CLASS_MAP = {
-    'Nursery':'Nursery','LKG':'LKG','UKG':'UKG',
-    '1':'Class 1','2':'Class 2','3':'Class 3','4':'Class 4',
-    '5':'Class 5','6':'Class 6','7':'Class 7','8':'Class 8',
-    '9':'Class 9','10':'Class 10',
-    '11-science':'Class 11 Science','11-commerce':'Class 11 Commerce',
-    '12-science':'Class 12 Science','12-commerce':'Class 12 Commerce'
-  };
+            var CLASS_MAP = {
+                'Nursery': 'Nursery', 'LKG': 'LKG', 'UKG': 'UKG',
+                '1': 'Class 1', '2': 'Class 2', '3': 'Class 3', '4': 'Class 4',
+                '5': 'Class 5', '6': 'Class 6', '7': 'Class 7', '8': 'Class 8',
+                '9': 'Class 9', '10': 'Class 10',
+                '11-science': 'Class 11 Science', '11-commerce': 'Class 11 Commerce',
+                '12-science': 'Class 12 Science', '12-commerce': 'Class 12 Commerce'
+            };
 
-  $('#resultForm').on('submit', function (e) {
-    e.preventDefault();
-    var admNo    = $('#admissionNo').val().trim();
-    var classVal = $('#classSelect').val();
-    var examVal  = $('#examSelect').val();
-    if (!admNo || !classVal || !examVal) {
-      alert('Please fill in Class, Exam, and Admission Number.');
-      return;
-    }
-    var className = CLASS_MAP[classVal] || classVal;
+            $('#resultForm').on('submit', function (e) {
+                e.preventDefault();
+                var admNo = $('#admissionNo').val().trim();
+                var classVal = $('#classSelect').val();
+                var examVal = $('#examSelect').val();
+                if (!admNo || !classVal || !examVal) {
+                    alert('Please fill in Class, Exam, and Admission Number.');
+                    return;
+                }
+                var className = CLASS_MAP[classVal] || classVal;
 
-    $('#resultContent, #resultError').hide().html('');
-    $('#resultSpinner').show();
-    $('#printBtn').hide();
-    $('#resultSubtitle').text(className + '  |  ' + examVal);
-    $('#resultModal').modal('show');
+                $('#resultContent, #resultError').hide().html('');
+                $('#resultSpinner').show();
+                $('#printBtn').hide();
+                $('#resultSubtitle').text(className + '  |  ' + examVal);
+                $('#resultModal').modal('show');
 
-    var src = APPS_SCRIPT_URL
-      + '?admNo='     + encodeURIComponent(admNo)
-      + '&className=' + encodeURIComponent(className)
-      + '&examName='  + encodeURIComponent(examVal)
-      + '&callback=handleResult'
-      + '&t='         + Date.now();
+                var src = APPS_SCRIPT_URL
+                    + '?admNo=' + encodeURIComponent(admNo)
+                    + '&className=' + encodeURIComponent(className)
+                    + '&examName=' + encodeURIComponent(examVal)
+                    + '&callback=handleResult'
+                    + '&t=' + Date.now();
 
-    var s = document.createElement('script');
-    s.src = src;
-    s.onerror = function () {
-      showResultError('Network error — cannot reach server.');
-    };
-    document.body.appendChild(s);
-    setTimeout(function () {
-      if (document.body.contains(s)) document.body.removeChild(s);
-    }, 12000);
-  });
-});
+                var s = document.createElement('script');
+                s.src = src;
+                s.onerror = function () {
+                    showResultError('Network error — cannot reach server.');
+                };
+                document.body.appendChild(s);
+                setTimeout(function () {
+                    if (document.body.contains(s)) document.body.removeChild(s);
+                }, 12000);
+            });
+        });
 
-function handleResult(data) {
-  if (!data || !data.success) {
-    showResultError(data ? data.error : 'Unexpected error. Please try again.');
-    return;
-  }
-  if      (data.examType === 'pre_a')  displayPreA(data);
-  else if (data.examType === 'main_a') displayMainA(data);
-  else if (data.examType === 'pre_b')  displayPreB(data);
-  else if (data.examType === 'main_b') displayMainB(data);
-  else showResultError('Unknown result format: ' + data.examType);
-}
+        function handleResult(data) {
+            if (!data || !data.success) {
+                showResultError(data ? data.error : 'Unexpected error. Please try again.');
+                return;
+            }
+            if (data.examType === 'pre_a') displayPreA(data);
+            else if (data.examType === 'main_a') displayMainA(data);
+            else if (data.examType === 'pre_b') displayPreB(data);
+            else if (data.examType === 'main_b') displayMainB(data);
+            else showResultError('Unknown result format: ' + data.examType);
+        }
 
-function showResultError(msg) {
-  $('#resultSpinner').hide();
-  $('#resultError').html('<i class="fa fa-exclamation-triangle mr-2"></i>' + msg).show();
-  $('#printBtn').hide();
-}
+        function showResultError(msg) {
+            $('#resultSpinner').hide();
+            $('#resultError').html('<i class="fa fa-exclamation-triangle mr-2"></i>' + msg).show();
+            $('#printBtn').hide();
+        }
 
-function rcHeader(r) {
-  return '<div class="rc-header">' +
-      '<div style="display:flex;align-items:center;justify-content:center;gap:12px;">' +
-        '<img src="img/V_logo.png" alt="Logo" style="height:55px;width:55px;object-fit:contain;" onerror="this.style.display=\'none\'">' +
-        '<div>' +
-          '<div style="font-size:1.2rem;font-weight:700;letter-spacing:1px;">GYANODAY VIDYALAYA</div>' +
-          '<div style="font-size:0.78rem;opacity:0.9;">Tilak Nagar, Shahpur, Nawada, Bihar</div>' +
-          '<div style="font-size:0.73rem;opacity:0.8;">Ph: 9955596394 | www.gyanodayvidyalaya.com</div>' +
-        '</div>' +
-      '</div>' +
-      '<hr style="border-color:rgba(255,255,255,0.35);margin:8px 0 6px;">' +
-      '<div style="font-size:1rem;font-weight:600;">' + r.exam + ' Report Card | Session: 2026-2027</div>' +
-    '</div>' +
-    '<div class="rc-info">' +
-      '<div class="row">' +
-        '<div class="col-6 mb-1"><strong>Name:</strong> ' + r.name + '</div>' +
-        '<div class="col-6 mb-1"><strong>Roll No.:</strong> ' + r.rollNo + '</div>' +
-        '<div class="col-6"><strong>Adm. No.:</strong> ' + r.admissionNo + '</div>' +
-        '<div class="col-6"><strong>Class:</strong> ' + r['class'] + '</div>' +
-      '</div>' +
-    '</div>';
-}
+        function rcHeader(r) {
+            return '<div class="rc-header">' +
+                '<div style="display:flex;align-items:center;justify-content:center;gap:12px;">' +
+                '<img src="img/V_logo.png" alt="Logo" style="height:55px;width:55px;object-fit:contain;" onerror="this.style.display=\'none\'">' +
+                '<div>' +
+                '<div style="font-size:1.2rem;font-weight:700;letter-spacing:1px;">GYANODAY VIDYALAYA</div>' +
+                '<div style="font-size:0.78rem;opacity:0.9;">Tilak Nagar, Shahpur, Nawada, Bihar</div>' +
+                '<div style="font-size:0.73rem;opacity:0.8;">Ph: 9955596394 | www.gyanodayvidyalaya.com</div>' +
+                '</div>' +
+                '</div>' +
+                '<hr style="border-color:rgba(255,255,255,0.35);margin:8px 0 6px;">' +
+                '<div style="font-size:1rem;font-weight:600;">' + r.exam + ' Report Card | Session: 2026-2027</div>' +
+                '</div>' +
+                '<div class="rc-info">' +
+                '<div class="row">' +
+                '<div class="col-6 mb-1"><strong>Name:</strong> ' + r.name + '</div>' +
+                '<div class="col-6 mb-1"><strong>Roll No.:</strong> ' + r.rollNo + '</div>' +
+                '<div class="col-6"><strong>Adm. No.:</strong> ' + r.admissionNo + '</div>' +
+                '<div class="col-6"><strong>Class:</strong> ' + r['class'] + '</div>' +
+                '</div>' +
+                '</div>';
+        }
 
-function rcFooter(r) {
-  var g = calcGrade(r.totalScore, r.totalMax);
-  return '<div style="margin-top:10px;">' +
-    '<p class="mb-1"><strong>Total Marks Scored: ' + r.totalScore + ' / ' + r.totalMax + '</strong></p>' +
-    '<p class="mb-1"><strong>Percentage: ' + r.percentage + '</strong></p>' +
-    '<p class="mb-0"><strong>Grade: <span class="badge badge-' + g.color + '" style="font-size:0.95rem;padding:4px 14px;">' + g.label + '</span></strong></p>' +
-  '</div>';
-}
+        function rcFooter(r) {
+            var g = calcGrade(r.totalScore, r.totalMax);
+            return '<div style="margin-top:10px;">' +
+                '<p class="mb-1"><strong>Total Marks Scored: ' + r.totalScore + ' / ' + r.totalMax + '</strong></p>' +
+                '<p class="mb-1"><strong>Percentage: ' + r.percentage + '</strong></p>' +
+                '<p class="mb-0"><strong>Grade: <span class="badge badge-' + g.color + '" style="font-size:0.95rem;padding:4px 14px;">' + g.label + '</span></strong></p>' +
+                '</div>';
+        }
 
-function makeTable(headers, rows) {
-  var ths = '';
-  for (var i = 0; i < headers.length; i++) {
-    ths += '<th' + (i > 0 ? ' class="text-center"' : '') + '>' + headers[i] + '</th>';
-  }
-  return '<table class="table table-bordered table-sm mb-2">' +
-    '<thead style="background:#1F4E79;color:white;"><tr>' + ths + '</tr></thead>' +
-    '<tbody>' + rows + '</tbody>' +
-  '</table>';
-}
+        function makeTable(headers, rows) {
+            var ths = '';
+            for (var i = 0; i < headers.length; i++) {
+                ths += '<th' + (i > 0 ? ' class="text-center"' : '') + '>' + headers[i] + '</th>';
+            }
+            return '<table class="table table-bordered table-sm mb-2">' +
+                '<thead style="background:#1F4E79;color:white;"><tr>' + ths + '</tr></thead>' +
+                '<tbody>' + rows + '</tbody>' +
+                '</table>';
+        }
 
-// Nursery/LKG/UKG + Pre Mid 1, Pre Mid 2, Post Mid
-function displayPreA(r) {
-  var rows = '';
-  for (var i = 0; i < r.subjects.length; i++) {
-    var s = r.subjects[i];
-    rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
-      '<td class="text-center">' + s.obtained + '</td>' +
-      '<td class="text-center">' + s.maxMarks + '</td></tr>';
-  }
-  finishDisplay('<div id="printArea">' + rcHeader(r) +
-    makeTable(['Subject','Marks Scored','Total Marks'], rows) +
-    rcFooter(r) + '</div>');
-}
+        // Nursery/LKG/UKG + Pre Mid 1, Pre Mid 2, Post Mid
+        function displayPreA(r) {
+            var rows = '';
+            for (var i = 0; i < r.subjects.length; i++) {
+                var s = r.subjects[i];
+                rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
+                    '<td class="text-center">' + s.obtained + '</td>' +
+                    '<td class="text-center">' + s.maxMarks + '</td></tr>';
+            }
+            finishDisplay('<div id="printArea">' + rcHeader(r) +
+                makeTable(['Subject', 'Marks Scored', 'Total Marks'], rows) +
+                rcFooter(r) + '</div>');
+        }
 
-// Nursery/LKG/UKG + Half Yearly / Annual
-function displayMainA(r) {
-  var rows = '';
-  for (var i = 0; i < r.subjects.length; i++) {
-    var s = r.subjects[i];
-    rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
-      '<td class="text-center">' + s.written + '/' + s.maxWritten + '</td>' +
-      '<td class="text-center">' + s.oral + '/' + s.maxOral + '</td>' +
-      '<td class="text-center font-weight-bold">' + s.obtained + '</td>' +
-      '<td class="text-center">' + s.maxTotal + '</td></tr>';
-  }
-  finishDisplay('<div id="printArea">' + rcHeader(r) +
-    makeTable(['Subject','Written','Oral','Marks Scored','Total Marks'], rows) +
-    rcFooter(r) + '</div>');
-}
+        // Nursery/LKG/UKG + Half Yearly / Annual
+        function displayMainA(r) {
+            var rows = '';
+            for (var i = 0; i < r.subjects.length; i++) {
+                var s = r.subjects[i];
+                rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
+                    '<td class="text-center">' + s.written + '/' + s.maxWritten + '</td>' +
+                    '<td class="text-center">' + s.oral + '/' + s.maxOral + '</td>' +
+                    '<td class="text-center font-weight-bold">' + s.obtained + '</td>' +
+                    '<td class="text-center">' + s.maxTotal + '</td></tr>';
+            }
+            finishDisplay('<div id="printArea">' + rcHeader(r) +
+                makeTable(['Subject', 'Written', 'Oral', 'Marks Scored', 'Total Marks'], rows) +
+                rcFooter(r) + '</div>');
+        }
 
-// Class 1-10 + Pre Mid 1, Pre Mid 2, Post Mid
-function displayPreB(r) {
-  var rows = '';
-  for (var i = 0; i < r.subjects.length; i++) {
-    var s = r.subjects[i];
-    rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
-      '<td class="text-center">' + s.obtained + '</td>' +
-      '<td class="text-center">' + s.maxMarks + '</td></tr>';
-  }
-  finishDisplay('<div id="printArea">' + rcHeader(r) +
-    makeTable(['Subject','Marks Scored','Total Marks'], rows) +
-    rcFooter(r) + '</div>');
-}
+        // Class 1-10 + Pre Mid 1, Pre Mid 2, Post Mid
+        function displayPreB(r) {
+            var rows = '';
+            for (var i = 0; i < r.subjects.length; i++) {
+                var s = r.subjects[i];
+                rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
+                    '<td class="text-center">' + s.obtained + '</td>' +
+                    '<td class="text-center">' + s.maxMarks + '</td></tr>';
+            }
+            finishDisplay('<div id="printArea">' + rcHeader(r) +
+                makeTable(['Subject', 'Marks Scored', 'Total Marks'], rows) +
+                rcFooter(r) + '</div>');
+        }
 
-// Class 1-10 + Half Yearly / Annual
-function displayMainB(r) {
-  var rows = '';
-  for (var i = 0; i < r.subjects.length; i++) {
-    var s = r.subjects[i];
-    rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
-      '<td class="text-center">' + s.theory + '/' + s.maxTheory + '</td>' +
-      '<td class="text-center">' + s.practical + '/' + s.maxPract + '</td>' +
-      '<td class="text-center font-weight-bold">' + s.obtained + '</td>' +
-      '<td class="text-center">' + s.maxTotal + '</td></tr>';
-  }
-  finishDisplay('<div id="printArea">' + rcHeader(r) +
-    makeTable(['Subject','Theory','Practical','Marks Scored','Total Marks'], rows) +
-    rcFooter(r) + '</div>');
-}
+        // Class 1-10 + Half Yearly / Annual
+        function displayMainB(r) {
+            var rows = '';
+            for (var i = 0; i < r.subjects.length; i++) {
+                var s = r.subjects[i];
+                rows += '<tr><td class="font-weight-bold">' + s.name + '</td>' +
+                    '<td class="text-center">' + s.theory + '/' + s.maxTheory + '</td>' +
+                    '<td class="text-center">' + s.practical + '/' + s.maxPract + '</td>' +
+                    '<td class="text-center font-weight-bold">' + s.obtained + '</td>' +
+                    '<td class="text-center">' + s.maxTotal + '</td></tr>';
+            }
+            finishDisplay('<div id="printArea">' + rcHeader(r) +
+                makeTable(['Subject', 'Theory', 'Practical', 'Marks Scored', 'Total Marks'], rows) +
+                rcFooter(r) + '</div>');
+        }
 
-function finishDisplay(html) {
-  $('#resultSpinner').hide();
-  $('#resultContent').html(html).show();
-  $('#printBtn').show();
-}
+        function finishDisplay(html) {
+            $('#resultSpinner').hide();
+            $('#resultContent').html(html).show();
+            $('#printBtn').show();
+        }
 
-function calcGrade(obtained, max) {
-  if (!max) return { label:'N/A', color:'secondary' };
-  var p = (obtained / max) * 100;
-  if (p >= 91) return { label:'A1', color:'success' };
-  if (p >= 81) return { label:'A2', color:'success' };
-  if (p >= 71) return { label:'B1', color:'info' };
-  if (p >= 61) return { label:'B2', color:'info' };
-  if (p >= 51) return { label:'C1', color:'warning' };
-  if (p >= 41) return { label:'C2', color:'warning' };
-  if (p >= 33) return { label:'D',  color:'secondary' };
-  return { label:'E (Fail)', color:'danger' };
-}
+        function calcGrade(obtained, max) {
+            if (!max) return { label: 'N/A', color: 'secondary' };
+            var p = (obtained / max) * 100;
+            if (p >= 91) return { label: 'A1', color: 'success' };
+            if (p >= 81) return { label: 'A2', color: 'success' };
+            if (p >= 71) return { label: 'B1', color: 'info' };
+            if (p >= 61) return { label: 'B2', color: 'info' };
+            if (p >= 51) return { label: 'C1', color: 'warning' };
+            if (p >= 41) return { label: 'C2', color: 'warning' };
+            if (p >= 33) return { label: 'D', color: 'secondary' };
+            return { label: 'E (Fail)', color: 'danger' };
+        }
 
-function printResult() {
-  var area = document.getElementById('printArea');
-  if (!area) return;
-  var base = window.location.href.replace(/\/[^\/]*$/, '/');
-  var win  = window.open('', '_blank', 'width=850,height=760');
-  win.document.write(
-    '<!DOCTYPE html><html><head><meta charset="utf-8">' +
-    '<title>Result - Gyanoday Vidyalaya</title>' +
-    '<base href="' + base + '">' +
-    '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">' +
-    '<style>' +
-      'body{padding:30px;font-family:Arial,sans-serif;}' +
-      '.rc-header{background:#1F4E79;color:#fff;padding:14px 18px;text-align:center;border-radius:6px 6px 0 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
-      '.rc-info{background:#f8f9fa;border:1px solid #dee2e6;padding:12px 18px;margin-bottom:14px;}' +
-      'table{width:100%;border-collapse:collapse;margin-bottom:10px;}' +
-      'th,td{border:1px solid #dee2e6;padding:7px 10px;font-size:0.9rem;}' +
-      'thead th{background:#1F4E79!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
-      'tbody tr:nth-child(even){background:#f8f9fa;}' +
-      '.font-weight-bold{font-weight:700;}.text-center{text-align:center;}' +
-      '.badge{display:inline-block;padding:3px 12px;border-radius:4px;}' +
-      '.badge-success{background:#28a745;color:#fff;}.badge-info{background:#17a2b8;color:#fff;}' +
-      '.badge-warning{background:#ffc107;color:#212529;}.badge-secondary{background:#6c757d;color:#fff;}' +
-      '.badge-danger{background:#dc3545;color:#fff;}' +
-      '.row{display:flex;flex-wrap:wrap;margin:0;}.col-6{width:50%;padding:2px 4px;}' +
-      '.mb-0{margin-bottom:0!important;}.mb-1{margin-bottom:4px!important;}' +
-    '</style></head><body>' + area.innerHTML + '</body></html>'
-  );
-  win.document.close();
-  win.focus();
-  setTimeout(function(){ win.print(); win.close(); }, 800);
-}
+        function printResult() {
+            var area = document.getElementById('printArea');
+            if (!area) return;
+            var base = window.location.href.replace(/\/[^\/]*$/, '/');
+            var win = window.open('', '_blank', 'width=850,height=760');
+            win.document.write(
+                '<!DOCTYPE html><html><head><meta charset="utf-8">' +
+                '<title>Result - Gyanoday Vidyalaya</title>' +
+                '<base href="' + base + '">' +
+                '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">' +
+                '<style>' +
+                'body{padding:30px;font-family:Arial,sans-serif;}' +
+                '.rc-header{background:#1F4E79;color:#fff;padding:14px 18px;text-align:center;border-radius:6px 6px 0 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
+                '.rc-info{background:#f8f9fa;border:1px solid #dee2e6;padding:12px 18px;margin-bottom:14px;}' +
+                'table{width:100%;border-collapse:collapse;margin-bottom:10px;}' +
+                'th,td{border:1px solid #dee2e6;padding:7px 10px;font-size:0.9rem;}' +
+                'thead th{background:#1F4E79!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}' +
+                'tbody tr:nth-child(even){background:#f8f9fa;}' +
+                '.font-weight-bold{font-weight:700;}.text-center{text-align:center;}' +
+                '.badge{display:inline-block;padding:3px 12px;border-radius:4px;}' +
+                '.badge-success{background:#28a745;color:#fff;}.badge-info{background:#17a2b8;color:#fff;}' +
+                '.badge-warning{background:#ffc107;color:#212529;}.badge-secondary{background:#6c757d;color:#fff;}' +
+                '.badge-danger{background:#dc3545;color:#fff;}' +
+                '.row{display:flex;flex-wrap:wrap;margin:0;}.col-6{width:50%;padding:2px 4px;}' +
+                '.mb-0{margin-bottom:0!important;}.mb-1{margin-bottom:4px!important;}' +
+                '</style></head><body>' + area.innerHTML + '</body></html>'
+            );
+            win.document.close();
+            win.focus();
+            setTimeout(function () { win.print(); win.close(); }, 800);
+        }
 
-// Academics Modals
-$(document).ready(function() {
-  $('.academic-modal').on('shown.bs.modal', function () {
-    $(this).find('iframe').css('height', '70vh');
-  });
-  $('.academic-modal').on('hidden.bs.modal', function () {
-    $(this).find('iframe').attr('src', $(this).find('iframe').attr('src'));
-  });
-});
-        </script>
+        // Academics Modals
+        $(document).ready(function () {
+            $('.academic-modal').on('shown.bs.modal', function () {
+                $(this).find('iframe').css('height', '70vh');
+            });
+            $('.academic-modal').on('hidden.bs.modal', function () {
+                $(this).find('iframe').attr('src', $(this).find('iframe').attr('src'));
+            });
+        });
+    </script>
 
-        <!-- ===== FLOATING CHECK RESULT BUTTON ===== -->
-        <a href="https://onlineresultportal.vercel.app/login/student"
-           id="floatResultBtn"
-           title="Check Your Result"
-           target="_blank">
-            <span class="frb-icon">📋</span>
-            <span class="frb-label">Check<br>Result</span>
-        </a>
+    <!-- ===== FLOATING CHECK RESULT BUTTON ===== -->
+    <a href="https://onlineresultportal.vercel.app/login/student" id="floatResultBtn" title="Check Your Result"
+        target="_blank">
+        <span class="frb-icon">📋</span>
+        <span class="frb-label">Check<br>Result</span>
+    </a>
 
-        <style>
+    <style>
         #floatResultBtn {
             position: fixed;
             top: 80px;
@@ -1343,7 +1538,7 @@ $(document).ready(function() {
             justify-content: center;
             gap: 2px;
 
-            box-shadow: 0 4px 18px rgba(255, 132, 0, 0.55), 0 1px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 18px rgba(255, 132, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.2);
 
             /* Hidden by default — shown by JS when user scrolls past the form */
             opacity: 0;
@@ -1361,7 +1556,7 @@ $(document).ready(function() {
 
         #floatResultBtn:hover {
             background: linear-gradient(135deg, #163a5f, #1F4E79);
-            box-shadow: 0 6px 24px rgba(31,78,121,0.7), 0 2px 8px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 24px rgba(31, 78, 121, 0.7), 0 2px 8px rgba(0, 0, 0, 0.25);
             transform: scale(1.08) translateY(-2px);
             text-decoration: none;
             color: #fff;
@@ -1373,19 +1568,32 @@ $(document).ready(function() {
             position: absolute;
             inset: -4px;
             border-radius: 50%;
-            border: 2px solid rgba(31,78,121,0.45);
+            border: 2px solid rgba(31, 78, 121, 0.45);
             animation: frbPulse 2.2s ease-out infinite;
         }
+
         @keyframes frbPulse {
-            0%   { transform: scale(1);   opacity: 0.7; }
-            70%  { transform: scale(1.35); opacity: 0; }
-            100% { transform: scale(1.35); opacity: 0; }
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            70% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
         }
 
         .frb-icon {
             font-size: 1.3rem;
             line-height: 1;
         }
+
         .frb-label {
             font-family: 'Jost', sans-serif;
             font-size: 0.55rem;
@@ -1394,7 +1602,7 @@ $(document).ready(function() {
             text-transform: uppercase;
             letter-spacing: 0.5px;
             line-height: 1.2;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Shrink slightly on mobile so it doesn't crowd the screen */
@@ -1405,17 +1613,23 @@ $(document).ready(function() {
                 top: 72px;
                 right: 14px;
             }
-            .frb-icon { font-size: 1.1rem; }
-            .frb-label { font-size: 0.48rem; }
-        }
-        </style>
 
-        <script>
+            .frb-icon {
+                font-size: 1.1rem;
+            }
+
+            .frb-label {
+                font-size: 0.48rem;
+            }
+        }
+    </style>
+
+    <script>
         (function () {
             // Show the floating button once the user scrolls past
             // the "Result Search Form" section (the big Check Your Result button area).
             var formSection = document.querySelector('.container-fluid.py-5.bg-light');
-            var floatBtn   = document.getElementById('floatResultBtn');
+            var floatBtn = document.getElementById('floatResultBtn');
 
             if (!formSection || !floatBtn) return;
 
@@ -1432,8 +1646,9 @@ $(document).ready(function() {
             window.addEventListener('scroll', onScroll, { passive: true });
             onScroll(); // run once on load in case page is already scrolled
         })();
-        </script>
-        <!-- ===== END FLOATING CHECK RESULT BUTTON ===== -->
+    </script>
+    <!-- ===== END FLOATING CHECK RESULT BUTTON ===== -->
 
-    </body>
+</body>
+
 </html>
