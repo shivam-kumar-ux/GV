@@ -4,22 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('.footer');
     const footerInfo = document.querySelector('.footer-info');
 
-    if (footerInfo) {
-        const mapLinks = {
-            'Tilak Nagar, Nawada, Bihar': 'https://maps.google.com/?q=Tilak+Nagar+Nawada+Bihar',
-            'Telaiya Dam, Koderma, Jharkhand': 'https://maps.google.com/?q=Telaiya+Dam+Koderma+Jharkhand'
-        };
 
-        footerInfo.querySelectorAll('span').forEach((item) => {
-            const rawText = item.textContent.trim();
-            const normalized = rawText.replace(/^📍\s*/, '');
-            if (mapLinks[normalized] && !item.querySelector('a')) {
-                item.innerHTML = `📍 <a href="${mapLinks[normalized]}" target="_blank" rel="noopener noreferrer">${normalized}</a>`;
-            }
-        });
-    }
 
-    // 1. Wait 4 seconds for the intro animation to play out
+    // 1. Wait for the intro animation to play out (faster)
     setTimeout(() => {
         // Fade out intro
         intro.style.opacity = '0';
@@ -36,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 main.style.opacity = '1';
                 footer.style.opacity = '1';
             }, 50);
-        }, 1500); // Wait for fade-out transition to finish
+        }, 900); // Wait for fade-out transition to finish
 
-    }, 4000); 
+    }, 2500); 
+
 });

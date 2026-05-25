@@ -69,8 +69,8 @@ var GVPyqAdmin = (function () {
 
           if (progressBar) progressBar.classList.remove("d-none");
           if (barInner) {
-            barInner.style.width = "0%";
-            barInner.textContent = "0%";
+            barInner.style.width = "2%";
+            barInner.textContent = "Preparing…";
           }
 
           var onProgress = function (percent) {
@@ -99,7 +99,14 @@ var GVPyqAdmin = (function () {
             if (barInner) barInner.textContent = "Done";
             toastFn("PDF uploaded. View/Download URLs saved to PYQ Hub.");
           }).catch(function (e) {
-            toastFn(e.message || "Upload failed", "danger");
+            console.error("PYQ upload error:", e);
+            if (barInner) {
+              barInner.style.width = "100%";
+              barInner.classList.remove("bg-success");
+              barInner.classList.add("bg-danger");
+              barInner.textContent = "Failed";
+            }
+            toastFn((e && e.message) || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
             btn.disabled = false;
