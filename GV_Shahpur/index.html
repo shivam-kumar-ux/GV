@@ -28,6 +28,8 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- Responsive CSS (Mobile-First) -->
     <link href="css/responsive.css" rel="stylesheet">
+    <!-- Premium Sticky Layout Stylesheet -->
+    <link href="css/gv-layout.css" rel="stylesheet">
     <style>
         /* Performer carousel hover details fix: only open info on hovered image */
         @media (hover: hover) {
@@ -347,32 +349,34 @@
 
 <body data-gv-page="home">
     <!-- Topbar Start (always fixed on home) -->
-    <div id="gvHomeTopbar" class="container-fluid bg-dark gv-home-topbar">
-        <div class="row py-2 px-lg-5">
-            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                <div class="d-inline-flex align-items-center text-white gv-topbar-info">
-                    <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
-                    <small class="px-2 ml-2">|</small>
-                    <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
-                    <small class="px-3">|</small>
-                    <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+    <div id="gvHomeTopbar" class="gv-topbar gv-home-topbar">
+        <div class="container-fluid">
+            <div class="row py-2 px-lg-5">
+                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+                        <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                        <small class="px-2 ml-2">|</small>
+                        <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
+                        <small class="px-3">|</small>
+                        <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/"
-                        target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <small class="px-3">|</small>
-                    <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <small class="px-3">|</small>
-                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
-                        target="_blank">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                <div class="col-lg-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/"
+                            target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
+                            target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -402,7 +406,7 @@
     </header>
 
     <!-- Navbar (hidden until user scrolls past hero; then fixed with topbar) -->
-    <div id="gvHomeNavbarWrap" class="container-fluid p-0 bg-white gv-home-navbar-wrap">
+    <div id="gvHomeNavbarWrap" class="gv-navbar gv-home-navbar-wrap">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5" id="gvHomeNavbar">
             <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
                 <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
@@ -427,6 +431,7 @@
                         </div>
                     </div>
                     <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get
@@ -1148,7 +1153,7 @@
                         <h1 class="display-4">News & Events</h1>
                     </div>
 
-                    <div class="gv-events-grid">
+                    <div class="gv-events-grid" id="gvEventsGrid">
                         <!-- 1. Tall Event Card (Smart Agriculture & Satellite Tech) -->
                         <div class="gv-event-card tall">
                             <div class="card-img-wrap">
@@ -1228,7 +1233,7 @@
                         <div class="gv-event-card small">
                             <div class="card-img-wrap">
                                 <!-- Placeholder Image (can be replaced with local path: img/news-5.jpg) -->
-                                <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=600&q=80"
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
                                     alt="Art & Craft Expo">
                                 <div class="card-overlay">
                                     <div class="overlay-content">
@@ -1493,7 +1498,37 @@
         <script src="../js/firebase-config.js"></script>
         <script src="../js/sites/shahpur-default.js"></script>
         <script src="../js/gv-firebase.js"></script>
+        <script src="js/posts-data.js"></script>
         <script src="js/gv-render.js"></script>
+
+        <!-- Dynamically Render News & Events from Blog Database -->
+        <script>
+            (function () {
+                var grid = document.getElementById("gvEventsGrid");
+                if (!grid || !window.POSTS) return;
+                var html = "";
+                var order = [1, 2, 3, 4, 5, 6, 7];
+                order.forEach(function (id, idx) {
+                    var p = window.POSTS[id];
+                    if (!p) return;
+                    var cardClass = (idx === 0) ? "gv-event-card tall" : "gv-event-card small";
+                    html += '<div class="' + cardClass + '">' +
+                        '<div class="card-img-wrap">' +
+                        '<img src="' + p.img + '" alt="' + p.title + '">' +
+                        '<div class="card-overlay">' +
+                        '<div class="overlay-content">' +
+                        '<h3 class="overlay-title">' + p.title + '</h3>' +
+                        '<p class="overlay-desc">' + p.excerpt + '</p>' +
+                        '<a href="blog.html?post=' + id + '" class="btn btn-read-more">Read More</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card-banner">' + p.cat + '</div>' +
+                        '</div>';
+                });
+                grid.innerHTML = html;
+            })();
+        </script>
 
         <!-- =====================================================
          INDEX PAGE — Contact Form -> Google Sheets

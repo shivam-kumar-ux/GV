@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Blog - Gyanoday Vidyalaya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Read the latest news, stories, and updates from Gyanoday Vidyalaya." name="description">
+
+    <!-- Favicon -->
+    <link href="img/H_logo.png" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 4 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ===================== THEME VARIABLES ===================== */
+        :root {
+            --primary:   #2878EB;
+            --secondary: #F14D5D;
+            --dark:      #120F2D;
+            --light:     #ECF4FF;
+            --text-muted:#6B6A75;
+            --white:     #ffffff;
+            --card-shadow: 0 8px 30px rgba(40,120,235,.10);
+        }
+
+        /* ===================== BASE ===================== */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1rem;
+            color: var(--text-muted);
+            background: #f7faff;
+            overflow-x: hidden;
+        }
+
+        h1,h2,h3,h4,h5,h6 { font-family: "Jost", sans-serif; color: var(--dark); }
+
+        a { text-decoration: none; color: inherit; }
+        a:hover { color: var(--primary); }
+
+        /* ===================== TOPBAR ===================== */
+        .gv-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1051;
+            background: var(--dark);
+            padding: 8px 0;
+        }
+
+        .gv-topbar-info {
+            display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            align-items: center;
+            color: rgba(255,255,255,.75);
+            font-size: .8rem;
+            gap: 0;
+        }
+
+        .gv-topbar-info small { line-height: 1; }
+
+        /* ===================== NAVBAR ===================== */
+        .gv-navbar {
+            position: sticky;
+            top: 42px;
+            z-index: 1052;
+            background: var(--white);
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+        }
+
+        .navbar-brand img { height: 60px; }
+
+        .nav-link { font-family: "Jost", sans-serif; font-weight: 600; color: var(--dark) !important; font-size: .95rem; padding: .75rem 1rem !important; }
+        .nav-link:hover, .nav-link.active { color: var(--primary) !important; }
+
+        .navbar .btn { font-family: "Jost", sans-serif; font-weight: 600; }
+
+        .get-admission-btn,
+        .get-job-btn { background: #033374 !important; border-color: #033374 !important; color: #fff !important; }
+        .get-admission-btn:hover, .get-job-btn:hover { opacity: .88; }
+
+        .notification-dot {
+            display: inline-block; width: 8px; height: 8px;
+            background: #dc3545; border-radius: 50%; margin-left: 4px;
+            animation: pulse 2s infinite; vertical-align: middle;
+        }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0   rgba(220,53,69,.7); }
+            70%  { box-shadow: 0 0 0 10px rgba(220,53,69,0); }
+            100% { box-shadow: 0 0 0 0   rgba(220,53,69,0); }
+        }
+
+        /* ===================== PAGE HERO ===================== */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 100%);
+            padding: 72px 0 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232878EB' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .blog-hero .breadcrumb {
+            background: transparent; padding: 0; margin-bottom: 12px;
+            font-size: .85rem;
+        }
+        .blog-hero .breadcrumb-item, .blog-hero .breadcrumb-item a {
+            color: rgba(255,255,255,.6);
+        }
+        .blog-hero .breadcrumb-item.active { color: rgba(255,255,255,.9); }
+        .blog-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.4); }
+
+        .blog-hero h1 {
+            color: #fff;
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .blog-hero p { color: rgba(255,255,255,.7); margin: 0; }
+
+        .hero-accent {
+            display: inline-block;
+            width: 52px; height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+
+        /* ===================== SECTION TITLE ===================== */
+        .section-title h6 {
+            font-size: .85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .section-title h6::before,
+        .section-title h6::after {
+            content: "";
+            display: inline-block;
+            width: 45px; height: 2px;
+            background: var(--secondary);
+            margin: 0 8px 4px;
+            border-radius: 1px;
+        }
+
+        /* ===================== SEARCH & FILTER BAR ===================== */
+        .blog-controls {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 20px 24px;
+            margin: -28px auto 48px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .blog-search {
+            position: relative;
+        }
+
+        .blog-search input {
+            border: 1.5px solid #e3edff;
+            border-radius: 8px;
+            padding: 11px 46px 11px 16px;
+            width: 100%;
+            font-size: .93rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .blog-search input:focus { border-color: var(--primary); }
+
+        .blog-search i {
+            position: absolute;
+            right: 14px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            pointer-events: none;
+        }
+
+        .filter-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+        .filter-btn {
+            border: 1.5px solid #dde8f8;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: .85rem;
+            font-family: "Jost", sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .25s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(40,120,235,.35);
+        }
+
+        /* ===================== FEATURED POST ===================== */
+        .featured-post {
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: var(--card-shadow);
+            transition: transform .3s, box-shadow .3s;
+            margin-bottom: 32px;
+        }
+
+        .featured-post:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 50px rgba(40,120,235,.15);
+        }
+
+        .featured-post .post-img {
+            height: 340px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .featured-post .post-img .featured-badge {
+            position: absolute; top: 18px; left: 18px;
+            background: var(--secondary);
+            color: #fff; font-size: .75rem;
+            font-family: "Jost", sans-serif; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 4px 14px; border-radius: 50px;
+        }
+
+        .featured-post .post-body { padding: 28px 32px 30px; }
+
+        .post-category {
+            display: inline-block;
+            font-size: .75rem;
+            font-family: "Jost", sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--light);
+            border-radius: 50px;
+            padding: 3px 12px;
+            margin-bottom: 10px;
+        }
+
+        .post-title {
+            font-family: "Playfair Display", serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .post-title a { color: var(--dark); transition: color .2s; }
+        .post-title a:hover { color: var(--primary); }
+
+        .post-meta {
+            display: flex; flex-wrap: wrap; gap: 16px;
+            font-size: .82rem; color: var(--text-muted); margin-bottom: 14px;
+        }
+
+        .post-meta span i { margin-right: 5px; color: var(--primary); }
+
+        .post-excerpt { font-size: .93rem; line-height: 1.75; margin-bottom: 20px; }
+
+        .read-more-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--primary); color: #fff;
+            font-family: "Jost", sans-serif; font-weight: 600;
+            font-size: .88rem; padding: 10px 22px;
+            border-radius: 8px; border: none; cursor: pointer;
+            transition: background .2s, transform .2s;
+        }
+
+        .read-more-btn:hover {
+            background: #1a5ec7; color: #fff;
+            transform: translateX(3px);
+        }
+
+        .read-more-btn i { transition: transform .2s; }
+        .read-more-btn:hover i { transform: translateX(4px); }
+
+        /* ===================== BLOG CARDS ===================== */
+        .blog-card {
+            background: var(--white);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform .3s, box-shadow .3s;
+            height: 100%;
+            display: flex; flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(40,120,235,.16);
+        }
+
+        .blog-card .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card .card-img::after {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(18,15,45,.55));
+            pointer-events: none;
+        }
+
+        .blog-card .card-img .post-category {
+            position: absolute; top: 14px; left: 14px; z-index: 2;
+            margin-bottom: 0;
+        }
+
+        .blog-card .card-body {
+            padding: 22px 24px 20px;
+            flex: 1; display: flex; flex-direction: column;
+        }
+
+        .blog-card .post-title { font-size: 1.15rem; margin-bottom: 8px; }
+        .blog-card .post-meta { margin-bottom: 10px; }
+        .blog-card .post-excerpt { font-size: .88rem; flex: 1; margin-bottom: 18px; }
+
+        .blog-card .card-footer-row {
+            display: flex; align-items: center; justify-content: space-between;
+            border-top: 1px solid #f0f4fb; padding-top: 14px;
+        }
+
+        .author-chip {
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .author-chip .avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--light);
+            display: flex; align-items: center; justify-content: center;
+            font-family: "Jost", sans-serif; font-weight: 700;
+            font-size: .78rem; color: var(--primary);
+        }
+
+        .author-chip .name { font-size: .82rem; font-weight: 600; color: var(--dark); }
+
+        /* ===================== SIDEBAR ===================== */
+        .sidebar-widget {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 26px 24px;
+            margin-bottom: 28px;
+        }
+
+        .sidebar-widget h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light);
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .sidebar-widget h5::after {
+            content: "";
+            position: absolute; bottom: -2px; left: 0;
+            width: 40px; height: 2px;
+            background: var(--primary); border-radius: 1px;
+        }
+
+        /* Recent posts */
+        .recent-post-item {
+            display: flex; gap: 14px; padding: 10px 0;
+            border-bottom: 1px solid #f0f4fb;
+        }
+        .recent-post-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .recent-post-item .rp-img {
+            width: 68px; height: 58px; border-radius: 8px;
+            background-size: cover; background-position: center;
+            flex-shrink: 0;
+        }
+
+        .recent-post-item .rp-info .rp-title {
+            font-family: "Jost", sans-serif; font-size: .88rem;
+            font-weight: 600; color: var(--dark);
+            line-height: 1.35;
+        }
+
+        .recent-post-item .rp-info .rp-date {
+            font-size: .76rem; color: var(--text-muted); margin-top: 4px;
+        }
+
+        /* Categories */
+        .cat-list { list-style: none; padding: 0; margin: 0; }
+
+        .cat-list li {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 9px 0; border-bottom: 1px solid #f0f4fb;
+            font-size: .9rem; cursor: pointer; transition: color .2s;
+        }
+        .cat-list li:last-child { border-bottom: none; }
+        .cat-list li:hover { color: var(--primary); }
+        .cat-list li i { color: var(--primary); margin-right: 8px; }
+
+        .cat-count {
+            background: var(--light); color: var(--primary);
+            font-size: .75rem; font-weight: 700; font-family: "Jost", sans-serif;
+            border-radius: 50px; padding: 2px 10px;
+        }
+
+        /* Tags */
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tag {
+            background: var(--light); color: var(--primary);
+            border-radius: 50px; padding: 5px 14px;
+            font-size: .8rem; font-family: "Jost", sans-serif; font-weight: 600;
+            cursor: pointer; transition: all .2s;
+            border: 1.5px solid transparent;
+        }
+
+        .tag:hover {
+            background: var(--primary); color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Newsletter */
+        .newsletter-widget {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 100%);
+            border-radius: 14px;
+            padding: 28px 24px;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .newsletter-widget h5 { color: #fff; border-bottom-color: rgba(255,255,255,.15); }
+        .newsletter-widget h5::after { background: var(--secondary); }
+        .newsletter-widget p { color: rgba(255,255,255,.7); font-size: .88rem; }
+
+        .newsletter-widget input {
+            width: 100%; border: none; border-radius: 8px;
+            padding: 11px 16px; font-size: .9rem; margin-bottom: 10px;
+            outline: none;
+        }
+
+        .newsletter-widget .btn {
+            width: 100%; background: var(--secondary);
+            border: none; color: #fff;
+            font-family: "Jost", sans-serif; font-weight: 700;
+            padding: 11px; border-radius: 8px;
+            transition: opacity .2s;
+        }
+
+        .newsletter-widget .btn:hover { opacity: .88; }
+
+        /* ===================== PAGINATION ===================== */
+        .blog-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 40px; }
+
+        .page-btn {
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; border: 1.5px solid #dde8f8;
+            font-family: "Jost", sans-serif; font-weight: 600;
+            font-size: .92rem; cursor: pointer; transition: all .2s;
+            color: var(--dark); background: var(--white);
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--primary); border-color: var(--primary);
+            color: #fff; box-shadow: 0 4px 12px rgba(40,120,235,.35);
+        }
+
+        /* ===================== MODAL ===================== */
+        .post-modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(18,15,45,.65);
+            z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+            opacity: 0; visibility: hidden;
+            transition: opacity .3s, visibility .3s;
+        }
+
+        .post-modal-overlay.show {
+            opacity: 1; visibility: visible;
+        }
+
+        .post-modal {
+            background: var(--white);
+            border-radius: 18px;
+            max-width: 720px; width: 100%;
+            max-height: 88vh; overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,.3);
+            animation: modalIn .35s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(.92); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+
+        .post-modal .modal-hero {
+            height: 280px; background-size: cover; background-position: center;
+            border-radius: 18px 18px 0 0; position: relative;
+        }
+
+        .post-modal .modal-hero .modal-close {
+            position: absolute; top: 16px; right: 16px;
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,.9); border: none;
+            border-radius: 50%; font-size: 1.3rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--dark);
+            transition: background .2s;
+        }
+
+        .post-modal .modal-hero .modal-close:hover { background: #fff; }
+
+        .post-modal .modal-body-wrap { padding: 32px 36px 36px; }
+
+        .post-modal .modal-body-wrap h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem; color: var(--dark);
+            line-height: 1.3; margin-bottom: 14px;
+        }
+
+        .post-modal .modal-body-wrap .modal-content-text {
+            font-size: .95rem; line-height: 1.85; color: var(--text-muted);
+        }
+
+        .post-modal .modal-body-wrap .modal-content-text p { margin-bottom: 1rem; }
+
+        /* ===================== FOOTER ===================== */
+        .gv-footer {
+            background: var(--dark);
+            color: rgba(255,255,255,.6);
+            margin-top: 80px;
+            padding-top: 60px;
+        }
+
+        .gv-footer h3 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; }
+        .gv-footer p { font-size: .9rem; line-height: 1.75; }
+
+        .gv-footer a { color: rgba(255,255,255,.6); transition: color .2s; }
+        .gv-footer a:hover { color: #fff; }
+
+        .footer-social .btn-square {
+            width: 38px; height: 38px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 6px; background: #fff;
+            transition: transform .2s;
+        }
+
+        .footer-social .btn-square:hover { transform: translateY(-3px); }
+        .footer-social .btn-square .fa-facebook-f { color: #1877F2; }
+        .footer-social .btn-square .fa-instagram { color: #F56040; }
+        .footer-social .btn-square .fa-youtube   { color: #FF0000; }
+
+        .footer-links { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 10px; font-size: .9rem; }
+        .footer-links li i { color: var(--primary); margin-right: 8px; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.08);
+            padding: 18px 0;
+            margin-top: 40px;
+            font-size: .85rem;
+        }
+
+        /* ===================== BACK TO TOP ===================== */
+        .back-to-top {
+            position: fixed; bottom: 28px; right: 28px;
+            width: 44px; height: 44px;
+            background: var(--primary); color: #fff;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; z-index: 999;
+            opacity: 0; pointer-events: none;
+            transition: opacity .3s, transform .3s;
+            box-shadow: 0 4px 16px rgba(40,120,235,.45);
+        }
+
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { transform: translateY(-3px); color: #fff; }
+
+        /* ===================== BLOG GRID ANIMATIONS ===================== */
+        .blog-post-item {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp .5s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===================== EMPTY STATE ===================== */
+        .no-results {
+            text-align: center; padding: 60px 20px;
+            display: none;
+        }
+        .no-results i { font-size: 3rem; color: #dde8f8; margin-bottom: 16px; }
+        .no-results h4 { color: var(--dark); margin-bottom: 8px; }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 767.98px) {
+            .blog-hero h1 { font-size: 1.9rem; }
+            .blog-controls { margin: -20px 15px 36px; padding: 16px; }
+            .featured-post .post-img { height: 220px; }
+            .featured-post .post-body { padding: 22px 20px 24px; }
+            .post-title { font-size: 1.3rem; }
+            .post-modal .modal-body-wrap { padding: 22px 20px 24px; }
+        }
+
+        @media (max-width: 575.98px) {
+            .gv-topbar-info { font-size: .7rem; gap: 0; }
+            .filter-btns { gap: 6px; }
+            .blog-pagination { gap: 5px; }
+            .page-btn { width: 34px; height: 34px; font-size: .82rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===================== TOPBAR ===================== -->
+    <div class="gv-topbar">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-6">
+                    <div class="gv-topbar-info">
+                        <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                        <small class="px-2 mx-1">|</small>
+                        <small><i class="fa fa-phone-alt mr-1"></i>+91 8002316898</small>
+                        <small class="px-2 mx-1">|</small>
+                        <small><i class="fa fa-envelope mr-1"></i>gyanodayvidyalaya2018@gmail.com</small>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 text-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <small class="text-white-50 px-2">|</small>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <small class="text-white-50 px-2">|</small>
+                        <a class="text-white px-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <div class="gv-navbar">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
+                <img src="img/H_logo.png" alt="Gyanoday Vidyalaya">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="index.html"   class="nav-item nav-link">Home</a>
+                    <a href="about.html"   class="nav-item nav-link">About Us</a>
+                    <a href="academics.html" class="nav-item nav-link">Academics</a>
+                    <a href="result.html"  class="nav-item nav-link">Results</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="facilities.html"  class="dropdown-item">Facilities</a>
+                            <a href="choose.html"      class="dropdown-item">Why Choose Us</a>
+                            <a href="gallery.html"     class="dropdown-item">Gallery</a>
+                            <a href="hostel.html"      class="dropdown-item">Boarding &amp; Hostel</a>
+                            <a href="disclosure.html"  class="dropdown-item">Mandatory Disclosure</a>
+                        </div>
+                    </div>
+                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="blog.html"    class="nav-item nav-link active">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="admission.html" class="btn py-2 px-4 ml-3 get-admission-btn" target="_blank">Get Admission</a>
+                <a href="careers.html"   class="btn py-2 px-4 ml-1 get-job-btn"       target="_blank">Get Job</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ===================== PAGE HERO ===================== -->
+    <section class="blog-hero">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Blog</li>
+                </ol>
+            </nav>
+            <div class="hero-accent"></div>
+            <h1>School Blog &amp; News</h1>
+            <p>Stories, achievements, and updates from the Gyanoday Vidyalaya community</p>
+        </div>
+    </section>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <div class="container" style="padding-top: 0; padding-bottom: 60px;">
+
+        <!-- Search & Filter bar -->
+        <div class="blog-controls">
+            <div class="row align-items-center">
+                <div class="col-md-5 mb-md-0 mb-3">
+                    <div class="blog-search">
+                        <input type="text" id="blogSearch" placeholder="Search articles…">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="filter-btns" id="filterBtns">
+                        <button class="filter-btn active" data-cat="all">All Posts</button>
+                        <button class="filter-btn" data-cat="academics">Academics</button>
+                        <button class="filter-btn" data-cat="achievements">Achievements</button>
+                        <button class="filter-btn" data-cat="events">Events</button>
+                        <button class="filter-btn" data-cat="sports">Sports</button>
+                        <button class="filter-btn" data-cat="science">Science &amp; Tech</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- ===== BLOG POSTS COLUMN ===== -->
+            <div class="col-lg-8">
+
+                <!-- Featured Post -->
+                <div class="featured-post blog-post-item" data-cat="achievements" style="animation-delay:.05s">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80');">
+                        <span class="featured-badge"><i class="fa fa-star mr-1"></i> Featured</span>
+                    </div>
+                    <div class="post-body">
+                        <span class="post-category">Achievements</span>
+                        <h2 class="post-title"><a href="#" class="open-post" data-id="1">Our Students Shine at the 2025 State Science Olympiad</a></h2>
+                        <div class="post-meta">
+                            <span><i class="fa fa-user"></i> Principal's Desk</span>
+                            <span><i class="fa fa-calendar-alt"></i> May 18, 2025</span>
+                            <span><i class="fa fa-clock"></i> 4 min read</span>
+                        </div>
+                        <p class="post-excerpt">We are immensely proud to announce that our students from Classes 9 and 10 have secured top positions at the Bihar State Science Olympiad 2025, held in Patna. This remarkable achievement reflects the dedication of our teachers and the hard work of every student who participated in months of intensive preparation.</p>
+                        <button class="read-more-btn open-post" data-id="1">Read More <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Blog Grid -->
+                <div class="row" id="blogGrid">
+
+                    <!-- Post 1 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="academics" style="animation-delay:.1s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Academics</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> May 10, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 3 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="2">New Smart Classrooms Launched for Classes 6–10</a></h3>
+                                <p class="post-excerpt">Our school has installed state-of-the-art interactive smart boards in all middle and secondary classrooms, transforming the learning experience for over 600 students.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">RK</div>
+                                        <span class="name">Rajesh Kumar</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="2" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="events" style="animation-delay:.18s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Events</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> Apr 28, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 2 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="3">Annual Cultural Fest 2025 — A Grand Celebration!</a></h3>
+                                <p class="post-excerpt">The Annual Cultural Festival was a spectacular showcase of talent — from classical dance performances to drama, poetry recitation, and a stunning choir finale.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">SP</div>
+                                        <span class="name">Sunita Priya</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="3" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 3 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="sports" style="animation-delay:.26s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Sports</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> Apr 14, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 3 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="4">District Athletics Championship — GV Brings Home 5 Medals</a></h3>
+                                <p class="post-excerpt">Students from Gyanoday Vidyalaya dominated the District Athletics Championship, winning five medals including two gold in 400m sprint and long jump events.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">AM</div>
+                                        <span class="name">Amit Mishra</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="4" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 4 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="science" style="animation-delay:.34s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Science &amp; Tech</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> Mar 30, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 4 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="5">Science Exhibition 2025 — Innovation in Every Corner</a></h3>
+                                <p class="post-excerpt">Over 80 projects were showcased at this year's Science Exhibition. From solar-powered models to water purification prototypes — our young scientists left the audience in awe.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">NV</div>
+                                        <span class="name">Nisha Verma</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="5" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 5 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="achievements" style="animation-delay:.42s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Achievements</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> Mar 12, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 3 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="6">Anjali Kumari Tops Bihar Girls' Sainik School Entrance</a></h3>
+                                <p class="post-excerpt">We congratulate Anjali Kumari of Class VI for topping the Bihar State Girls' Sainik School entrance examination — a proud moment for our entire school family.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">PD</div>
+                                        <span class="name">Principal's Desk</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="6" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 6 -->
+                    <div class="col-md-6 mb-4 blog-post-item" data-cat="events" style="animation-delay:.5s">
+                        <div class="blog-card">
+                            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=800&q=80');">
+                                <span class="post-category">Events</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="post-meta">
+                                    <span><i class="fa fa-calendar-alt"></i> Jan 26, 2025</span>
+                                    <span><i class="fa fa-clock"></i> 2 min</span>
+                                </div>
+                                <h3 class="post-title"><a href="#" class="open-post" data-id="7">Republic Day Celebration — Pride and Patriotism on Campus</a></h3>
+                                <p class="post-excerpt">This year's Republic Day celebration at Gyanoday Vidyalaya was marked by a vibrant parade, the unfurling of the national flag, and inspiring speeches by student leaders.</p>
+                                <div class="card-footer-row">
+                                    <div class="author-chip">
+                                        <div class="avatar">SK</div>
+                                        <span class="name">Shivam Kumar</span>
+                                    </div>
+                                    <button class="read-more-btn open-post" data-id="7" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /#blogGrid -->
+
+                <!-- No Results -->
+                <div class="no-results" id="noResults">
+                    <i class="fa fa-search"></i>
+                    <h4>No posts found</h4>
+                    <p>Try a different search term or category filter.</p>
+                </div>
+
+                <!-- Pagination -->
+                <div class="blog-pagination" id="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn"><i class="fa fa-angle-right"></i></button>
+                </div>
+
+            </div><!-- /col-lg-8 -->
+
+            <!-- ===== SIDEBAR ===== -->
+            <div class="col-lg-4 mt-4 mt-lg-0">
+
+                <!-- Newsletter -->
+                <div class="newsletter-widget">
+                    <h5>Stay Updated</h5>
+                    <p>Get the latest news and stories from Gyanoday Vidyalaya delivered to your inbox.</p>
+                    <input type="email" placeholder="Your email address" id="newsletterEmail">
+                    <button class="btn" onclick="subscribeNewsletter()">Subscribe Now</button>
+                    <div id="nlMsg" style="margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.7);display:none;"></div>
+                </div>
+
+                <!-- Categories -->
+                <div class="sidebar-widget">
+                    <h5>Categories</h5>
+                    <ul class="cat-list">
+                        <li onclick="filterByCategory('all')"><span><i class="fa fa-th-large"></i> All Posts</span> <span class="cat-count">7</span></li>
+                        <li onclick="filterByCategory('academics')"><span><i class="fa fa-book"></i> Academics</span> <span class="cat-count">1</span></li>
+                        <li onclick="filterByCategory('achievements')"><span><i class="fa fa-trophy"></i> Achievements</span> <span class="cat-count">3</span></li>
+                        <li onclick="filterByCategory('events')"><span><i class="fa fa-calendar"></i> Events</span> <span class="cat-count">2</span></li>
+                        <li onclick="filterByCategory('sports')"><span><i class="fa fa-running"></i> Sports</span> <span class="cat-count">1</span></li>
+                        <li onclick="filterByCategory('science')"><span><i class="fa fa-flask"></i> Science &amp; Tech</span> <span class="cat-count">1</span></li>
+                    </ul>
+                </div>
+
+                <!-- Recent Posts -->
+                <div class="sidebar-widget">
+                    <h5>Recent Posts</h5>
+                    <div class="recent-post-item">
+                        <div class="rp-img" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=200&q=70');"></div>
+                        <div class="rp-info">
+                            <div class="rp-title"><a href="#" class="open-post" data-id="1">Students Shine at Science Olympiad 2025</a></div>
+                            <div class="rp-date"><i class="fa fa-calendar-alt mr-1"></i> May 18, 2025</div>
+                        </div>
+                    </div>
+                    <div class="recent-post-item">
+                        <div class="rp-img" style="background-image:url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=200&q=70');"></div>
+                        <div class="rp-info">
+                            <div class="rp-title"><a href="#" class="open-post" data-id="2">New Smart Classrooms Launched</a></div>
+                            <div class="rp-date"><i class="fa fa-calendar-alt mr-1"></i> May 10, 2025</div>
+                        </div>
+                    </div>
+                    <div class="recent-post-item">
+                        <div class="rp-img" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=200&q=70');"></div>
+                        <div class="rp-info">
+                            <div class="rp-title"><a href="#" class="open-post" data-id="3">Annual Cultural Fest 2025</a></div>
+                            <div class="rp-date"><i class="fa fa-calendar-alt mr-1"></i> Apr 28, 2025</div>
+                        </div>
+                    </div>
+                    <div class="recent-post-item">
+                        <div class="rp-img" style="background-image:url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=200&q=70');"></div>
+                        <div class="rp-info">
+                            <div class="rp-title"><a href="#" class="open-post" data-id="6">Anjali Kumari Tops Sainik School Entrance</a></div>
+                            <div class="rp-date"><i class="fa fa-calendar-alt mr-1"></i> Mar 12, 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="sidebar-widget">
+                    <h5>Tags</h5>
+                    <div class="tag-cloud">
+                        <span class="tag">Education</span>
+                        <span class="tag">CBSE</span>
+                        <span class="tag">Olympiad</span>
+                        <span class="tag">Sports</span>
+                        <span class="tag">Science</span>
+                        <span class="tag">Cultural</span>
+                        <span class="tag">Admission</span>
+                        <span class="tag">Results</span>
+                        <span class="tag">Student Life</span>
+                        <span class="tag">Bihar</span>
+                    </div>
+                </div>
+
+            </div><!-- /col-lg-4 -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+
+    <!-- ===================== FOOTER ===================== -->
+    <div class="gv-footer">
+        <div class="container pb-4">
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <a href="index.html"><h1 class="text-white text-uppercase mt-0">Gyanoday Vidyalaya</h1></a>
+                    <p>Gyanoday Vidyalaya is committed to providing quality education to students from Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible citizens and future leaders.</p>
+                    <div class="footer-social mt-3">
+                        <a class="btn-square mr-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn-square mr-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a class="btn-square" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3>Get In Touch</h3>
+                    <ul class="footer-links">
+                        <li><i class="fa fa-map-marker-alt"></i> Shahpur, Bihar</li>
+                        <li><i class="fa fa-phone-alt"></i> +91 8002316898, +91 9955596394</li>
+                        <li><i class="fa fa-envelope"></i> <a href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a></li>
+                        <li><i class="fa fa-globe"></i> www.gyanodayvidyalaya.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fa fa-angle-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fa fa-angle-right"></i> About Us</a></li>
+                        <li><a href="academics.html"><i class="fa fa-angle-right"></i> Academics</a></li>
+                        <li><a href="gallery.html"><i class="fa fa-angle-right"></i> Gallery</a></li>
+                        <li><a href="contact.html"><i class="fa fa-angle-right"></i> Contact</a></li>
+                        <li><a href="blog.html"><i class="fa fa-angle-right"></i> Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3>Location</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin"
+                        width="100%" height="200" style="border:0;border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="border-top:1px solid rgba(255,255,255,.08);padding:18px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                        <p class="m-0" style="font-size:.85rem;">Copyright &copy; <a href="https://gyanodayvidyalaya.com/" class="text-white">Gyanoday Vidyalaya</a>. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-right">
+                        <p class="m-0" style="font-size:.85rem;">Designed by <a href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/" class="text-white">Shivam Kumar</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- ===================== POST MODAL ===================== -->
+    <div class="post-modal-overlay" id="postModal">
+        <div class="post-modal">
+            <div class="modal-hero" id="modalHero">
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body-wrap">
+                <span class="post-category" id="modalCat"></span>
+                <div class="post-meta" id="modalMeta"></div>
+                <h2 id="modalTitle"></h2>
+                <div class="modal-content-text" id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="js/posts-data.js"></script>
+
+    <script>
+        // ===================== MODAL LOGIC =====================
+        var modal = document.getElementById("postModal");
+        var modalClose = document.getElementById("modalClose");
+
+        // Automatically open post from URL parameter if present
+        window.addEventListener("DOMContentLoaded", function() {
+            var params = new URLSearchParams(window.location.search);
+            var postId = params.get("post");
+            if (postId) {
+                setTimeout(function() {
+                    openPost(postId);
+                }, 300);
+            }
+        });
+
+        function openPost(id) {
+            var p = POSTS[id];
+            if (!p) return;
+            document.getElementById("modalHero").style.backgroundImage = p.gradient;
+            document.getElementById("modalHero").innerHTML =
+                '<button class="modal-close" id="modalClose">&times;</button>' +
+                '<div style="height:100%;display:flex;align-items:center;justify-content:center;"><i class="fa ' + p.icon + '" style="font-size:5rem;color:rgba(255,255,255,.2);"></i></div>';
+            document.getElementById("modalCat").textContent = p.cat;
+            document.getElementById("modalTitle").textContent = p.title;
+            document.getElementById("modalMeta").innerHTML =
+                '<span><i class="fa fa-user"></i> ' + p.author + '</span>' +
+                '<span><i class="fa fa-calendar-alt"></i> ' + p.date + '</span>' +
+                '<span><i class="fa fa-clock"></i> ' + p.read + '</span>';
+            document.getElementById("modalContent").innerHTML = p.content;
+            modal.classList.add("show");
+            document.body.style.overflow = "hidden";
+            document.getElementById("modalHero").querySelector(".modal-close").addEventListener("click", closePost);
+        }
+
+        function closePost() {
+            modal.classList.remove("show");
+            document.body.style.overflow = "";
+        }
+
+        modal.addEventListener("click", function(e) {
+            if (e.target === modal) closePost();
+        });
+
+        // Delegate all .open-post clicks
+        document.addEventListener("click", function(e) {
+            var btn = e.target.closest(".open-post");
+            if (btn) {
+                e.preventDefault();
+                openPost(btn.getAttribute("data-id"));
+            }
+        });
+
+        // ===================== FILTER =====================
+        function filterByCategory(cat) {
+            // Sync filter buttons
+            document.querySelectorAll(".filter-btn").forEach(function(b) {
+                b.classList.toggle("active", b.getAttribute("data-cat") === cat);
+            });
+
+            var items = document.querySelectorAll(".blog-post-item");
+            var searchVal = document.getElementById("blogSearch").value.toLowerCase();
+            var visible = 0;
+
+            items.forEach(function(item) {
+                var itemCat = item.getAttribute("data-cat");
+                var catMatch = cat === "all" || itemCat === cat;
+                var title = item.querySelector(".post-title") ? item.querySelector(".post-title").textContent.toLowerCase() : "";
+                var excerpt = item.querySelector(".post-excerpt") ? item.querySelector(".post-excerpt").textContent.toLowerCase() : "";
+                var searchMatch = !searchVal || title.includes(searchVal) || excerpt.includes(searchVal);
+                var show = catMatch && searchMatch;
+                item.style.display = show ? "" : "none";
+                if (show) visible++;
+            });
+
+            document.getElementById("noResults").style.display = visible === 0 ? "block" : "none";
+        }
+
+        document.getElementById("filterBtns").addEventListener("click", function(e) {
+            var btn = e.target.closest(".filter-btn");
+            if (btn) filterByCategory(btn.getAttribute("data-cat"));
+        });
+
+        // ===================== SEARCH =====================
+        document.getElementById("blogSearch").addEventListener("input", function() {
+            var activeCat = (document.querySelector(".filter-btn.active") || {}).getAttribute ? document.querySelector(".filter-btn.active").getAttribute("data-cat") : "all";
+            filterByCategory(activeCat || "all");
+        });
+
+        // ===================== NEWSLETTER =====================
+        function subscribeNewsletter() {
+            var email = document.getElementById("newsletterEmail").value.trim();
+            var msg = document.getElementById("nlMsg");
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                msg.style.display = "block";
+                msg.style.color = "#f8d7da";
+                msg.textContent = "Please enter a valid email address.";
+                return;
+            }
+            msg.style.display = "block";
+            msg.style.color = "rgba(255,255,255,.85)";
+            msg.textContent = "Thank you for subscribing! 🎉";
+            document.getElementById("newsletterEmail").value = "";
+        }
+
+        // ===================== PAGINATION =====================
+        document.querySelectorAll(".page-btn").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                document.querySelectorAll(".page-btn").forEach(function(b) { b.classList.remove("active"); });
+                btn.classList.add("active");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+
+        // ===================== BACK TO TOP =====================
+        var btt = document.getElementById("backToTop");
+        window.addEventListener("scroll", function() {
+            btt.classList.toggle("visible", window.pageYOffset > 300);
+        }, { passive: true });
+
+        btt.addEventListener("click", function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // ===================== SIDEBAR CATEGORY CLICK =====================
+        // (already wired via onclick attributes above)
+    </script>
+
+</body>
+</html>
