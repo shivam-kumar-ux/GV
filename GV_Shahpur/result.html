@@ -27,6 +27,8 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- Responsive CSS (Mobile-First) -->
     <link href="css/responsive.css" rel="stylesheet">
+    <!-- Premium Sticky Layout Stylesheet -->
+    <link href="css/gv-layout.css" rel="stylesheet">
     <style>
         #classSelect,
         #examSelect {
@@ -145,33 +147,35 @@
 
 <body data-gv-page="result">
     <!-- Topbar Start -->
-    <div class="container-fluid bg-dark">
-        <div class="row py-2 px-lg-5">
-            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                <div class="d-inline-flex align-items-center text-white gv-topbar-info">
-                    <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
-                    <small class="px-2 ml-2">|</small>
-                    <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
-                    <small class="px-3">|</small>
-                    <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+    <div class="gv-topbar">
+        <div class="container-fluid">
+            <div class="row py-2 px-lg-5">
+                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+                        <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                        <small class="px-2 ml-2">|</small>
+                        <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
+                        <small class="px-3">|</small>
+                        <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"
-                        aria-label="Facebook">
-                        <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
-                    </a>
-                    <small class="px-3">|</small>
-                    <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"
-                        aria-label="Instagram">
-                        <i class="fab fa-instagram" style="font-size:1rem;"></i>
-                    </a>
-                    <small class="px-3">|</small>
-                    <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
-                        target="_blank" aria-label="YouTube">
-                        <i class="fab fa-youtube" style="font-size:1rem;"></i>
-                    </a>
+                <div class="col-lg-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram" style="font-size:1rem;"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
+                            target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube" style="font-size:1rem;"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,22 +184,20 @@
 
 
     <!-- Navbar Start -->
-    <div class="container-fluid p-0 sticky-top bg-white shadow-sm">
+    <div class="gv-navbar">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
             <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
                 <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
-                <div class="ml-2">
-                </div>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="index.html" class="nav-item nav-link">Home</a>
                     <a href="about.html" class="nav-item nav-link">About Us</a>
                     <a href="academics.html" class="nav-item nav-link">Academics</a>
-                    <a href="result.html" class="nav-item nav-link">Results</a>
+                    <a href="result.html" class="nav-item nav-link active">Results</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
@@ -207,10 +209,10 @@
                         </div>
                     </div>
                     <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get
-                    Admission</a>
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get Admission</a>
                 <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
             </div>
         </nav>
@@ -218,14 +220,17 @@
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
-        <div class="container text-center py-5">
-            <h1 class="text-white display-1">Student Results</h1>
-            <div class="d-inline-flex text-white mb-5">
-                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
-                <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                <p class="m-0 text-uppercase">Results</p>
-            </div>
+    <div class="blog-hero">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Results</li>
+                </ol>
+            </nav>
+            <span class="hero-accent"></span>
+            <h1>Student Results</h1>
+            <p>Explore academic excellence — board results, competitive exam toppers, and more.</p>
         </div>
     </div>
     <!-- Header End -->
@@ -295,179 +300,194 @@
     </div>
     <!-- Result Search Form End -->
 
-    <!-- Our Achievers Start (Copied from index.html) -->
-    <div class="container-fluid px-0 py-5">
-        <div class="row mx-0 justify-content-center pt-5">
-            <div class="col-lg-6">
-                <div class="section-title text-center position-relative mb-4">
-                    <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>-->
-                    <h1 class="display-4" style="color:#1F4E79;">Top Performers</h1>
+    <!-- Student Achievement Slider Start -->
+        <div class="container-fluid px-0 py-5">
+            <div class="row mx-0 justify-content-center pt-5">
+                <div class="col-lg-6">
+                    <div class="section-title text-center position-relative mb-4">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>-->
+                        <h1 class="display-4">Our Top Performers</h1>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Student Achievement Slider -->
-        <div class="student-slider-container">
-            <div class="student-slider-track" id="studentSlider">
-                <!-- All student slides copied from index.html -->
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/sunny.JPG" alt="Sunny Kumar">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Sunny Kumar</span>
-                                <span class="student-achievement">Rank 1 - Board Exam</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> CBSE Class 10</p>
-                                <p><strong>Achievement:</strong> School Topper</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/supriya.JPG" alt="Supriya Rani">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Supriya Rani</span>
-                                <span class="student-achievement">School Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> CBSE Class 10</p>
-                                <p><strong>Achievement:</strong> Girl's Topper</p>
+            <!-- Student Achievement Slider -->
+            <div class="student-slider-container">
+                <div class="student-slider-track" id="studentSlider">
+                    <!-- Student 1 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/sunny.JPG" alt="Student 1">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Sunny Kumar</span>
+                                    <span class="student-achievement">Rank 1 - Board Exam</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> </p>
+                                <p><strong>Marks Scored:</strong> </p>-->
+                                    <p><strong>Achievement:</strong> School Topper</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/anjali.JPG" alt="Anjali Kumari">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Anjali Kumari</span>
-                                <span class="student-achievement">Class - VI</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya</p>
-                                <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
-                                <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/ankit.JPG" alt="Ankit Kumar">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Ankit Kumar</span>
-                                <span class="student-achievement">Class - VI</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> RMS Ajmer</p>
-                                <p><strong>Exam:</strong> Sainik School</p>
-                                <p><strong>Rank:</strong> 179</p>
+                    <!-- Student 2 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/supriya.JPG" alt="Student 2">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Supriya Rani</span>
+                                    <span class="student-achievement">School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> 2nd in District</p>
+                                <p><strong>Marks Scored:</strong> 98%</p>-->
+                                    <p><strong>Achievement:</strong> Girl's Topper</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/kanhaiya.JPG" alt="Kanhaiya Jee">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Kanhaiya Jee</span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF
-                                    Olympiads zonal winner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/pawan.JPG" alt="Pawan Kumar">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Pawan Kumar</span>
-                                <span class="student-achievement">RMS Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                    <!-- Student 3 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/anjali.JPG" alt="Student 3">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Anjali Kumari</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya </p>
+                                    <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
+                                    <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/roushan.JPG" alt="Roushan Kr Yadav">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Roushan Kr Yadav</span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/shivam.JPG" alt="Shivam Kumar">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Shivam Kumar</span>
-                                <span class="student-achievement">Sainik School Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
-                                <p><strong>Rank:</strong> AIR 113</p>
-                                <p><strong>Marks Scored:</strong> 368/400</p>
-                                <p><strong>Class:</strong> IX</p>
+                    <!-- Student 4 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/ankit.JPG" alt="Student 4">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Ankit Kumar</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer</p>
+                                    <p><strong>Exam:</strong> Sainik School</p>
+                                    <p><strong>Rank:</strong> 179</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/shivansh.jpg" alt="Shivansh Singh">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Shivansh Singh</span>
-                                <span class="student-achievement">State Topper</span>
-                            </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC
-                                    Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads</p>
+                    <!-- Student 5 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/kanhaiya.JPG" alt="Student 5">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Kanhaiya Jee</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF
+                                        Olympiads zonal winner</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="student-slide">
-                    <div class="student-card">
-                        <img src="img/result/yash.jpg" alt="Yash Raj">
-                        <div class="student-overlay">
-                            <div class="student-info">
-                                <span class="student-name">Yash Raj</span>
-                                <span class="student-achievement">2025 Jharkhand State Topper</span>
+                    <!-- Student 6 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/pawan.JPG" alt="Student 6">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Pawan Kumar</span>
+                                    <span class="student-achievement">RMS Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                                </div>
                             </div>
-                            <div class="student-details">
-                                <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
-                                <p><strong>Rank:</strong> AIR 58</p>
-                                <p><strong>Marks Scored:</strong> 292/300</p>
-                                <p><strong>Class:</strong> VI</p>
+                        </div>
+                    </div>
+                    <!-- Student 7 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/roushan.JPG" alt="Student 7">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Roushan Kr Yadav </span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 8 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivam.JPG" alt="Student 8">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivam Kumar</span>
+                                    <span class="student-achievement">Sainik School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
+                                    <p><strong>Rank:</strong> AIR 113</p>
+                                    <p><strong>Marks Scored:</strong> 368/400</p>
+                                    <p><strong>Class:</strong> IX </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 9 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivansh.jpg" alt="Student 9">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivansh Singh</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC
+                                        Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 10 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/yash.jpg" alt="Student 10">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Yash Raj</span>
+                                    <span class="student-achievement">2025 Jharkhand State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
+                                    <p><strong>Rank:</strong> AIR 58 </p>
+                                    <p><strong>Marks Scored:</strong> 292/300</p>
+                                    <p><strong>Class:</strong> VI</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Our Achievers End -->
+        <!--Student Achievement Slider End-->
 
 
     <!-- ===== RESULTS BY YEAR SECTION START ===== -->

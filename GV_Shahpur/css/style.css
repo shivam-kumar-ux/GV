@@ -10579,7 +10579,45 @@ h6,
     51%, 100% { opacity: 0.3; }
   }
 
+  /* ==========================================================
+     GV_Shahpur - Sticky Topbar (all non-home pages)
+     The HTML uses: <div class="container-fluid bg-dark"> ... >
+     Without touching index.html.
+     ========================================================== */
+  body:not([data-gv-page="home"]) .container-fluid.bg-dark {
+    position: sticky;
+    top: 0;
+    z-index: 1051;
+  }
+
+  /* Ensure the subsequent navbar doesn't get covered */
+  body:not([data-gv-page="home"]) .container-fluid.p-0.sticky-top.bg-white {
+    z-index: 1052;
+  }
+
+body:not([data-gv-page="home"]) {
+    /* Prevent in-page anchor jumps under the sticky bars */
+    scroll-padding-top: 118px; /* approximate topbar+navbar */
+}
+
+/* Safety: also ensure the sticky containers keep proper stacking context */
+body .container-fluid.bg-dark {
+  position: sticky;
+  top: 0;
+  z-index: 1051;
+}
+
+body .container-fluid.p-0.sticky-top.bg-white {
+  position: sticky;
+  top: 0;
+  z-index: 1052;
+}
+
+
+
+
   /* Responsive Grid */
+
   @media (min-width: 992px) {
     .notice-grid {
       margin: 0 -15px;
