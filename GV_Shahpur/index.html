@@ -1140,12 +1140,14 @@
                     left: 0;
                     right: 0;
                     bottom: 0;
+                    box-sizing: border-box;
                     background: rgba(18, 15, 45, 0.85);
                     /* Premium deep dark semi-transparent blue */
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
-                    padding: 24px;
+                    padding: clamp(14px, 1.8vw, 24px);
+                    overflow: hidden;
                     opacity: 0;
                     visibility: hidden;
                     transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -1153,9 +1155,15 @@
                 }
 
                 .gv-event-card .overlay-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
                     transform: translateY(20px);
                     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                     width: 100%;
+                    max-height: 100%;
+                    min-height: 0;
+                    overflow: hidden;
                 }
 
                 .gv-event-card .overlay-title {
@@ -1165,10 +1173,16 @@
                     font-size: 1.8rem;
                     margin-bottom: 6px;
                     line-height: 1.2;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
                 }
 
                 .gv-event-card.small .overlay-title {
-                    font-size: 1.35rem;
+                    font-size: 1.12rem;
+                    line-height: 1.18;
+                    -webkit-line-clamp: 2;
                 }
 
                 .gv-event-card .overlay-desc {
@@ -1176,11 +1190,17 @@
                     font-size: 0.95rem;
                     line-height: 1.4;
                     margin-bottom: 20px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 5;
+                    overflow: hidden;
                 }
 
                 .gv-event-card.small .overlay-desc {
-                    font-size: 0.85rem;
-                    margin-bottom: 15px;
+                    font-size: 0.78rem;
+                    line-height: 1.28;
+                    margin-bottom: 12px;
+                    -webkit-line-clamp: 3;
                 }
 
                 /* Read More Button styling */
@@ -1200,11 +1220,12 @@
                     text-decoration: none;
                     box-shadow: 0 4px 15px rgba(40, 120, 235, 0.3);
                     width: fit-content;
+                    flex: 0 0 auto;
                 }
 
                 .gv-event-card.small .btn-read-more {
-                    padding: 6px 18px;
-                    font-size: 0.85rem;
+                    padding: 5px 14px;
+                    font-size: 0.78rem;
                 }
 
                 .gv-event-card .btn-read-more:hover {
@@ -1277,6 +1298,7 @@
 
                     .gv-event-card .overlay-desc {
                         font-size: 0.9rem;
+                        -webkit-line-clamp: 4;
                     }
                 }
             </style>

@@ -1074,7 +1074,148 @@ img { display: block; max-width: 100%; }
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-}/* -- Exam Modal -- */
+}
+
+@media (max-width: 768px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    *,
+    *::before,
+    *::after {
+        min-width: 0;
+    }
+
+    .nav-container,
+    .container,
+    .hero-inner,
+    .search-card,
+    .pyq-wrapper,
+    .filter-sidebar,
+    .filter-body,
+    .pyq-main,
+    .exam-card,
+    .feature-card,
+    .footer-grid,
+    .footer-bottom {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nav-container {
+        gap: 0.75rem;
+    }
+
+    .logo {
+        min-width: 0;
+        white-space: normal;
+    }
+
+    .logo-title,
+    .logo-tagline,
+    .hero-title,
+    .hero-sub,
+    .section-title,
+    .section-sub,
+    .exam-info h3,
+    .exam-info p,
+    .pyq-card h4,
+    .feature-card h3,
+    .feature-card p,
+    .footer-col li,
+    .footer-brand p {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 3.5rem;
+    }
+
+    .hero-badge {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .search-card {
+        border-radius: 18px;
+    }
+
+    .search-field select,
+    .search-btn,
+    .clear-btn,
+    .pyq-btn,
+    .cta-btn-primary,
+    .cta-btn-ghost {
+        width: 100%;
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.25;
+    }
+
+    .exam-card,
+    .pyq-card,
+    .feature-card {
+        padding: 1.2rem;
+    }
+
+    .exam-card {
+        align-items: flex-start;
+    }
+
+    .pyq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pyq-actions,
+    .exam-modal-footer,
+    .cta-actions,
+    .footer-bottom-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .exam-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        padding: 1.25rem;
+    }
+
+    .exam-modal-header {
+        align-items: flex-start;
+        padding-right: 2.5rem;
+    }
+
+    .exam-modal-footer a {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-title {
+        font-size: 1.1rem;
+    }
+
+    .exam-emoji {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 2rem;
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+}
+/* -- Exam Modal -- */
 .exam-modal-overlay {
     position: fixed; inset: 0; background: rgba(18, 15, 45, 0.6); backdrop-filter: blur(8px);
     z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition);
