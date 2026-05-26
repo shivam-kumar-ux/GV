@@ -1218,5 +1218,152 @@ img, video, iframe {
   }
 }
 
+/* Final mobile fit pass: keep content visible inside the viewport without altering desktop. */
+@media (max-width: 767.98px) {
+  *,
+  *::before,
+  *::after {
+    min-width: 0;
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  body {
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .container,
+  .container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .row > [class*="col-"] {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .navbar,
+  .navbar .container,
+  .navbar .container-fluid,
+  .navbar-brand,
+  .navbar-collapse,
+  .navbar-nav {
+    max-width: 100% !important;
+    min-width: 0;
+  }
+
+  .navbar-brand {
+    white-space: normal !important;
+  }
+
+  .navbar-brand img {
+    max-width: 64px;
+    height: auto !important;
+    flex-shrink: 0;
+  }
+
+  .navbar-brand h1,
+  .navbar-brand span,
+  .navbar-brand strong,
+  .blog-hero h1,
+  .section-title h1,
+  .display-1,
+  .display-4,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  small,
+  span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .btn,
+  button,
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+  }
+
+  .btn {
+    white-space: normal !important;
+    line-height: 1.25 !important;
+  }
+
+  .card,
+  .card-body,
+  .team-item,
+  .student-card,
+  .student-slide,
+  .courses-item,
+  .courses-list-item,
+  .testimonial-item,
+  .notice-card,
+  .bg-light,
+  .bg-white {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .d-flex {
+    flex-wrap: wrap;
+  }
+
+  .header-content-card {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1rem 0 0 !important;
+  }
+
+  .jumbotron {
+    height: auto !important;
+    min-height: auto !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .owl-carousel,
+  .owl-stage-outer,
+  .owl-stage,
+  .owl-item {
+    max-width: 100%;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    max-width: 100%;
+  }
+}
+
 
 

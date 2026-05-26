@@ -338,9 +338,17 @@ footer .footer-info span {
 }
 
 @media (max-width: 767px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
     .scene {
         min-height: auto;
-        padding: 85px 14px 30px;
+        padding: 32px 14px 30px;
+        width: 100%;
     }
 
     .top-left-logo {
@@ -356,15 +364,48 @@ footer .footer-info span {
 
     .card {
         max-width: 100%;
+        min-width: 0;
+    }
+
+    .card-container {
+        width: 100%;
+        max-width: 100%;
+        gap: 18px;
+    }
+
+    .logo-container,
+    .title-block {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .school-name,
+    .motto,
+    .card-body h3,
+    .card-body p,
+    .btn {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .motto {
+        white-space: normal;
+    }
+
+    .btn {
+        width: 100%;
+        line-height: 1.25;
     }
 
     .card-body h3 {
         height: auto;
+        min-height: 0;
     }
 
     .footer-info {
         gap: 10px;
         flex-direction: column;
         text-align: center;
+        padding: 0 14px;
     }
 }
