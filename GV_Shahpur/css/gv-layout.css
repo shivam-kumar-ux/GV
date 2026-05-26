@@ -17,26 +17,37 @@
 
 /* ===================== TOPBAR ===================== */
 .gv-topbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1051;
     background: var(--dark) !important;
     padding: 8px 0;
     width: 100%;
 }
 
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior */
+body[data-gv-page="home"] .gv-topbar {
+    position: sticky;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
+
 .gv-topbar-info {
     display: flex;
-    flex-wrap: nowrap;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    white-space: normal;
     align-items: center;
     color: rgba(255,255,255,.75) !important;
-    font-size: .8rem;
-    gap: 0;
+    font-size: .93rem;
+    gap: 2px 0;
 }
 
 .gv-topbar-info small { 
-    line-height: 1; 
+    line-height: 1.25; 
     color: rgba(255,255,255,.75) !important;
 }
 
@@ -51,14 +62,25 @@
 
 /* ===================== NAVBAR ===================== */
 .gv-navbar {
-    position: sticky;
+    position: fixed;
     top: 42px;
+    left: 0;
+    right: 0;
     z-index: 1052;
     background: var(--white) !important;
     box-shadow: 0 2px 12px rgba(0,0,0,.07) !important;
     width: 100%;
     padding: 0;
 }
+
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior */
+body[data-gv-page="home"] .gv-navbar {
+    position: sticky;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
 
 .gv-navbar .navbar {
     background: var(--white) !important;
@@ -175,6 +197,16 @@
     margin-bottom: 16px;
 }
 
+/* ===================== ALTERNATING SECTION BACKGROUNDS ===================== */
+.gv-section-pattern {
+    background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("../img/bg-image.jpg") !important;
+    background-attachment: fixed !important;
+}
+
+.gv-section-soft {
+    background: #ECF4FF !important;
+}
+
 /* ===================== MOBILE ADAPTABILITY ===================== */
 @media (max-width: 991.98px) {
     .gv-navbar .navbar-collapse {
@@ -191,5 +223,28 @@
 }
 
 @media (max-width: 575.98px) {
-    .gv-topbar-info { font-size: .7rem !important; }
+    .gv-topbar-info { font-size: .82rem !important; }
 }
+
+/* ===================== FIXED-BARS OFFSET ===================== */
+:root {
+    --gv-fixed-top-offset: 118px; /* topbar (~42px) + navbar (~76px) */
+}
+
+body:not([data-gv-page="home"]) {
+    scroll-padding-top: var(--gv-fixed-top-offset);
+    padding-top: var(--gv-fixed-top-offset);
+}
+
+/* Push first hero/header content below fixed bars */
+body:not([data-gv-page="home"]) {
+    /* Ensure the first header/hero stays fully visible on initial page load.
+       Using padding-top + scroll-padding-top already reserves space for the fixed bars.
+       The negative margin used previously can cause the hero to be partially hidden until scroll/reflow.
+    */
+}
+
+body:not([data-gv-page="home"]) .blog-hero {
+    margin-top: 0;
+}
+

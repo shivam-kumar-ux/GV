@@ -50,13 +50,14 @@
            YOUTUBE SECTION
            ============================================ */
         #section-youtube {
-            background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #0d1f35 100%);
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg");
+            background-attachment: fixed;
             padding: 70px 0;
             overflow: hidden;
             position: relative;
         }
-        #section-youtube .section-title h1 { color: #fff; }
-        #section-youtube .section-title h6 { color: #aaa; }
+        #section-youtube .section-title h1 { color: #1F4E79; }
+        #section-youtube .section-title h6 { color: #103c69; }
 
         /* Decorative dotted background (copied from result.html design) */
         #section-youtube .yt-dots-overlay {
@@ -124,7 +125,7 @@
         /* ============================================
            INSTAGRAM SECTION
            ============================================ */
-        #section-instagram { background: #fafafa; padding: 70px 0; }
+        #section-instagram { background: #ECF4FF; padding: 70px 0; }
 
         .ig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
 
@@ -156,7 +157,11 @@
         /* ============================================
            MEMORIES / YEAR-WISE SECTION
            ============================================ */
-        #section-memories { background: #fff; padding: 70px 0; }
+        #section-memories {
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg");
+            background-attachment: fixed;
+            padding: 70px 0;
+        }
 
         /* Dark blue text override (feedback: replace black/dark text with #0B2A4A) */
         #section-youtube,
@@ -344,38 +349,31 @@
 </head>
 
 <body data-gv-page="gallery">
-    <!-- Topbar Start -->
+    <!-- ===================== TOPBAR ===================== -->
     <div class="gv-topbar">
-        <div class="container-fluid">
-            <div class="row py-2 px-lg-5">
-                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                    <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-6">
+                    <div class="gv-topbar-info">
                         <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
-                        <small class="px-2 ml-2">|</small>
-                        <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
-                        <small class="px-3">|</small>
-                        <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+                        <small class="px-2 mx-1">|</small>
+                        <small><i class="fa fa-phone-alt mr-1"></i>+91 8002316898, +91 9955596394</small>
+                        <small class="px-2 mx-1">|</small>
+                        <small><i class="fa fa-envelope mr-1"></i>gyanodayvidyalaya2018@gmail.com</small>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center text-lg-right">
+                <div class="col-lg-5 col-md-6 text-right">
                     <div class="d-inline-flex align-items-center">
-                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank" aria-label="Facebook">
-                            <i class="fab fa-facebook-f" style="font-size:1rem;"></i>
-                        </a>
-                        <small class="px-3">|</small>
-                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank" aria-label="Instagram">
-                            <i class="fab fa-instagram" style="font-size:1rem;"></i>
-                        </a>
-                        <small class="px-3">|</small>
-                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank" aria-label="YouTube">
-                            <i class="fab fa-youtube" style="font-size:1rem;"></i>
-                        </a>
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <small class="text-white-50 px-2">|</small>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <small class="text-white-50 px-2">|</small>
+                        <a class="text-white px-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
 
 
     <!-- Navbar Start -->
@@ -453,8 +451,8 @@
             <div class="container py-2">
                 <div class="section-title text-center position-relative mb-5">
                 <span class="gal-section-tag yt"><i class="fab fa-youtube mr-2"></i>YouTube Channel</span>
-                <h1 class="display-4" style="color:#fff;">Watch Our Videos</h1>
-                <p style="color:#aaa; max-width:520px; margin:10px auto 0; font-size:0.95rem;">Live from Gyanoday Vidyalaya's official YouTube channel — events, achievements & more.</p>
+                <h1 class="display-4" style="color:#1F4E79;">Watch Our Videos</h1>
+                <p style="color:#103c69; max-width:520px; margin:10px auto 0; font-size:0.95rem;">Live from Gyanoday Vidyalaya's official YouTube channel — events, achievements & more.</p>
                 <a href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"
                    style="display:inline-block;margin-top:14px;padding:7px 22px;border:1px solid rgba(255,0,0,0.5);border-radius:50px;color:#ff4444;font-size:0.8rem;font-weight:600;text-decoration:none;transition:all 0.25s;"
                    onmouseover="this.style.background='#cc0000';this.style.color='#fff';this.style.borderColor='#cc0000';"
