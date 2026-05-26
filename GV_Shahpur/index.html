@@ -173,6 +173,20 @@
             margin-bottom: 48px;
         }
 
+        body[data-gv-page="home"] #gvHomeMain {
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg");
+            background-attachment: fixed;
+        }
+
+        body[data-gv-page="home"] .gv-section-pattern {
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg") !important;
+            background-attachment: fixed !important;
+        }
+
+        body[data-gv-page="home"] .gv-section-soft {
+            background: #ECF4FF !important;
+        }
+
         body[data-gv-page="home"] .gv-scroll-hint {
             position: absolute;
             bottom: 28px;
@@ -329,6 +343,93 @@
             padding: 10px 14px;
         }
 
+        .gv-quick-menu {
+            position: fixed;
+            top: auto;
+            bottom: 92px;
+            right: 0;
+            z-index: 1035;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transform: none;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .gv-quick-menu-item {
+            position: relative;
+            width: 154px;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 10px;
+            padding: 9px 14px;
+            border: 0;
+            border-radius: 28px 0 0 28px;
+            background: #033374;
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            line-height: 1.15;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: -6px 8px 18px rgba(3, 51, 116, 0.24);
+            transition: transform 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .gv-quick-menu-item:last-child {
+            border-bottom: 0;
+        }
+
+        .gv-quick-menu-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.22) 45%, transparent 72%);
+            transform: translateX(-130%);
+            transition: transform 0.55s ease;
+        }
+
+        .gv-quick-menu-item i {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 auto;
+            font-size: 1.15rem;
+            color: #FDD47E;
+            transition: transform 0.28s ease;
+        }
+
+        .gv-quick-menu-item span {
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .gv-quick-menu-item:hover,
+        .gv-quick-menu-item:focus {
+            color: #fff;
+            text-decoration: none;
+            background: #044496;
+            transform: translateX(-12px);
+            box-shadow: -10px 12px 24px rgba(3, 51, 116, 0.34);
+            outline: none;
+        }
+
+        .gv-quick-menu-item:hover::before,
+        .gv-quick-menu-item:focus::before {
+            transform: translateX(130%);
+        }
+
+        .gv-quick-menu-item:hover i,
+        .gv-quick-menu-item:focus i {
+            transform: translateX(-3px) scale(1.05);
+        }
+
 
         @media (max-width: 767.98px) {
             body[data-gv-page="home"] .gv-home-hero-logo img {
@@ -343,11 +444,46 @@
                 left: 16px;
                 top: calc(var(--gv-topbar-h) + 10px);
             }
+
+            .gv-quick-menu {
+                top: auto;
+                bottom: 76px;
+                transform: none;
+                gap: 7px;
+            }
+
+            .gv-quick-menu-item {
+                width: 128px;
+                min-height: 46px;
+                padding: 8px 10px;
+                font-size: 0.68rem;
+                gap: 8px;
+            }
+
+            .gv-quick-menu-item i {
+                font-size: 1rem;
+            }
+
+            .gv-quick-menu-item:hover,
+            .gv-quick-menu-item:focus {
+                transform: translateX(-8px);
+            }
         }
     </style>
 </head>
 
 <body data-gv-page="home">
+    <nav class="gv-quick-menu" aria-label="Quick links">
+        <button type="button" class="gv-quick-menu-item" id="gvQuickEnquiry">
+            <i class="far fa-edit" aria-hidden="true"></i>
+            <span>Enquire Now</span>
+        </button>
+        <a class="gv-quick-menu-item" href="blog.html">
+            <i class="far fa-newspaper" aria-hidden="true"></i>
+            <span>Blog</span>
+        </a>
+    </nav>
+
     <!-- Topbar Start (always fixed on home) -->
     <div id="gvHomeTopbar" class="gv-topbar gv-home-topbar">
         <div class="container-fluid">
@@ -394,10 +530,11 @@
                 <!--<span>Gyanoday Vidyalaya</span>-->
             </div>
         </a>
-        <div class="header-content-card">
-            <h5 class="text-white mt-4 mb-4">Welcome to Gyanoday Vidyalaya</h5>
-            <h4 class="text-white display-1 mb-5">Shaping Future Leaders</h4>
-            <p class="text-white mb-4">Quality Education from Nursery to 12th Grade</p>
+            <div class="header-content-card">
+            <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
+            <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
+            <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
+            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">Enquire Now</a>
         </div>
         <div class="gv-scroll-hint" aria-hidden="true">
             Scroll to explore
@@ -495,7 +632,7 @@
             }
         </style>
         <!-- Student Achievement Slider Start -->
-        <div class="container-fluid px-0 py-5">
+        <div class="container-fluid px-0 py-5 gv-section-pattern">
             <div class="row mx-0 justify-content-center pt-5">
                 <div class="col-lg-6">
                     <div class="section-title text-center position-relative mb-4">
@@ -734,7 +871,7 @@
             <!-- Academics End -->
 
             <!-- About Start -->
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-5 gv-section-soft">
                 <div class="container py-5">
                     <div class="row">
                         <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
@@ -798,7 +935,7 @@
 
 
             <!-- Feature Start -->
-            <div class="container-fluid bg-image" style="margin: 90px 0;">
+            <div class="container-fluid bg-image gv-section-pattern" style="margin: 90px 0;">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 my-5 pt-5 pb-lg-5">
@@ -865,7 +1002,7 @@
 
 
             <!-- Alumni Start -->
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-5 gv-section-soft">
                 <div class="container py-5">
                     <div class="section-title text-center position-relative mb-5">
                         <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Alumni</h6>-->
@@ -881,7 +1018,7 @@
 
 
             <!-- Testimonial Start -->
-            <div class="container-fluid bg-image py-5" style="margin: 90px 0;">
+            <div class="container-fluid bg-image py-5 gv-section-pattern" style="margin: 90px 0;">
                 <div class="container py-5">
                     <div class="row align-items-center">
                         <div class="col-lg-5 mb-5 mb-lg-0">
@@ -1145,7 +1282,7 @@
             </style>
 
             <!-- News & Events Section -->
-            <div class="container-fluid py-5 bg-light">
+            <div class="container-fluid py-5 bg-light gv-section-soft">
                 <div class="container py-5">
                     <div class="section-title text-center position-relative mb-5">
                         <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Latest Happenings
@@ -1219,9 +1356,7 @@
                                 <div class="card-overlay">
                                     <div class="overlay-content">
                                         <h3 class="overlay-title">Robotics Lab</h3>
-                                        <p class="overlay-desc">Students building and programming automated robots in
-                                            the
-                                            state-of-the-art lab.</p>
+                                        <p class="overlay-desc">Students building and programming automated robots in the state-of-the-art lab.</p>
                                         <a href="notices.html" class="btn btn-read-more">Read More</a>
                                     </div>
                                 </div>
@@ -1291,7 +1426,7 @@
             <!-- News & Events End -->
 
             <!-- Contact Start -->
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-5 gv-section-pattern" id="ContactForm">
                 <div class="container py-5">
                     <div class="row align-items-center">
                         <div class="col-lg-5 mb-5 mb-lg-0">
@@ -1621,7 +1756,8 @@
                     if (!hero) return;
                     measureHeights();
                     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    var revealAt = hero.offsetHeight - (topbar ? topbar.offsetHeight : 0) - 80;
+                    // Reveal navbar shortly after the user starts scrolling (small scroll threshold)
+                    var revealAt = 50; // px
                     if (scrollTop > revealAt) {
                         document.body.classList.add("gv-nav-revealed");
                     } else {
@@ -1660,14 +1796,20 @@
                 var eqSubmit = document.getElementById("eq-submit-btn");
                 var eqBtnText = document.getElementById("eq-btn-text");
                 var eqSpinner = document.getElementById("eq-btn-spinner");
+                var quickEnquiry = document.getElementById("gvQuickEnquiry");
                 var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+
+                function openEnquiryPopup() {
+                    if (!overlay) return;
+                    overlay.classList.add("gv-enquiry-show");
+                    document.body.style.overflow = "hidden";
+                }
 
                 function showEnquiryPopup() {
                     if (!overlay) return;
                     if (sessionStorage.getItem("gvEnquiryDismissed") === "1") return;
                     setTimeout(function () {
-                        overlay.classList.add("gv-enquiry-show");
-                        document.body.style.overflow = "hidden";
+                        openEnquiryPopup();
                     }, 800);
                 }
 
@@ -1684,6 +1826,11 @@
                 if (overlay) {
                     overlay.addEventListener("click", function (e) {
                         if (e.target === overlay) hideEnquiryPopup(true);
+                    });
+                }
+                if (quickEnquiry) {
+                    quickEnquiry.addEventListener("click", function () {
+                        openEnquiryPopup();
                     });
                 }
 
