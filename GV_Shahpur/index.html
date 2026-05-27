@@ -87,6 +87,25 @@
             margin: 0;
         }
 
+        /* Keep the video hero below the fixed topbar on initial load. */
+        body[data-gv-page="home"] #gvHomeHero {
+            margin-top: var(--gv-topbar-h) !important;
+            height: calc(100vh - var(--gv-topbar-h));
+            min-height: calc(100vh - var(--gv-topbar-h));
+        }
+
+        /* Quick menu appears after hero scroll */
+        .gv-quick-menu.gv-quick-menu-show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        body[data-gv-page="home"] #gvHomeHero .video-background {
+            top: 0;
+            height: 100%;
+        }
+
         body[data-gv-page="home"] .gv-home-navbar-wrap {
             position: fixed;
             top: var(--gv-topbar-h);
@@ -143,7 +162,7 @@
 
         body[data-gv-page="home"] .gv-home-hero-logo {
             position: absolute;
-            top: calc(var(--gv-topbar-h) + 14px);
+            top: 14px;
             left: 28px;
             z-index: 12;
             display: flex;
@@ -184,47 +203,6 @@
             justify-content: center;
             width: max-content;
             margin: 12px auto 0;
-        }
-
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
-            width: 44px;
-            height: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            border: 1px solid rgba(18, 15, 45, 0.18);
-            border-radius: 4px;
-            background: #fff;
-        }
-
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon {
-            position: relative;
-            width: 24px;
-            height: 2px;
-            display: block;
-            background: #120F2D !important;
-            border-radius: 2px;
-            background-image: none !important;
-        }
-
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before,
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 24px;
-            height: 2px;
-            background: #120F2D;
-            border-radius: 2px;
-        }
-
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before {
-            top: -7px;
-        }
-
-        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
-            top: 7px;
         }
 
         body[data-gv-page="home"] #gvHomeMain {
@@ -587,6 +565,10 @@
         .gv-quick-menu {
             position: fixed;
             top: 50%;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             bottom: auto;
             right: 0;
             z-index: 1035;
@@ -1084,8 +1066,8 @@
         }
 
         .gv-social-follow.instagram {
-            background: #E4405F;
-            box-shadow: 0 10px 22px rgba(228, 64, 95, 0.22);
+            background: linear-gradient(135deg, #FEDA75 0%, #FA7E1E 28%, #D62976 58%, #962FBF 100%);
+            box-shadow: 0 10px 22px rgba(214, 41, 118, 0.24);
         }
 
         .gv-social-follow.youtube {
@@ -1100,7 +1082,7 @@
 
         .gv-social-follow.instagram:hover,
         .gv-social-follow.instagram:focus {
-            background: #C13584;
+            background: linear-gradient(135deg, #FA7E1E 0%, #D62976 48%, #4F5BD5 100%);
             color: #fff;
         }
 
@@ -1267,7 +1249,48 @@
 
             body[data-gv-page="home"] .gv-home-hero-logo {
                 left: 16px;
-                top: calc(var(--gv-topbar-h) + 10px);
+                top: 10px;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
+                width: 44px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                border: 1px solid rgba(18, 15, 45, 0.18);
+                border-radius: 4px;
+                background: #fff;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon {
+                position: relative;
+                width: 24px;
+                height: 2px;
+                display: block;
+                background: #120F2D !important;
+                border-radius: 2px;
+                background-image: none !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before,
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                width: 24px;
+                height: 2px;
+                background: #120F2D;
+                border-radius: 2px;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before {
+                top: -7px;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+                top: 7px;
             }
 
             .gv-quick-menu {
@@ -1355,12 +1378,12 @@
 </head>
 
 <body data-gv-page="home">
-    <nav class="gv-quick-menu" aria-label="Quick links">
+    <nav class="gv-quick-menu" aria-label="Quick links" id="gvQuickMenu">
         <button type="button" class="gv-quick-menu-item" id="gvQuickEnquiry">
             <i class="far fa-edit" aria-hidden="true"></i>
-            <span>Enquiry Now</span>
+            <span>enqire now</span>
         </button>
-        <a class="gv-quick-menu-item" href="blog.html">
+        <a class="gv-quick-menu-item" href="blog.html" id="gvQuickBlog">
             <i class="far fa-newspaper" aria-hidden="true"></i>
             <span>Blog</span>
         </a>
@@ -1416,7 +1439,7 @@
             <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
             <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
             <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
-            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">Enquire Now</a>
+            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enqire now</a>
         </div>
         <div class="gv-scroll-hint" aria-hidden="true">
             Scroll to explore
@@ -2677,9 +2700,9 @@
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
         <script>window.GV_SITE_ID = "shahpur";</script>
         <script src="../js/firebase-config.js"></script>
+        <script src="js/posts-data.js"></script>
         <script src="../js/sites/shahpur-default.js"></script>
         <script src="../js/gv-firebase.js"></script>
-        <script src="js/posts-data.js"></script>
         <script src="js/gv-render.js"></script>
 
         <!-- Dynamically Render News & Events from Blog Database -->
@@ -2735,7 +2758,8 @@
                         (window.GV_DEFAULT_CONTENT && window.GV_DEFAULT_CONTENT.gallery) || {};
                     return {
                         instagram: g.instagram || [],
-                        youtube: g.youtube || []
+                        youtube: g.youtube || [],
+                        facebook: g.facebook || []
                     };
                 }
 
@@ -2781,19 +2805,25 @@
                     }).join("");
                 }
 
-                function renderFacebook() {
-                    return [
-                        card("Facebook", "fab fa-facebook-f", "School announcements and community updates", "Official Facebook page", links.facebook, "img/about.jpg"),
-                        card("Facebook", "fab fa-facebook-f", "Event photos and parent notices", "Gyanoday Vidyalaya Shahpur", links.facebook, "img/header.jpg"),
-                        card("Facebook", "fab fa-facebook-f", "Connect with our Vidyalaya community", "Follow us on Facebook", links.facebook, "img/feature.jpg")
-                    ].join("");
+                function renderFacebook(posts) {
+                    var usable = (posts || []).slice(0, 3);
+                    if (!usable.length) {
+                        usable = [
+                            { title: "School announcements and community updates", meta: "Official Facebook page", url: links.facebook, image: "img/about.jpg" },
+                            { title: "Event photos and parent notices", meta: "Gyanoday Vidyalaya Shahpur", url: links.facebook, image: "img/header.jpg" },
+                            { title: "Connect with our Vidyalaya community", meta: "Follow us on Facebook", url: links.facebook, image: "img/feature.jpg" }
+                        ];
+                    }
+                    return usable.map(function (post) {
+                        return card("Facebook", "fab fa-facebook-f", post.title || "Facebook update", post.meta || "Follow us on Facebook", post.url || links.facebook, post.image || "img/about.jpg");
+                    }).join("");
                 }
 
                 function renderSocial(type) {
                     var data = galleryData();
                     var html = "";
                     if (type === "youtube") html = renderYouTube(data.youtube);
-                    else if (type === "facebook") html = renderFacebook();
+                    else if (type === "facebook") html = renderFacebook(data.facebook);
                     else html = renderInstagram(data.instagram);
                     feed.innerHTML = html || '<div class="gv-social-empty">Social updates will appear here soon.</div>';
                 }
@@ -2905,6 +2935,14 @@
                     if (!hero) return;
                     measureHeights();
                     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Quick menu pin after hero scroll
+                    var gvQuickMenu = document.getElementById("gvQuickMenu");
+                    if (gvQuickMenu) {
+                        var quickRevealAt = hero.offsetHeight - 40;
+                        if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
+                        else gvQuickMenu.classList.remove("gv-quick-menu-show");
+                    }
                     // Reveal navbar shortly after the user starts scrolling (small scroll threshold)
                     var revealAt = 50; // px
                     if (scrollTop > revealAt) {
@@ -2930,6 +2968,16 @@
                     scrollTimer = setTimeout(handleHomeScroll, 30);
                 }, { passive: true });
                 handleHomeScroll();
+
+                // Ensure quick menu initial state on load
+                var gvQuickMenu = document.getElementById("gvQuickMenu");
+                if (gvQuickMenu) {
+                    var quickRevealAt = hero ? hero.offsetHeight - 40 : 80;
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
+                    else gvQuickMenu.classList.remove("gv-quick-menu-show");
+                }
+
 
                 if (video) {
                     video.muted = true;
@@ -3102,6 +3150,7 @@
                         comment: "My school years gave me strong values, lifelong friendships and the courage to pursue bigger goals beyond the classroom."
                     }
                 ];
+                var storyGrid = document.querySelector(".gv-story-grid");
                 var storyThumbs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-thumb"));
                 var storyTabs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-tab"));
                 var storyMainImage = document.getElementById("gvStoryMainImage");
@@ -3116,6 +3165,47 @@
                 var storyModalName = document.getElementById("gvStoryModalName");
                 var storyModalComment = document.getElementById("gvStoryModalComment");
                 var activeStoryIndex = 0;
+
+                function storyEsc(value) {
+                    return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                }
+
+                function bindStoryThumbs() {
+                    storyThumbs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-thumb"));
+                    storyThumbs.forEach(function (thumb) {
+                        thumb.addEventListener("click", function () {
+                            openStoryCard(Number(thumb.getAttribute("data-story")));
+                        });
+                        thumb.addEventListener("mouseenter", function () {
+                            setActiveStory(Number(thumb.getAttribute("data-story")));
+                        });
+                        thumb.addEventListener("focus", function () {
+                            setActiveStory(Number(thumb.getAttribute("data-story")));
+                        });
+                    });
+                }
+
+                function renderStoryThumbs() {
+                    if (!storyGrid) return;
+                    storyGrid.innerHTML = storyData.map(function (story, index) {
+                        var category = story.category || "student";
+                        return '<button type="button" class="gv-story-thumb' + (index === 0 ? " active" : "") + '" data-story="' + index + '" data-category="' + storyEsc(category) + '" data-role="' + storyEsc(story.role || category) + '">' +
+                            '<img src="' + storyEsc(story.image) + '" alt="' + storyEsc(story.name) + '" onerror="this.src=\'img/H_logo.png\'">' +
+                            '</button>';
+                    }).join("");
+                    bindStoryThumbs();
+                }
+
+                function applyTestimonialsFromContent() {
+                    var managed = window.GV_CONTENT && window.GV_CONTENT.testimonials;
+                    if (!Array.isArray(managed) || !managed.length) return;
+                    storyData = managed.filter(function (story) {
+                        return story && story.name && story.comment;
+                    });
+                    if (!storyData.length) return;
+                    renderStoryThumbs();
+                    setActiveStory(0);
+                }
 
                 function setActiveStory(index) {
                     var story = storyData[index];
@@ -3165,17 +3255,7 @@
                     if (firstVisible !== null) setActiveStory(firstVisible);
                 }
 
-                storyThumbs.forEach(function (thumb) {
-                    thumb.addEventListener("click", function () {
-                        openStoryCard(Number(thumb.getAttribute("data-story")));
-                    });
-                    thumb.addEventListener("mouseenter", function () {
-                        setActiveStory(Number(thumb.getAttribute("data-story")));
-                    });
-                    thumb.addEventListener("focus", function () {
-                        setActiveStory(Number(thumb.getAttribute("data-story")));
-                    });
-                });
+                bindStoryThumbs();
 
                 storyTabs.forEach(function (tab) {
                     tab.addEventListener("click", function () {
@@ -3215,6 +3295,8 @@
                     }
                 });
                 setActiveStory(0);
+                if (window.GV_CONTENT) applyTestimonialsFromContent();
+                document.addEventListener("gvContentReady", applyTestimonialsFromContent);
 
                 showEnquiryPopup();
             })();

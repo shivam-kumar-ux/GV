@@ -30,10 +30,13 @@
             <a href="#" class="admin-nav-link shahpur-section" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="youtube"><i class="fab fa-youtube"></i> Videos</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="memories"><i class="fa fa-images"></i> Events</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="testimonials"><i class="fa fa-comment-dots"></i> Testimonials</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="hostel"><i class="fa fa-utensils"></i> Hostel Menu</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="disclosure"><i class="fa fa-file-pdf"></i> Disclosure</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="notices"><i class="fa fa-bell"></i> Notices</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="blog"><i class="fa fa-newspaper"></i> Blog Posts</a>
         </nav>
         <nav class="py-2" id="pyqNav" style="display:none;">
             <a href="#" class="admin-nav-link pyq-section active" data-section="pyq-overview"><i class="fa fa-home"></i> PYQ Overview</a>
@@ -162,6 +165,11 @@
             <button class="btn btn-outline-primary btn-sm" id="btnAddYoutube">Add Video</button>
         </section>
         <section class="admin-section shahpur-sec" id="sec-instagram"><div id="instagramList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddInstagram">Add Post</button></section>
+        <section class="admin-section shahpur-sec" id="sec-facebook">
+            <p class="text-muted small">Home Stay Connected — Facebook cards.</p>
+            <div id="facebookList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddFacebook"><i class="fa fa-plus mr-1"></i>Add Facebook Card</button>
+        </section>
         <section class="admin-section shahpur-sec" id="sec-memories">
             <div class="form-row mb-3">
                 <div class="col-md-4"><label>Year</label><select class="form-control" id="memoriesYearSelect"></select></div>
@@ -172,6 +180,11 @@
             </div>
             <div id="memoriesEventsList"></div>
             <button class="btn btn-outline-primary btn-sm" id="btnAddEvent">Add Event</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-testimonials">
+            <p class="text-muted small">Home Community Stories — parents, students, and alumni testimonials.</p>
+            <div id="testimonialsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddTestimonial"><i class="fa fa-plus mr-1"></i>Add Testimonial</button>
         </section>
         <section class="admin-section shahpur-sec" id="sec-hostel">
             <div class="form-group">
@@ -195,6 +208,11 @@
             <div class="form-group"><label>Last updated</label><input type="text" class="form-control" id="noticeLastUpdated"></div>
             <hr><div id="noticesList"></div>
             <button class="btn btn-outline-primary btn-sm" id="btnAddNotice">Add Notice</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-blog">
+            <p class="text-muted small">Blog page and Home news/events cards. Image accepts local paths, full URLs, or uploaded images.</p>
+            <div id="blogPostsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddBlogPost"><i class="fa fa-plus mr-1"></i>Add Blog Post</button>
         </section>
 
         <section class="admin-section pyq-sec" id="sec-pyq-overview">
@@ -241,6 +259,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
+    <script src="../GV_Shahpur/js/posts-data.js"></script>
     <script src="../js/sites/shahpur-default.js"></script>
     <script src="../js/sites/pyq-default.js"></script>
     <script src="../js/gv-firebase.js"></script>
