@@ -171,6 +171,60 @@
         body[data-gv-page="home"] .gv-home-hero .header-content-card {
             z-index: 10;
             margin-bottom: 48px;
+            padding-top: 14px;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
+            margin-top: 0 !important;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .gv-hero-enquiry-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: max-content;
+            margin: 12px auto 0;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
+            width: 44px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border: 1px solid rgba(18, 15, 45, 0.18);
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon {
+            position: relative;
+            width: 24px;
+            height: 2px;
+            display: block;
+            background: #120F2D !important;
+            border-radius: 2px;
+            background-image: none !important;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before,
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 2px;
+            background: #120F2D;
+            border-radius: 2px;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before {
+            top: -7px;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+            top: 7px;
         }
 
         body[data-gv-page="home"] #gvHomeMain {
@@ -185,6 +239,193 @@
 
         body[data-gv-page="home"] .gv-section-soft {
             background: #ECF4FF !important;
+        }
+
+        .gv-welcome-stats {
+            position: relative;
+            margin-top: 38px;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            width: 100vw;
+            overflow: hidden;
+            background:
+                linear-gradient(90deg, rgba(18, 15, 45, 0.94), rgba(3, 51, 116, 0.91)),
+                url("img/header.jpg") center/cover;
+            color: #fff;
+        }
+
+        .gv-welcome-stats::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(40, 120, 235, 0.2), rgba(241, 77, 93, 0.12));
+            pointer-events: none;
+        }
+
+        .gv-welcome-stats-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin: 0;
+            padding: 42px 0 44px;
+        }
+
+        .gv-welcome-stats-kicker {
+            display: block;
+            color: #FDD47E;
+            font-family: "Jost", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .gv-welcome-stats-title {
+            color: #fff;
+            font-size: clamp(1.8rem, 4vw, 3.1rem);
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gv-welcome-stats-title::before {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #FDD47E;
+            margin: 0 auto 18px;
+        }
+
+        .gv-welcome-stats-carousel .owl-stage {
+            display: flex;
+        }
+
+        .gv-welcome-stats-carousel {
+            position: relative;
+            padding-bottom: 76px;
+        }
+
+        .gv-welcome-stat-item {
+            position: relative;
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: 8px clamp(18px, 2.4vw, 34px) 0;
+        }
+
+        .gv-welcome-stats-carousel .owl-item.active ~ .owl-item.active .gv-welcome-stat-item::before {
+            content: "";
+            position: absolute;
+            top: 18px;
+            left: 0;
+            width: 1px;
+            height: 210px;
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .gv-welcome-stat-icon {
+            width: 104px;
+            height: 104px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            color: #033374;
+            font-size: 2.45rem;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
+
+        .gv-welcome-stat-number {
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-size: clamp(3.1rem, 6vw, 4.7rem);
+            font-weight: 500;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .gv-welcome-stat-text {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.65;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            display: flex;
+            gap: 12px;
+            transform: translateX(-50%);
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev,
+        .gv-welcome-stats-carousel .owl-nav .owl-next {
+            width: 46px;
+            height: 46px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 0 !important;
+            border: 2px solid #fff !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #fff !important;
+            font-size: 1.2rem !important;
+            line-height: 1 !important;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev i,
+        .gv-welcome-stats-carousel .owl-nav .owl-next i {
+            display: block;
+            line-height: 1;
+            margin: 0;
+            transform: none;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev:hover,
+        .gv-welcome-stats-carousel .owl-nav .owl-next:hover {
+            background: #fff !important;
+            color: #033374 !important;
+            border-color: #fff !important;
+        }
+
+        @media (max-width: 767.98px) {
+            .gv-welcome-stats-inner {
+                padding: 34px 0 36px;
+            }
+
+            .gv-welcome-stats-carousel {
+                padding-bottom: 68px;
+            }
+
+            .gv-welcome-stat-item {
+                min-height: 250px;
+                padding: 8px 18px 0;
+            }
+
+            .gv-welcome-stats-carousel .owl-item.active ~ .owl-item.active .gv-welcome-stat-item::before {
+                display: none;
+            }
+
+            .gv-welcome-stat-icon {
+                width: 86px;
+                height: 86px;
+                font-size: 2rem;
+                margin-bottom: 22px;
+            }
         }
 
         body[data-gv-page="home"] .gv-scroll-hint {
@@ -345,41 +586,41 @@
 
         .gv-quick-menu {
             position: fixed;
-            top: auto;
-            bottom: 92px;
+            top: 50%;
+            bottom: auto;
             right: 0;
             z-index: 1035;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            transform: none;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+            gap: 4px;
+            transform: translateY(-50%);
+            box-shadow: -8px 12px 28px rgba(0, 0, 0, 0.16);
         }
 
         .gv-quick-menu-item {
             position: relative;
-            width: 154px;
-            min-height: 54px;
+            width: 48px;
+            min-height: 112px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: row;
-            gap: 10px;
-            padding: 9px 14px;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 6px;
             border: 0;
-            border-radius: 28px 0 0 28px;
+            border-radius: 0;
             background: #033374;
             color: #fff;
             font-family: "Jost", sans-serif;
-            font-size: 0.76rem;
+            font-size: 0.68rem;
             font-weight: 700;
-            letter-spacing: 0;
-            line-height: 1.15;
+            letter-spacing: 2px;
+            line-height: 1;
             text-align: center;
             cursor: pointer;
             overflow: hidden;
             box-shadow: -6px 8px 18px rgba(3, 51, 116, 0.24);
-            transition: transform 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease;
+            transition: transform 0.28s ease, background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
         }
 
         .gv-quick-menu-item:last-child {
@@ -399,7 +640,7 @@
             position: relative;
             z-index: 1;
             flex: 0 0 auto;
-            font-size: 1.15rem;
+            font-size: 0.88rem;
             color: #FDD47E;
             transition: transform 0.28s ease;
         }
@@ -408,15 +649,18 @@
             position: relative;
             z-index: 1;
             display: block;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            text-transform: uppercase;
         }
 
         .gv-quick-menu-item:hover,
         .gv-quick-menu-item:focus {
-            color: #fff;
+            color: #033374;
             text-decoration: none;
-            background: #044496;
-            transform: translateX(-12px);
-            box-shadow: -10px 12px 24px rgba(3, 51, 116, 0.34);
+            background: #FDD47E;
+            transform: translateX(-8px);
+            box-shadow: -12px 14px 26px rgba(3, 51, 116, 0.28);
             outline: none;
         }
 
@@ -427,9 +671,590 @@
 
         .gv-quick-menu-item:hover i,
         .gv-quick-menu-item:focus i {
-            transform: translateX(-3px) scale(1.05);
+            color: #033374;
+            transform: translateY(-3px) scale(1.05);
         }
 
+        .gv-community-stories {
+            position: relative;
+            overflow: hidden;
+            background: #ECF4FF;
+            color: #6B6A75;
+        }
+
+        .gv-community-stories::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(40, 120, 235, 0.09), rgba(40, 120, 235, 0) 42%),
+                radial-gradient(circle at 86% 18%, rgba(253, 212, 126, 0.34), transparent 30%);
+        }
+
+        .gv-community-stories .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gv-community-kicker {
+            display: block;
+            color: #FDD47E;
+            font-family: "Jost", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .gv-community-title {
+            color: #120F2D;
+            font-size: clamp(2.3rem, 5vw, 4.7rem);
+            line-height: 1.02;
+            margin-bottom: 24px;
+        }
+
+        .gv-story-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .gv-story-tab {
+            border: 2px solid rgba(40, 120, 235, 0.34);
+            background: transparent;
+            color: #2878EB;
+            min-width: 116px;
+            min-height: 48px;
+            padding: 10px 20px;
+            border-radius: 28px;
+            font-family: "Jost", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .gv-story-tab:hover,
+        .gv-story-tab:focus,
+        .gv-story-tab.active {
+            background: #2878EB;
+            color: #fff;
+            border-color: #2878EB;
+            outline: none;
+        }
+
+        .gv-story-copy {
+            max-width: 650px;
+            color: #4f5d73;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .gv-story-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 16px;
+            max-width: 620px;
+        }
+
+        .gv-story-thumb {
+            position: relative;
+            aspect-ratio: 1.65 / 1;
+            border: 0;
+            padding: 0;
+            background: #fff;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+
+        .gv-story-thumb.is-hidden {
+            display: none;
+        }
+
+        .gv-story-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .gv-story-thumb::after {
+            content: attr(data-role);
+            position: absolute;
+            left: 8px;
+            bottom: 8px;
+            background: rgba(3, 51, 116, 0.88);
+            color: #fff;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .gv-story-thumb:hover,
+        .gv-story-thumb:focus,
+        .gv-story-thumb.active {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
+            outline: 4px solid #FDD47E;
+            outline-offset: 0;
+        }
+
+        .gv-story-thumb:hover img,
+        .gv-story-thumb:focus img,
+        .gv-story-thumb.active img {
+            transform: scale(1.06);
+        }
+
+        .gv-feature-story {
+            position: relative;
+            min-height: 620px;
+        }
+
+        .gv-feature-shape {
+            position: absolute;
+            inset: 0 0 76px 0;
+            border-radius: 48% 48% 0 48%;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 12px rgba(40, 120, 235, 0.08), 0 18px 45px rgba(40, 120, 235, 0.16);
+            cursor: pointer;
+        }
+
+        .gv-feature-shape img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .gv-feature-card {
+            position: absolute;
+            left: 34px;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-height: 128px;
+            padding: 24px 30px;
+            background: #033374;
+            color: #fff;
+            box-shadow: 0 18px 38px rgba(3, 51, 116, 0.28);
+        }
+
+        .gv-feature-mark {
+            color: #FDD47E;
+            font-size: 2rem;
+            letter-spacing: -8px;
+            transform: translateX(-4px);
+        }
+
+        .gv-feature-name {
+            color: #fff;
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1;
+        }
+
+        .gv-feature-role {
+            display: block;
+            color: #FDD47E;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .gv-view-story {
+            position: absolute;
+            right: -18px;
+            bottom: 86px;
+            width: 104px;
+            height: 104px;
+            border: 0;
+            border-radius: 50%;
+            background: #fff;
+            color: #2878EB;
+            font-size: 2.8rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+        }
+
+        .gv-view-story:hover,
+        .gv-view-story:focus {
+            background: #FDD47E;
+            color: #033374;
+            transform: rotate(90deg) scale(1.04);
+            outline: none;
+        }
+
+        .gv-story-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(18, 15, 45, 0.66);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .gv-story-modal.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gv-story-modal-card {
+            position: relative;
+            width: min(900px, 100%);
+            display: grid;
+            grid-template-columns: minmax(240px, 0.9fr) 1.1fr;
+            background: #fff;
+            color: #6B6A75;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+            transform: translateY(18px) scale(0.98);
+            transition: transform 0.25s ease;
+        }
+
+        .gv-story-modal.is-open .gv-story-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .gv-story-modal-image {
+            min-height: 420px;
+            background: #ECF4FF;
+        }
+
+        .gv-story-modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gv-story-modal-body {
+            padding: 42px 42px 36px;
+        }
+
+        .gv-story-modal-role {
+            color: #F14D5D;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            margin-bottom: 8px;
+        }
+
+        .gv-story-modal-body h3 {
+            color: #120F2D;
+            font-size: 2.1rem;
+            margin-bottom: 18px;
+        }
+
+        .gv-story-modal-body p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .gv-story-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 50%;
+            background: #033374;
+            color: #fff;
+            font-size: 1.4rem;
+            line-height: 1;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .gv-story-close:hover,
+        .gv-story-close:focus {
+            background: #FDD47E;
+            color: #033374;
+            outline: none;
+        }
+
+        .gv-social-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gv-social-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(253, 212, 126, 0.34), transparent 24%),
+                radial-gradient(circle at 90% 6%, rgba(40, 120, 235, 0.12), transparent 28%);
+            pointer-events: none;
+        }
+
+        .gv-social-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gv-social-shell {
+            display: grid;
+            grid-template-columns: 0.82fr 1.18fr;
+            gap: 46px;
+            align-items: center;
+        }
+
+        .gv-social-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #F14D5D;
+            font-family: "Jost", sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .gv-social-kicker i {
+            color: #2878EB;
+        }
+
+        .gv-social-title {
+            color: #120F2D;
+            font-size: clamp(2.2rem, 4vw, 4.3rem);
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .gv-social-copy {
+            color: #536171;
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 480px;
+            margin-bottom: 24px;
+        }
+
+        .gv-social-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .gv-social-follow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 10px 18px;
+            border-radius: 3px;
+            background: #2878EB;
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-weight: 700;
+            transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+        }
+
+        .gv-social-follow:hover,
+        .gv-social-follow:focus {
+            text-decoration: none;
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        .gv-social-follow.instagram {
+            background: #E4405F;
+            box-shadow: 0 10px 22px rgba(228, 64, 95, 0.22);
+        }
+
+        .gv-social-follow.youtube {
+            background: #FF0000;
+            box-shadow: 0 10px 22px rgba(255, 0, 0, 0.18);
+        }
+
+        .gv-social-follow.facebook {
+            background: #1877F2;
+            box-shadow: 0 10px 22px rgba(24, 119, 242, 0.2);
+        }
+
+        .gv-social-follow.instagram:hover,
+        .gv-social-follow.instagram:focus {
+            background: #C13584;
+            color: #fff;
+        }
+
+        .gv-social-follow.youtube:hover,
+        .gv-social-follow.youtube:focus {
+            background: #CC0000;
+            color: #fff;
+        }
+
+        .gv-social-follow.facebook:hover,
+        .gv-social-follow.facebook:focus {
+            background: #0F5BC8;
+            color: #fff;
+        }
+
+        .gv-social-tabs {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0;
+            border-bottom: 1px solid rgba(40, 120, 235, 0.16);
+            margin-bottom: 28px;
+        }
+
+        .gv-social-tab {
+            min-width: 138px;
+            min-height: 54px;
+            border: 0;
+            border-radius: 3px 3px 0 0;
+            background: transparent;
+            color: #455469;
+            font-family: "Jost", sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            transition: background 0.22s ease, color 0.22s ease;
+        }
+
+        .gv-social-tab:hover,
+        .gv-social-tab:focus,
+        .gv-social-tab.active {
+            background: #033374;
+            color: #fff;
+            outline: none;
+        }
+
+        .gv-social-feed {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .gv-social-card {
+            position: relative;
+            min-height: 268px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+            border-radius: 6px;
+            background: #033374;
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(18, 15, 45, 0.12);
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gv-social-card:hover,
+        .gv-social-card:focus {
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-6px);
+            box-shadow: 0 18px 38px rgba(18, 15, 45, 0.2);
+            outline: none;
+        }
+
+        .gv-social-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .gv-social-card:hover img,
+        .gv-social-card:focus img {
+            transform: scale(1.06);
+        }
+
+        .gv-social-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3, 51, 116, 0.05), rgba(3, 51, 116, 0.88));
+        }
+
+        .gv-social-card-body {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .gv-social-platform {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #FDD47E;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .gv-social-card h4 {
+            color: #fff;
+            font-size: 1.08rem;
+            line-height: 1.25;
+            margin-bottom: 8px;
+        }
+
+        .gv-social-card span {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.85rem;
+        }
+
+        .gv-social-empty {
+            grid-column: 1 / -1;
+            min-height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 26px;
+            border: 2px dashed rgba(40, 120, 235, 0.22);
+            border-radius: 6px;
+            color: #536171;
+            background: rgba(255, 255, 255, 0.72);
+        }
+
+
+        @media (max-width: 991.98px) {
+            .gv-social-shell {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .gv-social-tabs {
+                justify-content: flex-start;
+            }
+
+            .gv-social-feed {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
 
         @media (max-width: 767.98px) {
             body[data-gv-page="home"] .gv-home-hero-logo img {
@@ -446,27 +1271,84 @@
             }
 
             .gv-quick-menu {
-                top: auto;
-                bottom: 76px;
-                transform: none;
-                gap: 7px;
+                top: 54%;
+                gap: 3px;
             }
 
             .gv-quick-menu-item {
-                width: 128px;
-                min-height: 46px;
-                padding: 8px 10px;
-                font-size: 0.68rem;
-                gap: 8px;
+                width: 42px;
+                min-height: 96px;
+                padding: 10px 6px;
+                font-size: 0.6rem;
             }
 
             .gv-quick-menu-item i {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .gv-quick-menu-item:hover,
             .gv-quick-menu-item:focus {
-                transform: translateX(-8px);
+                transform: translateX(-5px);
+            }
+
+            .gv-community-title {
+                font-size: 2.25rem;
+            }
+
+            .gv-story-grid {
+                grid-template-columns: repeat(2, minmax(110px, 1fr));
+                gap: 12px;
+            }
+
+            .gv-feature-story {
+                min-height: 470px;
+                margin-top: 34px;
+            }
+
+            .gv-feature-shape {
+                bottom: 82px;
+                border-radius: 44% 44% 0 44%;
+            }
+
+            .gv-feature-card {
+                left: 0;
+                min-height: 110px;
+                padding: 20px;
+            }
+
+            .gv-view-story {
+                right: 8px;
+                bottom: 92px;
+                width: 78px;
+                height: 78px;
+                font-size: 2.2rem;
+            }
+
+            .gv-story-modal-card {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .gv-story-modal-image {
+                min-height: 260px;
+            }
+
+            .gv-story-modal-body {
+                padding: 30px 24px;
+            }
+
+            .gv-social-tabs {
+                overflow-x: auto;
+            }
+
+            .gv-social-tab {
+                min-width: 116px;
+                font-size: 0.95rem;
+            }
+
+            .gv-social-feed {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -476,7 +1358,7 @@
     <nav class="gv-quick-menu" aria-label="Quick links">
         <button type="button" class="gv-quick-menu-item" id="gvQuickEnquiry">
             <i class="far fa-edit" aria-hidden="true"></i>
-            <span>Enquire Now</span>
+            <span>Enquiry Now</span>
         </button>
         <a class="gv-quick-menu-item" href="blog.html">
             <i class="far fa-newspaper" aria-hidden="true"></i>
@@ -530,7 +1412,7 @@
                 <!--<span>Gyanoday Vidyalaya</span>-->
             </div>
         </a>
-            <div class="header-content-card">
+        <div class="header-content-card">
             <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
             <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
             <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
@@ -628,7 +1510,12 @@
         <style>
             /* Reduce whitespace between header and first academics heading (Home page only) */
             body[data-gv-page="home"] .container-fluid.px-0.py-5 {
-                padding-top: 15px !important;
+                padding-top: 0 !important;
+                padding-bottom: 1.5rem !important;
+            }
+
+            body[data-gv-page="home"] .container-fluid.px-0.py-5 > .row.pt-5 {
+                padding-top: 1.5rem !important;
             }
         </style>
         <!-- Student Achievement Slider Start -->
@@ -894,37 +1781,47 @@
                                 2018. Our experienced faculty, modern infrastructure, and student-centric approach
                                 ensure
                                 that every child receives the best possible education.</p>
-                            <div class="row pt-3 mx-0">
-                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                                    <div class="bg-success text-center p-4">
-                                        <h1 class="text-white" data-toggle="counter-up">15</h1>
-                                        <h6 class="text-uppercase text-white">Classes<span
-                                                class="d-block">Offered</span>
-                                        </h6>
-                                    </div>
+                        </div>
+                    </div>
+                    <div class="gv-welcome-stats">
+                        <div class="gv-welcome-stats-inner">
+                            <span class="gv-welcome-stats-kicker">The Gyanoday Difference</span>
+                            <h2 class="gv-welcome-stats-title">Our Distinctions</h2>
+                            <div class="owl-carousel gv-welcome-stats-carousel">
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-school"></i></div>
+                                    <div class="gv-welcome-stat-number">15</div>
+                                    <p class="gv-welcome-stat-text">classes offered from Nursery through senior secondary learning.</p>
                                 </div>
-                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                                    <div class="bg-primary text-center p-4">
-                                        <h1 class="text-white" data-toggle="counter-up">25</h1>
-                                        <h6 class="text-uppercase text-white">Qualified<span
-                                                class="d-block">Teachers</span>
-                                        </h6>
-                                    </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                    <div class="gv-welcome-stat-number">25+</div>
+                                    <p class="gv-welcome-stat-text">qualified teachers guiding students with care and discipline.</p>
                                 </div>
-                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                                    <div class="bg-secondary text-center p-4">
-                                        <h1 class="text-white" data-toggle="counter-up">500</h1>
-                                        <h6 class="text-uppercase text-white">Active<span
-                                                class="d-block">Students</span>
-                                        </h6>
-                                    </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-user-graduate"></i></div>
+                                    <div class="gv-welcome-stat-number">500+</div>
+                                    <p class="gv-welcome-stat-text">active students learning in a focused school community.</p>
                                 </div>
-                                <div class="col-6 col-md-3 mx-1 mx-md-0 px-md-0">
-                                    <div class="bg-warning text-center p-4">
-                                        <h1 class="text-white" data-toggle="counter-up">10</h1>
-                                        <h6 class="text-uppercase text-white">Years of<span
-                                                class="d-block">Excellence</span></h6>
-                                    </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-award"></i></div>
+                                    <div class="gv-welcome-stat-number">10+</div>
+                                    <p class="gv-welcome-stat-text">years of excellence in education and student development.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-book-open"></i></div>
+                                    <div class="gv-welcome-stat-number">2</div>
+                                    <p class="gv-welcome-stat-text">senior secondary streams for Science and Commerce aspirants.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-running"></i></div>
+                                    <div class="gv-welcome-stat-number">12+</div>
+                                    <p class="gv-welcome-stat-text">co-curricular activities supporting confidence beyond academics.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-laptop-code"></i></div>
+                                    <div class="gv-welcome-stat-number">100%</div>
+                                    <p class="gv-welcome-stat-text">student-focused guidance for academics, values and future goals.</p>
                                 </div>
                             </div>
                         </div>
@@ -1001,69 +1898,85 @@
 
 
 
-            <!-- Alumni Start -->
-            <div class="container-fluid py-5 gv-section-soft">
-                <div class="container py-5">
-                    <div class="section-title text-center position-relative mb-5">
-                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Alumni</h6>-->
-                        <h1 class="display-4">Meet Our Inspiration - Our Alumni</h1>
-                    </div>
-                    <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;"
-                        id="gvAlumniCarousel">
-                        <!-- Alumni loaded from Firebase via js/gv-render.js -->
-                    </div>
-                </div>
-            </div>
-            <!-- Alumni End -->
-
-
-            <!-- Testimonial Start -->
-            <div class="container-fluid bg-image py-5 gv-section-pattern" style="margin: 90px 0;">
+            <!-- Community Stories Start -->
+            <section class="container-fluid py-5 gv-community-stories" id="gvCommunityStories">
                 <div class="container py-5">
                     <div class="row align-items-center">
-                        <div class="col-lg-5 mb-5 mb-lg-0">
-                            <div class="section-title position-relative mb-4">
-                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Testimonials</h6>-->
-                                <h1 class="display-4">What Parents Say</h1>
+                        <div class="col-lg-6 mb-5 mb-lg-0">
+                            <span class="gv-community-kicker">Community Stories</span>
+                            <h1 class="gv-community-title">Stories That Connect Us</h1>
+                            <div class="gv-story-tabs" role="tablist" aria-label="Story categories">
+                                <button type="button" class="gv-story-tab active" data-filter="all">All</button>
+                                <button type="button" class="gv-story-tab" data-filter="student">Students</button>
+                                <button type="button" class="gv-story-tab" data-filter="parent">Parents</button>
+                                <button type="button" class="gv-story-tab" data-filter="alumni">Alumni</button>
                             </div>
-                            <p class="m-0">We value feedback from our parents and community. Their satisfaction is our
-                                greatest achievement.</p>
+                            <p class="gv-story-copy">Every learner, parent and alumnus carries a part of the Gyanoday
+                                Vidyalaya journey. Explore the voices that show how our classrooms, teachers and values
+                                continue to shape confidence beyond campus.</p>
+                            <div class="gv-story-grid" aria-label="Community testimonials">
+                                <button type="button" class="gv-story-thumb active" data-story="0" data-category="student"
+                                    data-role="Student">
+                                    <img src="img/result/yash.jpg" alt="Yash Raj">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="1" data-category="student"
+                                    data-role="Student">
+                                    <img src="img/result/shivam.JPG" alt="Shivam Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="2" data-category="parent"
+                                    data-role="Parent">
+                                    <img src="img/testimonial-2.jpg" alt="Rajesh Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="3" data-category="parent"
+                                    data-role="Parent">
+                                    <img src="img/testimonial-1.jpg" alt="Rahul Sharma">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="4" data-category="alumni"
+                                    data-role="Alumni">
+                                    <img src="img/alumni/team-1.JPG" alt="Raushan Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="5" data-category="alumni"
+                                    data-role="Alumni">
+                                    <img src="img/alumni/team-2.JPG" alt="Gyanoday alumnus">
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-lg-7">
-                            <div class="owl-carousel testimonial-carousel">
-                                <div class="bg-white p-5">
-                                    <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                                    <p>Gyanoday Vidyalaya has provided excellent education to my child. The teachers are
-                                        supportive and the environment is very conducive for learning. Highly
-                                        recommended!
-                                    </p>
-                                    <div class="d-flex flex-shrink-0 align-items-center mt-4">
-                                        <img class="img-fluid mr-4" src="img/testimonial-2.jpg" alt="">
-                                        <div>
-                                            <h5>Rajesh Kumar</h5>
-                                            <span>Parent</span>
-                                        </div>
-                                    </div>
+                        <div class="col-lg-6">
+                            <div class="gv-feature-story">
+                                <div class="gv-feature-shape" id="gvFeatureStoryImage" role="button" tabindex="0"
+                                    aria-label="View selected story">
+                                    <img id="gvStoryMainImage" src="img/result/yash.jpg" alt="Yash Raj">
                                 </div>
-                                <div class="bg-white p-5">
-                                    <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                                    <p>We are very happy with the progress our daughter has made at Gyanoday Vidyalaya.
-                                        The
-                                        school focuses on overall development of students.</p>
-                                    <div class="d-flex flex-shrink-0 align-items-center mt-4">
-                                        <img class="img-fluid mr-4" src="img/testimonial-1.jpg" alt="">
-                                        <div>
-                                            <h5>Rahul Sharma</h5>
-                                            <span>Parent</span>
-                                        </div>
+                                <button type="button" class="gv-view-story" id="gvOpenStory" aria-label="View story">+</button>
+                                <div class="gv-feature-card">
+                                    <div class="gv-feature-mark" aria-hidden="true">|||</div>
+                                    <div>
+                                        <h2 class="gv-feature-name" id="gvStoryName">Yash Raj</h2>
+                                        <span class="gv-feature-role" id="gvStoryRole">Student</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Testimonial End -->
+
+                <div class="gv-story-modal" id="gvStoryModal" aria-hidden="true" role="dialog"
+                    aria-labelledby="gvStoryModalName">
+                    <div class="gv-story-modal-card" role="document">
+                        <button type="button" class="gv-story-close" id="gvStoryClose" aria-label="Close story">&times;</button>
+                        <div class="gv-story-modal-image">
+                            <img id="gvStoryModalImage" src="img/result/yash.jpg" alt="Yash Raj">
+                        </div>
+                        <div class="gv-story-modal-body">
+                            <div class="gv-story-modal-role" id="gvStoryModalRole">Student</div>
+                            <h3 id="gvStoryModalName">Yash Raj</h3>
+                            <p id="gvStoryModalComment">Gyanoday Vidyalaya gave me steady guidance, disciplined practice
+                                and the belief that a student from Shahpur can compete with confidence.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Community Stories End -->
 
             <!-- News & Events Custom Styles -->
             <style>
@@ -1329,7 +2242,7 @@
             </style>
 
             <!-- News & Events Section -->
-            <div class="container-fluid py-5 bg-light gv-section-soft">
+            <div class="container-fluid py-5 gv-section-pattern">
                 <div class="container py-5">
                     <div class="section-title text-center position-relative mb-5">
                         <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Latest Happenings
@@ -1471,6 +2384,67 @@
                 </div>
             </div>
             <!-- News & Events End -->
+
+            <!-- Social Media Start -->
+            <section class="container-fluid py-5 gv-section-soft gv-social-section" id="gvSocialMedia">
+                <div class="container py-5">
+                    <div class="gv-social-shell">
+                        <div>
+                            <span class="gv-social-kicker"><i class="fas fa-share-alt"></i> Stay Connected</span>
+                            <h1 class="gv-social-title">Let's Get Social</h1>
+                            <p class="gv-social-copy">Catch campus moments, event highlights and school updates from
+                                Gyanoday Vidyalaya's official social channels.</p>
+                            <div class="gv-social-actions">
+                                <a class="gv-social-follow instagram" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                                <a class="gv-social-follow youtube"
+                                    href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
+                                        class="fab fa-youtube"></i> YouTube</a>
+                                <a class="gv-social-follow facebook"
+                                    href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i
+                                        class="fab fa-facebook-f"></i> Facebook</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="gv-social-tabs" role="tablist" aria-label="Social media posts">
+                                <button type="button" class="gv-social-tab active" data-social="instagram">Instagram</button>
+                                <button type="button" class="gv-social-tab" data-social="youtube">YouTube</button>
+                                <button type="button" class="gv-social-tab" data-social="facebook">Facebook</button>
+                            </div>
+                            <div class="gv-social-feed" id="gvSocialFeed" aria-live="polite">
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/header.jpg" alt="Gyanoday Vidyalaya Instagram">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Daily moments from campus life</h4>
+                                        <span>View latest posts</span>
+                                    </div>
+                                </a>
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/feature.jpg" alt="Gyanoday Vidyalaya school activity">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Celebrations, achievements and classroom stories</h4>
+                                        <span>@gyanodayvidyalaya</span>
+                                    </div>
+                                </a>
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/about.jpg" alt="Gyanoday Vidyalaya community">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Follow Gyanoday Vidyalaya online</h4>
+                                        <span>Open profile</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Social Media End -->
 
             <!-- Contact Start -->
             <div class="container-fluid py-5 gv-section-pattern" id="ContactForm">
@@ -1672,6 +2646,31 @@
         <script src="lib/counterup/counterup.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
+        <script>
+            $(".gv-welcome-stats-carousel").owlCarousel({
+                autoplay: true,
+                smartSpeed: 900,
+                autoplayTimeout: 3200,
+                loop: true,
+                dots: false,
+                nav: true,
+                navText: [
+                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    1200: {
+                        items: 4
+                    }
+                }
+            });
+        </script>
 
         <!-- Firebase dynamic content -->
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -1709,6 +2708,109 @@
                         '</div>';
                 });
                 grid.innerHTML = html;
+            })();
+        </script>
+
+        <!-- Social media feed connected with gallery content -->
+        <script>
+            (function () {
+                var feed = document.getElementById("gvSocialFeed");
+                var tabs = Array.prototype.slice.call(document.querySelectorAll(".gv-social-tab"));
+                if (!feed || !tabs.length) return;
+
+                var fallbackImages = ["img/header.jpg", "img/feature.jpg", "img/about.jpg"];
+                var links = {
+                    instagram: "https://www.instagram.com/gyanodayvidyalaya/",
+                    youtube: "https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng",
+                    facebook: "https://www.facebook.com/gyanodayvidyalayashahpur/"
+                };
+                var activeSocial = "instagram";
+
+                function esc(value) {
+                    return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                }
+
+                function galleryData() {
+                    var g = (window.GV_CONTENT && window.GV_CONTENT.gallery) ||
+                        (window.GV_DEFAULT_CONTENT && window.GV_DEFAULT_CONTENT.gallery) || {};
+                    return {
+                        instagram: g.instagram || [],
+                        youtube: g.youtube || []
+                    };
+                }
+
+                function card(platform, icon, title, meta, href, img) {
+                    return '<a class="gv-social-card" href="' + esc(href) + '" target="_blank">' +
+                        '<img src="' + esc(img) + '" alt="' + esc(title) + '" onerror="this.src=\'img/header.jpg\'">' +
+                        '<div class="gv-social-card-body">' +
+                        '<div class="gv-social-platform"><i class="' + esc(icon) + '"></i> ' + esc(platform) + '</div>' +
+                        '<h4>' + esc(title) + '</h4>' +
+                        '<span>' + esc(meta) + '</span>' +
+                        '</div>' +
+                        '</a>';
+                }
+
+                function renderInstagram(posts) {
+                    var usable = posts.filter(function (url) { return url && !String(url).includes("REPLACE"); }).slice(0, 3);
+                    if (!usable.length) {
+                        return [
+                            card("Instagram", "fab fa-instagram", "Daily moments from campus life", "View latest posts", links.instagram, "img/header.jpg"),
+                            card("Instagram", "fab fa-instagram", "Celebrations, achievements and classroom stories", "@gyanodayvidyalaya", links.instagram, "img/feature.jpg"),
+                            card("Instagram", "fab fa-instagram", "Follow Gyanoday Vidyalaya online", "Open profile", links.instagram, "img/about.jpg")
+                        ].join("");
+                    }
+                    return usable.map(function (url, index) {
+                        return card("Instagram", "fab fa-instagram", "Latest Instagram post", "@gyanodayvidyalaya", url, fallbackImages[index % fallbackImages.length]);
+                    }).join("");
+                }
+
+                function renderYouTube(videos) {
+                    var usable = videos.slice(0, 3);
+                    if (!usable.length) {
+                        usable = [
+                            { id: "REPLACE_VIDEO_ID_1", title: "Annual Function Highlights", date: "YouTube Channel" },
+                            { id: "REPLACE_VIDEO_ID_2", title: "Result Celebration", date: "Gyanoday Vidyalaya" },
+                            { id: "REPLACE_VIDEO_ID_3", title: "Sports Day Moments", date: "Watch videos" }
+                        ];
+                    }
+                    return usable.map(function (video, index) {
+                        var isPlaceholder = !video.id || String(video.id).indexOf("REPLACE") === 0;
+                        var href = isPlaceholder ? links.youtube : "https://www.youtube.com/watch?v=" + encodeURIComponent(video.id);
+                        var img = isPlaceholder ? fallbackImages[index % fallbackImages.length] : "https://img.youtube.com/vi/" + encodeURIComponent(video.id) + "/hqdefault.jpg";
+                        return card("YouTube", "fab fa-youtube", video.title || "Gyanoday Vidyalaya video", video.date || "Watch on YouTube", href, img);
+                    }).join("");
+                }
+
+                function renderFacebook() {
+                    return [
+                        card("Facebook", "fab fa-facebook-f", "School announcements and community updates", "Official Facebook page", links.facebook, "img/about.jpg"),
+                        card("Facebook", "fab fa-facebook-f", "Event photos and parent notices", "Gyanoday Vidyalaya Shahpur", links.facebook, "img/header.jpg"),
+                        card("Facebook", "fab fa-facebook-f", "Connect with our Vidyalaya community", "Follow us on Facebook", links.facebook, "img/feature.jpg")
+                    ].join("");
+                }
+
+                function renderSocial(type) {
+                    var data = galleryData();
+                    var html = "";
+                    if (type === "youtube") html = renderYouTube(data.youtube);
+                    else if (type === "facebook") html = renderFacebook();
+                    else html = renderInstagram(data.instagram);
+                    feed.innerHTML = html || '<div class="gv-social-empty">Social updates will appear here soon.</div>';
+                }
+
+                tabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        activeSocial = tab.getAttribute("data-social") || "instagram";
+                        tabs.forEach(function (t) { t.classList.remove("active"); });
+                        tab.classList.add("active");
+                        renderSocial(activeSocial);
+                    });
+                });
+
+                document.addEventListener("gvContentReady", function () {
+                    renderSocial(activeSocial);
+                });
+                renderSocial(activeSocial);
             })();
         </script>
 
@@ -1954,6 +3056,165 @@
                         document.head.appendChild(script);
                     });
                 }
+
+                /* Community stories */
+                var storyData = [
+                    {
+                        name: "Yash Raj",
+                        role: "Student",
+                        category: "student",
+                        image: "img/result/yash.jpg",
+                        comment: "Gyanoday Vidyalaya gave me steady guidance, disciplined practice and the belief that a student from Shahpur can compete with confidence."
+                    },
+                    {
+                        name: "Shivam Kumar",
+                        role: "Student",
+                        category: "student",
+                        image: "img/result/shivam.JPG",
+                        comment: "The teachers kept every goal practical and every doubt welcome. That support helped me prepare with focus and stay confident through competitive exams."
+                    },
+                    {
+                        name: "Rajesh Kumar",
+                        role: "Parent",
+                        category: "parent",
+                        image: "img/testimonial-2.jpg",
+                        comment: "Gyanoday Vidyalaya has provided excellent education to my child. The teachers are supportive and the environment is very conducive for learning."
+                    },
+                    {
+                        name: "Rahul Sharma",
+                        role: "Parent",
+                        category: "parent",
+                        image: "img/testimonial-1.jpg",
+                        comment: "We are very happy with the progress our daughter has made at Gyanoday Vidyalaya. The school focuses on overall development of students."
+                    },
+                    {
+                        name: "Raushan Kumar",
+                        role: "Alumni",
+                        category: "alumni",
+                        image: "img/alumni/team-1.JPG",
+                        comment: "The discipline and confidence I built at Gyanoday Vidyalaya still guide me. The school taught me to keep learning and lead with responsibility."
+                    },
+                    {
+                        name: "Gyanoday Alumnus",
+                        role: "Alumni",
+                        category: "alumni",
+                        image: "img/alumni/team-2.JPG",
+                        comment: "My school years gave me strong values, lifelong friendships and the courage to pursue bigger goals beyond the classroom."
+                    }
+                ];
+                var storyThumbs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-thumb"));
+                var storyTabs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-tab"));
+                var storyMainImage = document.getElementById("gvStoryMainImage");
+                var storyName = document.getElementById("gvStoryName");
+                var storyRole = document.getElementById("gvStoryRole");
+                var storyOpen = document.getElementById("gvOpenStory");
+                var storyFeatureImage = document.getElementById("gvFeatureStoryImage");
+                var storyModal = document.getElementById("gvStoryModal");
+                var storyClose = document.getElementById("gvStoryClose");
+                var storyModalImage = document.getElementById("gvStoryModalImage");
+                var storyModalRole = document.getElementById("gvStoryModalRole");
+                var storyModalName = document.getElementById("gvStoryModalName");
+                var storyModalComment = document.getElementById("gvStoryModalComment");
+                var activeStoryIndex = 0;
+
+                function setActiveStory(index) {
+                    var story = storyData[index];
+                    if (!story) return;
+                    activeStoryIndex = index;
+                    if (storyMainImage) {
+                        storyMainImage.src = story.image;
+                        storyMainImage.alt = story.name;
+                    }
+                    if (storyName) storyName.textContent = story.name;
+                    if (storyRole) storyRole.textContent = story.role;
+                    storyThumbs.forEach(function (thumb) {
+                        thumb.classList.toggle("active", Number(thumb.getAttribute("data-story")) === index);
+                    });
+                }
+
+                function openStoryCard(index) {
+                    var story = storyData[index];
+                    if (!story || !storyModal) return;
+                    setActiveStory(index);
+                    if (storyModalImage) {
+                        storyModalImage.src = story.image;
+                        storyModalImage.alt = story.name;
+                    }
+                    if (storyModalRole) storyModalRole.textContent = story.role;
+                    if (storyModalName) storyModalName.textContent = story.name;
+                    if (storyModalComment) storyModalComment.textContent = story.comment;
+                    storyModal.classList.add("is-open");
+                    storyModal.setAttribute("aria-hidden", "false");
+                    document.body.style.overflow = "hidden";
+                }
+
+                function closeStoryCard() {
+                    if (!storyModal) return;
+                    storyModal.classList.remove("is-open");
+                    storyModal.setAttribute("aria-hidden", "true");
+                    document.body.style.overflow = "";
+                }
+
+                function filterStories(category) {
+                    var firstVisible = null;
+                    storyThumbs.forEach(function (thumb) {
+                        var show = category === "all" || thumb.getAttribute("data-category") === category;
+                        thumb.classList.toggle("is-hidden", !show);
+                        if (show && firstVisible === null) firstVisible = Number(thumb.getAttribute("data-story"));
+                    });
+                    if (firstVisible !== null) setActiveStory(firstVisible);
+                }
+
+                storyThumbs.forEach(function (thumb) {
+                    thumb.addEventListener("click", function () {
+                        openStoryCard(Number(thumb.getAttribute("data-story")));
+                    });
+                    thumb.addEventListener("mouseenter", function () {
+                        setActiveStory(Number(thumb.getAttribute("data-story")));
+                    });
+                    thumb.addEventListener("focus", function () {
+                        setActiveStory(Number(thumb.getAttribute("data-story")));
+                    });
+                });
+
+                storyTabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        storyTabs.forEach(function (t) { t.classList.remove("active"); });
+                        tab.classList.add("active");
+                        filterStories(tab.getAttribute("data-filter"));
+                    });
+                });
+
+                if (storyOpen) {
+                    storyOpen.addEventListener("click", function () {
+                        openStoryCard(activeStoryIndex);
+                    });
+                }
+                if (storyFeatureImage) {
+                    storyFeatureImage.addEventListener("click", function () {
+                        openStoryCard(activeStoryIndex);
+                    });
+                    storyFeatureImage.addEventListener("keydown", function (e) {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            openStoryCard(activeStoryIndex);
+                        }
+                    });
+                }
+                if (storyClose) {
+                    storyClose.addEventListener("click", closeStoryCard);
+                }
+                if (storyModal) {
+                    storyModal.addEventListener("click", function (e) {
+                        if (e.target === storyModal) closeStoryCard();
+                    });
+                }
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && storyModal && storyModal.classList.contains("is-open")) {
+                        closeStoryCard();
+                    }
+                });
+                setActiveStory(0);
 
                 showEnquiryPopup();
             })();
