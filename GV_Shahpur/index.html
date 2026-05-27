@@ -1285,20 +1285,45 @@
                 @media (max-width: 575px) {
                     .gv-events-grid {
                         grid-template-columns: 1fr;
+                        gap: 18px;
+                        margin-top: 24px;
                     }
 
                     .gv-event-card.small .card-img-wrap,
                     .gv-event-card.tall .card-img-wrap {
-                        aspect-ratio: 16 / 10;
+                        aspect-ratio: 16 / 11;
+                    }
+
+                    .gv-event-card .card-overlay {
+                        padding: 14px;
+                    }
+
+                    .gv-event-card .overlay-content {
+                        transform: none;
                     }
 
                     .gv-event-card .overlay-title {
-                        font-size: 1.5rem;
+                        font-size: clamp(1.05rem, 5vw, 1.3rem);
+                        line-height: 1.14;
+                        margin-bottom: 6px;
+                        -webkit-line-clamp: 2;
                     }
 
                     .gv-event-card .overlay-desc {
-                        font-size: 0.9rem;
+                        font-size: clamp(0.78rem, 3.7vw, 0.9rem);
+                        line-height: 1.32;
+                        margin-bottom: 12px;
                         -webkit-line-clamp: 4;
+                    }
+
+                    .gv-event-card .btn-read-more {
+                        padding: 7px 18px;
+                        font-size: 0.84rem;
+                    }
+
+                    .gv-event-card .card-banner {
+                        padding: 10px 8px;
+                        font-size: 1rem;
                     }
                 }
             </style>
