@@ -7,6 +7,34 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
+  function blogPosts() {
+    var posts = global.GV_CONTENT && global.GV_CONTENT.blog && global.GV_CONTENT.blog.posts;
+    if (Array.isArray(posts)) return posts;
+    if (!global.POSTS) return [];
+    return Object.keys(global.POSTS).map(function (id) {
+      return Object.assign({ id: id }, global.POSTS[id]);
+    });
+  }
+
+  function syncPostsGlobal(posts) {
+    if (!posts || !posts.length) return;
+    global.POSTS = {};
+    posts.forEach(function (p, i) {
+      var id = String(p.id || (i + 1));
+      global.POSTS[id] = Object.assign({}, p, {
+        id: id,
+        cat: p.cat || "General",
+        gradient: p.gradient || (p.img ? "url('" + p.img + "')" : "")
+      });
+    });
+  }
+
+  function blogCatSlug(cat) {
+    var slug = String(cat || "general").toLowerCase();
+    if (slug.indexOf("science") >= 0) return "science";
+    return slug.replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
   function renderAchievers(trackId) {
     var track = document.getElementById(trackId || "studentSlider");
     if (!track || !global.GV_CONTENT || !global.GV_CONTENT.achievers) return;
@@ -128,11 +156,76 @@
     if (count) count.textContent = n.items.length + " notices";
   }
 
+  function renderBlogPage() {
+    var grid = document.getElementById("blogGrid");
+    if (!grid) return;
+    var posts = blogPosts();
+    if (!posts.length) return;
+    syncPostsGlobal(posts);
+
+    var featured = document.querySelector(".featured-post");
+    var first = posts[0];
+    if (featured && first) {
+      featured.setAttribute("data-cat", blogCatSlug(first.cat));
+      var img = featured.querySelector(".post-img");
+      if (img) img.style.backgroundImage = "url('" + esc(first.img) + "')";
+      var cat = featured.querySelector(".post-category");
+      if (cat) cat.textContent = first.cat || "General";
+      var title = featured.querySelector(".post-title a");
+      if (title) {
+        title.textContent = first.title || "";
+        title.setAttribute("data-id", first.id);
+      }
+      var excerpt = featured.querySelector(".post-excerpt");
+      if (excerpt) excerpt.textContent = first.excerpt || "";
+      featured.querySelectorAll(".open-post").forEach(function (btn) { btn.setAttribute("data-id", first.id); });
+      var meta = featured.querySelector(".post-meta");
+      if (meta) meta.innerHTML = '<span><i class="fa fa-user"></i> ' + esc(first.author) + '</span><span><i class="fa fa-calendar-alt"></i> ' + esc(first.date) + '</span><span><i class="fa fa-clock"></i> ' + esc(first.read || "3 min read") + '</span>';
+    }
+
+    grid.innerHTML = posts.slice(1).map(function (p) {
+      var id = esc(p.id);
+      var catSlug = blogCatSlug(p.cat);
+      var initials = String(p.author || "GV").split(/\s+/).map(function (w) { return w.charAt(0); }).join("").slice(0, 2).toUpperCase();
+      return '<div class="col-md-6 mb-4 blog-post-item" data-cat="' + esc(catSlug) + '">' +
+        '<div class="blog-card"><div class="card-img" style="background-image: url(\'' + esc(p.img) + '\');"><span class="post-category">' + esc(p.cat || "General") + '</span></div>' +
+        '<div class="card-body"><div class="post-meta"><span><i class="fa fa-calendar-alt"></i> ' + esc(p.date) + '</span><span><i class="fa fa-clock"></i> ' + esc(p.read || "3 min read") + '</span></div>' +
+        '<h3 class="post-title"><a href="#" class="open-post" data-id="' + id + '">' + esc(p.title) + '</a></h3><p class="post-excerpt">' + esc(p.excerpt) + '</p>' +
+        '<div class="card-footer-row"><div class="author-chip"><div class="avatar">' + esc(initials) + '</div><span class="name">' + esc(p.author || "GV") + '</span></div>' +
+        '<button class="read-more-btn open-post" data-id="' + id + '" style="padding:6px 14px;font-size:.8rem;">Read <i class="fa fa-arrow-right"></i></button></div></div></div></div>';
+    }).join("");
+
+    var recent = document.querySelector(".sidebar-widget .recent-post-item");
+    var recentBox = recent && recent.parentElement;
+    if (recentBox) {
+      recentBox.querySelectorAll(".recent-post-item").forEach(function (n) { n.remove(); });
+      posts.slice(0, 4).forEach(function (p) {
+        recentBox.insertAdjacentHTML("beforeend", '<div class="recent-post-item"><div class="rp-img" style="background-image:url(\'' + esc(p.img) + '\');"></div><div class="rp-info"><div class="rp-title"><a href="#" class="open-post" data-id="' + esc(p.id) + '">' + esc(p.title) + '</a></div><div class="rp-date"><i class="fa fa-calendar-alt mr-1"></i> ' + esc(p.date) + '</div></div></div>');
+      });
+    }
+  }
+
+  function renderHomeBlogEvents() {
+    var grid = document.getElementById("gvEventsGrid");
+    if (!grid) return;
+    var posts = blogPosts();
+    if (!posts.length) return;
+    syncPostsGlobal(posts);
+    grid.innerHTML = posts.slice(0, 7).map(function (p, idx) {
+      var cardClass = idx === 0 ? "gv-event-card tall" : "gv-event-card small";
+      return '<div class="' + cardClass + '"><div class="card-img-wrap"><img src="' + esc(p.img) + '" alt="' + esc(p.title) + '">' +
+        '<div class="card-overlay"><div class="overlay-content"><h3 class="overlay-title">' + esc(p.title) + '</h3>' +
+        '<p class="overlay-desc">' + esc(p.excerpt) + '</p><a href="blog.html?post=' + esc(p.id) + '" class="btn btn-read-more">Read More</a></div></div></div>' +
+        '<div class="card-banner">' + esc(p.cat || "General") + '</div></div>';
+    }).join("");
+  }
+
   function applyGalleryToGlobals() {
     if (!global.GV_CONTENT || !global.GV_CONTENT.gallery) return;
     var g = global.GV_CONTENT.gallery;
     global.YT_VIDEOS = g.youtube || [];
     global.IG_POSTS = g.instagram || [];
+    global.FB_POSTS = g.facebook || [];
     global.MEMORIES = g.memories || {};
     global.RBY_DATA = global.GV_CONTENT.resultsByYear || global.RBY_DATA;
   }
@@ -148,6 +241,8 @@
     if (page === "hostel") renderHostelMenu();
     if (page === "disclosure") renderDisclosure();
     if (page === "notices") renderNotices();
+    if (page === "blog") renderBlogPage();
+    if (page === "home") renderHomeBlogEvents();
     if (page === "gallery") applyGalleryToGlobals();
     if (page === "result") {
       if (global.GV_CONTENT && global.GV_CONTENT.resultsByYear) {
@@ -180,6 +275,8 @@
     renderHostelMenu: renderHostelMenu,
     renderDisclosure: renderDisclosure,
     renderNotices: renderNotices,
+    renderBlogPage: renderBlogPage,
+    renderHomeBlogEvents: renderHomeBlogEvents,
     applyGalleryToGlobals: applyGalleryToGlobals,
     runPageRenders: runPageRenders
   };

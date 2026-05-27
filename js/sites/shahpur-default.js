@@ -77,6 +77,11 @@ window.GV_DEFAULT_CONTENT = {
       "https://www.instagram.com/p/REPLACE_POST_ID_3/",
       "https://www.instagram.com/p/REPLACE_POST_ID_4/"
     ],
+    facebook: [
+      { title: "School announcements and community updates", meta: "Official Facebook page", url: "https://www.facebook.com/gyanodayvidyalayashahpur/", image: "img/about.jpg" },
+      { title: "Event photos and parent notices", meta: "Gyanoday Vidyalaya Shahpur", url: "https://www.facebook.com/gyanodayvidyalayashahpur/", image: "img/header.jpg" },
+      { title: "Connect with our Vidyalaya community", meta: "Follow us on Facebook", url: "https://www.facebook.com/gyanodayvidyalayashahpur/", image: "img/feature.jpg" }
+    ],
     memories: {
       "2025": [
         { title: "Annual Function 2025", icon: "🎭", date: "December 2025", photos: [{ src: "img/courses-1.jpg", caption: "Opening ceremony" }, { src: "img/courses-2.jpg", caption: "Cultural dance performance" }, { src: "img/courses-3.jpg", caption: "Prize distribution" }, { src: "img/courses-4.jpg", caption: "Drama presentation" }] },
@@ -117,5 +122,31 @@ window.GV_DEFAULT_CONTENT = {
       { title: "Parent-Teacher Meeting (PTM) – November 8, 2024", body: "PTM for all classes will be held on November 8, 2024 from 9:00 AM to 12:00 PM.", date: "Oct 18, 2024", category: "event", pinned: false, isNew: false, attachments: [] },
       { title: "Winter Vacation: December 20 – December 31, 2024", body: "School will remain closed for Winter Vacation. Classes resume January 2, 2025.", date: "Oct 15, 2024", category: "holiday", pinned: false, isNew: false, attachments: [] }
     ]
+  },
+  testimonials: [
+    { name: "Yash Raj", role: "Student", category: "student", image: "img/result/yash.jpg", comment: "Gyanoday Vidyalaya gave me steady guidance, disciplined practice and the belief that a student from Shahpur can compete with confidence." },
+    { name: "Shivam Kumar", role: "Student", category: "student", image: "img/result/shivam.JPG", comment: "The teachers kept every goal practical and every doubt welcome. That support helped me prepare with focus and stay confident through competitive exams." },
+    { name: "Rajesh Kumar", role: "Parent", category: "parent", image: "img/testimonial-2.jpg", comment: "Gyanoday Vidyalaya has provided excellent education to my child. The teachers are supportive and the environment is very conducive for learning." },
+    { name: "Rahul Sharma", role: "Parent", category: "parent", image: "img/testimonial-1.jpg", comment: "We are very happy with the progress our daughter has made at Gyanoday Vidyalaya. The school focuses on overall development of students." },
+    { name: "Raushan Kumar", role: "Alumni", category: "alumni", image: "img/alumni/team-1.JPG", comment: "The discipline and confidence I built at Gyanoday Vidyalaya still guide me. The school taught me to keep learning and lead with responsibility." },
+    { name: "Gyanoday Alumnus", role: "Alumni", category: "alumni", image: "img/alumni/team-2.JPG", comment: "My school years gave me strong values, lifelong friendships and the courage to pursue bigger goals beyond the classroom." }
+  ],
+  blog: {
+    posts: (window.POSTS ? Object.keys(window.POSTS).map(function (id) {
+      var p = window.POSTS[id] || {};
+      return {
+        id: String(id),
+        cat: p.cat || "General",
+        title: p.title || "",
+        date: p.date || "",
+        read: p.read || "3 min read",
+        author: p.author || "Gyanoday Vidyalaya",
+        excerpt: p.excerpt || "",
+        content: p.content || "",
+        img: p.img || "",
+        icon: p.icon || "fa-newspaper",
+        gradient: p.gradient || (p.img ? "url('" + p.img + "')" : "")
+      };
+    }) : [])
   }
 };

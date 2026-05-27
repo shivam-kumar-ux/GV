@@ -679,7 +679,12 @@
 
         /* ===================== RESPONSIVE ===================== */
         @media (max-width: 767.98px) {
+            body { padding-top: 190px; scroll-padding-top: 190px; }
+            .gv-navbar { top: 108px; }
+            .gv-navbar .navbar { padding-left: 15px !important; padding-right: 15px !important; }
+            .navbar-brand img { height: 52px; }
             .blog-hero h1 { font-size: 1.9rem; }
+            .blog-hero { padding-top: 46px; }
             .blog-controls { margin: -20px 15px 36px; padding: 16px; }
             .featured-post .post-img { height: 220px; }
             .featured-post .post-body { padding: 22px 20px 24px; }
@@ -706,7 +711,10 @@
         }
 
         @media (max-width: 575.98px) {
+            body { padding-top: 212px; scroll-padding-top: 212px; }
+            .gv-navbar { top: 128px; }
             .gv-topbar-info { font-size: .82rem; gap: 2px 0; }
+            .blog-controls { margin-left: 0; margin-right: 0; border-radius: 10px; }
             .filter-btns { gap: 6px; }
             .blog-pagination { gap: 5px; }
             .page-btn { width: 34px; height: 34px; font-size: .82rem; }
@@ -714,7 +722,7 @@
     </style>
 </head>
 
-<body>
+<body data-gv-page="blog">
 
     <!-- ===================== TOPBAR ===================== -->
     <div class="gv-topbar">
@@ -1162,6 +1170,13 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="js/posts-data.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script>window.GV_SITE_ID = "shahpur";</script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/gv-render.js"></script>
 
     <script>
         // ===================== MODAL LOGIC =====================

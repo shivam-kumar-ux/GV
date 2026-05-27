@@ -22,6 +22,10 @@
     return JSON.parse(JSON.stringify(o));
   }
 
+  function attr(s) {
+    return String(s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+
   function getYouTubeId(url) {
     if (!url) return "";
     if (url.length === 11 && !url.includes("/") && !url.includes("?")) {
@@ -499,6 +503,8 @@
   function renderInstagram() {
     var box = document.getElementById("instagramList");
     box.innerHTML = "";
+    if (!content.gallery) content.gallery = {};
+    if (!content.gallery.instagram) content.gallery.instagram = [];
     (content.gallery.instagram || []).forEach(function (url, idx) {
       var div = document.createElement("div");
       div.className = "admin-card-item";
@@ -519,6 +525,49 @@
       list.push(card.querySelector(".ig-url").value);
     });
     content.gallery.instagram = list;
+  }
+
+  /* ---------- Facebook ---------- */
+  function renderFacebook() {
+    var box = document.getElementById("facebookList");
+    if (!box) return;
+    box.innerHTML = "";
+    if (!content.gallery) content.gallery = {};
+    if (!content.gallery.facebook) content.gallery.facebook = [];
+    content.gallery.facebook.forEach(function (post, idx) {
+      var div = document.createElement("div");
+      div.className = "admin-card-item";
+      div.innerHTML =
+        '<div class="d-flex justify-content-between mb-2"><strong>Facebook Card ' + (idx + 1) + '</strong><button class="btn btn-sm btn-gv-danger btn-del-fb" data-i="' + idx + '">Delete</button></div>' +
+        '<div class="form-row">' +
+        '<div class="col-md-4"><label>Title</label><input class="form-control fb-title" value="' + attr(post.title) + '"></div>' +
+        '<div class="col-md-3"><label>Meta / Button Text</label><input class="form-control fb-meta" value="' + attr(post.meta || "Follow us on Facebook") + '"></div>' +
+        '<div class="col-md-5"><label>Facebook URL</label><input class="form-control fb-url" value="' + attr(post.url || "https://www.facebook.com/gyanodayvidyalayashahpur/") + '"></div>' +
+        '</div>' +
+        '<div class="form-row"><div class="col-md-12"><label>Image URL</label><input class="form-control fb-img" id="fb-img-' + idx + '" value="' + attr(post.image || "") + '">' + fileInputHtml("fb-img-" + idx, "image/*") + '</div></div>';
+      box.appendChild(div);
+    });
+    bindFileUploads(box);
+    box.querySelectorAll(".gv-file").forEach(function (f) { f.setAttribute("data-folder", "facebook"); });
+    box.querySelectorAll(".btn-del-fb").forEach(function (btn) {
+      btn.onclick = function () { content.gallery.facebook.splice(+btn.getAttribute("data-i"), 1); renderFacebook(); };
+    });
+    box.querySelectorAll("input").forEach(function (el) { el.oninput = syncFacebook; });
+  }
+
+  function syncFacebook() {
+    if (!document.getElementById("facebookList")) return;
+    if (!content.gallery) content.gallery = {};
+    var list = [];
+    document.querySelectorAll("#facebookList .admin-card-item").forEach(function (card) {
+      list.push({
+        title: card.querySelector(".fb-title").value,
+        meta: card.querySelector(".fb-meta").value,
+        url: card.querySelector(".fb-url").value,
+        image: card.querySelector(".fb-img").value
+      });
+    });
+    content.gallery.facebook = list;
   }
 
   /* ---------- Memories ---------- */
@@ -768,6 +817,123 @@
     content.notices.items = items;
   }
 
+  /* ---------- Blog Posts ---------- */
+  function ensureBlogPosts() {
+    if (!content.blog) content.blog = {};
+    if (!content.blog.posts) content.blog.posts = [];
+  }
+
+  function renderBlogPosts() {
+    ensureBlogPosts();
+    var box = document.getElementById("blogPostsList");
+    if (!box) return;
+    box.innerHTML = "";
+    content.blog.posts.forEach(function (p, idx) {
+      var div = document.createElement("div");
+      div.className = "admin-card-item";
+      div.innerHTML =
+        '<div class="d-flex justify-content-between mb-2"><strong>Post ' + (idx + 1) + '</strong><button class="btn btn-sm btn-gv-danger btn-del-blog-post" data-i="' + idx + '">Delete</button></div>' +
+        '<div class="form-row">' +
+        '<div class="col-md-2"><label>ID</label><input class="form-control bp-id" value="' + attr(p.id || (idx + 1)) + '"></div>' +
+        '<div class="col-md-5"><label>Title</label><input class="form-control bp-title" value="' + attr(p.title) + '"></div>' +
+        '<div class="col-md-3"><label>Category</label><input class="form-control bp-cat" value="' + attr(p.cat || "General") + '"></div>' +
+        '<div class="col-md-2"><label>Icon</label><input class="form-control bp-icon" value="' + attr(p.icon || "fa-newspaper") + '"></div>' +
+        '</div>' +
+        '<div class="form-row">' +
+        '<div class="col-md-3"><label>Date</label><input class="form-control bp-date" value="' + attr(p.date) + '"></div>' +
+        '<div class="col-md-3"><label>Read Time</label><input class="form-control bp-read" value="' + attr(p.read || "3 min read") + '"></div>' +
+        '<div class="col-md-3"><label>Author</label><input class="form-control bp-author" value="' + attr(p.author || "Gyanoday Vidyalaya") + '"></div>' +
+        '<div class="col-md-3"><label>Image URL</label><input class="form-control bp-img" id="bp-img-' + idx + '" value="' + attr(p.img) + '">' + fileInputHtml("bp-img-" + idx, "image/*") + '</div>' +
+        '</div>' +
+        '<div class="form-group"><label>Excerpt</label><textarea class="form-control bp-excerpt" rows="2">' + attr(p.excerpt) + '</textarea></div>' +
+        '<div class="form-group"><label>Full Content (HTML allowed)</label><textarea class="form-control bp-content" rows="5">' + attr(p.content) + '</textarea></div>';
+      box.appendChild(div);
+    });
+    bindFileUploads(box);
+    box.querySelectorAll(".gv-file").forEach(function (f) { f.setAttribute("data-folder", "blog"); });
+    box.querySelectorAll(".btn-del-blog-post").forEach(function (btn) {
+      btn.onclick = function () {
+        ensureBlogPosts();
+        content.blog.posts.splice(+btn.getAttribute("data-i"), 1);
+        renderBlogPosts();
+      };
+    });
+    box.querySelectorAll("input,textarea").forEach(function (el) { el.oninput = syncBlogPosts; });
+  }
+
+  function syncBlogPosts() {
+    if (!document.getElementById("blogPostsList")) return;
+    ensureBlogPosts();
+    var posts = [];
+    document.querySelectorAll("#blogPostsList .admin-card-item").forEach(function (card, idx) {
+      var img = card.querySelector(".bp-img").value;
+      posts.push({
+        id: card.querySelector(".bp-id").value || String(idx + 1),
+        cat: card.querySelector(".bp-cat").value || "General",
+        title: card.querySelector(".bp-title").value,
+        date: card.querySelector(".bp-date").value,
+        read: card.querySelector(".bp-read").value || "3 min read",
+        author: card.querySelector(".bp-author").value || "Gyanoday Vidyalaya",
+        excerpt: card.querySelector(".bp-excerpt").value,
+        content: card.querySelector(".bp-content").value,
+        img: img,
+        icon: card.querySelector(".bp-icon").value || "fa-newspaper",
+        gradient: img ? "url('" + img + "')" : ""
+      });
+    });
+    content.blog.posts = posts;
+  }
+
+  /* ---------- Testimonials ---------- */
+  function ensureTestimonials() {
+    if (!content.testimonials) content.testimonials = [];
+  }
+
+  function renderTestimonials() {
+    var box = document.getElementById("testimonialsList");
+    if (!box) return;
+    ensureTestimonials();
+    box.innerHTML = "";
+    content.testimonials.forEach(function (t, idx) {
+      var category = (t.category || "student").toLowerCase();
+      var div = document.createElement("div");
+      div.className = "admin-card-item";
+      div.innerHTML =
+        '<div class="d-flex justify-content-between mb-2"><strong>Testimonial ' + (idx + 1) + '</strong><button class="btn btn-sm btn-gv-danger btn-del-testimonial" data-i="' + idx + '">Delete</button></div>' +
+        '<div class="form-row">' +
+        '<div class="col-md-3"><label>Name</label><input class="form-control ts-name" value="' + attr(t.name) + '"></div>' +
+        '<div class="col-md-2"><label>Role</label><input class="form-control ts-role" value="' + attr(t.role || "Student") + '"></div>' +
+        '<div class="col-md-2"><label>Category</label><select class="form-control ts-category">' +
+        ["student", "parent", "alumni"].map(function (c) { return '<option value="' + c + '"' + (category === c ? " selected" : "") + ">" + c + "</option>"; }).join("") +
+        '</select></div>' +
+        '<div class="col-md-5"><label>Image URL</label><input class="form-control ts-image" id="ts-img-' + idx + '" value="' + attr(t.image || "") + '">' + fileInputHtml("ts-img-" + idx, "image/*") + '</div>' +
+        '</div>' +
+        '<div class="form-group"><label>Testimonial Text</label><textarea class="form-control ts-comment" rows="3">' + attr(t.comment) + '</textarea></div>';
+      box.appendChild(div);
+    });
+    bindFileUploads(box);
+    box.querySelectorAll(".gv-file").forEach(function (f) { f.setAttribute("data-folder", "testimonials"); });
+    box.querySelectorAll(".btn-del-testimonial").forEach(function (btn) {
+      btn.onclick = function () { content.testimonials.splice(+btn.getAttribute("data-i"), 1); renderTestimonials(); };
+    });
+    box.querySelectorAll("input,textarea,select").forEach(function (el) { el.oninput = el.onchange = syncTestimonials; });
+  }
+
+  function syncTestimonials() {
+    if (!document.getElementById("testimonialsList")) return;
+    var list = [];
+    document.querySelectorAll("#testimonialsList .admin-card-item").forEach(function (card) {
+      list.push({
+        name: card.querySelector(".ts-name").value,
+        role: card.querySelector(".ts-role").value,
+        category: card.querySelector(".ts-category").value,
+        image: card.querySelector(".ts-image").value,
+        comment: card.querySelector(".ts-comment").value
+      });
+    });
+    content.testimonials = list;
+  }
+
   function syncAllFromForms() {
     syncAchieversFromForm();
     syncAlumniFromForm();
@@ -775,9 +941,12 @@
     syncResultsFromForm();
     syncYoutube();
     syncInstagram();
+    syncFacebook();
     syncMemoriesFromForm();
     syncDisclosure();
     syncNotices();
+    syncBlogPosts();
+    syncTestimonials();
     if (!content.hostel) content.hostel = {};
     content.hostel.menuPdfUrl = document.getElementById("hostelMenuUrl").value;
   }
@@ -789,10 +958,13 @@
     renderResultsYearSelect();
     renderYoutube();
     renderInstagram();
+    renderFacebook();
     renderMemoriesYearSelect();
     renderHostel();
     renderDisclosure();
     renderNotices();
+    renderBlogPosts();
+    renderTestimonials();
   }
 
   function saveAll() {
@@ -881,6 +1053,13 @@
       content.gallery.instagram.push("");
       renderInstagram();
     };
+    document.getElementById("btnAddFacebook").onclick = function () {
+      syncFacebook();
+      if (!content.gallery) content.gallery = {};
+      if (!content.gallery.facebook) content.gallery.facebook = [];
+      content.gallery.facebook.push({ title: "New Facebook Update", meta: "Follow us on Facebook", url: "https://www.facebook.com/gyanodayvidyalayashahpur/", image: "img/header.jpg" });
+      renderFacebook();
+    };
     document.getElementById("btnAddMemYear").onclick = function () {
       var y = prompt("Year for events:");
       if (!y) return;
@@ -910,6 +1089,18 @@
       syncNotices();
       content.notices.items.push({ title: "", body: "", date: "", category: "general", pinned: false, isNew: false, attachments: [] });
       renderNotices();
+    };
+    document.getElementById("btnAddBlogPost").onclick = function () {
+      ensureBlogPosts();
+      syncBlogPosts();
+      content.blog.posts.push({ id: String(Date.now()), cat: "General", title: "New Blog Post", date: "", read: "3 min read", author: "Gyanoday Vidyalaya", excerpt: "", content: "", img: "", icon: "fa-newspaper", gradient: "" });
+      renderBlogPosts();
+    };
+    document.getElementById("btnAddTestimonial").onclick = function () {
+      ensureTestimonials();
+      syncTestimonials();
+      content.testimonials.push({ name: "", role: "Student", category: "student", image: "", comment: "" });
+      renderTestimonials();
     };
     ["rbySelections", "rbyExams", "rbyToppers"].forEach(function (id) {
       document.getElementById(id).oninput = syncResultsFromForm;
