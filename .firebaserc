@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "gyanoday-vidyalaya"
+    "default": "gyanoday-vidyalaya",
+    "Default": "gyanoday-vidyalaya"
   },
   "targets": {},
   "etags": {}

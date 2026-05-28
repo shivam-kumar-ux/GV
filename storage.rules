@@ -5,8 +5,35 @@ rules_version = '2';
 //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
+    function isApprovedStaff() {
+      return request.auth != null
+        && firestore.get(/databases/(default)/documents/staffUsers/$(request.auth.uid)).data.status == "approved";
+    }
+
+    function isAllowedContentType() {
+      return request.resource != null
+        && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+
+    function isAllowedSize() {
+      return request.resource != null && request.resource.size < 15 * 1024 * 1024; // 15MB
+    }
+
+    // Public files are readable by everyone.
+    allow read: if true;
+
+    // Only approved staff can upload/modify files under gv-* prefixes.
+    // Admin uploads go to paths like: gv-shahpur/achievers/<timestamp>_<name>.jpg
+    match /{sitePrefix}/{folder}/{fileName} {
+      allow write: if sitePrefix.matches('gv-[a-z0-9-]+')
+        && isApprovedStaff()
+        && isAllowedContentType()
+        && isAllowedSize();
+    }
+
+    // Default deny for any other paths.
     match /{allPaths=**} {
-      allow read, write: if false;
+      allow write: if false;
     }
   }
 }

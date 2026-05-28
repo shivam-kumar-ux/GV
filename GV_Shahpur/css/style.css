@@ -10613,6 +10613,31 @@ body .container-fluid.p-0.sticky-top.bg-white {
   z-index: 1052;
 }
 
+/* ==========================================================
+   GV_Shahpur - Mobile: do NOT pin topbar/navbar
+   ========================================================== */
+@media (max-width: 767.98px) {
+  /* Disable custom sticky behavior used on larger screens */
+  body .container-fluid.bg-dark,
+  body .container-fluid.p-0.sticky-top.bg-white {
+    position: static !important;
+    top: auto !important;
+  }
+
+  /* Also disable the premium fixed layout bars on mobile */
+  body .gv-topbar,
+  body .gv-navbar {
+    position: static !important;
+    top: auto !important;
+  }
+
+  /* Remove reserved space meant for fixed bars */
+  body:not([data-gv-page="home"]) {
+    scroll-padding-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
 
 
 
