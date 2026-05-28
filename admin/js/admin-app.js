@@ -67,12 +67,22 @@
   }
 
   function getUploadUi(inp) {
-    var fieldWrap = inp.closest(".col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .form-group, .admin-card-item");
-    if (!fieldWrap) fieldWrap = inp.parentElement && inp.parentElement.parentElement;
+    var parent = inp.parentElement;
+    var btn = parent ? parent.querySelector(".btn-gv-upload") : null;
+    var progressBar = parent && parent.nextElementSibling && parent.nextElementSibling.classList.contains("gv-upload-progress") ? parent.nextElementSibling : null;
+    var barInner = progressBar ? progressBar.querySelector(".gv-upload-progress-bar") : null;
+
+    if (!btn) {
+      var fieldWrap = inp.closest(".col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .form-group, .admin-card-item");
+      if (!fieldWrap) fieldWrap = inp.parentElement && inp.parentElement.parentElement;
+      btn = fieldWrap ? fieldWrap.querySelector(".btn-gv-upload") : null;
+      progressBar = fieldWrap ? fieldWrap.querySelector(".gv-upload-progress") : null;
+      barInner = fieldWrap ? fieldWrap.querySelector(".gv-upload-progress-bar") : null;
+    }
     return {
-      btn: fieldWrap ? fieldWrap.querySelector(".btn-gv-upload") : null,
-      progressBar: fieldWrap ? fieldWrap.querySelector(".gv-upload-progress") : null,
-      barInner: fieldWrap ? fieldWrap.querySelector(".gv-upload-progress-bar") : null
+      btn: btn,
+      progressBar: progressBar,
+      barInner: barInner
     };
   }
 
@@ -239,40 +249,6 @@
       });
     });
     content.achievers = list;
-  }
-
-  /* ---------- Alumni ---------- */
-  function renderAlumni() {
-    var box = document.getElementById("alumniList");
-    box.innerHTML = "";
-    (content.alumni || []).forEach(function (a, idx) {
-      var div = document.createElement("div");
-      div.className = "admin-card-item";
-      div.innerHTML =
-        '<div class="d-flex justify-content-between mb-2"><strong>Alumni ' + (idx + 1) + '</strong><button class="btn btn-sm btn-gv-danger btn-del-alumni" data-i="' + idx + '">Delete</button></div>' +
-        '<div class="form-row"><div class="col-md-4"><label>Photo URL</label><input class="form-control al-photo" id="al-ph-' + idx + '" value="' + (a.photo || "") + '">' + fileInputHtml("al-ph-" + idx, "image/*") + '</div>' +
-        '<div class="col-md-4"><label>Name</label><input class="form-control al-name" value="' + (a.name || "") + '"></div>' +
-        '<div class="col-md-4"><label>Achievement</label><input class="form-control al-ach" value="' + (a.achievement || "") + '"></div></div>';
-      box.appendChild(div);
-    });
-    bindFileUploads(box);
-    box.querySelectorAll(".gv-file").forEach(function (f) { f.setAttribute("data-folder", "alumni"); });
-    box.querySelectorAll(".btn-del-alumni").forEach(function (btn) {
-      btn.onclick = function () { content.alumni.splice(+btn.getAttribute("data-i"), 1); renderAlumni(); };
-    });
-    box.querySelectorAll("input").forEach(function (el) { el.oninput = syncAlumniFromForm; });
-  }
-
-  function syncAlumniFromForm() {
-    var list = [];
-    document.querySelectorAll("#alumniList .admin-card-item").forEach(function (card) {
-      list.push({
-        photo: card.querySelector(".al-photo").value,
-        name: card.querySelector(".al-name").value,
-        achievement: card.querySelector(".al-ach").value
-      });
-    });
-    content.alumni = list;
   }
 
   /* ---------- Programs ---------- */
@@ -936,7 +912,6 @@
 
   function syncAllFromForms() {
     syncAchieversFromForm();
-    syncAlumniFromForm();
     syncProgramsFromForm();
     syncResultsFromForm();
     syncYoutube();
@@ -953,7 +928,6 @@
 
   function renderAll() {
     renderAchievers();
-    renderAlumni();
     renderPrograms();
     renderResultsYearSelect();
     renderYoutube();
@@ -1012,11 +986,6 @@
       syncAchieversFromForm();
       content.achievers.push({ name: "", photo: "", achievement: "", details: [] });
       renderAchievers();
-    };
-    document.getElementById("btnAddAlumni").onclick = function () {
-      syncAlumniFromForm();
-      content.alumni.push({ name: "", achievement: "", photo: "" });
-      renderAlumni();
     };
     document.getElementById("btnAddProgram").onclick = function () {
       syncProgramsFromForm();

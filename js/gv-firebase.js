@@ -27,15 +27,13 @@
   function getStorageInstance() {
     if (!isConfigured() || typeof global.firebase.storage !== "function") return null;
     try {
-      var cfg = global.GV_FIREBASE_CONFIG;
-      var app = global.firebase.app();
-      if (cfg && cfg.storageBucket) {
-        var bucket = cfg.storageBucket;
-        if (bucket.indexOf("gs://") !== 0) bucket = "gs://" + bucket;
-        return app.storage(bucket);
-      }
+      // Use the default storage instance — it automatically reads storageBucket
+      // from the config passed to firebase.initializeApp(). Passing an explicit
+      // gs:// URL to app.storage(bucket) breaks cross-service Firestore lookups
+      // inside Storage security rules on newer Firebase domains.
       return global.firebase.storage();
     } catch (e) {
+      console.error("GV: Could not create Storage instance:", e);
       return null;
     }
   }
@@ -53,16 +51,18 @@
 
   function formatStorageError(err) {
     var code = (err && err.code) || "";
+    var rawMsg = (err && err.message) || "";
+    console.error("GV Storage error — code:", code, "message:", rawMsg, "raw:", err);
     var map = {
-      "storage/unauthorized": "Upload denied. Log out and log in again. Ensure Storage rules are deployed.",
+      "storage/unauthorized": "Upload denied — your session may have expired. Log out and log in again, then retry. (" + code + ")",
       "storage/canceled": "Upload was canceled.",
-      "storage/unknown": "Storage error. Enable Firebase Storage in the console.",
-      "storage/retry-limit-exceeded": "Network error during upload. Try again.",
+      "storage/unknown": "Storage error. Check the browser console and ensure Firebase Storage is enabled. (" + rawMsg + ")",
+      "storage/retry-limit-exceeded": "Network error during upload. Check your connection and try again.",
       "storage/invalid-checksum": "Upload failed verification. Try again.",
-      "storage/quota-exceeded": "Storage quota exceeded."
+      "storage/quota-exceeded": "Storage quota exceeded. Contact the administrator."
     };
     if (map[code]) return new Error(map[code]);
-    return err || new Error("Upload failed");
+    return err || new Error("Upload failed (" + (code || "unknown") + ")");
   }
 
   function ensureAuthForUpload() {
