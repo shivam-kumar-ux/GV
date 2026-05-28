@@ -196,7 +196,7 @@
             padding: 16px 18px;
             max-width: 560px;
             border-radius: 14px;
-            background: rgba(40, 120, 235, 0.62);
+            background: rgba(40, 120, 235, 0.40);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
@@ -795,8 +795,7 @@
         .gv-story-thumb.active {
             transform: translateY(-5px);
             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
-            outline: 4px solid #FDD47E;
-            outline-offset: 0;
+            outline: none;
         }
 
         .gv-story-thumb:hover img,
@@ -1284,7 +1283,7 @@
             body[data-gv-page="home"] .gv-home-hero .header-content-card {
                 left: 14px;
                 bottom: 18px;
-                max-width: min(340px, 78vw);
+                max-width: min(280px, 72vw);
                 padding: 10px 12px;
                 border-radius: 12px;
             }
@@ -1308,6 +1307,23 @@
             body[data-gv-page="home"] .gv-home-hero .gv-hero-enquiry-btn {
                 padding: 0.35rem 0.8rem !important;
                 font-size: 0.9rem;
+            }
+
+            /* Distinctions: reduce mobile height and ensure content shows even if carousel JS fails */
+            .gv-welcome-stats {
+                margin-top: 18px;
+            }
+
+            .gv-welcome-stats-inner {
+                padding: 22px 0 24px;
+            }
+
+            .gv-welcome-stats-carousel.owl-carousel {
+                display: block !important;
+            }
+
+            .gv-welcome-stat-item {
+                min-height: 190px;
             }
 
             body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
