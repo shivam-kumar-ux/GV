@@ -188,9 +188,18 @@
         }
 
         body[data-gv-page="home"] .gv-home-hero .header-content-card {
+            position: absolute;
+            left: 28px;
+            bottom: 32px;
             z-index: 10;
-            margin-bottom: 48px;
-            padding-top: 14px;
+            margin: 0;
+            padding: 16px 18px;
+            max-width: 560px;
+            border-radius: 14px;
+            background: rgba(40, 120, 235, 0.62);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
         }
 
         body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
@@ -202,7 +211,7 @@
             align-items: center;
             justify-content: center;
             width: max-content;
-            margin: 12px auto 0;
+            margin: 12px 0 0;
         }
 
         body[data-gv-page="home"] #gvHomeMain {
@@ -1239,6 +1248,25 @@
         }
 
         @media (max-width: 767.98px) {
+            /* Mobile: topbar should not pin; remove top offset calculations */
+            :root {
+                --gv-topbar-h: 0px;
+            }
+
+            body[data-gv-page="home"] .gv-home-topbar {
+                position: static;
+            }
+
+            body[data-gv-page="home"] #gvHomeHero {
+                margin-top: 0 !important;
+                height: 100vh;
+                min-height: 100vh;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap {
+                top: 0;
+            }
+
             body[data-gv-page="home"] .gv-home-hero-logo img {
                 height: 52px;
             }
@@ -1250,6 +1278,36 @@
             body[data-gv-page="home"] .gv-home-hero-logo {
                 left: 16px;
                 top: 10px;
+            }
+
+            /* Keep hero text box small + bottom-left on mobile */
+            body[data-gv-page="home"] .gv-home-hero .header-content-card {
+                left: 14px;
+                bottom: 18px;
+                max-width: min(340px, 78vw);
+                padding: 10px 12px;
+                border-radius: 12px;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
+                font-size: 0.9rem;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card h4 {
+                font-size: 1.55rem !important;
+                line-height: 1.1;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card p {
+                font-size: 0.88rem;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .gv-hero-enquiry-btn {
+                padding: 0.35rem 0.8rem !important;
+                font-size: 0.9rem;
             }
 
             body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
