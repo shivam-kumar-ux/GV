@@ -1258,8 +1258,24 @@
 
             body[data-gv-page="home"] #gvHomeHero {
                 margin-top: 0 !important;
-                height: 100vh;
-                min-height: 100vh;
+                height: calc(100vh - 60px) !important;
+                min-height: 520px !important;
+            }
+
+            body[data-gv-page="home"] #gvHomeHero .video-background {
+                display: block !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                z-index: 1 !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero::before {
+                z-index: 2 !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-logo {
+                z-index: 4 !important;
             }
 
             body[data-gv-page="home"] .gv-home-navbar-wrap {
@@ -1281,11 +1297,13 @@
 
             /* Keep hero text box small + bottom-left on mobile */
             body[data-gv-page="home"] .gv-home-hero .header-content-card {
-                left: 14px;
-                bottom: 18px;
-                max-width: min(280px, 72vw);
-                padding: 10px 12px;
-                border-radius: 12px;
+                position: absolute !important;
+                left: 14px !important;
+                bottom: 18px !important;
+                max-width: min(280px, 72vw) !important;
+                padding: 10px 12px !important;
+                border-radius: 12px !important;
+                z-index: 3 !important;
             }
 
             body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
@@ -1318,12 +1336,92 @@
                 padding: 22px 0 24px;
             }
 
-            .gv-welcome-stats-carousel.owl-carousel {
+            /* Let OwlCarousel handle layout/height on mobile to avoid blank/clipping issues */
+            .gv-welcome-stats-carousel:not(.owl-loaded) {
                 display: block !important;
             }
 
+
             .gv-welcome-stat-item {
+                min-height: 190px !important;
+                padding-bottom: 0;
+            }
+
+            /* Mobile: keep stats block visible; avoid display/visibility overrides that can blank it */
+            .gv-welcome-stats {
+                max-height: none !important;
+                overflow: visible !important;
+                /* OwlCarousel sometimes recalculates height after init; prevent clipping */
+                position: relative;
+            }
+
+
+            /* Keep default inner layout; avoid toggling visibility/opacity during Owl init */
+            .gv-welcome-stats-inner {
+                padding-top: 22px !important;
+                padding-bottom: 22px !important;
+            }
+
+
+            /* Avoid visibility/opacity overrides during Owl init */
+            .gv-welcome-stats-carousel {
+                padding-bottom: 54px !important;
+            }
+
+
+            .gv-welcome-stat-icon {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.4rem !important;
+                margin-bottom: 10px !important;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            .gv-welcome-stat-number {
+                font-size: 2.1rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            .gv-welcome-stat-text {
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
+                max-width: 260px !important;
+            }
+
+            /* Ensure Owl nav is displayed beautifully on mobile */
+            .gv-welcome-stats-carousel .owl-nav {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: absolute !important;
+                bottom: 0 !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                gap: 16px !important;
+                z-index: 1000 !important;
+            }
+
+            .gv-welcome-stats-carousel .owl-nav .owl-prev,
+            .gv-welcome-stats-carousel .owl-nav .owl-next {
+                display: inline-flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                width: 42px !important;
+                height: 42px !important;
+                border: 2px solid #fff !important;
+                border-radius: 50% !important;
+                background: rgba(3, 51, 116, 0.85) !important;
+                color: #fff !important;
+                font-size: 1.1rem !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+            }
+
+            .gv-welcome-stats-carousel:not(.owl-loaded) .gv-welcome-stat-item {
                 min-height: 190px;
+                max-height: 190px;
+                overflow: hidden;
             }
 
             body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
@@ -1513,7 +1611,7 @@
             <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
             <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
             <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
-            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enqire now</a>
+            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enquire now</a>
         </div>
         <div class="gv-scroll-hint" aria-hidden="true">
             Scroll to explore
@@ -2744,30 +2842,41 @@
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-            $(".gv-welcome-stats-carousel").owlCarousel({
-                autoplay: true,
-                smartSpeed: 900,
-                autoplayTimeout: 3200,
-                loop: true,
-                dots: false,
-                nav: true,
-                navText: [
-                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-                ],
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2
-                    },
-                    1200: {
-                        items: 4
-                    }
+            $(document).ready(function() {
+                // Disable OwlCarousel only on small screens.
+                // Use a hard breakpoint that matches your CSS media query.
+                if (window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches) {
+                    $(".gv-welcome-stats-carousel").addClass("gv-owl-disabled");
+                    return;
                 }
+
+
+                $(".gv-welcome-stats-carousel").owlCarousel({
+                    autoplay: true,
+                    smartSpeed: 900,
+                    autoplayTimeout: 3200,
+                    loop: true,
+                    dots: false,
+                    nav: true,
+                    navText: [
+                        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                    ],
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        1200: {
+                            items: 4
+                        }
+                    }
+                });
             });
         </script>
+
 
         <!-- Firebase dynamic content -->
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>

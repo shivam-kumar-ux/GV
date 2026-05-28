@@ -48,10 +48,17 @@ var GVPyqAdmin = (function () {
   function bindUploads(root) {
     if (!root) return;
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
-      var containerDiv = inp.closest(".col-md-6, .admin-card-item");
-      var btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
-      var progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
-      var barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
+      var parent = inp.parentElement;
+      var btn = parent ? parent.querySelector(".btn-pyq-upload") : null;
+      var progressBar = parent && parent.nextElementSibling && parent.nextElementSibling.classList.contains("pyq-progress") ? parent.nextElementSibling : null;
+      var barInner = progressBar ? progressBar.querySelector(".pyq-progress-bar") : null;
+
+      if (!btn) {
+        var containerDiv = inp.closest(".col-md-6, .admin-card-item");
+        btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
+        progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
+        barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
+      }
 
       inp.onchange = function () {
         if (btn) btn.disabled = !inp.files[0];
