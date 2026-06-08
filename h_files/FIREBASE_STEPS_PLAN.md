@@ -109,7 +109,7 @@ firebase init
 *   Keep the default filenames: `firestore.rules`, `storage.rules`, `firestore.indexes.json`.
 
 #### 4. Replace & Deploy Rules:
-Make sure your `firestore.rules` and `storage.rules` in your project root match the ones in `GV/firebase/`. Then run:
+Make sure `firebase.json` points to the rules in `GV/firebase/`, then run:
 ```powershell
 firebase deploy --only firestore:rules,storage
 ```

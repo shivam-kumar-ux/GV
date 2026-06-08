@@ -1,5 +1,5 @@
 # Builds js/firebase-config.js from GitHub Secrets, then deploys the full site to gh-pages.
-# After first green run: GitHub → Settings → Pages → Branch: gh-pages → / (root)
+# After first green run: GitHub -> Settings -> Pages -> Branch: gh-pages -> / (root)
 
 name: Deploy to GitHub Pages
 
@@ -30,13 +30,9 @@ jobs:
             if [ -z "${!key}" ]; then missing="$missing $key"; fi
           done
           if [ -n "$missing" ]; then
-            if [ -f js/firebase-config.js ]; then
-              echo "::warning::Secrets are missing, but a pre-built js/firebase-config.js exists. Using the pre-built file."
-            else
-              echo "::error::Missing GitHub Actions secrets:$missing"
-              echo "Add them under: Repo → Settings → Secrets and variables → Actions"
-              exit 1
-            fi
+            echo "::error::Missing GitHub Actions secrets:$missing"
+            echo "Add them under: Repo Settings Secrets and variables Actions"
+            exit 1
           fi
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
@@ -57,11 +53,7 @@ jobs:
           FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
           GV_SUPER_ADMIN_EMAILS: ${{ secrets.GV_SUPER_ADMIN_EMAILS }}
         run: |
-          if [ -n "$FIREBASE_API_KEY" ]; then
-            node scripts/generate-firebase-config.js
-          else
-            echo "Skipping generation: Using pre-existing js/firebase-config.js"
-          fi
+          node scripts/generate-firebase-config.js
           test -f js/firebase-config.js && head -n 3 js/firebase-config.js
 
       - name: Deploy site to gh-pages branch

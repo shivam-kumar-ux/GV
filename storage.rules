@@ -2,33 +2,37 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
+    function isManagedSite(sitePrefix) {
+      return sitePrefix == 'gv-shahpur'
+        || sitePrefix == 'gv-t-dam'
+        || sitePrefix == 'gv-pyq';
+    }
 
     function isAllowedContentType() {
       return request.resource != null
-        && request.resource.contentType.matches('image/.*|application/pdf');
+        && (request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'application/pdf');
     }
 
     function isAllowedSize() {
-      return request.resource != null && request.resource.size < 15 * 1024 * 1024; // 15MB
+      return request.resource != null
+        && request.resource.size > 0
+        && request.resource.size <= 15 * 1024 * 1024;
     }
 
-    // Public files are readable by everyone.
+    // Public website pages must be able to display uploaded images/PDFs.
     allow read: if true;
 
-    // Authenticated users can upload/modify files under gv-* prefixes.
-    // The admin panel itself already enforces approved-staff access via
-    // Firestore rules + client-side auth checks, so we only need to verify
-    // the user is signed in, the path is valid, and the file is safe.
-    // NOTE: The previous firestore.get() cross-service lookup was causing
-    // "storage/unauthorized" errors due to region/latency issues.
-    match /{sitePrefix}/{folder}/{fileName} {
-      allow write: if request.auth != null
-        && sitePrefix.matches('gv-[a-z0-9-]+')
+    // Admin uploads are written below gv-shahpur, gv-t-dam, or gv-pyq.
+    // Firestore rules still control who can save website content after upload.
+    match /{sitePrefix}/{allPaths=**} {
+      allow create, update: if request.auth != null
+        && isManagedSite(sitePrefix)
         && isAllowedContentType()
         && isAllowedSize();
+      allow delete: if false;
     }
 
-    // Default deny for any other paths.
     match /{allPaths=**} {
       allow write: if false;
     }
