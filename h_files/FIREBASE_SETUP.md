@@ -57,7 +57,17 @@ cd GV
 firebase deploy --only firestore:rules,storage
 ```
 
-(Rules files: `GV/firebase/firestore.rules`, `GV/firebase/storage.rules`.)
+Rules files are connected through `firebase.json`:
+
+- Firestore: `GV/firebase/firestore.rules`
+- Storage: `GV/firebase/storage.rules`
+
+If uploads fail with `storage/unauthorized`, deploy Storage rules again:
+
+```bash
+cd GV
+firebase deploy --only storage
+```
 
 ---
 
@@ -71,6 +81,8 @@ firebase deploy --only firestore:rules,storage
 | Staff profiles | Firestore `staffUsers/{uid}` |
 | Staff ID login map | Firestore `staffLoginIndex/{staffId}` |
 | Shahpur files | Storage `gv-shahpur/...` |
+| PYQ files | Storage `gv-pyq/...` |
+| T. Dam files | Storage `gv-t-dam/...` |
 
 ---
 

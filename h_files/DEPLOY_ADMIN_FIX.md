@@ -21,7 +21,9 @@ Repo → **Settings** → **Secrets and variables** → **Actions** → **New re
 | `FIREBASE_MESSAGING_SENDER_ID` | messagingSenderId |
 | `FIREBASE_APP_ID` | appId |
 | `FIREBASE_MEASUREMENT_ID` | measurementId (optional) |
-| `GV_SUPER_ADMIN_EMAILS` | `shivamkumar174440@gmail.com` |
+| `GV_SUPER_ADMIN_EMAILS` | your admin email, for example `your-email@example.com` |
+
+Do not commit `js/firebase-config.js`. It is ignored locally and generated during GitHub Pages deployment from these GitHub Actions secrets.
 
 Names must match **exactly** (case-sensitive).
 
