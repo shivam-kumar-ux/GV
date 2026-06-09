@@ -956,7 +956,7 @@
       return;
     }
     syncAllFromForms();
-    GVFirebase.saveSiteContent(content).then(function () {
+    GVFirebase.saveSiteContent(content, activeSite).then(function () {
       toast("All changes saved! Website will update on refresh.");
       var info = document.getElementById("lastSavedInfo");
       if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
@@ -977,7 +977,7 @@
     document.getElementById("btnSeedData").onclick = function () {
       if (!confirm("Import default website data to Firebase? This overwrites Firestore content.")) return;
       content = deepClone(GV_DEFAULT_CONTENT);
-      GVFirebase.saveSiteContent(content).then(function () {
+      GVFirebase.saveSiteContent(content, activeSite).then(function () {
         toast("Website data imported.");
         renderAll();
       });
@@ -1223,8 +1223,10 @@
         return GVFirebase.loadSiteContent("pyq");
       }).then(function (pyqC) {
         GVPyqAdmin.setContent(deepClone(pyqC));
+        GVFirebase.setActiveSite(activeSite);
       }).catch(function () {
         GVPyqAdmin.setContent(deepClone(window.GV_PYQ_DEFAULT_CONTENT || { papers: [], examDetails: {}, exams: [] }));
+        GVFirebase.setActiveSite(activeSite);
       });
     });
   }

@@ -19,7 +19,7 @@
       global.firebase.initializeApp(global.GV_FIREBASE_CONFIG);
     }
     db = global.firebase.firestore();
-    auth = global.firebase.auth();
+    auth = typeof global.firebase.auth === "function" ? global.firebase.auth() : null;
     storage = getStorageInstance();
     return true;
   }
@@ -254,6 +254,8 @@
   }
 
   function signIn(loginId, password) {
+    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    if (!auth) return Promise.reject(new Error("Firebase Auth is not loaded on this page."));
     return resolveEmailFromLoginId(loginId).then(function (email) {
       return auth.signInWithEmailAndPassword(email, password);
     });
@@ -267,6 +269,10 @@
 
   function onAuthChanged(cb) {
     if (!initFirebase()) {
+      cb(null);
+      return function () { };
+    }
+    if (!auth) {
       cb(null);
       return function () { };
     }
@@ -339,6 +345,8 @@
   }
 
   function requireApprovedUser() {
+    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    if (!auth) return Promise.reject(new Error("Firebase Auth is not loaded on this page."));
     return auth.currentUser
       ? getStaffProfile().then(function (p) {
         if (!p) throw new Error("Staff profile missing. Contact administrator.");
