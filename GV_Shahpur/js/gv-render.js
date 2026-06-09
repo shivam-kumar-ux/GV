@@ -41,12 +41,17 @@
     var list = global.GV_CONTENT.achievers;
     var html = "";
     list.forEach(function (s, i) {
-      var details = (s.details || []).map(function (d) {
+      var detailList = Array.isArray(s.details) ? s.details : [];
+      var labels = {};
+      detailList.forEach(function (d) {
+        labels[String(d.label || "").trim().toLowerCase()] = true;
+      });
+      var details = detailList.map(function (d) {
         return "<p><strong>" + esc(d.label) + ":</strong> " + esc(d.value) + "</p>";
       }).join("");
-      if (!details && s.exam) details = "<p><strong>Exam:</strong> " + esc(s.exam) + "</p>";
-      if (s.rank) details += "<p><strong>Rank:</strong> " + esc(s.rank) + "</p>";
-      if (s.class) details += "<p><strong>Class:</strong> " + esc(s.class) + "</p>";
+      if (s.exam && !labels.exam) details += "<p><strong>Exam:</strong> " + esc(s.exam) + "</p>";
+      if (s.rank && !labels.rank) details += "<p><strong>Rank:</strong> " + esc(s.rank) + "</p>";
+      if (s.class && !labels.class) details += "<p><strong>Class:</strong> " + esc(s.class) + "</p>";
       html += '<div class="student-slide"><div class="student-card">' +
         '<img src="' + esc(s.photo) + '" alt="' + esc(s.name) + '">' +
         '<div class="student-overlay"><div class="student-info">' +

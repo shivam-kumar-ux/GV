@@ -8,28 +8,17 @@ service firebase.storage {
         || sitePrefix == 'gv-pyq';
     }
 
-    function isAllowedContentType() {
-      return request.resource != null
-        && (request.resource.contentType.matches('image/.*')
-          || request.resource.contentType == 'application/pdf');
-    }
-
-    function isAllowedSize() {
-      return request.resource != null
-        && request.resource.size > 0
-        && request.resource.size <= 15 * 1024 * 1024;
-    }
-
     // Public website pages must be able to display uploaded images/PDFs.
     allow read: if true;
 
     // Admin uploads are written below gv-shahpur, gv-t-dam, or gv-pyq.
     // Firestore rules still control who can save website content after upload.
+    // File type/size are validated by the admin client before upload; keeping
+    // Storage rules focused on auth + managed folders avoids blocking resumable
+    // browser uploads before metadata is available.
     match /{sitePrefix}/{allPaths=**} {
       allow create, update: if request.auth != null
-        && isManagedSite(sitePrefix)
-        && isAllowedContentType()
-        && isAllowedSize();
+        && isManagedSite(sitePrefix);
       allow delete: if false;
     }
 
