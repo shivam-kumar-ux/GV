@@ -42,11 +42,18 @@ jobs:
           node scripts/generate-firebase-config.js
           test -f js/firebase-config.js
 
+      - name: Prepare publish folder
+        run: |
+          mkdir -p _site
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name _site -exec cp -R {} _site/ \;
+          rm -f _site/.gitignore
+          test -f _site/js/firebase-config.js
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: ./_site
           force_orphan: true
           commit_message: "Sync public site from Firestore"
