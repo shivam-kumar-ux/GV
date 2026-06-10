@@ -87,12 +87,15 @@
   }
 
   function publishAfterUpload() {
-    if (activeSite === "pyq") {
+    // Snapshot the active site at the moment of publish so any async PYQ load
+    // in boot() cannot change the target while we are saving.
+    var siteAtPublish = activeSite;
+    if (siteAtPublish === "pyq") {
       GVPyqAdmin.syncAll();
       return GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq");
     }
     syncAllFromForms();
-    return GVFirebase.saveSiteContent(content, activeSite);
+    return GVFirebase.saveSiteContent(content, siteAtPublish);
   }
 
   function bindFileUploads(container) {
