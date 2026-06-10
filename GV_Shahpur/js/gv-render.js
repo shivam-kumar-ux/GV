@@ -37,8 +37,20 @@
 
   function renderAchievers(trackId) {
     var track = document.getElementById(trackId || "studentSlider");
-    if (!track || !global.GV_CONTENT || !global.GV_CONTENT.achievers) return;
+    if (!track) return;
+    // Always clear the hardcoded static HTML fallback first so stale content
+    // never persists if Firestore returns data.
+    if (!global.GV_CONTENT || !global.GV_CONTENT.achievers) {
+      // Show a loading placeholder to replace any static HTML while we wait.
+      track.innerHTML = '<div class="student-slide" style="min-width:200px;text-align:center;padding:40px 20px;color:#888;">' +
+        '<i class="fa fa-spinner fa-spin fa-2x"></i><p style="margin-top:8px;font-size:0.85rem;">Loading achievers…</p></div>';
+      return;
+    }
     var list = global.GV_CONTENT.achievers;
+    if (!list.length) {
+      // Firestore returned an empty achievers array — keep whatever static HTML is there.
+      return;
+    }
     var html = "";
     list.forEach(function (s, i) {
       var detailList = Array.isArray(s.details) ? s.details : [];
@@ -260,6 +272,17 @@
   }
 
   function init() {
+    // Show loading placeholders immediately so hardcoded static HTML is replaced
+    // before Firestore data arrives. This prevents stale static achievers from
+    // showing while the dynamic data loads.
+    var track = document.getElementById("studentSlider");
+    if (track) {
+      track.innerHTML =
+        '<div class="student-slide" style="min-width:200px;text-align:center;padding:40px 20px;color:#888;">' +
+        '<i class="fa fa-spinner fa-spin fa-2x"></i>' +
+        '<p style="margin-top:8px;font-size:0.85rem;">Loading achievers…</p></div>';
+    }
+
     var ready = global.GV_CONTENT_READY || global.GVFirebase.loadSiteContent();
     ready.then(function () {
       runPageRenders();

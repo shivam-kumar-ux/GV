@@ -68,9 +68,30 @@
   function ensureAuthForUpload() {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
     if (!auth) return Promise.reject(new Error("Firebase Auth is not loaded on this page."));
-    var user = auth.currentUser;
-    if (!user) return Promise.reject(new Error("Not signed in. Log out and log in again before uploading."));
-    return user.getIdToken(true).then(function () { return user; });
+
+    // Wait for Firebase Auth to finish its internal initialization before reading
+    // currentUser — avoids a race where currentUser is null briefly on page load.
+    return new Promise(function (resolve, reject) {
+      // onAuthStateChanged fires once immediately with the current user (or null),
+      // which is exactly what we need here.
+      var unsubscribe = auth.onAuthStateChanged(function (user) {
+        unsubscribe(); // call once only
+        if (!user) {
+          reject(new Error("Your session has expired. Please log out and log in again before uploading."));
+          return;
+        }
+        // Force-refresh the ID token so Firebase Storage receives a valid JWT.
+        // This is the critical step that fixes storage/unauthorized on long sessions.
+        user.getIdToken(/* forceRefresh= */ true)
+          .then(function () { resolve(user); })
+          .catch(function (err) {
+            reject(new Error(
+              "Could not refresh your session token. Please log out and log in again. (" +
+              (err && err.code || String(err)) + ")"
+            ));
+          });
+      }, reject);
+    });
   }
 
   function getSiteConfig(siteId) {
@@ -81,6 +102,21 @@
   function setActiveSite(siteId) {
     if (getSiteConfig(siteId)) activeSiteId = siteId;
     global.GV_ACTIVE_SITE = activeSiteId;
+  }
+
+  // Proactively refresh the Firebase Auth ID token every 50 minutes so
+  // admin sessions that stay open longer than 1 hour do not hit
+  // storage/unauthorized on the next upload.
+  var _tokenRefreshInterval = null;
+  function startTokenAutoRefresh() {
+    if (_tokenRefreshInterval) return; // already running
+    _tokenRefreshInterval = setInterval(function () {
+      if (auth && auth.currentUser) {
+        auth.currentUser.getIdToken(/* forceRefresh= */ true).catch(function (err) {
+          console.warn("GV: background token refresh failed:", err && err.code);
+        });
+      }
+    }, 50 * 60 * 1000); // every 50 minutes
   }
 
   function contentDocId() {
@@ -276,7 +312,13 @@
       cb(null);
       return function () { };
     }
-    return auth.onAuthStateChanged(cb);
+    return auth.onAuthStateChanged(function (user) {
+      if (user) {
+        // Start proactive token refresh to keep the session alive for uploads.
+        startTokenAutoRefresh();
+      }
+      cb(user);
+    });
   }
 
   function getStaffProfile(uid) {
@@ -405,6 +447,7 @@
     listStaffByStatus: listStaffByStatus,
     updateStaffStatus: updateStaffStatus,
     setStaffRole: setStaffRole,
+    startTokenAutoRefresh: startTokenAutoRefresh,
     getDb: function () { return db; }
   };
 
