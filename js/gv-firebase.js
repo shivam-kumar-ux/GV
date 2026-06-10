@@ -206,7 +206,11 @@
     }
 
     return ensureAuthForUpload().then(function () {
-      var st = getStorageInstance();
+      // Use the module-level storage instance (bound to the same Firebase app and
+      // auth session as the refreshed token). Calling getStorageInstance() here
+      // would create a new instance that may not have the refreshed credentials.
+      if (!storage) storage = getStorageInstance();
+      var st = storage;
       if (!st) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
 
       var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
