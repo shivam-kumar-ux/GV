@@ -80,35 +80,41 @@
           var lines = [];
           function log(s) { lines.push(s); el.innerHTML = lines.join('<br>'); }
           lines = [];
-          // 1. Auth state
           var fbAuth = window.firebase && firebase.auth && firebase.auth();
           if (!fbAuth) { log('❌ firebase.auth() not available'); return; }
           var user = fbAuth.currentUser;
           log('Auth user: ' + (user ? '✅ ' + user.email : '❌ null'));
           if (!user) { log('→ Not signed in — uploads will fail'); return; }
-          // 2. Token refresh
           user.getIdToken(true).then(function(tok) {
             log('Token refresh: ✅ OK (length ' + tok.length + ')');
-            // 3. Storage instance
-            var st = window.firebase && firebase.storage && firebase.storage();
-            if (!st) { log('❌ firebase.storage() not available'); return; }
-            var bucket = st.app.options.storageBucket;
-            log('Storage bucket: ' + bucket);
-            // 4. Try a tiny test write
-            var testRef = st.ref('gv-shahpur/.diag-test-' + Date.now() + '.txt');
-            var blob = new Blob(['ok'], {type:'text/plain'});
-            testRef.put(blob).then(function() {
-              log('Test write: ✅ SUCCESS — rules allow write');
+            // Test BOTH buckets
+            var projectId = (window.GV_FIREBASE_CONFIG || {}).projectId || 'gyanoday-vidyalaya';
+            var legacyBucket = projectId + '.appspot.com';
+            var newBucket = projectId + '.firebasestorage.app';
+            log('Testing appspot bucket…');
+            var stLegacy = firebase.app().storage('gs://' + legacyBucket);
+            var testRef = stLegacy.ref('gv-shahpur/.diag-' + Date.now() + '.txt');
+            testRef.put(new Blob(['ok'],{type:'text/plain'})).then(function(){
+              log('appspot write: ✅ SUCCESS');
               testRef.delete().catch(function(){});
-            }).catch(function(err) {
-              log('Test write: ❌ ' + (err.code || err.message));
-              log('→ Rule issue confirmed. Code: ' + err.code);
+              log('→ Upload fix applied. Use appspot bucket.');
+            }).catch(function(err){
+              log('appspot write: ❌ ' + err.code);
+              log('Testing firebasestorage.app bucket…');
+              var stNew = firebase.app().storage('gs://' + newBucket);
+              var ref2 = stNew.ref('gv-shahpur/.diag-' + Date.now() + '.txt');
+              ref2.put(new Blob(['ok'],{type:'text/plain'})).then(function(){
+                log('firebasestorage.app write: ✅ SUCCESS');
+                ref2.delete().catch(function(){});
+              }).catch(function(e2){
+                log('firebasestorage.app write: ❌ ' + e2.code);
+                log('→ Both buckets blocked. Check Firebase Console → Storage → Rules');
+              });
             });
           }).catch(function(err) {
             log('Token refresh: ❌ ' + err.message);
           });
         }
-        // Auto-run after 3 seconds so Firebase is fully loaded
         setTimeout(function() {
           var diag = document.getElementById('gvUploadDiag');
           if (diag) diag.style.display = 'block';
@@ -141,6 +147,17 @@
                 </div>
             </div>
             <p class="small text-muted shahpur-only" id="lastSavedInfo"></p>
+
+            <!-- Update History Panel -->
+            <div class="mt-4 shahpur-only">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="font-weight-bold mb-0"><i class="fa fa-history mr-2 text-primary"></i>Recent Updates</h6>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="renderUpdateHistory()"><i class="fa fa-sync-alt mr-1"></i>Refresh</button>
+                </div>
+                <div style="background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:14px 16px;max-height:400px;overflow-y:auto;" id="updateHistoryList">
+                    <p class="text-muted small"><i class="fa fa-spinner fa-spin mr-1"></i>Loading history…</p>
+                </div>
+            </div>
         </section>
 
         <section class="admin-section admin-only-sec" id="sec-staff">

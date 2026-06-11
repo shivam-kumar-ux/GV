@@ -27,14 +27,21 @@
   function getStorageInstance() {
     if (!isConfigured() || typeof global.firebase.storage !== "function") return null;
     try {
-      // Use the default storage instance — it automatically reads storageBucket
-      // from the config passed to firebase.initializeApp(). Passing an explicit
-      // gs:// URL to app.storage(bucket) breaks cross-service Firestore lookups
-      // inside Storage security rules on newer Firebase domains.
-      return global.firebase.storage();
+      // Explicitly use the legacy .appspot.com bucket which has reliable
+      // security rule enforcement on all Firebase plans. The newer
+      // .firebasestorage.app bucket requires Blaze plan for rules to work
+      // correctly with browser resumable uploads.
+      var cfg = global.GV_FIREBASE_CONFIG;
+      var legacyBucket = cfg.projectId + ".appspot.com";
+      return global.firebase.app().storage("gs://" + legacyBucket);
     } catch (e) {
-      console.error("GV: Could not create Storage instance:", e);
-      return null;
+      console.warn("GV: Could not get legacy storage bucket, falling back to default:", e.message);
+      try {
+        return global.firebase.storage();
+      } catch (e2) {
+        console.error("GV: Could not create Storage instance:", e2);
+        return null;
+      }
     }
   }
 
@@ -188,6 +195,48 @@
     if (siteId) setActiveSite(siteId);
     content.updatedAt = global.firebase.firestore.FieldValue.serverTimestamp();
     return db.collection("siteContent").doc(contentDocId()).set(content, { merge: false });
+  }
+
+  /**
+   * Log an admin update to the siteUpdates collection for the update history panel.
+   * @param {string} staffName  - Display name of the staff member
+   * @param {string} staffId    - Staff ID
+   * @param {string} section    - Which section was updated (e.g. "Achievers", "Programs")
+   * @param {string} detail     - Brief description of what changed
+   * @param {string} siteId     - Site identifier
+   */
+  function logSiteUpdate(staffName, staffId, section, detail, siteId) {
+    if (!initFirebase()) return Promise.resolve();
+    var site = siteId || activeSiteId;
+    return db.collection("siteUpdates").add({
+      staffName: staffName || "Unknown",
+      staffId: staffId || "",
+      section: section || "General",
+      detail: detail || "",
+      site: site,
+      timestamp: global.firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function (e) {
+      console.warn("GV: Could not log update:", e.message);
+    });
+  }
+
+  /**
+   * Fetch the most recent site update entries.
+   * @param {number} limit - Max entries to fetch (default 20)
+   */
+  function getRecentUpdates(limit) {
+    if (!initFirebase()) return Promise.resolve([]);
+    return db.collection("siteUpdates")
+      .orderBy("timestamp", "desc")
+      .limit(limit || 20)
+      .get()
+      .then(function (snap) {
+        var list = [];
+        snap.forEach(function (doc) {
+          list.push(Object.assign({ id: doc.id }, doc.data()));
+        });
+        return list;
+      });
   }
 
   function uploadFile(file, folder, siteId, onProgress) {
@@ -438,6 +487,8 @@
     getSiteConfig: getSiteConfig,
     loadSiteContent: loadSiteContent,
     saveSiteContent: saveSiteContent,
+    logSiteUpdate: logSiteUpdate,
+    getRecentUpdates: getRecentUpdates,
     uploadFile: uploadFile,
     signIn: signIn,
     signUpStaff: signUpStaff,

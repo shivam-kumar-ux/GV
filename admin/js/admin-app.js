@@ -86,16 +86,32 @@
     };
   }
 
-  function publishAfterUpload() {
+  function publishAfterUpload(sectionName, detail) {
     // Snapshot the active site at the moment of publish so any async PYQ load
     // in boot() cannot change the target while we are saving.
     var siteAtPublish = activeSite;
     if (siteAtPublish === "pyq") {
       GVPyqAdmin.syncAll();
-      return GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq");
+      return GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq").then(function () {
+        return GVFirebase.logSiteUpdate(
+          sessionProfile ? sessionProfile.name : "Admin",
+          sessionProfile ? sessionProfile.staffId : "",
+          sectionName || "PYQ",
+          detail || "File uploaded and content saved",
+          "pyq"
+        );
+      });
     }
     syncAllFromForms();
-    return GVFirebase.saveSiteContent(content, siteAtPublish);
+    return GVFirebase.saveSiteContent(content, siteAtPublish).then(function () {
+      return GVFirebase.logSiteUpdate(
+        sessionProfile ? sessionProfile.name : "Admin",
+        sessionProfile ? sessionProfile.staffId : "",
+        sectionName || "Content",
+        detail || "File uploaded and content saved",
+        siteAtPublish
+      );
+    });
   }
 
   function bindFileUploads(container) {
@@ -147,12 +163,17 @@
               target.dispatchEvent(new Event("change", { bubbles: true }));
             }
             if (ui.barInner) ui.barInner.textContent = "Saving…";
-            return publishAfterUpload();
+            // Determine which section this upload belongs to for the update log
+            var sectionEl = inp.closest(".admin-section");
+            var sectionName = sectionEl ? (sectionEl.getAttribute("id") || "").replace("sec-", "") : "content";
+            sectionName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+            return publishAfterUpload(sectionName, "Image/file uploaded: " + (file.name || "file"));
           }).then(function () {
             if (ui.barInner) ui.barInner.textContent = "Done";
             toast("File uploaded and saved. Refresh the public website to see changes.");
             var info = document.getElementById("lastSavedInfo");
             if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
+            renderUpdateHistory();
           }).catch(function (e) {
             console.error("GV upload error:", e);
             if (ui.barInner) {
@@ -947,10 +968,24 @@
   function saveAll() {
     var btn = document.getElementById("btnSaveAll");
     btn.disabled = true;
+    // Determine which section is currently active for the update log
+    var activeSection = document.querySelector(".admin-section.active");
+    var sectionName = activeSection ? (activeSection.getAttribute("id") || "").replace("sec-", "") : "Content";
+    sectionName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+
     if (activeSite === "pyq") {
       GVPyqAdmin.syncAll();
       GVFirebase.saveSiteContent(GVPyqAdmin.getContent(), "pyq").then(function () {
         toast("PYQ Hub saved! Refresh the public PYQ page to see updates.");
+        return GVFirebase.logSiteUpdate(
+          sessionProfile ? sessionProfile.name : "Admin",
+          sessionProfile ? sessionProfile.staffId : "",
+          sectionName,
+          "Manual save — PYQ content updated",
+          "pyq"
+        );
+      }).then(function () {
+        renderUpdateHistory();
       }).catch(function (e) {
         toast(e.message, "danger");
       }).finally(function () {
@@ -963,10 +998,64 @@
       toast("All changes saved! Website will update on refresh.");
       var info = document.getElementById("lastSavedInfo");
       if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
+      return GVFirebase.logSiteUpdate(
+        sessionProfile ? sessionProfile.name : "Admin",
+        sessionProfile ? sessionProfile.staffId : "",
+        sectionName,
+        "Manual save — " + sectionName + " section updated",
+        activeSite
+      );
+    }).then(function () {
+      renderUpdateHistory();
     }).catch(function (e) {
       toast(e.message, "danger");
     }).finally(function () {
       btn.disabled = false;
+    });
+  }
+
+  /* ---------- Update History ---------- */
+  function renderUpdateHistory() {
+    var box = document.getElementById("updateHistoryList");
+    if (!box) return;
+    box.innerHTML = '<p class="text-muted small"><i class="fa fa-spinner fa-spin mr-1"></i>Loading history…</p>';
+    GVFirebase.getRecentUpdates(15).then(function (items) {
+      if (!items.length) {
+        box.innerHTML = '<p class="text-muted small">No updates recorded yet. Changes will appear here after the first save.</p>';
+        return;
+      }
+      var html = '';
+      items.forEach(function (item) {
+        var ts = item.timestamp;
+        var dateStr = "—";
+        if (ts && ts.toDate) {
+          var d = ts.toDate();
+          dateStr = d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) +
+            " " + d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+        }
+        var sectionIcon = {
+          "Achievers": "fa-trophy", "Programs": "fa-book", "Results": "fa-chart-line",
+          "Youtube": "fab fa-youtube", "Instagram": "fab fa-instagram", "Facebook": "fab fa-facebook-f",
+          "Memories": "fa-images", "Notices": "fa-bell", "Blog": "fa-newspaper",
+          "Hostel": "fa-utensils", "Disclosure": "fa-file-pdf", "Testimonials": "fa-comment-dots",
+          "Pyq": "fa-graduation-cap", "Staff": "fa-users-cog"
+        }[item.section] || "fa-edit";
+        html += '<div class="d-flex align-items-start py-2" style="border-bottom:1px solid #f0f0f0;">' +
+          '<div style="width:32px;height:32px;border-radius:50%;background:#e8f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;">' +
+          '<i class="fa ' + sectionIcon + ' text-primary" style="font-size:13px;"></i></div>' +
+          '<div style="flex:1;min-width:0;">' +
+          '<div class="d-flex justify-content-between align-items-center">' +
+          '<strong style="font-size:13px;">' + (item.section || "Content") + '</strong>' +
+          '<span class="text-muted" style="font-size:11px;white-space:nowrap;margin-left:8px;">' + dateStr + '</span>' +
+          '</div>' +
+          '<div style="font-size:12px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (item.detail || "") + '</div>' +
+          '<div style="font-size:11px;color:#888;"><i class="fa fa-user mr-1"></i>' + (item.staffName || "Admin") +
+          (item.staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + item.staffId + '</span>' : '') + '</div>' +
+          '</div></div>';
+      });
+      box.innerHTML = html;
+    }).catch(function () {
+      box.innerHTML = '<p class="text-muted small">Could not load update history.</p>';
     });
   }
 
@@ -1223,6 +1312,7 @@
         initNav();
         initButtons();
         renderAll();
+        renderUpdateHistory();
         return GVFirebase.loadSiteContent("pyq");
       }).then(function (pyqC) {
         GVPyqAdmin.setContent(deepClone(pyqC));
