@@ -5,7 +5,14 @@
     "rules": "firebase/firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "storage": {
-    "rules": "firebase/storage.rules"
-  }
+  "storage": [
+    {
+      "bucket": "gyanoday-vidyalaya.firebasestorage.app",
+      "rules": "firebase/storage.rules"
+    },
+    {
+      "bucket": "gyanoday-vidyalaya.appspot.com",
+      "rules": "firebase/storage.rules"
+    }
+  ]
 }
