@@ -197,47 +197,42 @@
     return db.collection("siteContent").doc(contentDocId()).set(content, { merge: false });
   }
 
-  /**
-   * Log an admin update to the siteUpdates collection for the update history panel.
-   * @param {string} staffName  - Display name of the staff member
-   * @param {string} staffId    - Staff ID
-   * @param {string} section    - Which section was updated (e.g. "Achievers", "Programs")
-   * @param {string} detail     - Brief description of what changed
-   * @param {string} siteId     - Site identifier
-   */
-  function logSiteUpdate(staffName, staffId, section, detail, siteId) {
+  function logSiteUpdate(editorName, editorStaffId, section, detail, siteId) {
     if (!initFirebase()) return Promise.resolve();
     var site = siteId || activeSiteId;
-    return db.collection("siteUpdates").add({
-      staffName: staffName || "Unknown",
-      staffId: staffId || "",
-      section: section || "General",
-      detail: detail || "",
+    var entry = {
+      editorName: editorName || "Admin",
+      editorStaffId: editorStaffId || "",
+      section: section || "Content",
+      detail: detail || "Content updated",
       site: site,
       timestamp: global.firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function (e) {
-      console.warn("GV: Could not log update:", e.message);
+    };
+    return db.collection("updateLogs").add(entry).catch(function (e) {
+      // Non-fatal — log to console but don't block the save workflow.
+      console.warn("GV: Could not write update log:", e && e.message);
     });
   }
 
-  /**
-   * Fetch the most recent site update entries.
-   * @param {number} limit - Max entries to fetch (default 20)
-   */
-  function getRecentUpdates(limit) {
+  function getUpdateLogs(siteId, limit) {
     if (!initFirebase()) return Promise.resolve([]);
-    return db.collection("siteUpdates")
+    var site = siteId || activeSiteId;
+    return db.collection("updateLogs")
+      .where("site", "==", site)
       .orderBy("timestamp", "desc")
-      .limit(limit || 20)
+      .limit(limit || 30)
       .get()
       .then(function (snap) {
-        var list = [];
+        var logs = [];
         snap.forEach(function (doc) {
-          list.push(Object.assign({ id: doc.id }, doc.data()));
+          logs.push(Object.assign({ id: doc.id }, doc.data()));
         });
-        return list;
-      });
+        return logs;
+      })
+      .catch(function () { return []; });
   }
+
+
 
   function uploadFile(file, folder, siteId, onProgress) {
     if (typeof siteId === "function") {
@@ -488,7 +483,7 @@
     loadSiteContent: loadSiteContent,
     saveSiteContent: saveSiteContent,
     logSiteUpdate: logSiteUpdate,
-    getRecentUpdates: getRecentUpdates,
+    getUpdateLogs: getUpdateLogs,
     uploadFile: uploadFile,
     signIn: signIn,
     signUpStaff: signUpStaff,

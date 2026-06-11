@@ -1018,9 +1018,10 @@
   function renderUpdateHistory() {
     var box = document.getElementById("updateHistoryList");
     if (!box) return;
+    var site = activeSite || "shahpur";
     box.innerHTML = '<p class="text-muted small"><i class="fa fa-spinner fa-spin mr-1"></i>Loading history…</p>';
-    GVFirebase.getRecentUpdates(15).then(function (items) {
-      if (!items.length) {
+    GVFirebase.getUpdateLogs(site, 30).then(function (items) {
+      if (!items || !items.length) {
         box.innerHTML = '<p class="text-muted small">No updates recorded yet. Changes will appear here after the first save.</p>';
         return;
       }
@@ -1028,8 +1029,8 @@
       items.forEach(function (item) {
         var ts = item.timestamp;
         var dateStr = "—";
-        if (ts && ts.toDate) {
-          var d = ts.toDate();
+        if (ts) {
+          var d = ts.toDate ? ts.toDate() : new Date(ts.seconds ? ts.seconds * 1000 : ts);
           dateStr = d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) +
             " " + d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
         }
@@ -1038,8 +1039,10 @@
           "Youtube": "fab fa-youtube", "Instagram": "fab fa-instagram", "Facebook": "fab fa-facebook-f",
           "Memories": "fa-images", "Notices": "fa-bell", "Blog": "fa-newspaper",
           "Hostel": "fa-utensils", "Disclosure": "fa-file-pdf", "Testimonials": "fa-comment-dots",
-          "Pyq": "fa-graduation-cap", "Staff": "fa-users-cog"
+          "Pyq": "fa-graduation-cap", "PYQ": "fa-graduation-cap", "Staff": "fa-users-cog"
         }[item.section] || "fa-edit";
+        var staffName = item.editorName || item.staffName || "Admin";
+        var staffId = item.editorStaffId || item.staffId || "";
         html += '<div class="d-flex align-items-start py-2" style="border-bottom:1px solid #f0f0f0;">' +
           '<div style="width:32px;height:32px;border-radius:50%;background:#e8f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;">' +
           '<i class="fa ' + sectionIcon + ' text-primary" style="font-size:13px;"></i></div>' +
@@ -1048,9 +1051,9 @@
           '<strong style="font-size:13px;">' + (item.section || "Content") + '</strong>' +
           '<span class="text-muted" style="font-size:11px;white-space:nowrap;margin-left:8px;">' + dateStr + '</span>' +
           '</div>' +
-          '<div style="font-size:12px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (item.detail || "") + '</div>' +
-          '<div style="font-size:11px;color:#888;"><i class="fa fa-user mr-1"></i>' + (item.staffName || "Admin") +
-          (item.staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + item.staffId + '</span>' : '') + '</div>' +
+          '<div style="font-size:12px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (item.detail || item.description || "") + '</div>' +
+          '<div style="font-size:11px;color:#888;"><i class="fa fa-user mr-1"></i>' + staffName +
+          (staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + staffId + '</span>' : '') + '</div>' +
           '</div></div>';
       });
       box.innerHTML = html;
@@ -1279,6 +1282,10 @@
 
     document.getElementById("linkViewSite").href = cfg.publicPath + "index.html";
   }
+
+  // Expose renderUpdateHistory globally so the Refresh button's onclick works.
+  window.renderUpdateHistory = renderUpdateHistory;
+
 
   function boot() {
     if (window.location.protocol === "file:") {

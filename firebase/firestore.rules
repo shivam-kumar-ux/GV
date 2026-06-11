@@ -24,6 +24,12 @@ service cloud.firestore {
       allow write: if isApprovedStaff();
     }
 
+    // Admin update history logs
+    match /updateLogs/{logId} {
+      allow read: if isApprovedStaff();
+      allow create: if isApprovedStaff();
+    }
+
     // Update history — any approved staff can write, admin can read all
     match /siteUpdates/{updateId} {
       allow read: if isApprovedStaff();
