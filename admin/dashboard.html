@@ -16,6 +16,11 @@
         <div class="brand">
             <img src="../GV_Shahpur/img/H_logo.png" alt="GV">
             <h6>GV Admin Portal</h6>
+            <!-- Dark / Light mode toggle — sidebar, below logo -->
+            <button class="admin-sidebar-theme-btn" id="adminSidebarThemeBtn" title="Switch to Dark Mode" aria-label="Switch to Dark Mode">
+                <i class="fa fa-moon"></i>
+                <span id="adminSidebarThemeBtnLabel">Dark Mode</span>
+            </button>
         </div>
         <div class="px-3 py-2">
             <label class="small text-white-50 mb-1">Website</label>
@@ -26,7 +31,7 @@
             <a href="#" class="admin-nav-link admin-only-nav d-none" data-section="staff"><i class="fa fa-users-cog"></i> Staff Approvals</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="achievers"><i class="fa fa-trophy"></i> Achievers</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="programs"><i class="fa fa-book"></i> Programs</a>
-            <a href="#" class="admin-nav-link shahpur-section" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
+            <a href="#" class="admin-nav-link shahpur-section superadmin-only-nav" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="youtube"><i class="fab fa-youtube"></i> Videos</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="instagram"><i class="fab fa-instagram"></i> Instagram</a>
             <a href="#" class="admin-nav-link shahpur-section" data-section="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
@@ -185,7 +190,7 @@
             <div id="programsList"></div>
             <button class="btn btn-outline-primary btn-sm" id="btnAddProgram"><i class="fa fa-plus mr-1"></i>Add Program</button>
         </section>
-        <section class="admin-section shahpur-sec" id="sec-results">
+        <section class="admin-section shahpur-sec superadmin-only-sec" id="sec-results">
             <div class="form-row mb-3">
                 <div class="col-md-4"><label>Year</label><select class="form-control" id="resultsYearSelect"></select></div>
                 <div class="col-md-8 d-flex align-items-end">
@@ -330,8 +335,11 @@
     /* ── Dark / Light mode toggle ── */
     (function () {
       var KEY = 'gv-theme';
+      // Top-bar button (topbar)
       var btn = document.getElementById('adminThemeBtn');
-      if (!btn) return;
+      // Sidebar button (below logo)
+      var sideBtn = document.getElementById('adminSidebarThemeBtn');
+      var sideBtnLabel = document.getElementById('adminSidebarThemeBtnLabel');
 
       function isDark() {
         return document.documentElement.getAttribute('data-theme') === 'dark';
@@ -345,29 +353,37 @@
           document.documentElement.removeAttribute('data-theme');
           localStorage.setItem(KEY, 'light');
         }
-        updateBtn();
+        updateBtns();
       }
 
-      function updateBtn() {
-        var icon = btn.querySelector('i');
-        if (!icon) return;
-        if (isDark()) {
-          icon.className = 'fa fa-sun';
-          btn.title = 'Switch to Light Mode';
-          btn.setAttribute('aria-label', 'Switch to Light Mode');
-        } else {
-          icon.className = 'fa fa-moon';
-          btn.title = 'Switch to Dark Mode';
-          btn.setAttribute('aria-label', 'Switch to Dark Mode');
+      function updateBtns() {
+        var dark = isDark();
+        // Update top-bar button
+        if (btn) {
+          var icon = btn.querySelector('i');
+          if (icon) icon.className = dark ? 'fa fa-sun' : 'fa fa-moon';
+          btn.title = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+          btn.setAttribute('aria-label', dark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+        }
+        // Update sidebar button
+        if (sideBtn) {
+          var sIcon = sideBtn.querySelector('i');
+          if (sIcon) sIcon.className = dark ? 'fa fa-sun' : 'fa fa-moon';
+          if (sideBtnLabel) sideBtnLabel.textContent = dark ? 'Light Mode' : 'Dark Mode';
+          sideBtn.title = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+          sideBtn.setAttribute('aria-label', dark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
         }
       }
 
-      btn.addEventListener('click', function () {
-        applyTheme(!isDark());
-      });
+      if (btn) {
+        btn.addEventListener('click', function () { applyTheme(!isDark()); });
+      }
+      if (sideBtn) {
+        sideBtn.addEventListener('click', function () { applyTheme(!isDark()); });
+      }
 
-      // Sync icon with whatever theme was applied on load
-      updateBtn();
+      // Sync icons with whatever theme was applied on load
+      updateBtns();
     })();
     </script>
 </body>

@@ -272,8 +272,8 @@
             } else if (file.size > 0) {
               pct = Math.min(95, (snapshot.bytesTransferred / file.size) * 100);
             }
-            // Only report > 0 so the UI shows real progress
-            if (pct > 0) onProgress(Math.min(99, pct));
+            // Report progress — clamp to 1% minimum so the bar always moves on first event
+            onProgress(Math.min(99, Math.max(1, pct)));
           },
           function (err) {
             // Upload failed

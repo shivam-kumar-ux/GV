@@ -136,8 +136,8 @@
           btn.disabled = true;
           if (ui.progressBar) ui.progressBar.classList.remove("d-none");
           if (ui.barInner) {
-            ui.barInner.style.width = "0%";
-            ui.barInner.textContent = "Uploading…";
+            ui.barInner.style.width = "2%";
+            ui.barInner.textContent = "Starting…";
           }
 
           var onProgress = function (percent) {
@@ -205,6 +205,10 @@
         e.preventDefault();
         var sec = link.getAttribute("data-section");
         if (sec === "staff" && (!sessionProfile || !GVFirebase.isSuperAdminEmail(sessionProfile.email))) {
+          toast("Access denied. Super admin only.", "danger");
+          return;
+        }
+        if (sec === "results" && (!sessionProfile || !GVFirebase.isSuperAdminEmail(sessionProfile.email))) {
           toast("Access denied. Super admin only.", "danger");
           return;
         }
@@ -1239,7 +1243,13 @@
     document.querySelectorAll(".admin-only-nav").forEach(function (l) {
       l.style.display = isSuperAdmin ? "" : "none";
     });
-
+    // Hide results nav + section for non-super-admin (test results are super admin only)
+    document.querySelectorAll(".superadmin-only-nav").forEach(function (l) {
+      l.style.display = (isSuperAdmin && isShahpur) ? "" : "none";
+    });
+    document.querySelectorAll(".superadmin-only-sec").forEach(function (sec) {
+      sec.style.display = (isSuperAdmin && isShahpur) ? "" : "none";
+    });
     var alertEl = document.getElementById("siteInactiveAlert");
     if (alertEl) alertEl.style.display = isActive ? "none" : "block";
 
