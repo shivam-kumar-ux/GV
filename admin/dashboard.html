@@ -66,6 +66,56 @@
 
         <div id="adminToast" class="admin-toast"></div>
 
+        <!-- UPLOAD DIAGNOSTIC PANEL - shows auth state and tests storage -->
+        <div id="gvUploadDiag" style="display:none;position:fixed;bottom:16px;right:16px;background:#1a1a2e;color:#eee;padding:14px 18px;border-radius:8px;font-size:12px;font-family:monospace;max-width:400px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.5);">
+          <div style="font-weight:700;color:#ffc107;margin-bottom:8px;">🔧 Storage Diagnostics</div>
+          <div id="gvDiagStatus">Initialising…</div>
+          <button onclick="gvRunDiag()" style="margin-top:8px;padding:4px 10px;background:#0d6efd;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">Re-run test</button>
+          <button onclick="document.getElementById('gvUploadDiag').style.display='none'" style="margin-top:8px;margin-left:6px;padding:4px 10px;background:#6c757d;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">Close</button>
+        </div>
+        <script>
+        function gvRunDiag() {
+          var el = document.getElementById('gvDiagStatus');
+          if (!el) return;
+          var lines = [];
+          function log(s) { lines.push(s); el.innerHTML = lines.join('<br>'); }
+          lines = [];
+          // 1. Auth state
+          var fbAuth = window.firebase && firebase.auth && firebase.auth();
+          if (!fbAuth) { log('❌ firebase.auth() not available'); return; }
+          var user = fbAuth.currentUser;
+          log('Auth user: ' + (user ? '✅ ' + user.email : '❌ null'));
+          if (!user) { log('→ Not signed in — uploads will fail'); return; }
+          // 2. Token refresh
+          user.getIdToken(true).then(function(tok) {
+            log('Token refresh: ✅ OK (length ' + tok.length + ')');
+            // 3. Storage instance
+            var st = window.firebase && firebase.storage && firebase.storage();
+            if (!st) { log('❌ firebase.storage() not available'); return; }
+            var bucket = st.app.options.storageBucket;
+            log('Storage bucket: ' + bucket);
+            // 4. Try a tiny test write
+            var testRef = st.ref('gv-shahpur/.diag-test-' + Date.now() + '.txt');
+            var blob = new Blob(['ok'], {type:'text/plain'});
+            testRef.put(blob).then(function() {
+              log('Test write: ✅ SUCCESS — rules allow write');
+              testRef.delete().catch(function(){});
+            }).catch(function(err) {
+              log('Test write: ❌ ' + (err.code || err.message));
+              log('→ Rule issue confirmed. Code: ' + err.code);
+            });
+          }).catch(function(err) {
+            log('Token refresh: ❌ ' + err.message);
+          });
+        }
+        // Auto-run after 3 seconds so Firebase is fully loaded
+        setTimeout(function() {
+          var diag = document.getElementById('gvUploadDiag');
+          if (diag) diag.style.display = 'block';
+          gvRunDiag();
+        }, 3000);
+        </script>
+
         <section class="admin-section active" id="sec-overview">
             <h5 class="font-weight-bold mb-3">Welcome, <span id="welcomeName"></span></h5>
             <p id="overviewDesc">Manage Gyanoday Vidyalaya Shahpur website content. T. Dam and PYQ will be added later.</p>
