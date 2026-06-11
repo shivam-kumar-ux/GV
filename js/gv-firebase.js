@@ -249,71 +249,42 @@
       return Promise.reject(new Error("File is too large. Maximum size is 15 MB."));
     }
 
-    return ensureAuthForUpload().then(function () {
-      // Use the module-level storage instance (bound to the same Firebase app and
-      // auth session as the refreshed token). Calling getStorageInstance() here
-      // would create a new instance that may not have the refreshed credentials.
-      if (!storage) storage = getStorageInstance();
-      var st = storage;
+    return ensureAuthForUpload().then(function (user) {
+      // Always get a fresh storage instance after token refresh
+      var st = getStorageInstance();
       if (!st) return Promise.reject(new Error("Firebase Storage is not loaded on this page."));
 
       var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
       var ref = st.ref(path);
       var metadata = { contentType: contentType };
-      var uploadTask = ref.put(file, metadata);
-
-      if (typeof onProgress === "function") onProgress(1);
-
-      uploadTask.on("state_changed", function (snapshot) {
-        if (typeof onProgress !== "function") return;
-        var pct;
-        if (snapshot.totalBytes > 0) {
-          pct = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        } else if (file.size > 0) {
-          pct = Math.min(99, (snapshot.bytesTransferred / file.size) * 100);
-        } else {
-          pct = snapshot.state === "success" ? 100 : 5;
-        }
-        onProgress(Math.max(1, Math.min(100, pct)));
-      });
-
-      var timeoutMs = 120000;
-      var timeoutId = setTimeout(function () {
-        try { uploadTask.cancel(); } catch (e) { /* ignore */ }
-      }, timeoutMs);
-
-      function finishUpload() {
-        clearTimeout(timeoutId);
-        return ref.getDownloadURL();
-      }
-
-      if (typeof uploadTask.then === "function") {
-        return uploadTask.then(finishUpload).catch(function (err) {
-          clearTimeout(timeoutId);
-          if (err && err.code === "storage/canceled") {
-            throw new Error("Upload timed out after 2 minutes. Check your connection and Firebase Storage setup.");
-          }
-          throw formatStorageError(err);
-        });
-      }
 
       return new Promise(function (resolve, reject) {
+        var uploadTask = ref.put(file, metadata);
+
         uploadTask.on(
           "state_changed",
           function (snapshot) {
             if (typeof onProgress !== "function") return;
-            var pct = snapshot.totalBytes > 0
-              ? (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              : 5;
-            onProgress(Math.max(1, Math.min(100, pct)));
+            var pct = 0;
+            if (snapshot.totalBytes > 0) {
+              pct = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            } else if (file.size > 0) {
+              pct = Math.min(95, (snapshot.bytesTransferred / file.size) * 100);
+            }
+            // Only report > 0 so the UI shows real progress
+            if (pct > 0) onProgress(Math.min(99, pct));
           },
           function (err) {
-            clearTimeout(timeoutId);
+            // Upload failed
             reject(formatStorageError(err));
           },
           function () {
-            finishUpload().then(resolve).catch(reject);
+            // Upload complete — get download URL
+            ref.getDownloadURL().then(function (url) {
+              if (typeof onProgress === "function") onProgress(100);
+              resolve(url);
+            }).catch(reject);
           }
         );
       });

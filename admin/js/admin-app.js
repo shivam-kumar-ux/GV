@@ -136,15 +136,15 @@
           btn.disabled = true;
           if (ui.progressBar) ui.progressBar.classList.remove("d-none");
           if (ui.barInner) {
-            ui.barInner.style.width = "2%";
-            ui.barInner.textContent = "Preparing…";
+            ui.barInner.style.width = "0%";
+            ui.barInner.textContent = "Uploading…";
           }
 
           var onProgress = function (percent) {
-            var p = Math.round(percent) + "%";
+            var p = Math.round(percent);
             if (ui.barInner) {
-              ui.barInner.style.width = p;
-              ui.barInner.textContent = p;
+              ui.barInner.style.width = p + "%";
+              ui.barInner.textContent = p < 100 ? p + "%" : "Processing…";
             }
           };
 
@@ -1303,8 +1303,19 @@
       if (GVFirebase.isSuperAdminEmail(session.profile.email)) {
         GVStaffAdmin.showAdminNav(true);
         GVStaffAdmin.initStaffSection();
+        // Show storage diagnostics panel only for super admin
+        var diagPanel = document.getElementById("gvUploadDiag");
+        if (diagPanel) {
+          diagPanel.style.display = "block";
+          if (typeof gvRunDiag === "function") {
+            setTimeout(gvRunDiag, 2000);
+          }
+        }
       } else {
         GVStaffAdmin.showAdminNav(false);
+        // Ensure diagnostic panel stays hidden for non-super-admin staff
+        var diagPanel = document.getElementById("gvUploadDiag");
+        if (diagPanel) diagPanel.remove();
       }
 
       activeSite = "shahpur";
