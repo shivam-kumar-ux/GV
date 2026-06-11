@@ -1,228 +1,89 @@
-# Gyanoday Vidyalaya Admin Panel — Bug Report & Fixes
+# GV Admin Panel & User Website — Bug Fix Report
 
-**Date:** 10 June 2026  
-**Project:** GV / GV_Shahpur  
-**Reported by:** Shivam Kumar  
-**Investigated and fixed by:** Kiro (AI Dev Environment)
+**Date:** June 12, 2026  
+**Files Modified:** 5
 
 ---
 
-## Summary
+## Bug 1 — Upload Stuck at 1% ✅ FIXED
 
-Two critical bugs were identified and fixed:
+**File:** `js/gv-firebase.js`
 
-1. `storage/unauthorized` error — uploads reach 100% then fail
-2. Admin changes saved to Firestore but not reflected on the public website
+**Root Cause:**  
+Firebase Cloud Storage resumable uploads sometimes report `totalBytes = 0` on the first `state_changed` callback (before the server confirms the upload size). The old code had a guard `if (pct > 0)` that prevented the progress bar from ever moving. Since `bytesTransferred / 0 = NaN`, pct stayed 0 and was blocked.
 
-A third minor issue (race condition in `activeSite`) was also patched.
+**Fix:**  
+Removed the `if (pct > 0)` guard and replaced it with `Math.max(1, pct)` so the bar always moves on the first event, then climbs naturally as bytes transfer.
 
----
-
-## Bug 1 — `storage/unauthorized`: Upload reaches 100% then fails
-
-### Symptom
-When uploading a photo or PDF in the admin panel (e.g. Achievers, Programs, Disclosure), the progress bar reaches 100% and then the red error appears:
-
-```
-Upload denied — your session may have expired. Log out and log in again, then retry. (storage/unauthorized)
-```
-
-### Root Cause
-**File:** `js/gv-firebase.js` → `ensureAuthForUpload()`
-
-The original code read `auth.currentUser` directly:
-
-```js
-// BEFORE (broken)
-var user = auth.currentUser;
-if (!user) return Promise.reject(...);
-return user.getIdToken(true).then(...);
-```
-
-**Two problems with this approach:**
-
-1. **Stale `currentUser` reference:** Firebase Auth initialises asynchronously. Reading `auth.currentUser` synchronously can return `null` or a stale object if the internal state hasn't settled yet — especially after the admin tab has been open for a long time.
-
-2. **No auto-refresh on long sessions:** Firebase ID tokens expire after 1 hour. The admin dashboard has no mechanism to refresh the token in the background. After an hour of being logged in without refreshing the page, the next upload would fail with `storage/unauthorized` even though the user appears to still be logged in.
-
-### Fix Applied
-
-**`js/gv-firebase.js`** — `ensureAuthForUpload()` rewritten to:
-
-- Use `auth.onAuthStateChanged()` (fires once, immediately) to reliably get the current user instead of reading `auth.currentUser` directly.
-- Force-refresh the ID token with `getIdToken(true)` before every upload, ensuring a fresh JWT is sent to Firebase Storage.
-
-```js
-// AFTER (fixed)
-function ensureAuthForUpload() {
-  return new Promise(function (resolve, reject) {
-    var unsubscribe = auth.onAuthStateChanged(function (user) {
-      unsubscribe();
-      if (!user) {
-        reject(new Error("Your session has expired. Please log out and log in again."));
-        return;
-      }
-      user.getIdToken(/* forceRefresh= */ true)
-        .then(function () { resolve(user); })
-        .catch(function (err) { reject(...); });
-    }, reject);
-  });
-}
-```
-
-**`js/gv-firebase.js`** — `startTokenAutoRefresh()` added:
-
-A background `setInterval` that force-refreshes the ID token every **50 minutes** (before the 1-hour expiry). This is started automatically when `onAuthChanged` detects a signed-in user, so the admin can stay logged in all day without token expiry breaking uploads.
-
-```js
-function startTokenAutoRefresh() {
-  _tokenRefreshInterval = setInterval(function () {
-    if (auth && auth.currentUser) {
-      auth.currentUser.getIdToken(true); // silent background refresh
-    }
-  }, 50 * 60 * 1000); // every 50 minutes
-}
-```
-
-### Files Changed
-- `js/gv-firebase.js`
+Also changed the admin upload bar initial state from `"0%"` / `"Uploading…"` to `"2%"` / `"Starting…"` so the user sees immediate feedback on click.
 
 ---
 
-## Bug 2 — Changes saved to Firestore but not showing on public website
+## Bug 2 — Dark Mode Switch Button ✅ ADDED TO SIDEBAR
 
-### Symptom
-After saving in the admin panel, the Achievers slider on `result.html` and `index.html` still shows the old hardcoded students. New students added via admin do not appear, and updated photos do not show.
+**Files:** `admin/dashboard.html`, `admin/css/admin.css`
 
-### Root Cause
-**File:** `GV_Shahpur/js/gv-render.js` → `renderAchievers()`
+**Issue:**  
+The dark/light mode button existed in the topbar but was not in the sidebar below the Vidyalaya logo as requested.
 
-The original render function had a guard:
-
-```js
-// BEFORE (broken guard)
-if (!track || !global.GV_CONTENT || !global.GV_CONTENT.achievers) return;
-```
-
-**Two problems:**
-
-1. **Static HTML never cleared before Firestore loads:** Both `result.html` and `index.html` have the achiever slider written out as static hardcoded HTML directly in the page. When the page loads, the visitor sees the old hardcoded students immediately. The `gv-render.js` script loads asynchronously and calls `renderAchievers()` only after `GV_CONTENT_READY` resolves from Firestore — but if the function exits early (e.g. before Firestore returns), the static HTML persists.
-
-2. **Loading placeholder not shown:** While waiting for Firestore, there was no visual indication that content was loading, so users/admins couldn't tell whether the old content was coming from Firestore or the hardcoded HTML.
-
-3. **Early return on empty array:** If Firestore returned an empty `achievers` array (e.g. all were deleted and re-added but the save hadn't propagated), the function returned early and kept the static HTML visible.
-
-### Fix Applied
-
-**`GV_Shahpur/js/gv-render.js`** — `renderAchievers()` updated to:
-
-- Immediately show a loading spinner when called before Firestore data is ready (replacing the static HTML).
-- Only fall back to keeping static HTML when Firestore returns a genuinely empty array (preserving the visual fallback for unconfigured sites).
-
-**`GV_Shahpur/js/gv-render.js`** — `init()` updated to:
-
-- Immediately replace the `#studentSlider` content with a loading spinner as soon as the script runs, **before** the Firestore `Promise` resolves. This ensures the stale static HTML is cleared instantly and Firestore data always wins.
-
-```js
-// AFTER (fixed init)
-function init() {
-  // Clear static HTML immediately with a spinner
-  var track = document.getElementById("studentSlider");
-  if (track) {
-    track.innerHTML = '<div class="student-slide" ...>Loading achievers…</div>';
-  }
-  var ready = global.GV_CONTENT_READY || global.GVFirebase.loadSiteContent();
-  ready.then(function () {
-    runPageRenders();
-    document.dispatchEvent(new CustomEvent("gvContentReady"));
-  });
-}
-```
-
-### Files Changed
-- `GV_Shahpur/js/gv-render.js`
+**Fix:**  
+- Added `<button class="admin-sidebar-theme-btn" id="adminSidebarThemeBtn">` inside the `.brand` div in the sidebar, directly below the GV Admin Portal `<h6>`.
+- Added CSS for `.admin-sidebar-theme-btn` — a full-width pill button with icon + label text, styled to match the dark sidebar and adapt in dark mode.
+- Updated the inline theme toggle script to wire both the topbar button AND the new sidebar button to the same `applyTheme()` function. Both stay in sync.
 
 ---
 
-## Bug 3 — Race condition: `activeSite` briefly set to `"pyq"` during boot
+## Bug 3 — Test Results Section: Super Admin Only ✅ FIXED
 
-### Symptom
-Intermittently, a "Save Changes" right after the dashboard loads would save content to the wrong Firestore document (`pyq` instead of `shahpur`).
+**Files:** `admin/dashboard.html`, `admin/js/admin-app.js`
 
-### Root Cause
-**File:** `admin/js/admin-app.js` → `boot()` and `publishAfterUpload()`
+**Issue:**  
+The "Year Results" section was visible and accessible to all approved staff (admin and staff roles), not just super admin.
 
-In `boot()`, after loading Shahpur content, the code immediately loads PYQ content:
-
-```js
-GVFirebase.loadSiteContent("shahpur").then(function (c) {
-  ...
-  return GVFirebase.loadSiteContent("pyq"); // ← switches activeSite to "pyq"
-}).then(function (pyqC) {
-  GVPyqAdmin.setContent(...);
-  GVFirebase.setActiveSite(activeSite); // ← restores it... but too late if upload started
-});
-```
-
-If an upload started between these two `.then()` callbacks (very rare, but possible on a slow network), `publishAfterUpload()` would snapshot `activeSite === "pyq"` and save to the wrong document.
-
-### Fix Applied
-
-**`admin/js/admin-app.js`** — `publishAfterUpload()` now snapshots `activeSite` at the start of the call so any async operations during `boot()` cannot change the target mid-flight.
-
-```js
-// AFTER (fixed)
-function publishAfterUpload() {
-  var siteAtPublish = activeSite; // snapshot — immune to async changes
-  if (siteAtPublish === "pyq") { ... }
-  return GVFirebase.saveSiteContent(content, siteAtPublish);
-}
-```
-
-### Files Changed
-- `admin/js/admin-app.js`
+**Fix:**  
+- Added `superadmin-only-nav` class to the "Year Results" nav link in the sidebar.
+- Added `superadmin-only-sec` class to the `#sec-results` section.
+- In `updateSiteUI()` (called on every site switch and login), all `.superadmin-only-nav` and `.superadmin-only-sec` elements are shown only when `isSuperAdmin && isShahpur`.
+- In `initNav()`, added a guard so clicking the results nav item also shows an "Access denied. Super admin only." toast for non-super-admin.
 
 ---
 
-## Files Modified (Summary)
+## Bug 4 — Mobile Navbar Appears Below Hero Video ✅ FIXED
+
+**File:** `GV_Shahpur/index.html`
+
+**Issue:**  
+On mobile phones, after the hero video, the navbar appeared **below/behind** the video instead of becoming sticky at the top once the video scrolled past.
+
+**Root Cause (two issues):**  
+1. **Z-index:** The mobile CSS override for `.gv-home-navbar-wrap` did not set a z-index higher than the hero video's stacking context. The fixed navbar could render behind the video layer.
+2. **Reveal threshold too small:** The desktop `revealAt = 50px` was also used on mobile, causing the navbar to appear while the hero was still mostly visible, creating a confusing overlap.
+
+**Fix:**  
+1. Added `z-index: 1060` to the mobile override for `.gv-home-navbar-wrap` so the navbar always renders above the video hero on mobile.
+2. Changed the scroll reveal logic to be **responsive**: on mobile (`window.innerWidth <= 767`) the reveal fires when `scrollTop > heroHeight - 30px` (i.e., once the video has nearly scrolled past the top), while on desktop it stays at `50px` for quick access.
+
+---
+
+## Summary of Files Changed
 
 | File | Change |
 |------|--------|
-| `js/gv-firebase.js` | Fixed `ensureAuthForUpload()` to use `onAuthStateChanged` + force token refresh. Added `startTokenAutoRefresh()` (50-min background refresh). Wired auto-refresh into `onAuthChanged`. |
-| `GV_Shahpur/js/gv-render.js` | Fixed `renderAchievers()` to clear static HTML with a loading spinner. Fixed `init()` to show spinner immediately before Firestore resolves. |
-| `admin/js/admin-app.js` | Fixed `publishAfterUpload()` to snapshot `activeSite` at call time. |
+| `js/gv-firebase.js` | Upload progress always advances; removed `if (pct > 0)` guard |
+| `admin/js/admin-app.js` | Results hidden for non-super-admin; results nav guard in initNav |
+| `admin/css/admin.css` | Added `.admin-sidebar-theme-btn` styles |
+| `admin/dashboard.html` | Sidebar dark mode button added; results nav/section class tags added; theme script updated |
+| `GV_Shahpur/index.html` | Mobile navbar z-index fix; responsive scroll reveal threshold |
 
 ---
 
-## How to Verify the Fixes
+## Role Access Matrix (Post-Fix)
 
-1. **Bug 1 — Auth/Upload fix:**
-   - Log into the admin panel
-   - Wait on the dashboard for **more than 1 hour** without refreshing (or force-test by revoking the session in Firebase Console → Authentication → Users → Revoke sessions)
-   - Try uploading a photo in Achievers
-   - **Expected:** Upload succeeds without `storage/unauthorized` error
-
-2. **Bug 2 — Public site update fix:**
-   - Add a new achiever in the admin panel with a name and photo URL, then click "Upload" and "Save Changes"
-   - Open `https://gyanodayvidyalaya.com/result.html` or the home page in a **new incognito tab**
-   - **Expected:** The new achiever appears in the slider. The loading spinner shows briefly, then Firestore data replaces it.
-
-3. **Bug 3 — Race condition fix:**
-   - Immediately after page load (within ~2 seconds), trigger an upload or Save Changes
-   - Verify in Firebase Console → Firestore → `siteContent/shahpur` that the document was updated, not `siteContent/pyq`
-
----
-
-## Deployment Steps
-
-After verifying locally, deploy the updated files:
-
-```bash
-firebase deploy --only hosting
-```
-
-Or push to the GitHub repo if GitHub Actions handles deployment automatically.
-
----
-
-*End of Bug Report*
+| Feature | Staff | Admin | Super Admin |
+|---------|-------|-------|-------------|
+| Dashboard access | ✅ | ✅ | ✅ |
+| Edit content (achievers, programs, etc.) | ✅ | ✅ | ✅ |
+| Year Results (test result data) | ❌ | ❌ | ✅ |
+| Staff Approvals | ❌ | ❌ | ✅ |
+| Storage diagnostics panel | ❌ | ❌ | ✅ |
+| Dark/light mode toggle | ✅ | ✅ | ✅ |

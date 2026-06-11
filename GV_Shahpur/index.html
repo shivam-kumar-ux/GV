@@ -1280,6 +1280,7 @@
 
             body[data-gv-page="home"] .gv-home-navbar-wrap {
                 top: 0;
+                z-index: 1060;
             }
 
             body[data-gv-page="home"] .gv-home-hero-logo img {
@@ -3126,8 +3127,11 @@
                         if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
                         else gvQuickMenu.classList.remove("gv-quick-menu-show");
                     }
-                    // Reveal navbar shortly after the user starts scrolling (small scroll threshold)
-                    var revealAt = 50; // px
+                    // Reveal navbar once the hero has scrolled fully past the top of the viewport
+                    // On mobile: use hero height so navbar appears only after video is gone.
+                    // On desktop: keep a small threshold for quick access.
+                    var isMobile = window.innerWidth <= 767;
+                    var revealAt = isMobile ? (hero ? hero.offsetHeight - 30 : 80) : 50;
                     if (scrollTop > revealAt) {
                         document.body.classList.add("gv-nav-revealed");
                     } else {
