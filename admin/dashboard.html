@@ -59,6 +59,7 @@
             <div>
                 <span class="badge badge-secondary mr-2" id="userRoleBadge">staff</span>
                 <span class="text-muted small mr-3" id="adminUserEmail"></span>
+                <button class="admin-theme-btn" id="adminThemeBtn" title="Switch to Dark Mode" aria-label="Switch to Dark Mode"><i class="fa fa-moon"></i></button>
                 <button class="btn btn-success btn-sm site-edit-btn shahpur-only" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save Changes</button>
                 <button class="btn btn-success btn-sm site-edit-btn pyq-only d-none" id="btnSavePyq"><i class="fa fa-save mr-1"></i>Save PYQ</button>
             </div>
@@ -316,6 +317,8 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Apply saved theme before first paint to avoid flash -->
+    <script>(function(){var t=localStorage.getItem('gv-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>

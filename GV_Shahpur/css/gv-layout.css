@@ -248,3 +248,259 @@ body:not([data-gv-page="home"]) .blog-hero {
     margin-top: 0;
 }
 
+
+/* ===================== DARK / LIGHT MODE TOGGLE BUTTON ===================== */
+
+/* Button itself — fits in topbar */
+.gv-theme-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+    vertical-align: middle;
+    padding: 0;
+    margin-left: 10px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.gv-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: rotate(20deg);
+    text-decoration: none;
+}
+
+/* ===================== DARK MODE — PUBLIC WEBSITE ===================== */
+
+[data-theme="dark"] {
+    /* Override all CSS variables */
+    --primary:    #5b9bf8;
+    --dark:       #0d1117;
+    --light:      #1c2333;
+    --white:      #161b22;
+    --text-muted: #8b949e;
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Base body */
+[data-theme="dark"] body {
+    background-color: #0d1117 !important;
+    color: #c9d1d9 !important;
+}
+
+/* Topbar — already dark, just tweak */
+[data-theme="dark"] .gv-topbar {
+    background: #010409 !important;
+}
+
+/* Navbar */
+[data-theme="dark"] .gv-navbar,
+[data-theme="dark"] .gv-navbar .navbar {
+    background: #161b22 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+    color: #5b9bf8 !important;
+}
+
+/* Navbar toggler */
+[data-theme="dark"] .navbar-toggler {
+    border-color: rgba(255,255,255,0.3) !important;
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* Dropdown menus */
+[data-theme="dark"] .dropdown-menu {
+    background-color: #1c2333 !important;
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: #21262d !important;
+    color: #5b9bf8 !important;
+}
+
+/* Cards, sections, panels */
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .card,
+[data-theme="dark"] .bg-light {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .shadow,
+[data-theme="dark"] .shadow-sm {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Text colours */
+[data-theme="dark"] h1, [data-theme="dark"] h2,
+[data-theme="dark"] h3, [data-theme="dark"] h4,
+[data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: #e6edf3 !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] small {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .text-dark,
+[data-theme="dark"] .text-body {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: #8b949e !important;
+}
+
+/* Borders */
+[data-theme="dark"] .border,
+[data-theme="dark"] .border-top,
+[data-theme="dark"] .border-bottom {
+    border-color: #30363d !important;
+}
+
+/* Tables */
+[data-theme="dark"] table,
+[data-theme="dark"] .table {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .table-bordered {
+    border-color: #30363d !important;
+}
+
+/* Forms */
+[data-theme="dark"] .form-control {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: #161b22 !important;
+    border-color: #5b9bf8 !important;
+    color: #e6edf3 !important;
+    box-shadow: 0 0 0 0.2rem rgba(91,155,248,0.25) !important;
+}
+
+[data-theme="dark"] label {
+    color: #c9d1d9 !important;
+}
+
+/* Modals */
+[data-theme="dark"] .modal-content {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: #30363d !important;
+}
+
+/* Breadcrumb */
+[data-theme="dark"] .breadcrumb {
+    background-color: transparent !important;
+}
+
+/* Sections with pattern / soft background */
+[data-theme="dark"] .gv-section-soft {
+    background: #161b22 !important;
+}
+
+[data-theme="dark"] .gv-section-pattern {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url("../img/bg-image.jpg") !important;
+    background-attachment: fixed !important;
+}
+
+/* Page hero stays dark — already is */
+[data-theme="dark"] .blog-hero {
+    background: linear-gradient(135deg, #010409 0%, #0d1117 100%) !important;
+}
+
+/* Navbar mobile collapse */
+[data-theme="dark"] .gv-navbar .navbar-collapse {
+    background: #161b22 !important;
+    border: 1px solid #30363d;
+}
+
+/* Owl carousel dots/arrows */
+[data-theme="dark"] .owl-dot span {
+    background: #30363d !important;
+}
+
+[data-theme="dark"] .owl-dot.active span {
+    background: #5b9bf8 !important;
+}
+
+/* Notices board */
+[data-theme="dark"] .nb-item {
+    background: #161b22 !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+/* Blog cards */
+[data-theme="dark"] .blog-card {
+    background: #161b22 !important;
+    border-color: #30363d !important;
+}
+
+/* Section titles with position-relative underlines */
+[data-theme="dark"] .section-title h6 {
+    color: #8b949e !important;
+}
+
+/* Scrollbar (webkit) */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #161b22;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+/* Back to top button */
+[data-theme="dark"] .back-to-top {
+    background: #5b9bf8 !important;
+    color: #fff !important;
+}
+
+/* Prevent flash of unstyled content — theme applied before paint via JS */
+html[data-theme="dark"] { color-scheme: dark; }
