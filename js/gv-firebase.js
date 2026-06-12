@@ -26,29 +26,15 @@
 
   function getStorageInstance() {
     if (!isConfigured() || typeof global.firebase.storage !== "function") return null;
+    var cfg = global.GV_FIREBASE_CONFIG;
+    // Use the default storage() which automatically uses whatever storageBucket
+    // is set in the Firebase config object passed to initializeApp().
+    // This is the most reliable approach — no manual bucket string needed.
     try {
-      // Try the newer .firebasestorage.app bucket first (default on newer Firebase projects).
-      // Fall back to legacy .appspot.com if that fails.
-      var cfg = global.GV_FIREBASE_CONFIG;
-      // Use the storageBucket from config if it's set — this is the most reliable approach
-      if (cfg.storageBucket) {
-        try {
-          return global.firebase.app().storage("gs://" + cfg.storageBucket);
-        } catch (e) {
-          console.warn("GV: Could not use config storageBucket, trying legacy:", e.message);
-        }
-      }
-      // Fallback: try legacy appspot bucket
-      var legacyBucket = cfg.projectId + ".appspot.com";
-      return global.firebase.app().storage("gs://" + legacyBucket);
+      return global.firebase.storage();
     } catch (e) {
-      console.warn("GV: Could not get storage bucket, falling back to default:", e.message);
-      try {
-        return global.firebase.storage();
-      } catch (e2) {
-        console.error("GV: Could not create Storage instance:", e2);
-        return null;
-      }
+      console.error("GV: Could not create Storage instance:", e);
+      return null;
     }
   }
 

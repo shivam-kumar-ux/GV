@@ -1286,31 +1286,37 @@
             }
 
             /* ---- MOBILE NAVBAR: fixed at top of viewport below topbar, always visible after 5px scroll ---- */
-            body[data-gv-page="home"] .gv-home-navbar-wrap {
-                position: fixed;
-                top: var(--gv-topbar-h);
-                left: 0;
-                right: 0;
-                z-index: 1055;
-                transform: translateY(-110%);
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transition: transform 0.3s ease, opacity 0.25s ease, visibility 0.25s;
-            }
+        body[data-gv-page="home"] .gv-home-navbar-wrap {
+            position: fixed;
+            top: var(--gv-topbar-h);
+            left: 0;
+            right: 0;
+            /* Keep above hero + all sections */
+            z-index: 2000;
+            transform: translateY(-110%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s;
+            /* Prevent any accidental layout influence */
+            margin: 0;
+            padding: 0;
+        }
 
-            /* Once revealed (after 5px scroll), navbar snaps to top and stays sticky */
-            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
-                transform: translateY(0) !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-            }
+        /* Once revealed (after ~5px scroll), navbar snaps to top and stays pinned */
+        body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            /* Ensure it cannot be covered by later content */
+            z-index: 2000 !important;
+        }
 
-            /* Prevent main content from jumping under navbar when it appears */
-            body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
-                padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
-            }
+        /* Prevent main content from being scrolled underneath the fixed navbar */
+        body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h)) !important;
+        }
 
 
             body[data-gv-page="home"] .gv-home-hero-logo img {

@@ -520,6 +520,15 @@ body.admin-body {
     background-color: #21262d !important;
 }
 
+/* New custom upload progress bar */
+[data-theme="dark"] .gv-upload-progress {
+    background: #21262d !important;
+}
+
+[data-theme="dark"] .gv-upload-pct-label {
+    color: #e6edf3 !important;
+}
+
 /* Toast */
 [data-theme="dark"] .alert-success {
     background: #1a3a22 !important;
