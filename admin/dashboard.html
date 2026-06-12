@@ -93,25 +93,29 @@
           if (!user) return;
           user.getIdToken(true).then(function(tok) {
             log('Token: ✅ refreshed (len ' + tok.length + ')');
-            var projectId = (window.GV_FIREBASE_CONFIG || {}).projectId || 'gyanoday-vidyalaya';
-            var appspot = projectId + '.appspot.com';
-            var newBucket = projectId + '.firebasestorage.app';
-            log('Testing ' + appspot + '…');
-            var ref1 = firebase.app().storage('gs://' + appspot).ref('gv-shahpur/.diag-' + Date.now() + '.txt');
-            ref1.put(new Blob(['ok'],{type:'text/plain'})).then(function(){
-              log('✅ appspot write OK — uploads will work');
-              ref1.delete().catch(function(){});
-            }).catch(function(e1){
-              log('❌ appspot: ' + e1.code);
-              log('Testing ' + newBucket + '…');
-              var ref2 = firebase.app().storage('gs://' + newBucket).ref('gv-shahpur/.diag-' + Date.now() + '.txt');
-              ref2.put(new Blob(['ok'],{type:'text/plain'})).then(function(){
-                log('✅ firebasestorage.app write OK');
-                ref2.delete().catch(function(){});
-              }).catch(function(e2){
-                log('❌ firebasestorage.app: ' + e2.code);
-                log('⚠️ Both buckets blocked. Open Firebase Console → Storage → Rules');
-              });
+            var cfg = window.GV_FIREBASE_CONFIG || {};
+            var bucket = cfg.storageBucket || (cfg.projectId + '.firebasestorage.app');
+            log('Bucket: ' + bucket);
+            log('Testing upload…');
+            // Use default storage() — same as the actual upload code
+            var st;
+            try { st = firebase.storage(); } catch(e) { log('❌ firebase.storage() failed: ' + e.message); return; }
+            var ref = st.ref('gv-shahpur/.diag-' + Date.now() + '.txt');
+            ref.put(new Blob(['ok'], {type:'text/plain'})).then(function() {
+              log('✅ Upload OK — storage is working');
+              ref.delete().catch(function(){});
+            }).catch(function(e) {
+              log('❌ Upload failed: ' + e.code);
+              if (e.code === 'storage/unauthorized') {
+                log('→ Rules are blocking the write.');
+                log('→ Go to Firebase Console → Storage → Rules');
+                log('→ Make sure: allow write: if request.auth != null;');
+              } else if (e.code === 'storage/retry-limit-exceeded') {
+                log('→ Bucket "' + bucket + '" does not exist or network error.');
+                log('→ Go to Firebase Console → Storage and activate it.');
+              } else {
+                log('→ Check browser console (F12) for full error details.');
+              }
             });
           }).catch(function(e){ log('❌ Token refresh: ' + e.message); });
         }
