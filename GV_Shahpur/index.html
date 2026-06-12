@@ -120,6 +120,14 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
+        /* Mobile: ensure navbar reveal only happens after JS adds body.gv-nav-revealed */
+        @media (max-width: 767.98px) {
+            body[data-gv-page="home"] .gv-home-navbar-wrap {
+                z-index: 1060;
+            }
+        }
+
+
         body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
             transform: translateY(0);
             opacity: 1;
@@ -128,10 +136,24 @@
         }
 
         body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
-            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
+            /* Do not add extra padding on mobile; navbar is already fixed */
+            padding-top: 0;
+        }
+
+
+
+        /* Mobile: once revealed, keep it fixed at top (prevents it disappearing on slight scroll) */
+        @media (max-width: 767.98px) {
+            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
         }
 
         body[data-gv-page="home"] .gv-home-hero {
+
             position: relative;
             width: 100%;
             height: 100vh;
@@ -1247,20 +1269,27 @@
         }
 
         @media (max-width: 767.98px) {
-            /* Mobile: topbar should not pin; remove top offset calculations */
+            /* Mobile: keep topbar pinned. Navbar should appear pinned only after scroll reveal (body.gv-nav-revealed). */
             :root {
-                --gv-topbar-h: 0px;
+                /* Match JS-measured height via fallback; JS updates this variable on load/resize. */
+                --gv-topbar-h: 42px;
             }
 
             body[data-gv-page="home"] .gv-home-topbar {
-                position: static;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1060;
+                margin: 0;
             }
 
             body[data-gv-page="home"] #gvHomeHero {
-                margin-top: 0 !important;
-                height: calc(100vh - 60px) !important;
+                margin-top: var(--gv-topbar-h) !important;
+                height: calc(100vh - var(--gv-topbar-h)) !important;
                 min-height: 520px !important;
             }
+
 
             body[data-gv-page="home"] #gvHomeHero .video-background {
                 display: block !important;
@@ -1279,9 +1308,22 @@
             }
 
             body[data-gv-page="home"] .gv-home-navbar-wrap {
-                top: 0;
+                /* Hidden by default on mobile until body.gv-nav-revealed is added by JS */
+                top: var(--gv-topbar-h);
                 z-index: 1060;
+                transform: translateY(-110%);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
             }
+
+            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
 
             body[data-gv-page="home"] .gv-home-hero-logo img {
                 height: 52px;
@@ -3131,12 +3173,22 @@
                     // On mobile: use hero height so navbar appears only after video is gone.
                     // On desktop: keep a small threshold for quick access.
                     var isMobile = window.innerWidth <= 767;
-                    var revealAt = isMobile ? (hero ? hero.offsetHeight - 30 : 80) : 50;
-                    if (scrollTop > revealAt) {
+                    // Mobile: show navbar just after the topbar leaves the top of the screen (instead of waiting for full hero scroll).
+                    // Topbar height is measured into --gv-topbar-h by measureHeights().
+                    var topbarH = 0;
+                    try {
+                        topbarH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gv-topbar-h')) || 0;
+                    } catch (e) {
+                        topbarH = 0;
+                    }
+                    var revealAt = isMobile ? (topbarH + 5) : 50;
+                    if (scrollTop >= revealAt) {
                         document.body.classList.add("gv-nav-revealed");
                     } else {
                         document.body.classList.remove("gv-nav-revealed");
                     }
+
+
                     if (video) {
                         if (scrollTop > revealAt) {
                             if (!video.paused) video.pause();
