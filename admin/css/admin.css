@@ -212,6 +212,16 @@ body.admin-body {
   .admin-main { margin-left: 0; }
 }
 
+/* ===================== Mobile: sticky navbar on scroll ===================== */
+@media (max-width: 991px) {
+  .admin-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+  }
+}
+
+
 /* ===================== ADMIN DARK MODE TOGGLE BUTTON ===================== */
 
 .admin-theme-btn {
@@ -445,6 +455,16 @@ body.admin-body {
     border-color: #30363d !important;
     color: #c9d1d9 !important;
 }
+
+/* Ensure update-history dynamically injected text is readable in dark mode */
+[data-theme="dark"] .gv-upd-detail {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .gv-upd-editor {
+    color: #8b949e !important;
+}
+
 
 /* Scrollbar */
 [data-theme="dark"] ::-webkit-scrollbar-track {

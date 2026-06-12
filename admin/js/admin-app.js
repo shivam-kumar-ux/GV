@@ -1055,9 +1055,10 @@
           '<strong style="font-size:13px;">' + (item.section || "Content") + '</strong>' +
           '<span class="text-muted" style="font-size:11px;white-space:nowrap;margin-left:8px;">' + dateStr + '</span>' +
           '</div>' +
-          '<div style="font-size:12px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (item.detail || item.description || "") + '</div>' +
-          '<div style="font-size:11px;color:#888;"><i class="fa fa-user mr-1"></i>' + staffName +
+          '<div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="gv-upd-detail">' + (item.detail || item.description || "") + '</div>' +
+          '<div style="font-size:11px;" class="gv-upd-editor"><i class="fa fa-user mr-1"></i>' + staffName +
           (staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + staffId + '</span>' : '') + '</div>' +
+
           '</div></div>';
       });
       box.innerHTML = html;
