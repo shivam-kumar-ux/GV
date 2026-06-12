@@ -307,7 +307,7 @@
             padding: 8px clamp(18px, 2.4vw, 34px) 0;
         }
 
-        .gv-welcome-stats-carousel .owl-item.active ~ .owl-item.active .gv-welcome-stat-item::before {
+        .gv-welcome-stats-carousel .owl-item.active~.owl-item.active .gv-welcome-stat-item::before {
             content: "";
             position: absolute;
             top: 18px;
@@ -404,7 +404,7 @@
                 padding: 8px 18px 0;
             }
 
-            .gv-welcome-stats-carousel .owl-item.active ~ .owl-item.active .gv-welcome-stat-item::before {
+            .gv-welcome-stats-carousel .owl-item.active~.owl-item.active .gv-welcome-stat-item::before {
                 display: none;
             }
 
@@ -1248,24 +1248,20 @@
         }
 
         @media (max-width: 767.98px) {
-            /* Mobile: topbar is fixed at top; hero sits below it */
+
+            /* Mobile: hide topbar, hero fills full screen */
             :root {
-                --gv-topbar-h: 42px;
+                --gv-topbar-h: 0px;
                 --gv-navbar-h: 60px;
             }
 
             body[data-gv-page="home"] .gv-home-topbar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 1060;
-                margin: 0;
+                display: none !important;
             }
 
             body[data-gv-page="home"] #gvHomeHero {
-                margin-top: var(--gv-topbar-h) !important;
-                height: calc(100vh - var(--gv-topbar-h)) !important;
+                margin-top: 0 !important;
+                height: 100vh !important;
                 min-height: 520px !important;
             }
 
@@ -1285,38 +1281,40 @@
                 z-index: 4 !important;
             }
 
-            /* ---- MOBILE NAVBAR: fixed at top of viewport below topbar, always visible after 5px scroll ---- */
-        body[data-gv-page="home"] .gv-home-navbar-wrap {
-            position: fixed;
-            top: var(--gv-topbar-h);
-            left: 0;
-            right: 0;
-            /* Keep above hero + all sections */
-            z-index: 2000;
-            transform: translateY(-110%);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s;
-            /* Prevent any accidental layout influence */
-            margin: 0;
-            padding: 0;
-        }
+            /* ---- MOBILE NAVBAR: starts at top:0 (no topbar above), slides in after 5px scroll ---- */
+            body[data-gv-page="home"] .gv-home-navbar-wrap {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 2000;
+                transform: translateY(-110%);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: transform 0.4s ease, opacity 0.35s ease, visibility 0.35s;
+                margin: 0;
+                padding: 0;
+            }
 
-        /* Once revealed (after ~5px scroll), navbar snaps to top and stays pinned */
-        body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
-            transform: translateY(0) !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-            /* Ensure it cannot be covered by later content */
-            z-index: 2000 !important;
-        }
+            /* Slide in when revealed, stays permanently */
+            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin: 0 !important;
+                transform: translateY(0) !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                z-index: 2000 !important;
+            }
 
-        /* Prevent main content from being scrolled underneath the fixed navbar */
-        body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
-            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h)) !important;
-        }
+            /* Push main content below the revealed navbar only */
+            body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+                padding-top: var(--gv-navbar-h) !important;
+            }
 
 
             body[data-gv-page="home"] .gv-home-hero-logo img {
@@ -1633,29 +1631,6 @@
     </div>
     <!-- Topbar End -->
 
-    <!-- Fullscreen video hero (loads first; navbar appears on scroll) -->
-    <header id="gvHomeHero" class="jumbotron jumbotron-fluid jumbotron-video gv-home-hero">
-        <video class="video-background" id="headerVideo" autoplay muted loop playsinline preload="metadata">
-            <source src="vid/GV_intro.mp4" type="video/mp4">
-        </video>
-        <a href="index.html" class="gv-home-hero-logo" id="gvHomeHeroLogo">
-            <!--<img src="img/H_logo.png" alt="Gyanoday Vidyalaya">-->
-            <div class="gv-home-hero-brand">
-                <!--<span>Gyanoday Vidyalaya</span>-->
-            </div>
-        </a>
-        <div class="header-content-card">
-            <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
-            <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
-            <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
-            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enquire now</a>
-        </div>
-        <div class="gv-scroll-hint" aria-hidden="true">
-            Scroll to explore
-            <i class="fa fa-chevron-down"></i>
-        </div>
-    </header>
-
     <!-- Navbar (hidden until user scrolls past hero; then fixed with topbar) -->
     <div id="gvHomeNavbarWrap" class="gv-navbar gv-home-navbar-wrap">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5" id="gvHomeNavbar">
@@ -1691,6 +1666,30 @@
             </div>
         </nav>
     </div>
+
+    <!-- Fullscreen video hero (loads first; navbar appears on scroll) -->
+    <header id="gvHomeHero" class="jumbotron jumbotron-fluid jumbotron-video gv-home-hero">
+        <video class="video-background" id="headerVideo" autoplay muted loop playsinline preload="metadata">
+            <source src="vid/GV_intro.mp4" type="video/mp4">
+        </video>
+        <a href="index.html" class="gv-home-hero-logo" id="gvHomeHeroLogo">
+            <!--<img src="img/H_logo.png" alt="Gyanoday Vidyalaya">-->
+            <div class="gv-home-hero-brand">
+                <!--<span>Gyanoday Vidyalaya</span>-->
+            </div>
+        </a>
+        <div class="header-content-card">
+            <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
+            <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
+            <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
+            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enquire now</a>
+        </div>
+        <div class="gv-scroll-hint" aria-hidden="true">
+            Scroll to explore
+            <i class="fa fa-chevron-down"></i>
+        </div>
+    </header>
+
 
     <!-- Enquiry popup (same fields as contact section) -->
     <div id="gvEnquiryOverlay" class="gv-enquiry-overlay" role="dialog" aria-labelledby="gvEnquiryTitle"
@@ -1746,7 +1745,7 @@
                 padding-bottom: 1.5rem !important;
             }
 
-            body[data-gv-page="home"] .container-fluid.px-0.py-5 > .row.pt-5 {
+            body[data-gv-page="home"] .container-fluid.px-0.py-5>.row.pt-5 {
                 padding-top: 1.5rem !important;
             }
         </style>
@@ -2023,37 +2022,44 @@
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-school"></i></div>
                                     <div class="gv-welcome-stat-number">15</div>
-                                    <p class="gv-welcome-stat-text">classes offered from Nursery through senior secondary learning.</p>
+                                    <p class="gv-welcome-stat-text">classes offered from Nursery through senior
+                                        secondary learning.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                                     <div class="gv-welcome-stat-number">25+</div>
-                                    <p class="gv-welcome-stat-text">qualified teachers guiding students with care and discipline.</p>
+                                    <p class="gv-welcome-stat-text">qualified teachers guiding students with care and
+                                        discipline.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-user-graduate"></i></div>
                                     <div class="gv-welcome-stat-number">500+</div>
-                                    <p class="gv-welcome-stat-text">active students learning in a focused school community.</p>
+                                    <p class="gv-welcome-stat-text">active students learning in a focused school
+                                        community.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-award"></i></div>
                                     <div class="gv-welcome-stat-number">10+</div>
-                                    <p class="gv-welcome-stat-text">years of excellence in education and student development.</p>
+                                    <p class="gv-welcome-stat-text">years of excellence in education and student
+                                        development.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-book-open"></i></div>
                                     <div class="gv-welcome-stat-number">2</div>
-                                    <p class="gv-welcome-stat-text">senior secondary streams for Science and Commerce aspirants.</p>
+                                    <p class="gv-welcome-stat-text">senior secondary streams for Science and Commerce
+                                        aspirants.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-running"></i></div>
                                     <div class="gv-welcome-stat-number">12+</div>
-                                    <p class="gv-welcome-stat-text">co-curricular activities supporting confidence beyond academics.</p>
+                                    <p class="gv-welcome-stat-text">co-curricular activities supporting confidence
+                                        beyond academics.</p>
                                 </div>
                                 <div class="gv-welcome-stat-item">
                                     <div class="gv-welcome-stat-icon"><i class="fas fa-laptop-code"></i></div>
                                     <div class="gv-welcome-stat-number">100%</div>
-                                    <p class="gv-welcome-stat-text">student-focused guidance for academics, values and future goals.</p>
+                                    <p class="gv-welcome-stat-text">student-focused guidance for academics, values and
+                                        future goals.</p>
                                 </div>
                             </div>
                         </div>
@@ -2147,8 +2153,8 @@
                                 Vidyalaya journey. Explore the voices that show how our classrooms, teachers and values
                                 continue to shape confidence beyond campus.</p>
                             <div class="gv-story-grid" aria-label="Community testimonials">
-                                <button type="button" class="gv-story-thumb active" data-story="0" data-category="student"
-                                    data-role="Student">
+                                <button type="button" class="gv-story-thumb active" data-story="0"
+                                    data-category="student" data-role="Student">
                                     <img src="img/result/yash.jpg" alt="Yash Raj">
                                 </button>
                                 <button type="button" class="gv-story-thumb" data-story="1" data-category="student"
@@ -2179,7 +2185,8 @@
                                     aria-label="View selected story">
                                     <img id="gvStoryMainImage" src="img/result/yash.jpg" alt="Yash Raj">
                                 </div>
-                                <button type="button" class="gv-view-story" id="gvOpenStory" aria-label="View story">+</button>
+                                <button type="button" class="gv-view-story" id="gvOpenStory"
+                                    aria-label="View story">+</button>
                                 <div class="gv-feature-card">
                                     <div class="gv-feature-mark" aria-hidden="true">|||</div>
                                     <div>
@@ -2195,7 +2202,8 @@
                 <div class="gv-story-modal" id="gvStoryModal" aria-hidden="true" role="dialog"
                     aria-labelledby="gvStoryModalName">
                     <div class="gv-story-modal-card" role="document">
-                        <button type="button" class="gv-story-close" id="gvStoryClose" aria-label="Close story">&times;</button>
+                        <button type="button" class="gv-story-close" id="gvStoryClose"
+                            aria-label="Close story">&times;</button>
                         <div class="gv-story-modal-image">
                             <img id="gvStoryModalImage" src="img/result/yash.jpg" alt="Yash Raj">
                         </div>
@@ -2548,7 +2556,8 @@
                                 <div class="card-overlay">
                                     <div class="overlay-content">
                                         <h3 class="overlay-title">Robotics Lab</h3>
-                                        <p class="overlay-desc">Students building and programming automated robots in the state-of-the-art lab.</p>
+                                        <p class="overlay-desc">Students building and programming automated robots in
+                                            the state-of-the-art lab.</p>
                                         <a href="notices.html" class="btn btn-read-more">Read More</a>
                                     </div>
                                 </div>
@@ -2627,8 +2636,9 @@
                             <p class="gv-social-copy">Catch campus moments, event highlights and school updates from
                                 Gyanoday Vidyalaya's official social channels.</p>
                             <div class="gv-social-actions">
-                                <a class="gv-social-follow instagram" href="https://www.instagram.com/gyanodayvidyalaya/"
-                                    target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                                <a class="gv-social-follow instagram"
+                                    href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i
+                                        class="fab fa-instagram"></i> Instagram</a>
                                 <a class="gv-social-follow youtube"
                                     href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
                                         class="fab fa-youtube"></i> YouTube</a>
@@ -2639,7 +2649,8 @@
                         </div>
                         <div>
                             <div class="gv-social-tabs" role="tablist" aria-label="Social media posts">
-                                <button type="button" class="gv-social-tab active" data-social="instagram">Instagram</button>
+                                <button type="button" class="gv-social-tab active"
+                                    data-social="instagram">Instagram</button>
                                 <button type="button" class="gv-social-tab" data-social="youtube">YouTube</button>
                                 <button type="button" class="gv-social-tab" data-social="facebook">Facebook</button>
                             </div>
@@ -2879,7 +2890,7 @@
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Disable OwlCarousel only on small screens.
                 // Use a hard breakpoint that matches your CSS media query.
                 if (window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches) {
@@ -3163,14 +3174,16 @@
                         if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
                         else gvQuickMenu.classList.remove("gv-quick-menu-show");
                     }
-                    // Reveal navbar: on mobile, after just 5px scroll so it slides in
-                    // immediately and stays fixed above content.
-                    // On desktop: 50px threshold.
+                    // Reveal navbar: on mobile, after 10px scroll so it slides in
+                    // with a smooth transition and stays permanently.
+                    // On desktop: 50px threshold, hides when scrolling back to top.
                     var isMobile = window.innerWidth <= 767;
-                    var revealAt = isMobile ? 5 : 50;
+                    var revealAt = isMobile ? 10 : 50;
                     if (scrollTop >= revealAt) {
                         document.body.classList.add("gv-nav-revealed");
-                    } else {
+                    } else if (!isMobile) {
+                        // On desktop, hide navbar when scrolling back to top
+                        // On mobile, navbar stays visible permanently once revealed
                         document.body.classList.remove("gv-nav-revealed");
                     }
 

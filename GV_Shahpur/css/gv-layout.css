@@ -228,6 +228,20 @@ body[data-gv-page="home"] .gv-navbar:not(.gv-home-navbar-wrap) {
     .gv-topbar-info { font-size: .82rem !important; }
 }
 
+/* ===================== MOBILE: HIDE TOPBAR ===================== */
+/* Hide the topbar on all pages on mobile — keeps the UI clean */
+@media (max-width: 767.98px) {
+    .gv-topbar {
+        display: none !important;
+    }
+
+    /* On non-home pages: topbar is hidden so only navbar height needed as offset */
+    body:not([data-gv-page="home"]) {
+        padding-top: 76px !important;          /* navbar height only */
+        scroll-padding-top: 76px !important;
+    }
+}
+
 /* ===================== FIXED-BARS OFFSET ===================== */
 :root {
     --gv-fixed-top-offset: 118px; /* topbar (~42px) + navbar (~76px) */
