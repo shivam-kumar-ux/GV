@@ -27,15 +27,22 @@
   function getStorageInstance() {
     if (!isConfigured() || typeof global.firebase.storage !== "function") return null;
     try {
-      // Explicitly use the legacy .appspot.com bucket which has reliable
-      // security rule enforcement on all Firebase plans. The newer
-      // .firebasestorage.app bucket requires Blaze plan for rules to work
-      // correctly with browser resumable uploads.
+      // Try the newer .firebasestorage.app bucket first (default on newer Firebase projects).
+      // Fall back to legacy .appspot.com if that fails.
       var cfg = global.GV_FIREBASE_CONFIG;
+      // Use the storageBucket from config if it's set — this is the most reliable approach
+      if (cfg.storageBucket) {
+        try {
+          return global.firebase.app().storage("gs://" + cfg.storageBucket);
+        } catch (e) {
+          console.warn("GV: Could not use config storageBucket, trying legacy:", e.message);
+        }
+      }
+      // Fallback: try legacy appspot bucket
       var legacyBucket = cfg.projectId + ".appspot.com";
       return global.firebase.app().storage("gs://" + legacyBucket);
     } catch (e) {
-      console.warn("GV: Could not get legacy storage bucket, falling back to default:", e.message);
+      console.warn("GV: Could not get storage bucket, falling back to default:", e.message);
       try {
         return global.firebase.storage();
       } catch (e2) {

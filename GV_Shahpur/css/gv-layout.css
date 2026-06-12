@@ -27,9 +27,10 @@
     width: 100%;
 }
 
-/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior */
-body[data-gv-page="home"] .gv-topbar {
-    position: sticky;
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior.
+   The topbar on home is handled by .gv-home-topbar class with position:fixed set in index.html inline CSS. */
+body[data-gv-page="home"] .gv-topbar:not(.gv-home-topbar) {
+    position: static;
     top: auto;
     left: auto;
     right: auto;
@@ -73,9 +74,10 @@ body[data-gv-page="home"] .gv-topbar {
     padding: 0;
 }
 
-/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior */
-body[data-gv-page="home"] .gv-navbar {
-    position: sticky;
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior.
+   The navbar on home is handled by .gv-home-navbar-wrap class with position:fixed set in index.html inline CSS. */
+body[data-gv-page="home"] .gv-navbar:not(.gv-home-navbar-wrap) {
+    position: static;
     top: auto;
     left: auto;
     right: auto;
