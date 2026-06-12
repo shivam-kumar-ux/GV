@@ -111,7 +111,7 @@
             top: var(--gv-topbar-h);
             left: 0;
             right: 0;
-            z-index: 1040;
+            z-index: 1055;
             transform: translateY(-110%);
             opacity: 0;
             visibility: hidden;
@@ -119,14 +119,6 @@
             pointer-events: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-
-        /* Mobile: ensure navbar reveal only happens after JS adds body.gv-nav-revealed */
-        @media (max-width: 767.98px) {
-            body[data-gv-page="home"] .gv-home-navbar-wrap {
-                z-index: 1060;
-            }
-        }
-
 
         body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
             transform: translateY(0);
@@ -136,20 +128,7 @@
         }
 
         body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
-            /* Do not add extra padding on mobile; navbar is already fixed */
-            padding-top: 0;
-        }
-
-
-
-        /* Mobile: once revealed, keep it fixed at top (prevents it disappearing on slight scroll) */
-        @media (max-width: 767.98px) {
-            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-            }
+            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
         }
 
         body[data-gv-page="home"] .gv-home-hero {
@@ -1269,10 +1248,10 @@
         }
 
         @media (max-width: 767.98px) {
-            /* Mobile: keep topbar pinned. Navbar should appear pinned only after scroll reveal (body.gv-nav-revealed). */
+            /* Mobile: topbar is fixed at top; hero sits below it */
             :root {
-                /* Match JS-measured height via fallback; JS updates this variable on load/resize. */
                 --gv-topbar-h: 42px;
+                --gv-navbar-h: 60px;
             }
 
             body[data-gv-page="home"] .gv-home-topbar {
@@ -1290,7 +1269,6 @@
                 min-height: 520px !important;
             }
 
-
             body[data-gv-page="home"] #gvHomeHero .video-background {
                 display: block !important;
                 width: 100% !important;
@@ -1307,21 +1285,31 @@
                 z-index: 4 !important;
             }
 
+            /* ---- MOBILE NAVBAR: fixed at top of viewport below topbar, always visible after 5px scroll ---- */
             body[data-gv-page="home"] .gv-home-navbar-wrap {
-                /* Hidden by default on mobile until body.gv-nav-revealed is added by JS */
+                position: fixed;
                 top: var(--gv-topbar-h);
-                z-index: 1060;
+                left: 0;
+                right: 0;
+                z-index: 1055;
                 transform: translateY(-110%);
                 opacity: 0;
                 visibility: hidden;
                 pointer-events: none;
+                transition: transform 0.3s ease, opacity 0.25s ease, visibility 0.25s;
             }
 
+            /* Once revealed (after 5px scroll), navbar snaps to top and stays sticky */
             body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
+                transform: translateY(0) !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+            }
+
+            /* Prevent main content from jumping under navbar when it appears */
+            body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+                padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
             }
 
 
@@ -3169,19 +3157,11 @@
                         if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
                         else gvQuickMenu.classList.remove("gv-quick-menu-show");
                     }
-                    // Reveal navbar once the hero has scrolled fully past the top of the viewport
-                    // On mobile: use hero height so navbar appears only after video is gone.
-                    // On desktop: keep a small threshold for quick access.
+                    // Reveal navbar: on mobile, after just 5px scroll so it slides in
+                    // immediately and stays fixed above content.
+                    // On desktop: 50px threshold.
                     var isMobile = window.innerWidth <= 767;
-                    // Mobile: show navbar just after the topbar leaves the top of the screen (instead of waiting for full hero scroll).
-                    // Topbar height is measured into --gv-topbar-h by measureHeights().
-                    var topbarH = 0;
-                    try {
-                        topbarH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gv-topbar-h')) || 0;
-                    } catch (e) {
-                        topbarH = 0;
-                    }
-                    var revealAt = isMobile ? (topbarH + 5) : 50;
+                    var revealAt = isMobile ? 5 : 50;
                     if (scrollTop >= revealAt) {
                         document.body.classList.add("gv-nav-revealed");
                     } else {

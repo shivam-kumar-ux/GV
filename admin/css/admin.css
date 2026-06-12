@@ -339,6 +339,84 @@ body.admin-body {
     color: #8b949e !important;
 }
 
+/* ---- Info / helper boxes (bg-light, bg-white, inline-styled colored boxes) ---- */
+/* Bootstrap bg-light and bg-white inside sections */
+[data-theme="dark"] .admin-section .bg-light,
+[data-theme="dark"] .admin-section .card.bg-light,
+[data-theme="dark"] .admin-section .card-body.bg-light,
+[data-theme="dark"] .admin-section .p-3.bg-light,
+[data-theme="dark"] .admin-section .p-4.bg-light,
+[data-theme="dark"] .admin-section .card-body.p-3.bg-light.rounded,
+[data-theme="dark"] .admin-section .rounded.bg-white,
+[data-theme="dark"] .admin-section .rounded.bg-light,
+[data-theme="dark"] .admin-section .border.rounded,
+[data-theme="dark"] .admin-section .card.shadow-sm.border-0,
+[data-theme="dark"] .admin-section .card {
+    background: #21262d !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+/* Inline-style boxes — e8f0ff (blue tint) and fff3cd (yellow tint) */
+[data-theme="dark"] .admin-section [style*="background:#e8f0ff"],
+[data-theme="dark"] .admin-section [style*="background: #e8f0ff"],
+[data-theme="dark"] .admin-section [style*="background:#fff3cd"],
+[data-theme="dark"] .admin-section [style*="background: #fff3cd"],
+[data-theme="dark"] .admin-section [style*="background:#ECF4FF"],
+[data-theme="dark"] .admin-section [style*="background:#fff"],
+[data-theme="dark"] .admin-section [style*="background: #fff"],
+[data-theme="dark"] .admin-section [style*="background:white"],
+[data-theme="dark"] .admin-section [style*="background: white"],
+[data-theme="dark"] .admin-section [style*="background:#f8f9fa"],
+[data-theme="dark"] .admin-section [style*="background: #f8f9fa"] {
+    background: #21262d !important;
+    color: #c9d1d9 !important;
+}
+
+/* Update history panel inline divs */
+[data-theme="dark"] #updateHistoryList [style*="background:#e8f0ff"],
+[data-theme="dark"] #updateHistoryList [style*="background: #e8f0ff"],
+[data-theme="dark"] #updateHistoryList [style*="border-bottom:1px solid #f0f0f0"],
+[data-theme="dark"] #updateHistoryList [style*="border-bottom: 1px solid #f0f0f0"] {
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] #updateHistoryList [style*="color:#555"],
+[data-theme="dark"] #updateHistoryList [style*="color: #555"],
+[data-theme="dark"] #updateHistoryList [style*="color:#888"],
+[data-theme="dark"] #updateHistoryList [style*="color: #888"] {
+    color: #c9d1d9 !important;
+}
+
+/* strong, b, span inside sections */
+[data-theme="dark"] .admin-section strong,
+[data-theme="dark"] .admin-section b,
+[data-theme="dark"] .admin-section span:not(.badge):not(.notification-dot),
+[data-theme="dark"] #updateHistoryList strong {
+    color: #e6edf3 !important;
+}
+
+/* code / pre tags */
+[data-theme="dark"] .admin-section code,
+[data-theme="dark"] .admin-section pre,
+[data-theme="dark"] code {
+    background: #21262d !important;
+    color: #79c0ff !important;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+/* Links inside sections */
+[data-theme="dark"] .admin-section a:not(.btn):not(.admin-nav-link) {
+    color: #5b9bf8 !important;
+}
+
+/* ol, ul lists inside help cards */
+[data-theme="dark"] .admin-section ol li,
+[data-theme="dark"] .admin-section ul li {
+    color: #c9d1d9 !important;
+}
+
 /* Form controls */
 [data-theme="dark"] .form-control,
 [data-theme="dark"] .form-control-file,
@@ -364,6 +442,14 @@ body.admin-body {
 
 [data-theme="dark"] .text-muted {
     color: #8b949e !important;
+}
+
+[data-theme="dark"] .text-primary {
+    color: #5b9bf8 !important;
+}
+
+[data-theme="dark"] .text-danger {
+    color: #ff7b72 !important;
 }
 
 [data-theme="dark"] p,
@@ -399,6 +485,11 @@ body.admin-body {
     border-color: #30363d !important;
 }
 
+[data-theme="dark"] .badge-secondary {
+    background: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
 /* Borders */
 [data-theme="dark"] .border,
 [data-theme="dark"] .border-top,
@@ -411,7 +502,7 @@ body.admin-body {
     border-color: #30363d !important;
 }
 
-/* Alert */
+/* Alert / info boxes */
 [data-theme="dark"] .alert-info {
     background: #1c3a5e !important;
     border-color: #1f4778 !important;
@@ -455,16 +546,6 @@ body.admin-body {
     border-color: #30363d !important;
     color: #c9d1d9 !important;
 }
-
-/* Ensure update-history dynamically injected text is readable in dark mode */
-[data-theme="dark"] .gv-upd-detail {
-    color: #c9d1d9 !important;
-}
-
-[data-theme="dark"] .gv-upd-editor {
-    color: #8b949e !important;
-}
-
 
 /* Scrollbar */
 [data-theme="dark"] ::-webkit-scrollbar-track {
