@@ -61,8 +61,10 @@
       '<input type="file" class="form-control-file gv-file" data-target="' + id + '" accept="' + (accept || "image/*") + '">' +
       '<button type="button" class="btn btn-sm btn-primary ml-2 btn-gv-upload" disabled style="white-space: nowrap;">Upload</button>' +
       '</div>' +
-      '<div class="progress mt-2 d-none gv-upload-progress" style="height: 10px;">' +
-      '<div class="progress-bar bg-success gv-upload-progress-bar" style="width: 0%; font-size: 8px;">0%</div>' +
+      '<div class="gv-upload-progress d-none mt-2" style="height:18px;background:#e9ecef;border-radius:9px;overflow:hidden;position:relative;">' +
+      '<div class="gv-upload-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#2878EB,#56CCF2);border-radius:9px;transition:width 0.3s ease;position:relative;">' +
+      '</div>' +
+      '<span class="gv-upload-pct-label" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:700;color:#333;white-space:nowrap;pointer-events:none;">0%</span>' +
       '</div>';
   }
 
@@ -71,6 +73,7 @@
     var btn = parent ? parent.querySelector(".btn-gv-upload") : null;
     var progressBar = parent && parent.nextElementSibling && parent.nextElementSibling.classList.contains("gv-upload-progress") ? parent.nextElementSibling : null;
     var barInner = progressBar ? progressBar.querySelector(".gv-upload-progress-bar") : null;
+    var pctLabel = progressBar ? progressBar.querySelector(".gv-upload-pct-label") : null;
 
     if (!btn) {
       var fieldWrap = inp.closest(".col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .form-group, .admin-card-item");
@@ -78,11 +81,13 @@
       btn = fieldWrap ? fieldWrap.querySelector(".btn-gv-upload") : null;
       progressBar = fieldWrap ? fieldWrap.querySelector(".gv-upload-progress") : null;
       barInner = fieldWrap ? fieldWrap.querySelector(".gv-upload-progress-bar") : null;
+      pctLabel = fieldWrap ? fieldWrap.querySelector(".gv-upload-pct-label") : null;
     }
     return {
       btn: btn,
       progressBar: progressBar,
-      barInner: barInner
+      barInner: barInner,
+      pctLabel: pctLabel
     };
   }
 
@@ -137,14 +142,17 @@
           if (ui.progressBar) ui.progressBar.classList.remove("d-none");
           if (ui.barInner) {
             ui.barInner.style.width = "2%";
-            ui.barInner.textContent = "Starting…";
+            ui.barInner.style.background = "linear-gradient(90deg,#2878EB,#56CCF2)";
           }
+          if (ui.pctLabel) ui.pctLabel.textContent = "Starting…";
 
           var onProgress = function (percent) {
             var p = Math.round(percent);
             if (ui.barInner) {
               ui.barInner.style.width = p + "%";
-              ui.barInner.textContent = p < 100 ? p + "%" : "Processing…";
+            }
+            if (ui.pctLabel) {
+              ui.pctLabel.textContent = p < 100 ? p + "%" : "Processing…";
             }
           };
 
@@ -162,14 +170,16 @@
               target.dispatchEvent(new Event("input", { bubbles: true }));
               target.dispatchEvent(new Event("change", { bubbles: true }));
             }
-            if (ui.barInner) ui.barInner.textContent = "Saving…";
+            if (ui.barInner) ui.barInner.style.width = "98%";
+            if (ui.pctLabel) ui.pctLabel.textContent = "Saving…";
             // Determine which section this upload belongs to for the update log
             var sectionEl = inp.closest(".admin-section");
             var sectionName = sectionEl ? (sectionEl.getAttribute("id") || "").replace("sec-", "") : "content";
             sectionName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
             return publishAfterUpload(sectionName, "Image/file uploaded: " + (file.name || "file"));
           }).then(function () {
-            if (ui.barInner) ui.barInner.textContent = "Done";
+            if (ui.barInner) { ui.barInner.style.width = "100%"; ui.barInner.style.background = "linear-gradient(90deg,#28a745,#56d364)"; }
+            if (ui.pctLabel) ui.pctLabel.textContent = "Done ✓";
             toast("File uploaded and saved. Refresh the public website to see changes.");
             var info = document.getElementById("lastSavedInfo");
             if (info) info.textContent = "Last saved: " + new Date().toLocaleString();
@@ -178,10 +188,9 @@
             console.error("GV upload error:", e);
             if (ui.barInner) {
               ui.barInner.style.width = "100%";
-              ui.barInner.classList.remove("bg-success");
-              ui.barInner.classList.add("bg-danger");
-              ui.barInner.textContent = "Failed";
+              ui.barInner.style.background = "linear-gradient(90deg,#dc3545,#ff7b72)";
             }
+            if (ui.pctLabel) ui.pctLabel.textContent = "Failed";
             toast((e && e.message) || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
@@ -189,9 +198,10 @@
             setTimeout(function () {
               if (ui.progressBar) ui.progressBar.classList.add("d-none");
               if (ui.barInner) {
-                ui.barInner.classList.remove("bg-danger");
-                ui.barInner.classList.add("bg-success");
+                ui.barInner.style.width = "0%";
+                ui.barInner.style.background = "linear-gradient(90deg,#2878EB,#56CCF2)";
               }
+              if (ui.pctLabel) ui.pctLabel.textContent = "0%";
             }, 4000);
           });
         };

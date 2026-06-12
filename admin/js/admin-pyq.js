@@ -40,8 +40,9 @@ var GVPyqAdmin = (function () {
       '<input type="file" class="form-control-file gv-file pyq-file" data-pid="' + pid + '" accept="' + (accept || "application/pdf") + '">' +
       '<button type="button" class="btn btn-sm btn-primary ml-2 btn-pyq-upload" disabled style="white-space: nowrap;">Upload</button>' +
       '</div>' +
-      '<div class="progress mt-2 d-none pyq-progress" style="height: 10px;">' +
-      '<div class="progress-bar bg-success pyq-progress-bar" style="width: 0%; font-size: 8px;">0%</div>' +
+      '<div class="gv-upload-progress pyq-progress d-none mt-2" style="height:18px;background:#e9ecef;border-radius:9px;overflow:hidden;position:relative;">' +
+      '<div class="gv-upload-progress-bar pyq-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#2878EB,#56CCF2);border-radius:9px;transition:width 0.3s ease;"></div>' +
+      '<span class="gv-upload-pct-label pyq-pct-label" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:700;color:#333;white-space:nowrap;pointer-events:none;">0%</span>' +
       '</div>';
   }
 
@@ -52,12 +53,14 @@ var GVPyqAdmin = (function () {
       var btn = parent ? parent.querySelector(".btn-pyq-upload") : null;
       var progressBar = parent && parent.nextElementSibling && parent.nextElementSibling.classList.contains("pyq-progress") ? parent.nextElementSibling : null;
       var barInner = progressBar ? progressBar.querySelector(".pyq-progress-bar") : null;
+      var pctLabel = progressBar ? progressBar.querySelector(".pyq-pct-label") : null;
 
       if (!btn) {
         var containerDiv = inp.closest(".col-md-6, .admin-card-item");
         btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
         progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
         barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
+        pctLabel = containerDiv ? containerDiv.querySelector(".pyq-pct-label") : null;
       }
 
       inp.onchange = function () {
@@ -77,15 +80,14 @@ var GVPyqAdmin = (function () {
           if (progressBar) progressBar.classList.remove("d-none");
           if (barInner) {
             barInner.style.width = "2%";
-            barInner.textContent = "Preparing…";
+            barInner.style.background = "linear-gradient(90deg,#2878EB,#56CCF2)";
           }
+          if (pctLabel) pctLabel.textContent = "Starting…";
 
           var onProgress = function (percent) {
-            var p = Math.round(percent) + "%";
-            if (barInner) {
-              barInner.style.width = p;
-              barInner.textContent = p;
-            }
+            var p = Math.round(percent);
+            if (barInner) barInner.style.width = p + "%";
+            if (pctLabel) pctLabel.textContent = p < 100 ? p + "%" : "Processing…";
           };
 
           GVFirebase.uploadFile(file, inp.getAttribute("data-folder") || "papers", "pyq", onProgress).then(function (url) {
@@ -100,25 +102,25 @@ var GVPyqAdmin = (function () {
               targetDl.dispatchEvent(new Event("change", { bubbles: true }));
             }
             syncPapersFromForm();
-            if (barInner) barInner.textContent = "Saving…";
+            if (barInner) barInner.style.width = "98%";
+            if (pctLabel) pctLabel.textContent = "Saving…";
             return GVFirebase.saveSiteContent(getContent(), "pyq");
           }).then(function () {
-            if (barInner) barInner.textContent = "Done";
+            if (barInner) { barInner.style.width = "100%"; barInner.style.background = "linear-gradient(90deg,#28a745,#56d364)"; }
+            if (pctLabel) pctLabel.textContent = "Done ✓";
             toastFn("PDF uploaded. View/Download URLs saved to PYQ Hub.");
           }).catch(function (e) {
             console.error("PYQ upload error:", e);
-            if (barInner) {
-              barInner.style.width = "100%";
-              barInner.classList.remove("bg-success");
-              barInner.classList.add("bg-danger");
-              barInner.textContent = "Failed";
-            }
+            if (barInner) { barInner.style.width = "100%"; barInner.style.background = "linear-gradient(90deg,#dc3545,#ff7b72)"; }
+            if (pctLabel) pctLabel.textContent = "Failed";
             toastFn((e && e.message) || "Upload failed", "danger");
           }).finally(function () {
             inp.disabled = false;
             btn.disabled = false;
             setTimeout(function () {
               if (progressBar) progressBar.classList.add("d-none");
+              if (barInner) { barInner.style.width = "0%"; barInner.style.background = "linear-gradient(90deg,#2878EB,#56CCF2)"; }
+              if (pctLabel) pctLabel.textContent = "0%";
             }, 3000);
           });
         };
