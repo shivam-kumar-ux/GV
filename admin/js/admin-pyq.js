@@ -36,6 +36,7 @@ var GVPyqAdmin = (function () {
   }
 
   function fileInputHtml(pid, accept) {
+    // Keep the upload markup consistent with Shahpur admin so the progress animation always binds.
     return '<div class="d-flex align-items-center mt-1">' +
       '<input type="file" class="form-control-file gv-file pyq-file" data-pid="' + pid + '" accept="' + (accept || "application/pdf") + '">' +
       '<button type="button" class="btn btn-sm btn-primary ml-2 btn-pyq-upload" disabled style="white-space: nowrap;">Upload</button>' +
@@ -45,6 +46,7 @@ var GVPyqAdmin = (function () {
       '<span class="gv-upload-pct-label pyq-pct-label" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:700;color:#333;white-space:nowrap;pointer-events:none;">0%</span>' +
       '</div>';
   }
+
 
   function bindUploads(root) {
     if (!root) return;
@@ -334,33 +336,64 @@ var GVPyqAdmin = (function () {
       renderAll();
       toastFn("Default PYQ data loaded. Click Save Changes.");
     };
+
+    // Track last added exam so "Add question paper" attaches to the newly created exam.
+    // (Fixes: paper button not working for a new exam.)
+    var lastAddedExamName = "";
+
     document.getElementById("btnAddPyqExam").onclick = function () {
       syncExamsFromForm();
       var name = prompt("Exam name (e.g. JEE, NEET):");
       if (!name) return;
       name = name.trim();
-      content.exams.push({ name: name, active: true });
+
+      // Prevent duplicates (and keep active true)
+      var existing = content.exams.find(function (e) { return e.name === name; });
+      if (existing) {
+        existing.active = true;
+      } else {
+        content.exams.push({ name: name, active: true });
+      }
+
       if (!content.examDetails[name]) {
         content.examDetails[name] = { emoji: "📋", subtitle: "", format: "<p>Details coming soon.</p>", syllabus: "#" };
       }
+
+      lastAddedExamName = name;
+
       renderExams();
       renderPapers();
     };
+
     document.getElementById("btnAddPyqPaper").onclick = function () {
       syncPapersFromForm();
+
+      // Prefer: last added exam name (from newly created exam)
+      // Else: current filter dropdown
+      // Else: first active exam name
       var names = examNames();
+      var filterEl = document.getElementById("pyqPaperFilter");
+      var filterVal = filterEl ? (filterEl.value || "") : "";
+
+      var chosenExam = (lastAddedExamName && names.indexOf(lastAddedExamName) !== -1)
+        ? lastAddedExamName
+        : (filterVal && names.indexOf(filterVal) !== -1 ? filterVal : (names[0] || "JEE"));
+
       content.papers.unshift({
         id: uid(),
         title: "New Question Paper",
-        exam: names[0] || "JEE",
+        exam: chosenExam,
         year: String(new Date().getFullYear()),
         class: "12",
         subject: "All-in-one",
         view: "#",
         download: "#"
       });
+
+      // After inserting, refresh lists so upload animation + dropdowns bind correctly.
       renderPapers();
       renderOverview();
+      if (lastAddedExamName) lastAddedExamName = "";
     };
   }
 

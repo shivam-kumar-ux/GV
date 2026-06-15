@@ -1034,11 +1034,30 @@
     if (!box) return;
     var site = activeSite || "shahpur";
     box.innerHTML = '<p class="text-muted small"><i class="fa fa-spinner fa-spin mr-1"></i>Loading history…</p>';
-    GVFirebase.getUpdateLogs(site, 30).then(function (items) {
+
+    var limit = 20;
+    // As requested: show last 20 updates in Shahpur/PYQ admin panels.
+    // (Super admin can see last 20 updates as well — keep it capped for performance.)
+
+
+    GVFirebase.getUpdateLogs(site, limit).then(function (items) {
+
       if (!items || !items.length) {
-        box.innerHTML = '<p class="text-muted small">No updates recorded yet. Changes will appear here after the first save.</p>';
+        var debug = '';
+        try {
+          var isSuper = sessionProfile && GVFirebase.isSuperAdminEmail(sessionProfile.email);
+          if (isSuper) {
+            debug = '<div class="mt-2 small" style="color:#777;">' +
+              '<div><strong>Debug:</strong> site queried = <code>' + attr(site) + '</code></div>' +
+              '<div>Hint: ensure you called “Save Changes” (manual save or file upload) and that Storage/Firestore rules allow writes to <code>updateLogs</code>.</div>' +
+              '</div>';
+          }
+        } catch (e) { }
+
+        box.innerHTML = '<p class="text-muted small">No updates recorded yet. Changes will appear here after the first save.</p>' + debug;
         return;
       }
+
       var html = '';
       items.forEach(function (item) {
         var ts = item.timestamp;
@@ -1048,34 +1067,43 @@
           dateStr = d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) +
             " " + d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
         }
+
         var sectionIcon = {
           "Achievers": "fa-trophy", "Programs": "fa-book", "Results": "fa-chart-line",
           "Youtube": "fab fa-youtube", "Instagram": "fab fa-instagram", "Facebook": "fab fa-facebook-f",
           "Memories": "fa-images", "Notices": "fa-bell", "Blog": "fa-newspaper",
           "Hostel": "fa-utensils", "Disclosure": "fa-file-pdf", "Testimonials": "fa-comment-dots",
-          "Pyq": "fa-graduation-cap", "PYQ": "fa-graduation-cap", "Staff": "fa-users-cog"
+          "Pyq": "fa-graduation-cap", "PYQ": "fa-graduation-cap", "Staff": "fa-users-cog",
+          "Pyq Hub": "fa-graduation-cap", "PYQ Hub": "fa-graduation-cap"
         }[item.section] || "fa-edit";
-        var staffName = item.editorName || item.staffName || "Admin";
-        var staffId = item.editorStaffId || item.staffId || "";
+
+        var staffName = item.editorName || item.staffName || item.updatedByName || "Admin";
+        var staffId = item.editorStaffId || item.staffId || item.updatedByStaffId || "";
+
+        // Normalize details (older logs might have different field names)
+        var detailText = item.detail || item.description || item.updateText || item.update || item.change || item.action || "";
+        if (!detailText) detailText = "Content updated";
+
         html += '<div class="d-flex align-items-start py-2" style="border-bottom:1px solid #f0f0f0;">' +
           '<div style="width:32px;height:32px;border-radius:50%;background:#e8f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;">' +
           '<i class="fa ' + sectionIcon + ' text-primary" style="font-size:13px;"></i></div>' +
           '<div style="flex:1;min-width:0;">' +
           '<div class="d-flex justify-content-between align-items-center">' +
-          '<strong style="font-size:13px;">' + (item.section || "Content") + '</strong>' +
+          '<strong style="font-size:13px;">' + attr(item.section || "Content") + '</strong>' +
           '<span class="text-muted" style="font-size:11px;white-space:nowrap;margin-left:8px;">' + dateStr + '</span>' +
           '</div>' +
-          '<div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="gv-upd-detail">' + (item.detail || item.description || "") + '</div>' +
-          '<div style="font-size:11px;" class="gv-upd-editor"><i class="fa fa-user mr-1"></i>' + staffName +
-          (staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + staffId + '</span>' : '') + '</div>' +
-
+          '<div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="gv-upd-detail">' + attr(detailText) + '</div>' +
+          '<div style="font-size:11px;" class="gv-upd-editor"><i class="fa fa-user mr-1"></i>' + attr(staffName) +
+          (staffId ? ' <span class="badge badge-light border" style="font-size:10px;">' + attr(staffId) + '</span>' : '') + '</div>' +
           '</div></div>';
       });
       box.innerHTML = html;
-    }).catch(function () {
+    }).catch(function (e) {
+      console.error("Could not load update history:", e);
       box.innerHTML = '<p class="text-muted small">Could not load update history.</p>';
     });
   }
+
 
   function initButtons() {
     document.getElementById("btnSaveAll").onclick = saveAll;
@@ -1212,8 +1240,11 @@
           content = deepClone(c);
           renderAll();
         }
+        // Refresh history for the newly selected campus/site
+        renderUpdateHistory();
       });
     };
+
     document.getElementById("linkViewSite").href = GVFirebase.getSiteConfig(activeSite).publicPath + "index.html";
   }
 
