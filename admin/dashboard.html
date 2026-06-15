@@ -91,32 +91,45 @@
           var user = fbAuth.currentUser;
           log('Auth: ' + (user ? '✅ ' + user.email : '❌ not signed in'));
           if (!user) return;
-          user.getIdToken(true).then(function(tok) {
-            log('Token: ✅ refreshed (len ' + tok.length + ')');
+          user.getIdToken(true).then(function(idToken) {
+            log('Token: ✅ refreshed (len ' + idToken.length + ')');
             var cfg = window.GV_FIREBASE_CONFIG || {};
             var bucket = cfg.storageBucket || (cfg.projectId + '.firebasestorage.app');
             log('Bucket: ' + bucket);
-            log('Testing upload…');
-            // Use default storage() — same as the actual upload code
-            var st;
-            try { st = firebase.storage(); } catch(e) { log('❌ firebase.storage() failed: ' + e.message); return; }
-            var ref = st.ref('gv-shahpur/.diag-' + Date.now() + '.txt');
-            ref.put(new Blob(['ok'], {type:'text/plain'})).then(function() {
-              log('✅ Upload OK — storage is working');
-              ref.delete().catch(function(){});
-            }).catch(function(e) {
-              log('❌ Upload failed: ' + e.code);
-              if (e.code === 'storage/unauthorized') {
-                log('→ Rules are blocking the write.');
-                log('→ Go to Firebase Console → Storage → Rules');
-                log('→ Make sure: allow write: if request.auth != null;');
-              } else if (e.code === 'storage/retry-limit-exceeded') {
-                log('→ Bucket "' + bucket + '" does not exist or network error.');
-                log('→ Go to Firebase Console → Storage and activate it.');
+            log('Testing upload via REST API…');
+            var path = 'gv-shahpur/.diag-' + Date.now() + '.txt';
+            var url = 'https://firebasestorage.googleapis.com/v0/b/' + bucket +
+              '/o?uploadType=media&name=' + encodeURIComponent(path);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + idToken);
+            xhr.setRequestHeader('Content-Type', 'text/plain');
+            xhr.onload = function() {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                log('✅ Upload OK — storage is working correctly');
+                // Clean up test file
+                var delXhr = new XMLHttpRequest();
+                delXhr.open('DELETE', 'https://firebasestorage.googleapis.com/v0/b/' + bucket +
+                  '/o/' + encodeURIComponent(path), true);
+                delXhr.setRequestHeader('Authorization', 'Bearer ' + idToken);
+                delXhr.send();
               } else {
-                log('→ Check browser console (F12) for full error details.');
+                log('❌ Upload failed: HTTP ' + xhr.status);
+                try {
+                  var e = JSON.parse(xhr.responseText);
+                  if (e && e.error) log('→ ' + e.error.message);
+                } catch(pe) {}
+                if (xhr.status === 403) {
+                  log('→ Rules are blocking. Open Firebase Console → Storage → Rules');
+                  log('→ Ensure: allow write: if request.auth != null;');
+                  log('→ Then click Publish and wait 2 minutes');
+                } else if (xhr.status === 404) {
+                  log('→ Bucket not found. Go to Firebase Console → Storage → Get Started');
+                }
               }
-            });
+            };
+            xhr.onerror = function() { log('❌ Network error'); };
+            xhr.send('diag-test');
           }).catch(function(e){ log('❌ Token refresh: ' + e.message); });
         }
         </script>
