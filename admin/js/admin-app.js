@@ -810,7 +810,7 @@
     });
     document.getElementById("noticeTicker").oninput = function () { content.notices.ticker = this.value; };
     document.getElementById("noticeLastUpdated").oninput = function () { content.notices.lastUpdated = this.value; };
-    box.querySelectorAll("input,textarea,select").forEach(function (el) { el.oninput = el.onchange = syncNotices; });
+    box.querySelectorAll("input:not([type='file']),textarea,select").forEach(function (el) { el.oninput = el.onchange = syncNotices; });
   }
 
   function syncNotices() {
@@ -930,7 +930,7 @@
     box.querySelectorAll(".btn-del-testimonial").forEach(function (btn) {
       btn.onclick = function () { content.testimonials.splice(+btn.getAttribute("data-i"), 1); renderTestimonials(); };
     });
-    box.querySelectorAll("input,textarea,select").forEach(function (el) { el.oninput = el.onchange = syncTestimonials; });
+    box.querySelectorAll("input:not([type='file']),textarea,select").forEach(function (el) { el.oninput = el.onchange = syncTestimonials; });
   }
 
   function syncTestimonials() {

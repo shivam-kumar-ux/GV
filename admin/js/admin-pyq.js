@@ -200,7 +200,7 @@ var GVPyqAdmin = (function () {
         renderOverview();
       };
     });
-    box.querySelectorAll("input,textarea").forEach(function (el) {
+    box.querySelectorAll("input:not([type='file']),textarea").forEach(function (el) {
       el.oninput = el.onchange = function () { syncExamsFromForm(); renderOverview(); };
     });
   }
@@ -271,7 +271,7 @@ var GVPyqAdmin = (function () {
         renderOverview();
       };
     });
-    box.querySelectorAll("input,select,textarea").forEach(function (el) {
+    box.querySelectorAll("input:not([type='file']),select,textarea").forEach(function (el) {
       el.oninput = el.onchange = function () { syncPapersFromForm(); renderOverview(); };
     });
   }
