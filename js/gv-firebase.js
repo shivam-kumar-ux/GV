@@ -252,81 +252,55 @@
         var encodedPath = encodeURIComponent(path);
 
         // Use Firebase Storage REST API directly — guarantees token is attached
-        // POST multipart upload: https://firebase.google.com/docs/storage/web/upload-files
+        // Simple POST upload: https://firebasestorage.googleapis.com/v0/b/{bucket}/o/{encodedPath}
         var uploadUrl = "https://firebasestorage.googleapis.com/v0/b/" + bucket +
-          "/o?uploadType=multipart&name=" + encodedPath;
+          "/o/" + encodedPath;
 
-        var boundary = "gv_upload_" + Date.now();
-        var delimiter = "--" + boundary;
-        var closeDelimiter = delimiter + "--";
-
-        // Build multipart body
-        var metadataStr = JSON.stringify({ contentType: contentType });
-        var encoder = new TextEncoder();
-        var metaPart = encoder.encode(
-          delimiter + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" +
-          metadataStr + "\r\n" +
-          delimiter + "\r\nContent-Type: " + contentType + "\r\n\r\n"
-        );
-        var closePart = encoder.encode("\r\n" + closeDelimiter);
-
-        // Read file as ArrayBuffer and combine
         return new Promise(function (resolve, reject) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            var fileBytes = new Uint8Array(e.target.result);
-            var body = new Uint8Array(metaPart.length + fileBytes.length + closePart.length);
-            body.set(metaPart, 0);
-            body.set(fileBytes, metaPart.length);
-            body.set(closePart, metaPart.length + fileBytes.length);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", uploadUrl, true);
+          xhr.setRequestHeader("Authorization", "Bearer " + idToken);
+          xhr.setRequestHeader("Content-Type", contentType);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", uploadUrl, true);
-            xhr.setRequestHeader("Authorization", "Bearer " + idToken);
-            xhr.setRequestHeader("Content-Type", "multipart/related; boundary=" + boundary);
-
-            xhr.upload.onprogress = function (evt) {
-              if (typeof onProgress !== "function") return;
-              if (evt.lengthComputable && evt.total > 0) {
-                onProgress(Math.min(99, Math.max(1, (evt.loaded / evt.total) * 100)));
-              }
-            };
-
-            xhr.onload = function () {
-              if (xhr.status >= 200 && xhr.status < 300) {
-                try {
-                  var resp = JSON.parse(xhr.responseText);
-                  var downloadUrl = "https://firebasestorage.googleapis.com/v0/b/" +
-                    bucket + "/o/" + encodedPath + "?alt=media&token=" +
-                    (resp.downloadTokens || "");
-                  if (typeof onProgress === "function") onProgress(100);
-                  resolve(downloadUrl);
-                } catch (pe) {
-                  reject(new Error("Upload succeeded but could not read download URL."));
-                }
-              } else {
-                var msg = "Upload failed (HTTP " + xhr.status + ")";
-                try {
-                  var errBody = JSON.parse(xhr.responseText);
-                  if (errBody && errBody.error && errBody.error.message) {
-                    msg = errBody.error.message;
-                    if (xhr.status === 403) {
-                      msg = "Upload denied — Storage Rules blocked the request. Check Firebase Console → Storage → Rules.";
-                    }
-                  }
-                } catch (e) {}
-                reject(new Error(msg));
-              }
-            };
-
-            xhr.onerror = function () {
-              reject(new Error("Network error during upload. Check your connection."));
-            };
-
-            xhr.send(body.buffer);
+          xhr.upload.onprogress = function (evt) {
+            if (typeof onProgress !== "function") return;
+            if (evt.lengthComputable && evt.total > 0) {
+              onProgress(Math.min(99, Math.max(1, (evt.loaded / evt.total) * 100)));
+            }
           };
-          reader.onerror = function () { reject(new Error("Could not read file.")); };
-          reader.readAsArrayBuffer(file);
+
+          xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try {
+                var resp = JSON.parse(xhr.responseText);
+                var downloadUrl = "https://firebasestorage.googleapis.com/v0/b/" +
+                  bucket + "/o/" + encodedPath + "?alt=media&token=" +
+                  (resp.downloadTokens || "");
+                if (typeof onProgress === "function") onProgress(100);
+                resolve(downloadUrl);
+              } catch (pe) {
+                reject(new Error("Upload succeeded but could not read download URL."));
+              }
+            } else {
+              var msg = "Upload failed (HTTP " + xhr.status + ")";
+              try {
+                var errBody = JSON.parse(xhr.responseText);
+                if (errBody && errBody.error && errBody.error.message) {
+                  msg = errBody.error.message;
+                  if (xhr.status === 403) {
+                    msg = "Upload denied — Storage Rules blocked the request. Check Firebase Console → Storage → Rules.";
+                  }
+                }
+              } catch (e) {}
+              reject(new Error(msg));
+            }
+          };
+
+          xhr.onerror = function () {
+            reject(new Error("Network error during upload. Check your connection."));
+          };
+
+          xhr.send(file);
         });
       });
     });
