@@ -51,22 +51,46 @@ var GVPyqAdmin = (function () {
   function bindUploads(root) {
     if (!root) return;
     root.querySelectorAll(".pyq-file").forEach(function (inp) {
-      var parent = inp.parentElement;
-      var btn = parent ? parent.querySelector(".btn-pyq-upload") : null;
-      var progressBar = parent && parent.nextElementSibling && parent.nextElementSibling.classList.contains("pyq-progress") ? parent.nextElementSibling : null;
+      // More robust binding: don’t rely on immediate sibling structure.
+      // The file input is generated inside fileInputHtml(), but wrappers/layout can change
+      // (especially after render/filters). We always search within the nearest paper block.
+      var paperCard = inp.closest(".admin-card-item") || root;
+      var btn = paperCard.querySelector(".btn-pyq-upload");
+      var progressBar = paperCard.querySelector(".pyq-progress");
       var barInner = progressBar ? progressBar.querySelector(".pyq-progress-bar") : null;
       var pctLabel = progressBar ? progressBar.querySelector(".pyq-pct-label") : null;
 
-      if (!btn) {
-        var containerDiv = inp.closest(".col-md-6, .admin-card-item");
-        btn = containerDiv ? containerDiv.querySelector(".btn-pyq-upload") : null;
-        progressBar = containerDiv ? containerDiv.querySelector(".pyq-progress") : null;
-        barInner = containerDiv ? containerDiv.querySelector(".pyq-progress-bar") : null;
-        pctLabel = containerDiv ? containerDiv.querySelector(".pyq-pct-label") : null;
+      // If there are multiple upload widgets inside one card, pick the ones that are
+      // actually tied to this <input>.
+      // We do this by walking the DOM relative to the input.
+      var parent = inp.parentElement;
+      var relBtn = parent ? parent.querySelector(".btn-pyq-upload") : null;
+      if (relBtn) btn = relBtn;
+
+      var relProgress = null;
+      // Next sibling approach (works with current fileInputHtml())
+      if (parent && parent.nextElementSibling && parent.nextElementSibling.classList && parent.nextElementSibling.classList.contains("pyq-progress")) {
+        relProgress = parent.nextElementSibling;
+      }
+      // Fallback: search within the immediate parent container
+      if (!relProgress && parent) {
+        relProgress = parent.parentElement ? parent.parentElement.querySelector(".pyq-progress") : null;
+      }
+      if (relProgress) {
+        progressBar = relProgress;
+        barInner = progressBar ? progressBar.querySelector(".pyq-progress-bar") : null;
+        pctLabel = progressBar ? progressBar.querySelector(".pyq-pct-label") : null;
       }
 
       inp.onchange = function () {
-        if (btn) btn.disabled = !inp.files[0];
+        // Enable the upload button that is actually tied to this input.
+        var localBtn = null;
+        try { localBtn = this.parentElement && this.parentElement.querySelector('.btn-pyq-upload'); } catch(e) {}
+        if (!localBtn) {
+          try { localBtn = this.closest('.admin-card-item') && this.closest('.admin-card-item').querySelector('.btn-pyq-upload'); } catch(e) {}
+        }
+        if (!localBtn) localBtn = btn; // fallback to earlier-found button
+        if (localBtn) localBtn.disabled = !this.files[0];
       };
 
       if (btn) {
@@ -82,13 +106,19 @@ var GVPyqAdmin = (function () {
           if (progressBar) progressBar.classList.remove("d-none");
           if (barInner) {
             barInner.style.width = "2%";
-            barInner.style.background = "linear-gradient(90deg,#2878EB,#56CCF2)";
+            // Show red during upload (0-99%). It will switch to green on 100%.
+            barInner.style.background = "linear-gradient(90deg,#dc3545,#ff7b72)";
           }
           if (pctLabel) pctLabel.textContent = "Starting…";
 
           var onProgress = function (percent) {
             var p = Math.round(percent);
-            if (barInner) barInner.style.width = p + "%";
+            if (barInner) {
+              barInner.style.width = p + "%";
+              // Keep the bar red while uploading (<100%), switch to green at 100%.
+              if (p < 100) barInner.style.background = "linear-gradient(90deg,#dc3545,#ff7b72)";
+              else barInner.style.background = "linear-gradient(90deg,#28a745,#56d364)";
+            }
             if (pctLabel) pctLabel.textContent = p < 100 ? p + "%" : "Processing…";
           };
 
