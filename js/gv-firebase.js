@@ -251,10 +251,13 @@
         var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
         var encodedPath = encodeURIComponent(path);
 
-        // Use Firebase Storage REST API directly — guarantees token is attached
-        // Simple POST upload: https://firebasestorage.googleapis.com/v0/b/{bucket}/o/{encodedPath}
+        // Use Google Cloud Storage JSON API for simple media upload.
+        // IMPORTANT: The /v0/b/{bucket}/o/{path} endpoint without uploadType=media
+        // treats the POST body as metadata JSON, NOT as file content. This caused
+        // uploaded PDFs to be stored as {"contentType":"application/pdf"} text.
+        // The correct endpoint for binary upload is /upload/storage/v1 with uploadType=media.
         var uploadUrl = "https://firebasestorage.googleapis.com/v0/b/" + bucket +
-          "/o/" + encodedPath;
+          "/o?uploadType=media&name=" + encodedPath;
 
         return new Promise(function (resolve, reject) {
           var xhr = new XMLHttpRequest();
@@ -273,8 +276,9 @@
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 var resp = JSON.parse(xhr.responseText);
+                var storedPath = encodeURIComponent(resp.name || path);
                 var downloadUrl = "https://firebasestorage.googleapis.com/v0/b/" +
-                  bucket + "/o/" + encodedPath + "?alt=media&token=" +
+                  bucket + "/o/" + storedPath + "?alt=media&token=" +
                   (resp.downloadTokens || "");
                 if (typeof onProgress === "function") onProgress(100);
                 resolve(downloadUrl);
