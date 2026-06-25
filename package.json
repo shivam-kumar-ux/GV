@@ -1,0 +1,14 @@
+{
+  "name": "gyanoday-vidyalaya-root",
+  "version": "1.0.0",
+  "description": "Gyanoday Vidyalay static site builder and admin scripts",
+  "private": true,
+  "scripts": {
+    "build:config": "node scripts/generate-firebase-config.js",
+    "build:static": "node scripts/build-static-data.js",
+    "set-super-admin": "node scripts/set-super-admin.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.8.0"
+  }
+}

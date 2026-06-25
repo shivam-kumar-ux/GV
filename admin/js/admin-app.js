@@ -1349,10 +1349,13 @@
         session.profile.name + " (" + session.profile.staffId + ")";
       document.getElementById("welcomeName").textContent = session.profile.name;
       var badge = document.getElementById("userRoleBadge");
-      badge.textContent = session.profile.role;
-      badge.className = "badge mr-2 " + (session.profile.role === "admin" ? "badge-danger" : "badge-secondary");
+      var displayRole = session.profile.role;
+      if (displayRole === "super_admin") displayRole = "Super Admin";
+      else if (displayRole === "staff_admin") displayRole = "Staff Admin";
+      badge.textContent = displayRole;
+      badge.className = "badge mr-2 " + (session.profile.role === "super_admin" ? "badge-danger" : "badge-secondary");
 
-      if (GVFirebase.isSuperAdminEmail(session.profile.email)) {
+      if (session.profile.role === "super_admin" || GVFirebase.isSuperAdminEmail(session.profile.email)) {
         GVStaffAdmin.showAdminNav(true);
         GVStaffAdmin.initStaffSection();
         // Show storage diagnostics panel only for super admin

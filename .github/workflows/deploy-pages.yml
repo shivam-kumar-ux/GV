@@ -22,6 +22,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Check required secrets
         run: |
@@ -55,6 +59,13 @@ jobs:
         run: |
           node scripts/generate-firebase-config.js
           test -f js/firebase-config.js && head -n 3 js/firebase-config.js
+
+      - name: Build static data from Firestore
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GV_SITE_DOC: "all"
+        run: |
+          npm run build:static
 
       - name: Prepare publish folder
         run: |
