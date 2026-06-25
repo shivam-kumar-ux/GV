@@ -2,60 +2,84 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Helper functions
     function signedIn() {
       return request.auth != null;
     }
 
-    function staffDoc() {
-      return get(/databases/$(database)/documents/staffUsers/$(request.auth.uid));
+    function isSuperAdmin() {
+      return signedIn() && request.auth.token.role == 'super_admin';
     }
 
     function isApprovedStaff() {
-      return signedIn() && staffDoc().data.status == 'approved';
+      return signedIn() && 
+             request.auth.token.role == 'staff_admin' && 
+             request.auth.token.approved == true;
     }
 
-    function isAdmin() {
-      return isApprovedStaff() && staffDoc().data.role == 'admin';
+    // 1. pendingAdmins collection rules
+    match /pendingAdmins/{userId} {
+      // Staff can create their own doc on signup
+      allow create: if signedIn() && request.auth.uid == userId;
+      // Staff can read their own pending status, super_admin can read all
+      allow read: if signedIn() && (request.auth.uid == userId || isSuperAdmin());
+      // Only super_admin can update status or write
+      allow update, delete: if isSuperAdmin();
     }
 
-    // Public website content (read by visitors)
+    // 2. approvedAdmins collection rules
+    match /approvedAdmins/{userId} {
+      // Staff can read their own profile, super_admin can do everything
+      allow read: if signedIn() && (request.auth.uid == userId || isSuperAdmin());
+      allow write: if isSuperAdmin();
+    }
+
+    // 3. students collection rules
+    match /students/{studentId} {
+      // Students read own data only, staff/super can read all
+      allow read: if signedIn() && (request.auth.uid == studentId || isApprovedStaff() || isSuperAdmin());
+      // Only super_admin can write student details
+      allow write: if isSuperAdmin();
+    }
+
+    // 4. notices collection rules
+    match /notices/{noticeId} {
+      // Public can read notices
+      allow read: if true;
+      // Only approved staff and super_admin can write
+      allow write: if isApprovedStaff() || isSuperAdmin();
+    }
+
+    // 5. siteContent (public website content)
     match /siteContent/{siteId} {
       allow read: if true;
-      allow write: if isApprovedStaff();
+      allow write: if isApprovedStaff() || isSuperAdmin();
     }
 
-    // Admin update history logs
+    // 6. updateLogs (edit history logs)
     match /updateLogs/{logId} {
-      allow read: if isApprovedStaff();
-      allow create: if isApprovedStaff();
+      allow read, create: if isApprovedStaff() || isSuperAdmin();
+      allow update, delete: if isSuperAdmin();
     }
 
-    // Update history — any approved staff can write, admin can read all
-    match /siteUpdates/{updateId} {
-      allow read: if isApprovedStaff();
-      allow create: if isApprovedStaff();
-      allow update, delete: if isAdmin();
-    }
-
-    // Staff ID → email lookup (login only; minimal data)
+    // 7. staffLoginIndex (Staff ID to Email index)
     match /staffLoginIndex/{staffId} {
       allow read: if true;
       allow create: if signedIn()
         && request.resource.data.email == request.auth.token.email
         && request.resource.data.uid == request.auth.uid;
-      allow update, delete: if isAdmin();
+      allow update, delete: if isSuperAdmin();
     }
 
-    // Staff profiles
+    // 8. staffUsers (legacy staff profiles - for backwards compatibility/migration)
     match /staffUsers/{userId} {
-      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
-      allow create: if signedIn()
-        && request.auth.uid == userId
-        && request.resource.data.email == request.auth.token.email
-        && request.resource.data.status in ['pending', 'approved'];
-      allow update: if isAdmin()
-        || (signedIn() && request.auth.uid == userId
-            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['phone', 'department']));
+      allow read: if signedIn() && (request.auth.uid == userId || isSuperAdmin() || isApprovedStaff());
+      allow write: if isSuperAdmin();
+    }
+
+    // Default deny rule for everything else
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

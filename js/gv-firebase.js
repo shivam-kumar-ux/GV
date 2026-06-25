@@ -406,9 +406,23 @@
         approvedAt: isBootstrapAdmin ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
         approvedBy: isBootstrapAdmin ? user.uid : null
       };
+
       var batch = db.batch();
       batch.set(db.collection("staffUsers").doc(user.uid), profile);
       batch.set(db.collection("staffLoginIndex").doc(staffId), { email: email, uid: user.uid });
+      
+      // Write to pendingAdmins for review flow
+      batch.set(db.collection("pendingAdmins").doc(user.uid), {
+        uid: user.uid,
+        name: data.name || "",
+        email: email,
+        staffId: staffId,
+        status: isBootstrapAdmin ? "approved" : "pending",
+        requestedAt: global.firebase.firestore.FieldValue.serverTimestamp(),
+        approvedAt: isBootstrapAdmin ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
+        approvedBy: isBootstrapAdmin ? user.uid : null
+      });
+
       return batch.commit().then(function () {
         return { user: user, profile: profile };
       });
@@ -440,6 +454,29 @@
 
   function listStaffByStatus(status) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    
+    // For pending, fetch from pendingAdmins collection
+    if (status === "pending") {
+      return db.collection("pendingAdmins").where("status", "==", "pending").get().then(function (snap) {
+        var list = [];
+        snap.forEach(function (doc) {
+          list.push(Object.assign({ uid: doc.id }, doc.data()));
+        });
+        return list;
+      });
+    }
+    
+    // For approved, fetch from approvedAdmins collection
+    if (status === "approved") {
+      return db.collection("approvedAdmins").get().then(function (snap) {
+        var list = [];
+        snap.forEach(function (doc) {
+          list.push(Object.assign({ uid: doc.id }, doc.data()));
+        });
+        return list;
+      });
+    }
+
     return db.collection("staffUsers").where("status", "==", status).get().then(function (snap) {
       var list = [];
       snap.forEach(function (doc) {
@@ -451,6 +488,15 @@
 
   function updateStaffStatus(uid, status, approverUid) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    
+    if (status === "approved") {
+      var approveFn = global.firebase.functions().httpsCallable("approveStaffAdmin");
+      return approveFn({ uid: uid });
+    } else if (status === "rejected") {
+      var rejectFn = global.firebase.functions().httpsCallable("rejectStaffAdmin");
+      return rejectFn({ uid: uid });
+    }
+    
     var patch = {
       status: status,
       approvedAt: status === "approved" ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
@@ -458,6 +504,12 @@
     };
     if (status === "rejected") patch.rejectedAt = global.firebase.firestore.FieldValue.serverTimestamp();
     return db.collection("staffUsers").doc(uid).update(patch);
+  }
+
+  function revokeStaffAdmin(uid) {
+    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    var revokeFn = global.firebase.functions().httpsCallable("revokeStaffAdmin");
+    return revokeFn({ uid: uid });
   }
 
   function setStaffRole(uid, role) {
@@ -486,6 +538,7 @@
     requireApprovedUser: requireApprovedUser,
     listStaffByStatus: listStaffByStatus,
     updateStaffStatus: updateStaffStatus,
+    revokeStaffAdmin: revokeStaffAdmin,
     setStaffRole: setStaffRole,
     startTokenAutoRefresh: startTokenAutoRefresh,
     getDb: function () { return db; }

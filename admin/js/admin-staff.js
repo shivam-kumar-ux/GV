@@ -26,15 +26,27 @@ var GVStaffAdmin = (function () {
     box.innerHTML = html;
     box.querySelectorAll(".btn-approve").forEach(function (btn) {
       btn.onclick = function () {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
         GVFirebase.updateStaffStatus(btn.getAttribute("data-uid"), "approved", (window.firebase.auth().currentUser || {}).uid)
-          .then(function () { initStaffSection(); });
+          .then(function () { initStaffSection(); })
+          .catch(function (e) {
+            alert("Approval failed: " + e.message);
+            initStaffSection();
+          });
       };
     });
     box.querySelectorAll(".btn-reject").forEach(function (btn) {
       btn.onclick = function () {
         if (!confirm("Reject this staff registration?")) return;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
         GVFirebase.updateStaffStatus(btn.getAttribute("data-uid"), "rejected", null)
-          .then(function () { initStaffSection(); });
+          .then(function () { initStaffSection(); })
+          .catch(function (e) {
+            alert("Rejection failed: " + e.message);
+            initStaffSection();
+          });
       };
     });
   }
@@ -50,24 +62,24 @@ var GVStaffAdmin = (function () {
     list.forEach(function (s) {
       html += '<tr><td>' + esc(s.name) + '<br><small class="text-muted">' + esc(s.designation) + '</small></td>' +
         '<td><code>' + esc(s.staffId) + '</code></td>' +
-        '<td><select class="form-control form-control-sm staff-role-select" data-uid="' + s.uid + '">' +
-        '<option value="staff"' + (s.role === "staff" ? " selected" : "") + '>Staff</option>' +
-        '<option value="admin"' + (s.role === "admin" ? " selected" : "") + '>Admin</option></select></td>' +
+        '<td><span class="badge badge-secondary">Staff Admin</span></td>' +
         '<td>' + esc(s.campus) + '</td>' +
         '<td><button class="btn btn-sm btn-outline-danger btn-revoke" data-uid="' + s.uid + '">Revoke</button></td></tr>';
     });
     html += "</tbody></table></div>";
     box.innerHTML = html;
-    box.querySelectorAll(".staff-role-select").forEach(function (sel) {
-      sel.onchange = function () {
-        GVFirebase.setStaffRole(sel.getAttribute("data-uid"), sel.value);
-      };
-    });
     box.querySelectorAll(".btn-revoke").forEach(function (btn) {
       btn.onclick = function () {
         if (!confirm("Revoke access for this user?")) return;
-        GVFirebase.updateStaffStatus(btn.getAttribute("data-uid"), "rejected", null)
-          .then(function () { initStaffSection(); });
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Revoking...';
+        GVFirebase.revokeStaffAdmin(btn.getAttribute("data-uid"))
+          .then(function () { initStaffSection(); })
+          .catch(function (e) {
+            alert("Revoke failed: " + e.message);
+            btn.disabled = false;
+            btn.innerHTML = "Revoke";
+          });
       };
     });
   }

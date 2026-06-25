@@ -165,17 +165,32 @@ var GVAuth = (function () {
         window.location.href = "login.html";
         return;
       }
-      GVFirebase.getStaffProfile(user.uid).then(function (profile) {
-        if (!profile || profile.status === "pending") {
+      user.getIdTokenResult(true).then(function (idTokenResult) {
+        var claims = idTokenResult.claims;
+        var role = claims.role;
+        var approved = claims.approved;
+
+        if (role === "super_admin" || (role === "staff_admin" && approved === true)) {
+          GVFirebase.getStaffProfile(user.uid).then(function (profile) {
+            var prof = Object.assign({}, profile || {
+              name: user.displayName || "Admin",
+              email: user.email,
+              staffId: "SA",
+              status: "approved"
+            });
+            prof.role = role;
+            cb({ user: user, profile: prof });
+          });
+        } else if (role === "staff_admin" && approved === false) {
           window.location.href = "pending.html";
-          return;
+        } else {
+          GVFirebase.signOut().then(function () {
+            window.location.href = "login.html";
+          });
         }
-        if (profile.status !== "approved") {
-          GVFirebase.signOut();
-          window.location.href = "login.html";
-          return;
-        }
-        cb({ user: user, profile: profile });
+      }).catch(function (err) {
+        console.error("Dashboard guard error:", err);
+        window.location.href = "login.html";
       });
     });
   }
