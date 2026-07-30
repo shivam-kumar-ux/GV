@@ -1,0 +1,40 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Public: read only for all paths
+    allow read: if true;
+
+    // Helper functions
+    function isSuperAdmin() {
+      return request.auth != null && request.auth.token.role == 'super_admin';
+    }
+
+    function isApprovedStaff() {
+      return request.auth != null && 
+             request.auth.token.role == 'staff_admin' && 
+             request.auth.token.approved == true;
+    }
+
+    // Approved staff admin can upload to /uploads/staff/
+    match /uploads/staff/{allPaths=**} {
+      allow write: if isApprovedStaff() || isSuperAdmin();
+    }
+
+    // Approved staff admin can upload to campus-specific folders so website content works
+    match /gv-shahpur/{allPaths=**} {
+      allow write: if isApprovedStaff() || isSuperAdmin();
+    }
+    match /gv-t-dam/{allPaths=**} {
+      allow write: if isApprovedStaff() || isSuperAdmin();
+    }
+    match /gv-pyq/{allPaths=**} {
+      allow write: if isApprovedStaff() || isSuperAdmin();
+    }
+
+    // Super Admin: full write access to all storage
+    match /{allPaths=**} {
+      allow write: if isSuperAdmin();
+    }
+  }
+}

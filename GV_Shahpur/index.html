@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Gyanoday Vidyalaya - Best School in Bihar</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta
+        content="Gyanoday Vidyalaya - Providing quality education from Nursery to 12th Grade. Visit us at https://gyanodayvidyalaya.com/"
+        name="description">
+
+    <!-- Favicon -->
+    <link href="img/H_logo.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Responsive CSS (Mobile-First) -->
+    <link href="css/responsive.css" rel="stylesheet">
+    <!-- Premium Sticky Layout Stylesheet -->
+    <link href="css/gv-layout.css" rel="stylesheet">
+    <style>
+        /* Performer carousel hover details fix: only open info on hovered image */
+        @media (hover: hover) {
+
+            /* Disable container-wide hover triggering multiple cards */
+            .student-slider-container:hover .student-card {
+                transform: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .student-slider-container:hover .student-card img {
+                transform: none;
+            }
+
+            .student-slider-container:hover .student-details {
+                max-height: 0;
+                opacity: 0;
+                padding: 0 20px;
+            }
+
+            /* Enable hover effects specifically on the individual card being hovered */
+            .student-card:hover {
+                transform: translateY(-15px) !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+                z-index: 5;
+            }
+
+            .student-card:hover img {
+                transform: scale(1.1) !important;
+            }
+
+            .student-card:hover .student-details {
+                max-height: 200px !important;
+                opacity: 1 !important;
+                padding: 20px !important;
+            }
+        }
+
+        /* ===== Home: fullscreen video hero + scroll navbar ===== */
+        :root {
+            --gv-topbar-h: 42px;
+            --gv-navbar-h: 76px;
+        }
+
+        body[data-gv-page="home"] {
+            overflow-x: hidden;
+        }
+
+        body[data-gv-page="home"] .gv-home-topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            margin: 0;
+        }
+
+        /* Keep the video hero below the fixed topbar on initial load. */
+        body[data-gv-page="home"] #gvHomeHero {
+            margin-top: var(--gv-topbar-h) !important;
+            height: calc(100vh - var(--gv-topbar-h));
+            min-height: calc(100vh - var(--gv-topbar-h));
+        }
+
+        /* Quick menu appears after hero scroll */
+        .gv-quick-menu.gv-quick-menu-show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        body[data-gv-page="home"] #gvHomeHero .video-background {
+            top: 0;
+            height: 100%;
+        }
+
+        body[data-gv-page="home"] .gv-home-navbar-wrap {
+            position: fixed;
+            top: var(--gv-topbar-h);
+            left: 0;
+            right: 0;
+            z-index: 1055;
+            transform: translateY(-110%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.4s ease, opacity 0.35s ease, visibility 0.35s;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+            padding-top: calc(var(--gv-topbar-h) + var(--gv-navbar-h));
+        }
+
+        body[data-gv-page="home"] .gv-home-hero {
+
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+            margin: 0 !important;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 40%, rgba(0, 0, 0, 0.45) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-logo {
+            position: absolute;
+            top: 14px;
+            left: 28px;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-logo img {
+            height: 70px;
+            width: auto;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        body[data-gv-page="home"] .gv-home-hero-brand {
+            color: #fff;
+            font-family: "Jost", serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+            letter-spacing: 0.5px;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .header-content-card {
+            position: absolute;
+            left: 28px;
+            bottom: 32px;
+            z-index: 10;
+            margin: 0;
+            padding: 16px 18px;
+            max-width: 560px;
+            border-radius: 14px;
+            background: rgba(40, 120, 235, 0.40);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
+            margin-top: 0 !important;
+        }
+
+        body[data-gv-page="home"] .gv-home-hero .gv-hero-enquiry-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: max-content;
+            margin: 12px 0 0;
+        }
+
+        body[data-gv-page="home"] #gvHomeMain {
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg");
+            background-attachment: fixed;
+        }
+
+        body[data-gv-page="home"] .gv-section-pattern {
+            background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("img/bg-image.jpg") !important;
+            background-attachment: fixed !important;
+        }
+
+        body[data-gv-page="home"] .gv-section-soft {
+            background: #ECF4FF !important;
+        }
+
+        .gv-welcome-stats {
+            position: relative;
+            margin-top: 38px;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            width: 100vw;
+            overflow: hidden;
+            background:
+                linear-gradient(90deg, rgba(18, 15, 45, 0.94), rgba(3, 51, 116, 0.91)),
+                url("img/header.jpg") center/cover;
+            color: #fff;
+        }
+
+        .gv-welcome-stats::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(40, 120, 235, 0.2), rgba(241, 77, 93, 0.12));
+            pointer-events: none;
+        }
+
+        .gv-welcome-stats-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin: 0;
+            padding: 42px 0 44px;
+        }
+
+        .gv-welcome-stats-kicker {
+            display: block;
+            color: #FDD47E;
+            font-family: "Jost", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .gv-welcome-stats-title {
+            color: #fff;
+            font-size: clamp(1.8rem, 4vw, 3.1rem);
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gv-welcome-stats-title::before {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #FDD47E;
+            margin: 0 auto 18px;
+        }
+
+        .gv-welcome-stats-carousel .owl-stage {
+            display: flex;
+        }
+
+        .gv-welcome-stats-carousel {
+            position: relative;
+            padding-bottom: 76px;
+        }
+
+        .gv-welcome-stat-item {
+            position: relative;
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: 8px clamp(18px, 2.4vw, 34px) 0;
+        }
+
+        .gv-welcome-stats-carousel .owl-item.active~.owl-item.active .gv-welcome-stat-item::before {
+            content: "";
+            position: absolute;
+            top: 18px;
+            left: 0;
+            width: 1px;
+            height: 210px;
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .gv-welcome-stat-icon {
+            width: 104px;
+            height: 104px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            color: #033374;
+            font-size: 2.45rem;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
+
+        .gv-welcome-stat-number {
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-size: clamp(3.1rem, 6vw, 4.7rem);
+            font-weight: 500;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .gv-welcome-stat-text {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.65;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            display: flex;
+            gap: 12px;
+            transform: translateX(-50%);
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev,
+        .gv-welcome-stats-carousel .owl-nav .owl-next {
+            width: 46px;
+            height: 46px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 0 !important;
+            border: 2px solid #fff !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #fff !important;
+            font-size: 1.2rem !important;
+            line-height: 1 !important;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev i,
+        .gv-welcome-stats-carousel .owl-nav .owl-next i {
+            display: block;
+            line-height: 1;
+            margin: 0;
+            transform: none;
+        }
+
+        .gv-welcome-stats-carousel .owl-nav .owl-prev:hover,
+        .gv-welcome-stats-carousel .owl-nav .owl-next:hover {
+            background: #fff !important;
+            color: #033374 !important;
+            border-color: #fff !important;
+        }
+
+        @media (max-width: 767.98px) {
+            .gv-welcome-stats-inner {
+                padding: 34px 0 36px;
+            }
+
+            .gv-welcome-stats-carousel {
+                padding-bottom: 68px;
+            }
+
+            .gv-welcome-stat-item {
+                min-height: 250px;
+                padding: 8px 18px 0;
+            }
+
+            .gv-welcome-stats-carousel .owl-item.active~.owl-item.active .gv-welcome-stat-item::before {
+                display: none;
+            }
+
+            .gv-welcome-stat-icon {
+                width: 86px;
+                height: 86px;
+                font-size: 2rem;
+                margin-bottom: 22px;
+            }
+        }
+
+        body[data-gv-page="home"] .gv-scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+            opacity: 0.9;
+            animation: gvBounce 2s infinite;
+        }
+
+        body[data-gv-page="home"] .gv-scroll-hint i {
+            display: block;
+            font-size: 1.25rem;
+            margin-top: 4px;
+        }
+
+        @keyframes gvBounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(8px);
+            }
+        }
+
+        body[data-gv-page="home"].gv-nav-revealed .gv-scroll-hint {
+            display: none;
+        }
+
+        /* Enquiry popup on load */
+        .gv-enquiry-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .gv-enquiry-overlay.gv-enquiry-show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gv-enquiry-card {
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 28px 28px 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            animation: gvCardIn 0.35s ease;
+        }
+
+        @keyframes gvCardIn {
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .gv-enquiry-close {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .gv-enquiry-close:hover {
+            background: #e0e0e0;
+            color: #000;
+        }
+
+        .gv-enquiry-card {
+            text-align: center;
+        }
+
+        .gv-enquiry-logo {
+            width: 90px;
+            height: auto;
+            margin: 6px auto 10px;
+            display: block;
+        }
+
+        .gv-enquiry-card h4 {
+            color: #2878EB;
+            font-weight: 700;
+            margin-bottom: 6px;
+            padding-right: 0;
+        }
+
+        .gv-enquiry-card p {
+            margin: 0 auto 14px;
+            max-width: 420px;
+        }
+
+        /* Make name/phone placeholders/text fit better in the popup */
+        #gvEnquiryForm .form-row {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-right: -5px !important;
+            margin-left: -5px !important;
+        }
+
+        #gvEnquiryForm .form-control {
+            height: 48px;
+            /* Increased height for premium feel */
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-radius: 6px;
+            width: 100% !important;
+        }
+
+        #gvEnquiryForm textarea.form-control {
+            height: auto !important;
+        }
+
+        #gvEnquiryForm .form-group {
+            margin-bottom: 12px;
+        }
+
+        /* Specific height increase for the Select Enquiry Type dropdown */
+        #eq-enquiry {
+            height: 50px !important;
+            padding: 10px 14px;
+        }
+
+        .gv-quick-menu {
+            position: fixed;
+            top: 50%;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            bottom: auto;
+            right: 0;
+            z-index: 1035;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transform: translateY(-50%);
+            box-shadow: -8px 12px 28px rgba(0, 0, 0, 0.16);
+        }
+
+        .gv-quick-menu-item {
+            position: relative;
+            width: 48px;
+            min-height: 112px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 6px;
+            border: 0;
+            border-radius: 0;
+            background: #033374;
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 1;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: -6px 8px 18px rgba(3, 51, 116, 0.24);
+            transition: transform 0.28s ease, background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .gv-quick-menu-item:last-child {
+            border-bottom: 0;
+        }
+
+        .gv-quick-menu-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.22) 45%, transparent 72%);
+            transform: translateX(-130%);
+            transition: transform 0.55s ease;
+        }
+
+        .gv-quick-menu-item i {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 auto;
+            font-size: 0.88rem;
+            color: #FDD47E;
+            transition: transform 0.28s ease;
+        }
+
+        .gv-quick-menu-item span {
+            position: relative;
+            z-index: 1;
+            display: block;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            text-transform: uppercase;
+        }
+
+        .gv-quick-menu-item:hover,
+        .gv-quick-menu-item:focus {
+            color: #033374;
+            text-decoration: none;
+            background: #FDD47E;
+            transform: translateX(-8px);
+            box-shadow: -12px 14px 26px rgba(3, 51, 116, 0.28);
+            outline: none;
+        }
+
+        .gv-quick-menu-item:hover::before,
+        .gv-quick-menu-item:focus::before {
+            transform: translateX(130%);
+        }
+
+        .gv-quick-menu-item:hover i,
+        .gv-quick-menu-item:focus i {
+            color: #033374;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .gv-community-stories {
+            position: relative;
+            overflow: hidden;
+            background: #ECF4FF;
+            color: #6B6A75;
+        }
+
+        .gv-community-stories::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(40, 120, 235, 0.09), rgba(40, 120, 235, 0) 42%),
+                radial-gradient(circle at 86% 18%, rgba(253, 212, 126, 0.34), transparent 30%);
+        }
+
+        .gv-community-stories .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gv-community-kicker {
+            display: block;
+            color: #FDD47E;
+            font-family: "Jost", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .gv-community-title {
+            color: #120F2D;
+            font-size: clamp(2.3rem, 5vw, 4.7rem);
+            line-height: 1.02;
+            margin-bottom: 24px;
+        }
+
+        .gv-story-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .gv-story-tab {
+            border: 2px solid rgba(40, 120, 235, 0.34);
+            background: transparent;
+            color: #2878EB;
+            min-width: 116px;
+            min-height: 48px;
+            padding: 10px 20px;
+            border-radius: 28px;
+            font-family: "Jost", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .gv-story-tab:hover,
+        .gv-story-tab:focus,
+        .gv-story-tab.active {
+            background: #2878EB;
+            color: #fff;
+            border-color: #2878EB;
+            outline: none;
+        }
+
+        .gv-story-copy {
+            max-width: 650px;
+            color: #4f5d73;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .gv-story-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 16px;
+            max-width: 620px;
+        }
+
+        .gv-story-thumb {
+            position: relative;
+            aspect-ratio: 1.65 / 1;
+            border: 0;
+            padding: 0;
+            background: #fff;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+
+        .gv-story-thumb.is-hidden {
+            display: none;
+        }
+
+        .gv-story-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .gv-story-thumb::after {
+            content: attr(data-role);
+            position: absolute;
+            left: 8px;
+            bottom: 8px;
+            background: rgba(3, 51, 116, 0.88);
+            color: #fff;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .gv-story-thumb:hover,
+        .gv-story-thumb:focus,
+        .gv-story-thumb.active {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
+            outline: none;
+        }
+
+        .gv-story-thumb:hover img,
+        .gv-story-thumb:focus img,
+        .gv-story-thumb.active img {
+            transform: scale(1.06);
+        }
+
+        .gv-feature-story {
+            position: relative;
+            min-height: 620px;
+        }
+
+        .gv-feature-shape {
+            position: absolute;
+            inset: 0 0 76px 0;
+            border-radius: 48% 48% 0 48%;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 12px rgba(40, 120, 235, 0.08), 0 18px 45px rgba(40, 120, 235, 0.16);
+            cursor: pointer;
+        }
+
+        .gv-feature-shape img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .gv-feature-card {
+            position: absolute;
+            left: 34px;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-height: 128px;
+            padding: 24px 30px;
+            background: #033374;
+            color: #fff;
+            box-shadow: 0 18px 38px rgba(3, 51, 116, 0.28);
+        }
+
+        .gv-feature-mark {
+            color: #FDD47E;
+            font-size: 2rem;
+            letter-spacing: -8px;
+            transform: translateX(-4px);
+        }
+
+        .gv-feature-name {
+            color: #fff;
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1;
+        }
+
+        .gv-feature-role {
+            display: block;
+            color: #FDD47E;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .gv-view-story {
+            position: absolute;
+            right: -18px;
+            bottom: 86px;
+            width: 104px;
+            height: 104px;
+            border: 0;
+            border-radius: 50%;
+            background: #fff;
+            color: #2878EB;
+            font-size: 2.8rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+        }
+
+        .gv-view-story:hover,
+        .gv-view-story:focus {
+            background: #FDD47E;
+            color: #033374;
+            transform: rotate(90deg) scale(1.04);
+            outline: none;
+        }
+
+        .gv-story-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(18, 15, 45, 0.66);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .gv-story-modal.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gv-story-modal-card {
+            position: relative;
+            width: min(900px, 100%);
+            display: grid;
+            grid-template-columns: minmax(240px, 0.9fr) 1.1fr;
+            background: #fff;
+            color: #6B6A75;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+            transform: translateY(18px) scale(0.98);
+            transition: transform 0.25s ease;
+        }
+
+        .gv-story-modal.is-open .gv-story-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .gv-story-modal-image {
+            min-height: 420px;
+            background: #ECF4FF;
+        }
+
+        .gv-story-modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gv-story-modal-body {
+            padding: 42px 42px 36px;
+        }
+
+        .gv-story-modal-role {
+            color: #F14D5D;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            margin-bottom: 8px;
+        }
+
+        .gv-story-modal-body h3 {
+            color: #120F2D;
+            font-size: 2.1rem;
+            margin-bottom: 18px;
+        }
+
+        .gv-story-modal-body p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .gv-story-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 50%;
+            background: #033374;
+            color: #fff;
+            font-size: 1.4rem;
+            line-height: 1;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .gv-story-close:hover,
+        .gv-story-close:focus {
+            background: #FDD47E;
+            color: #033374;
+            outline: none;
+        }
+
+        .gv-social-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gv-social-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(253, 212, 126, 0.34), transparent 24%),
+                radial-gradient(circle at 90% 6%, rgba(40, 120, 235, 0.12), transparent 28%);
+            pointer-events: none;
+        }
+
+        .gv-social-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gv-social-shell {
+            display: grid;
+            grid-template-columns: 0.82fr 1.18fr;
+            gap: 46px;
+            align-items: center;
+        }
+
+        .gv-social-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #F14D5D;
+            font-family: "Jost", sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .gv-social-kicker i {
+            color: #2878EB;
+        }
+
+        .gv-social-title {
+            color: #120F2D;
+            font-size: clamp(2.2rem, 4vw, 4.3rem);
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .gv-social-copy {
+            color: #536171;
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 480px;
+            margin-bottom: 24px;
+        }
+
+        .gv-social-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .gv-social-follow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 10px 18px;
+            border-radius: 3px;
+            background: #2878EB;
+            color: #fff;
+            font-family: "Jost", sans-serif;
+            font-weight: 700;
+            transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+        }
+
+        .gv-social-follow:hover,
+        .gv-social-follow:focus {
+            text-decoration: none;
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        .gv-social-follow.instagram {
+            background: linear-gradient(135deg, #FEDA75 0%, #FA7E1E 28%, #D62976 58%, #962FBF 100%);
+            box-shadow: 0 10px 22px rgba(214, 41, 118, 0.24);
+        }
+
+        .gv-social-follow.youtube {
+            background: #FF0000;
+            box-shadow: 0 10px 22px rgba(255, 0, 0, 0.18);
+        }
+
+        .gv-social-follow.facebook {
+            background: #1877F2;
+            box-shadow: 0 10px 22px rgba(24, 119, 242, 0.2);
+        }
+
+        .gv-social-follow.instagram:hover,
+        .gv-social-follow.instagram:focus {
+            background: linear-gradient(135deg, #FA7E1E 0%, #D62976 48%, #4F5BD5 100%);
+            color: #fff;
+        }
+
+        .gv-social-follow.youtube:hover,
+        .gv-social-follow.youtube:focus {
+            background: #CC0000;
+            color: #fff;
+        }
+
+        .gv-social-follow.facebook:hover,
+        .gv-social-follow.facebook:focus {
+            background: #0F5BC8;
+            color: #fff;
+        }
+
+        .gv-social-tabs {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0;
+            border-bottom: 1px solid rgba(40, 120, 235, 0.16);
+            margin-bottom: 28px;
+        }
+
+        .gv-social-tab {
+            min-width: 138px;
+            min-height: 54px;
+            border: 0;
+            border-radius: 3px 3px 0 0;
+            background: transparent;
+            color: #455469;
+            font-family: "Jost", sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            transition: background 0.22s ease, color 0.22s ease;
+        }
+
+        .gv-social-tab:hover,
+        .gv-social-tab:focus,
+        .gv-social-tab.active {
+            background: #033374;
+            color: #fff;
+            outline: none;
+        }
+
+        .gv-social-feed {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .gv-social-card {
+            position: relative;
+            min-height: 268px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+            border-radius: 6px;
+            background: #033374;
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(18, 15, 45, 0.12);
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gv-social-card:hover,
+        .gv-social-card:focus {
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-6px);
+            box-shadow: 0 18px 38px rgba(18, 15, 45, 0.2);
+            outline: none;
+        }
+
+        .gv-social-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .gv-social-card:hover img,
+        .gv-social-card:focus img {
+            transform: scale(1.06);
+        }
+
+        .gv-social-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3, 51, 116, 0.05), rgba(3, 51, 116, 0.88));
+        }
+
+        .gv-social-card-body {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .gv-social-platform {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #FDD47E;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .gv-social-card h4 {
+            color: #fff;
+            font-size: 1.08rem;
+            line-height: 1.25;
+            margin-bottom: 8px;
+        }
+
+        .gv-social-card span {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.85rem;
+        }
+
+        .gv-social-empty {
+            grid-column: 1 / -1;
+            min-height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 26px;
+            border: 2px dashed rgba(40, 120, 235, 0.22);
+            border-radius: 6px;
+            color: #536171;
+            background: rgba(255, 255, 255, 0.72);
+        }
+
+
+        @media (max-width: 991.98px) {
+            .gv-social-shell {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .gv-social-tabs {
+                justify-content: flex-start;
+            }
+
+            .gv-social-feed {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 767.98px) {
+
+            /* Mobile: hide topbar, hero fills full screen */
+            :root {
+                --gv-topbar-h: 0px;
+                --gv-navbar-h: 60px;
+            }
+
+            body[data-gv-page="home"] .gv-home-topbar {
+                display: none !important;
+            }
+
+            body[data-gv-page="home"] #gvHomeHero {
+                margin-top: 0 !important;
+                height: 100vh !important;
+                min-height: 520px !important;
+            }
+
+            body[data-gv-page="home"] #gvHomeHero .video-background {
+                display: block !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                z-index: 1 !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero::before {
+                z-index: 2 !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-logo {
+                z-index: 4 !important;
+            }
+
+            /* ---- MOBILE NAVBAR: starts at top:0 (no topbar above), slides in after 5px scroll ---- */
+            body[data-gv-page="home"] .gv-home-navbar-wrap {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 2000;
+                transform: translateY(-110%);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: transform 0.4s ease, opacity 0.35s ease, visibility 0.35s;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Slide in when revealed, stays permanently */
+            body[data-gv-page="home"].gv-nav-revealed .gv-home-navbar-wrap {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin: 0 !important;
+                transform: translateY(0) !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                z-index: 2000 !important;
+            }
+
+            /* Push main content below the revealed navbar only */
+            body[data-gv-page="home"].gv-nav-revealed #gvHomeMain {
+                padding-top: var(--gv-navbar-h) !important;
+            }
+
+
+            body[data-gv-page="home"] .gv-home-hero-logo img {
+                height: 52px;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-brand {
+                font-size: 1rem;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero-logo {
+                left: 16px;
+                top: 10px;
+            }
+
+            /* Keep hero text box small + bottom-left on mobile */
+            body[data-gv-page="home"] .gv-home-hero .header-content-card {
+                position: absolute !important;
+                left: 14px !important;
+                bottom: 18px !important;
+                max-width: min(280px, 72vw) !important;
+                padding: 10px 12px !important;
+                border-radius: 12px !important;
+                z-index: 3 !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card h5 {
+                font-size: 0.9rem;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card h4 {
+                font-size: 1.55rem !important;
+                line-height: 1.1;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .header-content-card p {
+                font-size: 0.88rem;
+                margin-bottom: 6px !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-hero .gv-hero-enquiry-btn {
+                padding: 0.35rem 0.8rem !important;
+                font-size: 0.9rem;
+            }
+
+            /* Distinctions: reduce mobile height and ensure content shows even if carousel JS fails */
+            .gv-welcome-stats {
+                margin-top: 18px;
+            }
+
+            .gv-welcome-stats-inner {
+                padding: 22px 0 24px;
+            }
+
+            /* Let OwlCarousel handle layout/height on mobile to avoid blank/clipping issues */
+            .gv-welcome-stats-carousel:not(.owl-loaded) {
+                display: block !important;
+            }
+
+
+            .gv-welcome-stat-item {
+                min-height: 190px !important;
+                padding-bottom: 0;
+            }
+
+            /* Mobile: keep stats block visible; avoid display/visibility overrides that can blank it */
+            .gv-welcome-stats {
+                max-height: none !important;
+                overflow: visible !important;
+                /* OwlCarousel sometimes recalculates height after init; prevent clipping */
+                position: relative;
+            }
+
+
+            /* Keep default inner layout; avoid toggling visibility/opacity during Owl init */
+            .gv-welcome-stats-inner {
+                padding-top: 22px !important;
+                padding-bottom: 22px !important;
+            }
+
+
+            /* Avoid visibility/opacity overrides during Owl init */
+            .gv-welcome-stats-carousel {
+                padding-bottom: 54px !important;
+            }
+
+
+            .gv-welcome-stat-icon {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.4rem !important;
+                margin-bottom: 10px !important;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            .gv-welcome-stat-number {
+                font-size: 2.1rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            .gv-welcome-stat-text {
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
+                max-width: 260px !important;
+            }
+
+            /* Ensure Owl nav is displayed beautifully on mobile */
+            .gv-welcome-stats-carousel .owl-nav {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: absolute !important;
+                bottom: 0 !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                gap: 16px !important;
+                z-index: 1000 !important;
+            }
+
+            .gv-welcome-stats-carousel .owl-nav .owl-prev,
+            .gv-welcome-stats-carousel .owl-nav .owl-next {
+                display: inline-flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                width: 42px !important;
+                height: 42px !important;
+                border: 2px solid #fff !important;
+                border-radius: 50% !important;
+                background: rgba(3, 51, 116, 0.85) !important;
+                color: #fff !important;
+                font-size: 1.1rem !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+            }
+
+            .gv-welcome-stats-carousel:not(.owl-loaded) .gv-welcome-stat-item {
+                min-height: 190px;
+                max-height: 190px;
+                overflow: hidden;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler {
+                width: 44px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                border: 1px solid rgba(18, 15, 45, 0.18);
+                border-radius: 4px;
+                background: #fff;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon {
+                position: relative;
+                width: 24px;
+                height: 2px;
+                display: block;
+                background: #120F2D !important;
+                border-radius: 2px;
+                background-image: none !important;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before,
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                width: 24px;
+                height: 2px;
+                background: #120F2D;
+                border-radius: 2px;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::before {
+                top: -7px;
+            }
+
+            body[data-gv-page="home"] .gv-home-navbar-wrap .navbar-toggler-icon::after {
+                top: 7px;
+            }
+
+            .gv-quick-menu {
+                top: 54%;
+                gap: 3px;
+            }
+
+            .gv-quick-menu-item {
+                width: 42px;
+                min-height: 96px;
+                padding: 10px 6px;
+                font-size: 0.6rem;
+            }
+
+            .gv-quick-menu-item i {
+                font-size: 0.9rem;
+            }
+
+            .gv-quick-menu-item:hover,
+            .gv-quick-menu-item:focus {
+                transform: translateX(-5px);
+            }
+
+            .gv-community-title {
+                font-size: 2.25rem;
+            }
+
+            .gv-story-grid {
+                grid-template-columns: repeat(2, minmax(110px, 1fr));
+                gap: 12px;
+            }
+
+            .gv-feature-story {
+                min-height: 470px;
+                margin-top: 34px;
+            }
+
+            .gv-feature-shape {
+                bottom: 82px;
+                border-radius: 44% 44% 0 44%;
+            }
+
+            .gv-feature-card {
+                left: 0;
+                min-height: 110px;
+                padding: 20px;
+            }
+
+            .gv-view-story {
+                right: 8px;
+                bottom: 92px;
+                width: 78px;
+                height: 78px;
+                font-size: 2.2rem;
+            }
+
+            .gv-story-modal-card {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .gv-story-modal-image {
+                min-height: 260px;
+            }
+
+            .gv-story-modal-body {
+                padding: 30px 24px;
+            }
+
+            .gv-social-tabs {
+                overflow-x: auto;
+            }
+
+            .gv-social-tab {
+                min-width: 116px;
+                font-size: 0.95rem;
+            }
+
+            .gv-social-feed {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body data-gv-page="home">
+    <nav class="gv-quick-menu" aria-label="Quick links" id="gvQuickMenu">
+        <button type="button" class="gv-quick-menu-item" id="gvQuickEnquiry">
+            <i class="far fa-edit" aria-hidden="true"></i>
+            <span>enqire now</span>
+        </button>
+        <a class="gv-quick-menu-item" href="blog.html" id="gvQuickBlog">
+            <i class="far fa-newspaper" aria-hidden="true"></i>
+            <span>Blog</span>
+        </a>
+    </nav>
+
+    <!-- Topbar Start (always fixed on home) -->
+    <div id="gvHomeTopbar" class="gv-topbar gv-home-topbar">
+        <div class="container-fluid">
+            <div class="row py-2 px-lg-5">
+                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center text-white gv-topbar-info">
+                        <small>CBSE Affiliation No: 331280 (Affiliated till Class XII)</small>
+                        <small class="px-2 ml-2">|</small>
+                        <small><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</small>
+                        <small class="px-3">|</small>
+                        <small><i class="fa fa-envelope mr-2"></i>gyanodayvidyalaya2018@gmail.com</small>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-2" href="https://www.facebook.com/gyanodayvidyalayashahpur/"
+                            target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white px-2" href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <small class="px-3">|</small>
+                        <a class="text-white pl-2" href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng"
+                            target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar (hidden until user scrolls past hero; then fixed with topbar) -->
+    <div id="gvHomeNavbarWrap" class="gv-navbar gv-home-navbar-wrap">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5" id="gvHomeNavbar">
+            <a href="index.html" class="navbar-brand d-flex align-items-center ml-lg-3">
+                <img src="img/H_logo.png" alt="Gyanoday Vidyalaya" style="height: 60px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="academics.html" class="nav-item nav-link">Academics</a>
+                    <a href="result.html" class="nav-item nav-link">Results</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="facilities.html" class="dropdown-item">Facilities</a>
+                            <a href="choose.html" class="dropdown-item">Why Choose Us</a>
+                            <a href="gallery.html" class="dropdown-item">Gallery</a>
+                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                            <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
+                        </div>
+                    </div>
+                    <a href="notices.html" class="nav-item nav-link">Notices <span class="notification-dot"></span></a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="admission.html" class="btn btn-primary py-2 px-4 ml-3 get-admission-btn" target="_blank">Get
+                    Admission</a>
+                <a href="careers.html" class="btn btn-success py-2 px-4 get-job-btn" target="_blank">Get Job</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Fullscreen video hero (loads first; navbar appears on scroll) -->
+    <header id="gvHomeHero" class="jumbotron jumbotron-fluid jumbotron-video gv-home-hero">
+        <video class="video-background" id="headerVideo" autoplay muted loop playsinline preload="metadata">
+            <source src="vid/GV_intro.mp4" type="video/mp4">
+        </video>
+        <a href="index.html" class="gv-home-hero-logo" id="gvHomeHeroLogo">
+            <!--<img src="img/H_logo.png" alt="Gyanoday Vidyalaya">-->
+            <div class="gv-home-hero-brand">
+                <!--<span>Gyanoday Vidyalaya</span>-->
+            </div>
+        </a>
+        <div class="header-content-card">
+            <h5 class="text-white mt-3 mb-2">Welcome to Gyanoday Vidyalaya</h5>
+            <h4 class="text-white display-1 mb-2">Shaping Future Leaders</h4>
+            <p class="text-white mb-2">Quality Education from Nursery to 12th Grade</p>
+            <a href="#ContactForm" class="btn btn-light px-4 py-2 gv-hero-enquiry-btn">enquire now</a>
+        </div>
+        <div class="gv-scroll-hint" aria-hidden="true">
+            Scroll to explore
+            <i class="fa fa-chevron-down"></i>
+        </div>
+    </header>
+
+
+    <!-- Enquiry popup (same fields as contact section) -->
+    <div id="gvEnquiryOverlay" class="gv-enquiry-overlay" role="dialog" aria-labelledby="gvEnquiryTitle"
+        aria-modal="true">
+        <div class="gv-enquiry-card">
+            <button type="button" class="gv-enquiry-close" id="gvEnquiryClose"
+                aria-label="Close enquiry form">&times;</button>
+            <img class="gv-enquiry-logo" src="img/H_logo.png" alt="Gyanoday Vidyalaya"
+                style="height: 100px; width:auto;">
+            <h4 id="gvEnquiryTitle">Send Us An Enquiry</h4>
+            <p class="text-muted small mb-3">Fill in your details and we will get back to you soon.</p>
+
+            <form id="gvEnquiryForm" novalidate>
+                <div class="form-row" style="display:flex; gap:10px;">
+                    <div class="col-6 form-group" style="flex:1;">
+                        <input id="eq-name" type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-6 form-group" style="flex:1;">
+                        <input id="eq-phone" type="tel" class="form-control" placeholder="Your Phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="eq-email" type="email" class="form-control" placeholder="Your Email (Optional)">
+                </div>
+                <div class="form-group">
+                    <select id="eq-enquiry" class="form-control">
+                        <option value="">Select Enquiry Type</option>
+                        <option>Admission Enquiry</option>
+                        <option>General Inquiry</option>
+                        <option>Feedback</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="eq-message" class="form-control" rows="4" placeholder="Message" required></textarea>
+                </div>
+                <button id="eq-submit-btn" class="btn btn-primary btn-block py-3" type="submit">
+                    <span id="eq-btn-text">Send Message</span>
+                    <span id="eq-btn-spinner" class="spinner-border spinner-border-sm ml-2" role="status"
+                        style="display:none;"></span>
+                </button>
+                <div id="eq-alert"
+                    style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="gvHomeMain">
+        <!-- Academics Start -->
+        <style>
+            /* Reduce whitespace between header and first academics heading (Home page only) */
+            body[data-gv-page="home"] .container-fluid.px-0.py-5 {
+                padding-top: 0 !important;
+                padding-bottom: 1.5rem !important;
+            }
+
+            body[data-gv-page="home"] .container-fluid.px-0.py-5>.row.pt-5 {
+                padding-top: 1.5rem !important;
+            }
+        </style>
+        <!-- Student Achievement Slider Start -->
+        <div class="container-fluid px-0 py-5 gv-section-pattern">
+            <div class="row mx-0 justify-content-center pt-5">
+                <div class="col-lg-6">
+                    <div class="section-title text-center position-relative mb-4">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Our Achievers</h6>-->
+                        <h1 class="display-4">Our Top Performers</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Achievement Slider -->
+            <div class="student-slider-container">
+                <div class="student-slider-track" id="studentSlider">
+                    <!-- Student 1 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/sunny.JPG" alt="Student 1">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Sunny Kumar</span>
+                                    <span class="student-achievement">Rank 1 - Board Exam</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> </p>
+                                <p><strong>Marks Scored:</strong> </p>-->
+                                    <p><strong>Achievement:</strong> School Topper</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 2 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/supriya.JPG" alt="Student 2">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Supriya Rani</span>
+                                    <span class="student-achievement">School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> CBSE Class 10</p>
+                                    <!--<p><strong>Rank:</strong> 2nd in District</p>
+                                <p><strong>Marks Scored:</strong> 98%</p>-->
+                                    <p><strong>Achievement:</strong> Girl's Topper</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 3 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/anjali.JPG" alt="Student 3">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Anjali Kumari</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Simultala Awasiya Vidyalaya </p>
+                                    <p><strong>Exam:</strong> Sainik School - Bihar state girls topper</p>
+                                    <p><strong>Exam:</strong> Banasthali Vidyapith Entrance Exam 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 4 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/ankit.JPG" alt="Student 4">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Ankit Kumar</span>
+                                    <span class="student-achievement">Class - VI</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer</p>
+                                    <p><strong>Exam:</strong> Sainik School</p>
+                                    <p><strong>Rank:</strong> 179</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 5 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/kanhaiya.JPG" alt="Student 5">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Kanhaiya Jee</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> 2024-Jharkhand State Topper, Sainik School Telaiya and SOF
+                                        Olympiads zonal winner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 6 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/pawan.JPG" alt="Student 6">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Pawan Kumar</span>
+                                    <span class="student-achievement">RMS Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> RMS Ajmer and Simultala Awasiya Vidyalaya, Class - VI</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 7 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/roushan.JPG" alt="Student 7">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Roushan Kr Yadav </span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Jharkhand state topper in Sainik School Telaiya - 2023
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 8 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivam.JPG" alt="Student 8">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivam Kumar</span>
+                                    <span class="student-achievement">Sainik School Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam - 2025</p>
+                                    <p><strong>Rank:</strong> AIR 113</p>
+                                    <p><strong>Marks Scored:</strong> 368/400</p>
+                                    <p><strong>Class:</strong> IX </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 9 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/shivansh.jpg" alt="Student 9">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Shivansh Singh</span>
+                                    <span class="student-achievement">State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Bihar State Topper in Sainik School Entrance Exam, RIMC
+                                        Dehradun, Selected for Sainik School Gopalganj, RMS Bengaluru and SOF Olympiads
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Student 10 -->
+                    <div class="student-slide">
+                        <div class="student-card">
+                            <img src="img/result/yash.jpg" alt="Student 10">
+                            <div class="student-overlay">
+                                <div class="student-info">
+                                    <span class="student-name">Yash Raj</span>
+                                    <span class="student-achievement">2025 Jharkhand State Topper</span>
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Exam:</strong> Sainik School Entrance Exam</p>
+                                    <p><strong>Rank:</strong> AIR 58 </p>
+                                    <p><strong>Marks Scored:</strong> 292/300</p>
+                                    <p><strong>Class:</strong> VI</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Student Achievement Slider End-->
+            <!--<div class="row justify-content-center bg-image mx-0 mb-5">
+            <div class="col-lg-6 py-5">
+                <div class="bg-white p-5 my-5">
+                    <h1 class="text-center mb-4">Admission Open for Session 2025-26</h1>
+                    <p class="text-center mb-4">Enroll your child today and give them the gift of quality education</p>
+                    <form>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-light border-0" placeholder="Parent's Name" style="padding: 30px 20px;">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control bg-light border-0" placeholder="Phone Number" style="padding: 30px 20px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <select class="custom-select bg-light border-0 px-3" style="height: 60px;">
+                                        <option selected>Select Class</option>
+                                        <option value="1">Nursery</option>
+                                        <option value="2">LKG</option>
+                                        <option value="3">UKG</option>
+                                        <option value="4">Class 1</option>
+                                        <option value="5">Class 2</option>
+                                        <option value="6">Class 3</option>
+                                        <option value="7">Class 4</option>
+                                        <option value="8">Class 5</option>
+                                        <option value="9">Class 6</option>
+                                        <option value="10">Class 7</option>
+                                        <option value="11">Class 8</option>
+                                        <option value="12">Class 9</option>
+                                        <option value="13">Class 10</option>
+                                        <option value="14">Class 11 (Science)</option>
+                                        <option value="15">Class 11 (Commerce)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary btn-block" type="submit" style="height: 60px;">Submit Enquiry</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>-->
+            <!-- Academics End -->
+
+            <!-- About Start -->
+            <div class="container-fluid py-5 gv-section-soft">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100" src="img/about.jpg"
+                                    style="object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">About Us</h6>-->
+                                <h1 class="display-4">Welcome to Gyanoday Vidyalaya</h1>
+                            </div>
+                            <p>Gyanoday Vidyalaya is a premier educational institution dedicated to providing quality
+                                education to students from Nursery to 12th Grade. Our school is committed to nurturing
+                                young
+                                minds and shaping them into responsible citizens and future leaders.</p>
+                            <p>Located in Shahpur, Bihar, we have been serving the educational needs of our community
+                                since
+                                2018. Our experienced faculty, modern infrastructure, and student-centric approach
+                                ensure
+                                that every child receives the best possible education.</p>
+                        </div>
+                    </div>
+                    <div class="gv-welcome-stats">
+                        <div class="gv-welcome-stats-inner">
+                            <span class="gv-welcome-stats-kicker">The Gyanoday Difference</span>
+                            <h2 class="gv-welcome-stats-title">Our Distinctions</h2>
+                            <div class="owl-carousel gv-welcome-stats-carousel">
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-school"></i></div>
+                                    <div class="gv-welcome-stat-number">15</div>
+                                    <p class="gv-welcome-stat-text">classes offered from Nursery through senior
+                                        secondary learning.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                    <div class="gv-welcome-stat-number">25+</div>
+                                    <p class="gv-welcome-stat-text">qualified teachers guiding students with care and
+                                        discipline.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-user-graduate"></i></div>
+                                    <div class="gv-welcome-stat-number">500+</div>
+                                    <p class="gv-welcome-stat-text">active students learning in a focused school
+                                        community.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-award"></i></div>
+                                    <div class="gv-welcome-stat-number">10+</div>
+                                    <p class="gv-welcome-stat-text">years of excellence in education and student
+                                        development.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-book-open"></i></div>
+                                    <div class="gv-welcome-stat-number">2</div>
+                                    <p class="gv-welcome-stat-text">senior secondary streams for Science and Commerce
+                                        aspirants.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-running"></i></div>
+                                    <div class="gv-welcome-stat-number">12+</div>
+                                    <p class="gv-welcome-stat-text">co-curricular activities supporting confidence
+                                        beyond academics.</p>
+                                </div>
+                                <div class="gv-welcome-stat-item">
+                                    <div class="gv-welcome-stat-icon"><i class="fas fa-laptop-code"></i></div>
+                                    <div class="gv-welcome-stat-number">100%</div>
+                                    <p class="gv-welcome-stat-text">student-focused guidance for academics, values and
+                                        future goals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- About End -->
+
+
+            <!-- Feature Start -->
+            <div class="container-fluid bg-image gv-section-pattern" style="margin: 90px 0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7 my-5 pt-5 pb-lg-5">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Why Choose Us?</h6>-->
+                                <h1 class="display-4">Why Choose Gyanoday Vidyalaya for Your Child?</h1>
+                            </div>
+                            <p class="mb-4 pb-2">We are committed to providing the best educational experience for your
+                                child. Our focus is on overall development including academic excellence, character
+                                building, and extra-curricular activities.</p>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-primary mr-4">
+                                    <i class="fa fa-2x fa-graduation-cap text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>Experienced Faculty</h4>
+                                    <p>Our teachers are highly qualified and experienced in their respective subject,
+                                        dedicated to helping every student succeed.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-secondary mr-4">
+                                    <i class="fa fa-2x fa-certificate text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>CBSE Affiliated</h4>
+                                    <p>Our school follows CBSE curriculum ensuring quality education and recognized
+                                        certifications for higher studies.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="btn-icon bg-warning mr-4">
+                                    <i class="fa fa-2x fa-book-reader text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>AI & Robotics labs</h4>
+                                    <p>Modern infrastructure with AI & robotics lab equipped with latest technology for
+                                        enhanced learning experience.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="btn-icon bg-success mr-4">
+                                    <i class="fa fa-2x fa-futbol text-white"></i>
+                                </div>
+                                <div class="mt-n1">
+                                    <h4>Sports & Activities</h4>
+                                    <p class="m-0">Comprehensive sports program and extra-curricular activities for
+                                        holistic
+                                        development of students.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5" style="min-height: 500px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100" src="img/feature.jpg"
+                                    style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature End -->
+
+
+
+            <!-- Community Stories Start -->
+            <section class="container-fluid py-5 gv-community-stories" id="gvCommunityStories">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-5 mb-lg-0">
+                            <span class="gv-community-kicker">Community Stories</span>
+                            <h1 class="gv-community-title">Stories That Connect Us</h1>
+                            <div class="gv-story-tabs" role="tablist" aria-label="Story categories">
+                                <button type="button" class="gv-story-tab active" data-filter="all">All</button>
+                                <button type="button" class="gv-story-tab" data-filter="student">Students</button>
+                                <button type="button" class="gv-story-tab" data-filter="parent">Parents</button>
+                                <button type="button" class="gv-story-tab" data-filter="alumni">Alumni</button>
+                            </div>
+                            <p class="gv-story-copy">Every learner, parent and alumnus carries a part of the Gyanoday
+                                Vidyalaya journey. Explore the voices that show how our classrooms, teachers and values
+                                continue to shape confidence beyond campus.</p>
+                            <div class="gv-story-grid" aria-label="Community testimonials">
+                                <button type="button" class="gv-story-thumb active" data-story="0"
+                                    data-category="student" data-role="Student">
+                                    <img src="img/result/yash.jpg" alt="Yash Raj">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="1" data-category="student"
+                                    data-role="Student">
+                                    <img src="img/result/shivam.JPG" alt="Shivam Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="2" data-category="parent"
+                                    data-role="Parent">
+                                    <img src="img/testimonial-2.jpg" alt="Rajesh Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="3" data-category="parent"
+                                    data-role="Parent">
+                                    <img src="img/testimonial-1.jpg" alt="Rahul Sharma">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="4" data-category="alumni"
+                                    data-role="Alumni">
+                                    <img src="img/alumni/team-1.JPG" alt="Raushan Kumar">
+                                </button>
+                                <button type="button" class="gv-story-thumb" data-story="5" data-category="alumni"
+                                    data-role="Alumni">
+                                    <img src="img/alumni/team-2.JPG" alt="Gyanoday alumnus">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="gv-feature-story">
+                                <div class="gv-feature-shape" id="gvFeatureStoryImage" role="button" tabindex="0"
+                                    aria-label="View selected story">
+                                    <img id="gvStoryMainImage" src="img/result/yash.jpg" alt="Yash Raj">
+                                </div>
+                                <button type="button" class="gv-view-story" id="gvOpenStory"
+                                    aria-label="View story">+</button>
+                                <div class="gv-feature-card">
+                                    <div class="gv-feature-mark" aria-hidden="true">|||</div>
+                                    <div>
+                                        <h2 class="gv-feature-name" id="gvStoryName">Yash Raj</h2>
+                                        <span class="gv-feature-role" id="gvStoryRole">Student</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gv-story-modal" id="gvStoryModal" aria-hidden="true" role="dialog"
+                    aria-labelledby="gvStoryModalName">
+                    <div class="gv-story-modal-card" role="document">
+                        <button type="button" class="gv-story-close" id="gvStoryClose"
+                            aria-label="Close story">&times;</button>
+                        <div class="gv-story-modal-image">
+                            <img id="gvStoryModalImage" src="img/result/yash.jpg" alt="Yash Raj">
+                        </div>
+                        <div class="gv-story-modal-body">
+                            <div class="gv-story-modal-role" id="gvStoryModalRole">Student</div>
+                            <h3 id="gvStoryModalName">Yash Raj</h3>
+                            <p id="gvStoryModalComment">Gyanoday Vidyalaya gave me steady guidance, disciplined practice
+                                and the belief that a student from Shahpur can compete with confidence.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Community Stories End -->
+
+            <!-- News & Events Custom Styles -->
+            <style>
+                .gv-events-grid {
+                    display: grid;
+
+                    grid-template-columns: repeat(4, 1fr);
+                    /* tighter spacing between cards */
+                    gap: 2px;
+                    margin-top: 40px;
+
+                }
+
+
+                .gv-event-card {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    background: #ffffff;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+                    height: 100%;
+                }
+
+                .gv-event-card.tall {
+                    grid-row: span 2;
+                }
+
+                .gv-event-card .card-img-wrap {
+                    position: relative;
+                    width: 100%;
+                    flex-grow: 1;
+                    overflow: hidden;
+                    background-color: #f5f5f5;
+                }
+
+                /* Enforce strict aspect ratio for small cards on desktop */
+                .gv-event-card.small .card-img-wrap {
+                    aspect-ratio: 4 / 3;
+                }
+
+                .gv-event-card.tall .card-img-wrap {
+                    height: 100%;
+                }
+
+                .gv-event-card img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+                }
+
+                /* Banner at bottom */
+                .gv-event-card .card-banner {
+                    background-color: #1d3a68;
+                    /* Slate deep blue matching user screenshot */
+                    color: #ffffff;
+                    text-align: center;
+                    padding: 12px 10px;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    letter-spacing: 0.5px;
+                    transition: background-color 0.3s ease;
+                    border-top: 1px solid rgba(255, 255, 255, 0.05);
+                }
+
+                /* Hover Overlay */
+                .gv-event-card .card-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    box-sizing: border-box;
+                    background: rgba(18, 15, 45, 0.85);
+                    /* Premium deep dark semi-transparent blue */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    padding: clamp(14px, 1.8vw, 24px);
+                    overflow: hidden;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.4s ease, visibility 0.4s ease;
+                    z-index: 5;
+                }
+
+                .gv-event-card .overlay-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    transform: translateY(20px);
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    width: 100%;
+                    max-height: 100%;
+                    min-height: 0;
+                    overflow: hidden;
+                }
+
+                .gv-event-card .overlay-title {
+                    color: #ffffff;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 700;
+                    font-size: 1.8rem;
+                    margin-bottom: 6px;
+                    line-height: 1.2;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                }
+
+                .gv-event-card.small .overlay-title {
+                    font-size: 1.12rem;
+                    line-height: 1.18;
+                    -webkit-line-clamp: 2;
+                }
+
+                .gv-event-card .overlay-desc {
+                    color: rgba(255, 255, 255, 0.85);
+                    font-size: 0.95rem;
+                    line-height: 1.4;
+                    margin-bottom: 20px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 5;
+                    overflow: hidden;
+                }
+
+                .gv-event-card.small .overlay-desc {
+                    font-size: 0.78rem;
+                    line-height: 1.28;
+                    margin-bottom: 12px;
+                    -webkit-line-clamp: 3;
+                }
+
+                /* Read More Button styling */
+                .gv-event-card .btn-read-more {
+                    display: inline-block;
+                    background-color: #2878EB;
+                    /* Primary site blue */
+                    color: #ffffff;
+                    border-radius: 50px;
+                    padding: 8px 24px;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    letter-spacing: 0.5px;
+                    border: 2px solid transparent;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    box-shadow: 0 4px 15px rgba(40, 120, 235, 0.3);
+                    width: fit-content;
+                    flex: 0 0 auto;
+                }
+
+                .gv-event-card.small .btn-read-more {
+                    padding: 5px 14px;
+                    font-size: 0.78rem;
+                }
+
+                .gv-event-card .btn-read-more:hover {
+                    background-color: #ffffff;
+                    color: #2878EB;
+                    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+                    transform: translateY(-2px);
+                }
+
+                /* Hover States */
+                .gv-event-card:hover {
+                    transform: translateY(-6px);
+                    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+                }
+
+                .gv-event-card:hover img {
+                    transform: scale(1.08);
+                }
+
+                .gv-event-card:hover .card-overlay {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .gv-event-card:hover .overlay-content {
+                    transform: translateY(0);
+                }
+
+                .gv-event-card:hover .card-banner {
+                    background-color: #2878EB;
+                    /* Highlights banner color with active primary blue */
+                }
+
+                /* Responsive Breakpoints */
+                @media (max-width: 1199px) {
+                    .gv-events-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 20px;
+                    }
+
+                    .gv-event-card.tall {
+                        grid-row: span 1;
+                        height: auto;
+                    }
+
+                    .gv-event-card.tall .card-img-wrap {
+                        aspect-ratio: 4 / 3;
+                    }
+                }
+
+                @media (max-width: 991px) {
+                    .gv-events-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                @media (max-width: 575px) {
+                    .gv-events-grid {
+                        grid-template-columns: 1fr;
+                        gap: 18px;
+                        margin-top: 24px;
+                    }
+
+                    .gv-event-card.small .card-img-wrap,
+                    .gv-event-card.tall .card-img-wrap {
+                        aspect-ratio: 16 / 11;
+                    }
+
+                    .gv-event-card .card-overlay {
+                        padding: 14px;
+                    }
+
+                    .gv-event-card .overlay-content {
+                        transform: none;
+                    }
+
+                    .gv-event-card .overlay-title {
+                        font-size: clamp(1.05rem, 5vw, 1.3rem);
+                        line-height: 1.14;
+                        margin-bottom: 6px;
+                        -webkit-line-clamp: 2;
+                    }
+
+                    .gv-event-card .overlay-desc {
+                        font-size: clamp(0.78rem, 3.7vw, 0.9rem);
+                        line-height: 1.32;
+                        margin-bottom: 12px;
+                        -webkit-line-clamp: 4;
+                    }
+
+                    .gv-event-card .btn-read-more {
+                        padding: 7px 18px;
+                        font-size: 0.84rem;
+                    }
+
+                    .gv-event-card .card-banner {
+                        padding: 10px 8px;
+                        font-size: 1rem;
+                    }
+                }
+            </style>
+
+            <!-- News & Events Section -->
+            <div class="container-fluid py-5 gv-section-pattern">
+                <div class="container py-5">
+                    <div class="section-title text-center position-relative mb-5">
+                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Latest Happenings
+                    </h6>-->
+                        <h1 class="display-4">News & Events</h1>
+                    </div>
+
+                    <div class="gv-events-grid" id="gvEventsGrid">
+                        <!-- 1. Tall Event Card (Smart Agriculture & Satellite Tech) -->
+                        <div class="gv-event-card tall">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-1.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?auto=format&fit=crop&w=800&q=80"
+                                    alt="Smart Agriculture Project">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Smart Agriculture</h3>
+                                        <p class="overlay-desc">Innovative school project demonstrating high-tech IoT
+                                            and
+                                            satellite monitoring in farming.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Smart Agriculture</div>
+                        </div>
+
+                        <!-- 2. Small Event Card (Space Science & Satellites) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-2.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80"
+                                    alt="Space Science Workshop">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Space Science</h3>
+                                        <p class="overlay-desc">Exploring satellite engineering and astronomy in our new
+                                            tech seminar.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Space Science</div>
+                        </div>
+
+                        <!-- 3. Small Event Card (Annual Sports Day) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-3.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1502224562085-639556652f33?auto=format&fit=crop&w=600&q=80"
+                                    alt="Annual Sports Meet">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Sports Meet</h3>
+                                        <p class="overlay-desc">A thrilling exhibition of athleticism, teamwork, and
+                                            healthy
+                                            competition.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Sports Meet</div>
+                        </div>
+
+                        <!-- 4. Small Event Card (Robotics Lab) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-4.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
+                                    alt="Robotics Lab Session">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Robotics Lab</h3>
+                                        <p class="overlay-desc">Students building and programming automated robots in
+                                            the state-of-the-art lab.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Robotics Lab</div>
+                        </div>
+
+                        <!-- 5. Small Event Card (Art & Craft Exhibition) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-5.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
+                                    alt="Art & Craft Expo">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Art Exhibition</h3>
+                                        <p class="overlay-desc">A beautiful display of painting, craftwork, and pure
+                                            student
+                                            creativity.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Art Exhibition</div>
+                        </div>
+
+                        <!-- 6. Small Event Card (Cultural Festival) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-6.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80"
+                                    alt="Cultural Festival">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Cultural Fest</h3>
+                                        <p class="overlay-desc">Celebrating diversity with music, dance performances,
+                                            and
+                                            theater acts.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Cultural Fest</div>
+                        </div>
+
+                        <!-- 7. Small Event Card (Yoga Day) -->
+                        <div class="gv-event-card small">
+                            <div class="card-img-wrap">
+                                <!-- Placeholder Image (can be replaced with local path: img/news-7.jpg) -->
+                                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80"
+                                    alt="Yoga Day Session">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="overlay-title">Yoga Day</h3>
+                                        <p class="overlay-desc">Promoting mindfulness, health, and holistic well-being
+                                            on
+                                            international Yoga Day.</p>
+                                        <a href="notices.html" class="btn btn-read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-banner">Yoga Day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- News & Events End -->
+
+            <!-- Social Media Start -->
+            <section class="container-fluid py-5 gv-section-soft gv-social-section" id="gvSocialMedia">
+                <div class="container py-5">
+                    <div class="gv-social-shell">
+                        <div>
+                            <span class="gv-social-kicker"><i class="fas fa-share-alt"></i> Stay Connected</span>
+                            <h1 class="gv-social-title">Let's Get Social</h1>
+                            <p class="gv-social-copy">Catch campus moments, event highlights and school updates from
+                                Gyanoday Vidyalaya's official social channels.</p>
+                            <div class="gv-social-actions">
+                                <a class="gv-social-follow instagram"
+                                    href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i
+                                        class="fab fa-instagram"></i> Instagram</a>
+                                <a class="gv-social-follow youtube"
+                                    href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
+                                        class="fab fa-youtube"></i> YouTube</a>
+                                <a class="gv-social-follow facebook"
+                                    href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i
+                                        class="fab fa-facebook-f"></i> Facebook</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="gv-social-tabs" role="tablist" aria-label="Social media posts">
+                                <button type="button" class="gv-social-tab active"
+                                    data-social="instagram">Instagram</button>
+                                <button type="button" class="gv-social-tab" data-social="youtube">YouTube</button>
+                                <button type="button" class="gv-social-tab" data-social="facebook">Facebook</button>
+                            </div>
+                            <div class="gv-social-feed" id="gvSocialFeed" aria-live="polite">
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/header.jpg" alt="Gyanoday Vidyalaya Instagram">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Daily moments from campus life</h4>
+                                        <span>View latest posts</span>
+                                    </div>
+                                </a>
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/feature.jpg" alt="Gyanoday Vidyalaya school activity">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Celebrations, achievements and classroom stories</h4>
+                                        <span>@gyanodayvidyalaya</span>
+                                    </div>
+                                </a>
+                                <a class="gv-social-card" href="https://www.instagram.com/gyanodayvidyalaya/"
+                                    target="_blank">
+                                    <img src="img/about.jpg" alt="Gyanoday Vidyalaya community">
+                                    <div class="gv-social-card-body">
+                                        <div class="gv-social-platform"><i class="fab fa-instagram"></i> Instagram</div>
+                                        <h4>Follow Gyanoday Vidyalaya online</h4>
+                                        <span>Open profile</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Social Media End -->
+
+            <!-- Contact Start -->
+            <div class="container-fluid py-5 gv-section-pattern" id="ContactForm">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 mb-5 mb-lg-0">
+                            <div class="bg-light d-flex flex-column justify-content-center px-5" style="height: 450px;">
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-primary mr-4">
+                                        <i class="fa fa-2x fa-map-marker-alt text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Our Location</h4>
+                                        <p class="m-0">Shahpur, Bihar</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-secondary mr-4">
+                                        <i class="fa fa-2x fa-phone-alt text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Call Us</h4>
+                                        <p class="m-0">+91 8002316898, +91 9955596394</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-5">
+                                    <div class="btn-icon bg-warning mr-4">
+                                        <i class="fa fa-2x fa-envelope text-white"></i>
+                                    </div>
+                                    <div class="mt-n1">
+                                        <h4>Email Us</h4>
+                                        <a
+                                            href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
+                                    </div>
+                                </div>
+                                <!--<div class="d-flex align-items-center">
+                            <div class="btn-icon bg-success mr-4">
+                                <i class="fa fa-2x fa-globe text-white"></i>
+                            </div>
+                            <div class="mt-n1">
+                                <h4>Website</h4>
+                                <p class="m-0">www.gyanodayvidyalaya.com</p>
+                            </div>
+                        </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="section-title position-relative mb-4">
+                                <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Get In Touch</h6>-->
+                                <h1 class="display-4">Send Us A Message</h1>
+                            </div>
+                            <div class="contact-form">
+                                <form id="indexContactForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-6 form-group">
+                                            <input id="ic-name" type="text"
+                                                class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                                placeholder="Your Name" required>
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <input id="ic-phone" type="tel"
+                                                class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                                placeholder="Your Phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="ic-email" type="email"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0"
+                                            placeholder="Your Email (Optional)">
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="ic-enquiry"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0">
+                                            <option value="">Select Enquiry Type</option>
+                                            <option>Admission Enquiry</option>
+                                            <option>General Inquiry</option>
+                                            <option>Feedback</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea id="ic-message"
+                                            class="form-control border-top-0 border-right-0 border-left-0 p-0" rows="5"
+                                            placeholder="Message" required></textarea>
+                                    </div>
+                                    <div>
+                                        <button id="ic-submit-btn" class="btn btn-primary py-3 px-5" type="submit">
+                                            <span id="ic-btn-text">Send Message</span>
+                                            <span id="ic-btn-spinner" class="spinner-border spinner-border-sm ml-2"
+                                                role="status" style="display:none;"></span>
+                                        </button>
+                                    </div>
+                                    <div id="ic-alert"
+                                        style="display:none;margin-top:14px;border-radius:6px;padding:12px 16px;font-size:.93rem;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact End -->
+
+
+            <!-- Footer Start -->
+            <div class="container-fluid position-relative bg-dark text-white-50 py-5" style="margin-top: 90px;">
+                <div class="container mt-5 pt-5">
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <a href="index.html" class="navbar-brand">
+                                <h1 class="mt-n2 text-uppercase text-white">Gyanoday Vidyalaya</h1>
+                            </a>
+                            <p class="m-0">Gyanoday Vidyalaya is committed to providing quality education to students
+                                from
+                                Nursery to 12th Grade. We strive to nurture young minds and shape them into responsible
+                                citizens and future leaders.</p>
+                            <div class="mt-3">
+                                <a class="btn btn-primary btn-square mr-2"
+                                    href="https://www.facebook.com/gyanodayvidyalayashahpur/" target="_blank"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary btn-square mr-2"
+                                    href="https://www.instagram.com/gyanodayvidyalaya/" target="_blank"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a class="btn btn-primary btn-square"
+                                    href="https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng" target="_blank"><i
+                                        class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Get In Touch</h3>
+                            <p><i class="fa fa-map-marker-alt mr-2"></i>Shahpur, Bihar</p>
+                            <p><i class="fa fa-phone-alt mr-2"></i>+91 8002316898, +91 9955596394</p>
+                            <p><i class="fa fa-envelope mr-2"></i><a
+                                    href="mailto:gyanodayvidyalaya2018@gmail.com">gyanodayvidyalaya2018@gmail.com</a>
+                            </p>
+                            <p><i class="fa fa-globe mr-2"></i>www.gyanodayvidyalaya.com</p>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Quick Links</h3>
+                            <div class="d-flex flex-column justify-content-start">
+                                <a class="text-white-50 mb-2" href="index.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Home</a>
+                                <a class="text-white-50 mb-2" href="about.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>About Us</a>
+                                <a class="text-white-50 mb-2" href="academics.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Academics</a>
+                                <a class="text-white-50 mb-2" href="gallery.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Gallery</a>
+                                <a class="text-white-50" href="contact.html" target="_blank"><i
+                                        class="fa fa-angle-right mr-2"></i>Contact</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h3 class="text-white mb-4">Location</h3>
+                            <div class="map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.334259228528!2d85.67884364066265!3d25.0904499346888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2597715f9d119%3A0x77e39801e9e150c2!2sGyanoday%20Vidyalaya!5e0!3m2!1sen!2sin!4v1772235313008!5m2!1sen!2sin"
+                                    width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen=""
+                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark text-white-50 border-top py-4"
+                style="border-color: rgba(256, 256, 256, .1) !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                            <p class="m-0">Copyright &copy; <a class="text-white"
+                                    href="https://gyanodayvidyalaya.com/">Gyanoday Vidyalaya</a>. All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-right">
+                            <p class="m-0">Designed by
+                                <a class="text-white" href="https://www.linkedin.com/in/shivam-kumar-a27b7730b/">Shivam
+                                    Kumar</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div><!-- /#gvHomeMain -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+                class="fa fa-angle-double-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Disable OwlCarousel only on small screens.
+                // Use a hard breakpoint that matches your CSS media query.
+                if (window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches) {
+                    $(".gv-welcome-stats-carousel").addClass("gv-owl-disabled");
+                    return;
+                }
+
+
+                $(".gv-welcome-stats-carousel").owlCarousel({
+                    autoplay: true,
+                    smartSpeed: 900,
+                    autoplayTimeout: 3200,
+                    loop: true,
+                    dots: false,
+                    nav: true,
+                    navText: [
+                        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                    ],
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        1200: {
+                            items: 4
+                        }
+                    }
+                });
+            });
+        </script>
+
+
+        <!-- Firebase dynamic content -->
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        <script>window.GV_SITE_ID = "shahpur";</script>
+        <script src="../js/firebase-config.js"></script>
+        <script src="js/posts-data.js"></script>
+        <script src="../js/sites/shahpur-default.js"></script>
+        <script src="../js/gv-firebase.js"></script>
+        <script src="js/gv-render.js"></script>
+
+        <!-- Dynamically Render News & Events from Blog Database -->
+        <script>
+            (function () {
+                var grid = document.getElementById("gvEventsGrid");
+                if (!grid || !window.POSTS) return;
+                var html = "";
+                var order = [1, 2, 3, 4, 5, 6, 7];
+                order.forEach(function (id, idx) {
+                    var p = window.POSTS[id];
+                    if (!p) return;
+                    var cardClass = (idx === 0) ? "gv-event-card tall" : "gv-event-card small";
+                    html += '<div class="' + cardClass + '">' +
+                        '<div class="card-img-wrap">' +
+                        '<img src="' + p.img + '" alt="' + p.title + '">' +
+                        '<div class="card-overlay">' +
+                        '<div class="overlay-content">' +
+                        '<h3 class="overlay-title">' + p.title + '</h3>' +
+                        '<p class="overlay-desc">' + p.excerpt + '</p>' +
+                        '<a href="blog.html?post=' + id + '" class="btn btn-read-more">Read More</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card-banner">' + p.cat + '</div>' +
+                        '</div>';
+                });
+                grid.innerHTML = html;
+            })();
+        </script>
+
+        <!-- Social media feed connected with gallery content -->
+        <script>
+            (function () {
+                var feed = document.getElementById("gvSocialFeed");
+                var tabs = Array.prototype.slice.call(document.querySelectorAll(".gv-social-tab"));
+                if (!feed || !tabs.length) return;
+
+                var fallbackImages = ["img/header.jpg", "img/feature.jpg", "img/about.jpg"];
+                var links = {
+                    instagram: "https://www.instagram.com/gyanodayvidyalaya/",
+                    youtube: "https://www.youtube.com/channel/UCXnzCe6EJFFaypSZ6pltlng",
+                    facebook: "https://www.facebook.com/gyanodayvidyalayashahpur/"
+                };
+                var activeSocial = "instagram";
+
+                function esc(value) {
+                    return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                }
+
+                function galleryData() {
+                    var g = (window.GV_CONTENT && window.GV_CONTENT.gallery) ||
+                        (window.GV_DEFAULT_CONTENT && window.GV_DEFAULT_CONTENT.gallery) || {};
+                    return {
+                        instagram: g.instagram || [],
+                        youtube: g.youtube || [],
+                        facebook: g.facebook || []
+                    };
+                }
+
+                function card(platform, icon, title, meta, href, img) {
+                    return '<a class="gv-social-card" href="' + esc(href) + '" target="_blank">' +
+                        '<img src="' + esc(img) + '" alt="' + esc(title) + '" onerror="this.src=\'img/header.jpg\'">' +
+                        '<div class="gv-social-card-body">' +
+                        '<div class="gv-social-platform"><i class="' + esc(icon) + '"></i> ' + esc(platform) + '</div>' +
+                        '<h4>' + esc(title) + '</h4>' +
+                        '<span>' + esc(meta) + '</span>' +
+                        '</div>' +
+                        '</a>';
+                }
+
+                function renderInstagram(posts) {
+                    var usable = posts.filter(function (url) { return url && !String(url).includes("REPLACE"); }).slice(0, 3);
+                    if (!usable.length) {
+                        return [
+                            card("Instagram", "fab fa-instagram", "Daily moments from campus life", "View latest posts", links.instagram, "img/header.jpg"),
+                            card("Instagram", "fab fa-instagram", "Celebrations, achievements and classroom stories", "@gyanodayvidyalaya", links.instagram, "img/feature.jpg"),
+                            card("Instagram", "fab fa-instagram", "Follow Gyanoday Vidyalaya online", "Open profile", links.instagram, "img/about.jpg")
+                        ].join("");
+                    }
+                    return usable.map(function (url, index) {
+                        return card("Instagram", "fab fa-instagram", "Latest Instagram post", "@gyanodayvidyalaya", url, fallbackImages[index % fallbackImages.length]);
+                    }).join("");
+                }
+
+                function renderYouTube(videos) {
+                    var usable = videos.slice(0, 3);
+                    if (!usable.length) {
+                        usable = [
+                            { id: "REPLACE_VIDEO_ID_1", title: "Annual Function Highlights", date: "YouTube Channel" },
+                            { id: "REPLACE_VIDEO_ID_2", title: "Result Celebration", date: "Gyanoday Vidyalaya" },
+                            { id: "REPLACE_VIDEO_ID_3", title: "Sports Day Moments", date: "Watch videos" }
+                        ];
+                    }
+                    return usable.map(function (video, index) {
+                        var isPlaceholder = !video.id || String(video.id).indexOf("REPLACE") === 0;
+                        var href = isPlaceholder ? links.youtube : "https://www.youtube.com/watch?v=" + encodeURIComponent(video.id);
+                        var img = isPlaceholder ? fallbackImages[index % fallbackImages.length] : "https://img.youtube.com/vi/" + encodeURIComponent(video.id) + "/hqdefault.jpg";
+                        return card("YouTube", "fab fa-youtube", video.title || "Gyanoday Vidyalaya video", video.date || "Watch on YouTube", href, img);
+                    }).join("");
+                }
+
+                function renderFacebook(posts) {
+                    var usable = (posts || []).slice(0, 3);
+                    if (!usable.length) {
+                        usable = [
+                            { title: "School announcements and community updates", meta: "Official Facebook page", url: links.facebook, image: "img/about.jpg" },
+                            { title: "Event photos and parent notices", meta: "Gyanoday Vidyalaya Shahpur", url: links.facebook, image: "img/header.jpg" },
+                            { title: "Connect with our Vidyalaya community", meta: "Follow us on Facebook", url: links.facebook, image: "img/feature.jpg" }
+                        ];
+                    }
+                    return usable.map(function (post) {
+                        return card("Facebook", "fab fa-facebook-f", post.title || "Facebook update", post.meta || "Follow us on Facebook", post.url || links.facebook, post.image || "img/about.jpg");
+                    }).join("");
+                }
+
+                function renderSocial(type) {
+                    var data = galleryData();
+                    var html = "";
+                    if (type === "youtube") html = renderYouTube(data.youtube);
+                    else if (type === "facebook") html = renderFacebook(data.facebook);
+                    else html = renderInstagram(data.instagram);
+                    feed.innerHTML = html || '<div class="gv-social-empty">Social updates will appear here soon.</div>';
+                }
+
+                tabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        activeSocial = tab.getAttribute("data-social") || "instagram";
+                        tabs.forEach(function (t) { t.classList.remove("active"); });
+                        tab.classList.add("active");
+                        renderSocial(activeSocial);
+                    });
+                });
+
+                document.addEventListener("gvContentReady", function () {
+                    renderSocial(activeSocial);
+                });
+                renderSocial(activeSocial);
+            })();
+        </script>
+
+        <!-- =====================================================
+         INDEX PAGE — Contact Form -> Google Sheets
+         ===================================================== -->
+        <style>
+            #ic-submit-btn:disabled {
+                opacity: .7;
+                cursor: not-allowed;
+            }
+        </style>
+        <script>
+            (function () {
+                "use strict";
+                var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+
+                var form = document.getElementById("indexContactForm");
+                var alertBox = document.getElementById("ic-alert");
+                var submitBtn = document.getElementById("ic-submit-btn");
+                var btnText = document.getElementById("ic-btn-text");
+                var btnSpinner = document.getElementById("ic-btn-spinner");
+
+                function setLoading(on) {
+                    submitBtn.disabled = on;
+                    btnText.textContent = on ? "Sending…" : "Send Message";
+                    btnSpinner.style.display = on ? "inline-block" : "none";
+                }
+                function showAlert(type, msg) {
+                    alertBox.style.display = "block";
+                    alertBox.style.background = type === "success" ? "#d4edda" : "#f8d7da";
+                    alertBox.style.color = type === "success" ? "#155724" : "#721c24";
+                    alertBox.style.border = "1px solid " + (type === "success" ? "#c3e6cb" : "#f5c6cb");
+                    alertBox.innerHTML = msg;
+                }
+                function hideAlert() { alertBox.style.display = "none"; alertBox.innerHTML = ""; }
+                function validPhone(v) { return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault(); hideAlert();
+                    var name = document.getElementById("ic-name").value.trim();
+                    var phone = document.getElementById("ic-phone").value.trim();
+                    var email = document.getElementById("ic-email").value.trim();
+                    var enquiry = document.getElementById("ic-enquiry").value.trim();
+                    var message = document.getElementById("ic-message").value.trim();
+
+                    if (!name) { showAlert("error", "Please enter your name."); return; }
+                    if (!phone || !validPhone(phone)) { showAlert("error", "Please enter a valid phone number."); return; }
+                    if (!message) { showAlert("error", "Please enter a message."); return; }
+
+                    setLoading(true);
+                    var payload = { source: "Home Page Contact", name: name, phone: phone, email: email || "--", enquiry: enquiry || "Not Selected", message: message };
+                    var cbName = "_icCb_" + Date.now();
+                    var url = APPS_SCRIPT_URL + "?callback=" + cbName + "&" + new URLSearchParams(payload).toString();
+                    var script = document.createElement("script");
+                    script.src = url;
+
+                    var timer = setTimeout(function () { cleanup(); showAlert("error", "Request timed out. Please try again."); }, 10000);
+                    function cleanup() { setLoading(false); if (script.parentNode) document.head.removeChild(script); delete window[cbName]; clearTimeout(timer); }
+
+                    window[cbName] = function (r) {
+                        cleanup();
+                        if (r && r.result === "success") { showAlert("success", "<strong>Message sent!</strong> We will get back to you soon."); form.reset(); }
+                        else { showAlert("error", "Something went wrong. Please try again."); }
+                    };
+                    script.onerror = function () { cleanup(); showAlert("error", "Could not reach server. Check your connection."); };
+                    document.head.appendChild(script);
+                });
+            })();
+        </script>
+
+        <!-- HOME: fullscreen hero, scroll navbar, enquiry popup -->
+        <script>
+            (function () {
+                "use strict";
+                var topbar = document.getElementById("gvHomeTopbar");
+                var hero = document.getElementById("gvHomeHero");
+                var navWrap = document.getElementById("gvHomeNavbarWrap");
+                var navEl = document.getElementById("gvHomeNavbar");
+                var video = document.getElementById("headerVideo");
+
+                function measureHeights() {
+                    if (topbar) {
+                        document.documentElement.style.setProperty("--gv-topbar-h", topbar.offsetHeight + "px");
+                    }
+                    if (navEl) {
+                        document.documentElement.style.setProperty("--gv-navbar-h", navEl.offsetHeight + "px");
+                    }
+                }
+
+                function handleHomeScroll() {
+                    if (!hero) return;
+                    measureHeights();
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Quick menu pin after hero scroll
+                    var gvQuickMenu = document.getElementById("gvQuickMenu");
+                    if (gvQuickMenu) {
+                        var quickRevealAt = hero.offsetHeight - 40;
+                        if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
+                        else gvQuickMenu.classList.remove("gv-quick-menu-show");
+                    }
+                    // Reveal navbar: on mobile, after 10px scroll so it slides in
+                    // with a smooth transition and stays permanently.
+                    // On desktop: 50px threshold, hides when scrolling back to top.
+                    var isMobile = window.innerWidth <= 767;
+                    var revealAt = isMobile ? 10 : 50;
+                    if (scrollTop >= revealAt) {
+                        document.body.classList.add("gv-nav-revealed");
+                    } else if (!isMobile) {
+                        // On desktop, hide navbar when scrolling back to top
+                        // On mobile, navbar stays visible permanently once revealed
+                        document.body.classList.remove("gv-nav-revealed");
+                    }
+
+
+                    if (video) {
+                        if (scrollTop > revealAt) {
+                            if (!video.paused) video.pause();
+                        } else if (video.paused) {
+                            var p = video.play();
+                            if (p) p.catch(function () { video.muted = true; video.play(); });
+                        }
+                    }
+                }
+
+                measureHeights();
+                window.addEventListener("resize", measureHeights);
+                var scrollTimer;
+                window.addEventListener("scroll", function () {
+                    clearTimeout(scrollTimer);
+                    scrollTimer = setTimeout(handleHomeScroll, 30);
+                }, { passive: true });
+                handleHomeScroll();
+
+                // Ensure quick menu initial state on load
+                var gvQuickMenu = document.getElementById("gvQuickMenu");
+                if (gvQuickMenu) {
+                    var quickRevealAt = hero ? hero.offsetHeight - 40 : 80;
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (scrollTop > quickRevealAt) gvQuickMenu.classList.add("gv-quick-menu-show");
+                    else gvQuickMenu.classList.remove("gv-quick-menu-show");
+                }
+
+
+                if (video) {
+                    video.muted = true;
+                    var playTry = video.play();
+                    if (playTry) playTry.catch(function () { /* autoplay blocked until interaction */ });
+                }
+
+                /* Enquiry popup */
+                var overlay = document.getElementById("gvEnquiryOverlay");
+                var closeBtn = document.getElementById("gvEnquiryClose");
+                var eqForm = document.getElementById("gvEnquiryForm");
+                var eqAlert = document.getElementById("eq-alert");
+                var eqSubmit = document.getElementById("eq-submit-btn");
+                var eqBtnText = document.getElementById("eq-btn-text");
+                var eqSpinner = document.getElementById("eq-btn-spinner");
+                var quickEnquiry = document.getElementById("gvQuickEnquiry");
+                var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzmQBw7KbnmHTTvT8QjdB3V2tCUIR95vvVRJ21p1F14-zTwugMevuYp0Q_grft-tZZ/exec";
+
+                function openEnquiryPopup() {
+                    if (!overlay) return;
+                    overlay.classList.add("gv-enquiry-show");
+                    document.body.style.overflow = "hidden";
+                }
+
+                function showEnquiryPopup() {
+                    if (!overlay) return;
+                    if (sessionStorage.getItem("gvEnquiryDismissed") === "1") return;
+                    setTimeout(function () {
+                        openEnquiryPopup();
+                    }, 800);
+                }
+
+                function hideEnquiryPopup(remember) {
+                    if (!overlay) return;
+                    overlay.classList.remove("gv-enquiry-show");
+                    document.body.style.overflow = "";
+                    if (remember) sessionStorage.setItem("gvEnquiryDismissed", "1");
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function () { hideEnquiryPopup(true); });
+                }
+                if (overlay) {
+                    overlay.addEventListener("click", function (e) {
+                        if (e.target === overlay) hideEnquiryPopup(true);
+                    });
+                }
+                if (quickEnquiry) {
+                    quickEnquiry.addEventListener("click", function () {
+                        openEnquiryPopup();
+                    });
+                }
+
+                function eqSetLoading(on) {
+                    if (!eqSubmit) return;
+                    eqSubmit.disabled = on;
+                    if (eqBtnText) eqBtnText.textContent = on ? "Sending…" : "Send Message";
+                    if (eqSpinner) eqSpinner.style.display = on ? "inline-block" : "none";
+                }
+                function eqShowAlert(type, msg) {
+                    if (!eqAlert) return;
+                    eqAlert.style.display = "block";
+                    eqAlert.style.background = type === "success" ? "#d4edda" : "#f8d7da";
+                    eqAlert.style.color = type === "success" ? "#155724" : "#721c24";
+                    eqAlert.style.border = "1px solid " + (type === "success" ? "#c3e6cb" : "#f5c6cb");
+                    eqAlert.innerHTML = msg;
+                }
+                function eqHideAlert() {
+                    if (!eqAlert) return;
+                    eqAlert.style.display = "none";
+                    eqAlert.innerHTML = "";
+                }
+                function validPhone(v) { return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+
+                if (eqForm) {
+                    eqForm.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        eqHideAlert();
+                        var name = document.getElementById("eq-name").value.trim();
+                        var phone = document.getElementById("eq-phone").value.trim();
+                        var email = document.getElementById("eq-email").value.trim();
+                        var enquiry = document.getElementById("eq-enquiry").value.trim();
+                        var message = document.getElementById("eq-message").value.trim();
+                        if (!name) { eqShowAlert("error", "Please enter your name."); return; }
+                        if (!phone || !validPhone(phone)) { eqShowAlert("error", "Please enter a valid phone number."); return; }
+                        if (!message) { eqShowAlert("error", "Please enter a message."); return; }
+                        eqSetLoading(true);
+                        var payload = {
+                            source: "Home Page Enquiry Popup",
+                            name: name,
+                            phone: phone,
+                            email: email || "--",
+                            enquiry: enquiry || "Not Selected",
+                            message: message
+                        };
+                        var cbName = "_eqCb_" + Date.now();
+                        var url = APPS_SCRIPT_URL + "?callback=" + cbName + "&" + new URLSearchParams(payload).toString();
+                        var script = document.createElement("script");
+                        script.src = url;
+                        var timer = setTimeout(function () {
+                            eqCleanup();
+                            eqShowAlert("error", "Request timed out. Please try again.");
+                        }, 10000);
+                        function eqCleanup() {
+                            eqSetLoading(false);
+                            if (script.parentNode) document.head.removeChild(script);
+                            delete window[cbName];
+                            clearTimeout(timer);
+                        }
+                        window[cbName] = function (r) {
+                            eqCleanup();
+                            if (r && r.result === "success") {
+                                eqShowAlert("success", "<strong>Message sent!</strong> We will get back to you soon.");
+                                eqForm.reset();
+                                setTimeout(function () { hideEnquiryPopup(true); }, 2200);
+                            } else {
+                                eqShowAlert("error", "Something went wrong. Please try again.");
+                            }
+                        };
+                        script.onerror = function () {
+                            eqCleanup();
+                            eqShowAlert("error", "Could not reach server. Check your connection.");
+                        };
+                        document.head.appendChild(script);
+                    });
+                }
+
+                /* Community stories */
+                var storyData = [
+                    {
+                        name: "Yash Raj",
+                        role: "Student",
+                        category: "student",
+                        image: "img/result/yash.jpg",
+                        comment: "Gyanoday Vidyalaya gave me steady guidance, disciplined practice and the belief that a student from Shahpur can compete with confidence."
+                    },
+                    {
+                        name: "Shivam Kumar",
+                        role: "Student",
+                        category: "student",
+                        image: "img/result/shivam.JPG",
+                        comment: "The teachers kept every goal practical and every doubt welcome. That support helped me prepare with focus and stay confident through competitive exams."
+                    },
+                    {
+                        name: "Rajesh Kumar",
+                        role: "Parent",
+                        category: "parent",
+                        image: "img/testimonial-2.jpg",
+                        comment: "Gyanoday Vidyalaya has provided excellent education to my child. The teachers are supportive and the environment is very conducive for learning."
+                    },
+                    {
+                        name: "Rahul Sharma",
+                        role: "Parent",
+                        category: "parent",
+                        image: "img/testimonial-1.jpg",
+                        comment: "We are very happy with the progress our daughter has made at Gyanoday Vidyalaya. The school focuses on overall development of students."
+                    },
+                    {
+                        name: "Raushan Kumar",
+                        role: "Alumni",
+                        category: "alumni",
+                        image: "img/alumni/team-1.JPG",
+                        comment: "The discipline and confidence I built at Gyanoday Vidyalaya still guide me. The school taught me to keep learning and lead with responsibility."
+                    },
+                    {
+                        name: "Gyanoday Alumnus",
+                        role: "Alumni",
+                        category: "alumni",
+                        image: "img/alumni/team-2.JPG",
+                        comment: "My school years gave me strong values, lifelong friendships and the courage to pursue bigger goals beyond the classroom."
+                    }
+                ];
+                var storyGrid = document.querySelector(".gv-story-grid");
+                var storyThumbs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-thumb"));
+                var storyTabs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-tab"));
+                var storyMainImage = document.getElementById("gvStoryMainImage");
+                var storyName = document.getElementById("gvStoryName");
+                var storyRole = document.getElementById("gvStoryRole");
+                var storyOpen = document.getElementById("gvOpenStory");
+                var storyFeatureImage = document.getElementById("gvFeatureStoryImage");
+                var storyModal = document.getElementById("gvStoryModal");
+                var storyClose = document.getElementById("gvStoryClose");
+                var storyModalImage = document.getElementById("gvStoryModalImage");
+                var storyModalRole = document.getElementById("gvStoryModalRole");
+                var storyModalName = document.getElementById("gvStoryModalName");
+                var storyModalComment = document.getElementById("gvStoryModalComment");
+                var activeStoryIndex = 0;
+
+                function storyEsc(value) {
+                    return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                }
+
+                function bindStoryThumbs() {
+                    storyThumbs = Array.prototype.slice.call(document.querySelectorAll(".gv-story-thumb"));
+                    storyThumbs.forEach(function (thumb) {
+                        thumb.addEventListener("click", function () {
+                            openStoryCard(Number(thumb.getAttribute("data-story")));
+                        });
+                        thumb.addEventListener("mouseenter", function () {
+                            setActiveStory(Number(thumb.getAttribute("data-story")));
+                        });
+                        thumb.addEventListener("focus", function () {
+                            setActiveStory(Number(thumb.getAttribute("data-story")));
+                        });
+                    });
+                }
+
+                function renderStoryThumbs() {
+                    if (!storyGrid) return;
+                    storyGrid.innerHTML = storyData.map(function (story, index) {
+                        var category = story.category || "student";
+                        return '<button type="button" class="gv-story-thumb' + (index === 0 ? " active" : "") + '" data-story="' + index + '" data-category="' + storyEsc(category) + '" data-role="' + storyEsc(story.role || category) + '">' +
+                            '<img src="' + storyEsc(story.image) + '" alt="' + storyEsc(story.name) + '" onerror="this.src=\'img/H_logo.png\'">' +
+                            '</button>';
+                    }).join("");
+                    bindStoryThumbs();
+                }
+
+                function applyTestimonialsFromContent() {
+                    var managed = window.GV_CONTENT && window.GV_CONTENT.testimonials;
+                    if (!Array.isArray(managed) || !managed.length) return;
+                    storyData = managed.filter(function (story) {
+                        return story && story.name && story.comment;
+                    });
+                    if (!storyData.length) return;
+                    renderStoryThumbs();
+                    setActiveStory(0);
+                }
+
+                function setActiveStory(index) {
+                    var story = storyData[index];
+                    if (!story) return;
+                    activeStoryIndex = index;
+                    if (storyMainImage) {
+                        storyMainImage.src = story.image;
+                        storyMainImage.alt = story.name;
+                    }
+                    if (storyName) storyName.textContent = story.name;
+                    if (storyRole) storyRole.textContent = story.role;
+                    storyThumbs.forEach(function (thumb) {
+                        thumb.classList.toggle("active", Number(thumb.getAttribute("data-story")) === index);
+                    });
+                }
+
+                function openStoryCard(index) {
+                    var story = storyData[index];
+                    if (!story || !storyModal) return;
+                    setActiveStory(index);
+                    if (storyModalImage) {
+                        storyModalImage.src = story.image;
+                        storyModalImage.alt = story.name;
+                    }
+                    if (storyModalRole) storyModalRole.textContent = story.role;
+                    if (storyModalName) storyModalName.textContent = story.name;
+                    if (storyModalComment) storyModalComment.textContent = story.comment;
+                    storyModal.classList.add("is-open");
+                    storyModal.setAttribute("aria-hidden", "false");
+                    document.body.style.overflow = "hidden";
+                }
+
+                function closeStoryCard() {
+                    if (!storyModal) return;
+                    storyModal.classList.remove("is-open");
+                    storyModal.setAttribute("aria-hidden", "true");
+                    document.body.style.overflow = "";
+                }
+
+                function filterStories(category) {
+                    var firstVisible = null;
+                    storyThumbs.forEach(function (thumb) {
+                        var show = category === "all" || thumb.getAttribute("data-category") === category;
+                        thumb.classList.toggle("is-hidden", !show);
+                        if (show && firstVisible === null) firstVisible = Number(thumb.getAttribute("data-story"));
+                    });
+                    if (firstVisible !== null) setActiveStory(firstVisible);
+                }
+
+                bindStoryThumbs();
+
+                storyTabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        storyTabs.forEach(function (t) { t.classList.remove("active"); });
+                        tab.classList.add("active");
+                        filterStories(tab.getAttribute("data-filter"));
+                    });
+                });
+
+                if (storyOpen) {
+                    storyOpen.addEventListener("click", function () {
+                        openStoryCard(activeStoryIndex);
+                    });
+                }
+                if (storyFeatureImage) {
+                    storyFeatureImage.addEventListener("click", function () {
+                        openStoryCard(activeStoryIndex);
+                    });
+                    storyFeatureImage.addEventListener("keydown", function (e) {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            openStoryCard(activeStoryIndex);
+                        }
+                    });
+                }
+                if (storyClose) {
+                    storyClose.addEventListener("click", closeStoryCard);
+                }
+                if (storyModal) {
+                    storyModal.addEventListener("click", function (e) {
+                        if (e.target === storyModal) closeStoryCard();
+                    });
+                }
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && storyModal && storyModal.classList.contains("is-open")) {
+                        closeStoryCard();
+                    }
+                });
+                setActiveStory(0);
+                if (window.GV_CONTENT) applyTestimonialsFromContent();
+                document.addEventListener("gvContentReady", applyTestimonialsFromContent);
+
+                showEnquiryPopup();
+            })();
+        </script>
+</body>
+
+</html>
