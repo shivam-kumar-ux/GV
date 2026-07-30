@@ -166,11 +166,13 @@ var GVAuth = (function () {
         return;
       }
       user.getIdTokenResult(true).then(function (idTokenResult) {
-        var claims = idTokenResult.claims;
+        var claims = (idTokenResult && idTokenResult.claims) || {};
         var role = claims.role;
         var approved = claims.approved;
 
-        if (role === "super_admin" || (role === "staff_admin" && approved === true)) {
+        var isSuperAdmin = (role === "super_admin") || GVFirebase.isSuperAdminEmail(user.email);
+
+        if (isSuperAdmin || (role === "staff_admin" && approved === true)) {
           GVFirebase.getStaffProfile(user.uid).then(function (profile) {
             var prof = Object.assign({}, profile || {
               name: user.displayName || "Admin",
@@ -178,14 +180,30 @@ var GVAuth = (function () {
               staffId: "SA",
               status: "approved"
             });
-            prof.role = role;
+            prof.role = isSuperAdmin ? "super_admin" : (role || (profile && profile.role) || "staff_admin");
             cb({ user: user, profile: prof });
           });
         } else if (role === "staff_admin" && approved === false) {
           window.location.href = "pending.html";
         } else {
-          GVFirebase.signOut().then(function () {
-            window.location.href = "login.html";
+          // Fallback: check Firestore staff profile if custom token claims are absent
+          GVFirebase.getStaffProfile(user.uid).then(function (profile) {
+            if (profile && profile.status === "approved") {
+              var prof = Object.assign({}, profile);
+              if (GVFirebase.isSuperAdminEmail(user.email)) prof.role = "super_admin";
+              else if (!prof.role) prof.role = "staff_admin";
+              cb({ user: user, profile: prof });
+            } else if (profile && profile.status === "pending") {
+              window.location.href = "pending.html";
+            } else {
+              GVFirebase.signOut().then(function () {
+                window.location.href = "login.html";
+              });
+            }
+          }).catch(function () {
+            GVFirebase.signOut().then(function () {
+              window.location.href = "login.html";
+            });
           });
         }
       }).catch(function (err) {

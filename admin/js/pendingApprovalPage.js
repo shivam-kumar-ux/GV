@@ -6,15 +6,32 @@
     var user = firebase.auth().currentUser;
     if (!user) return;
     
+    if (window.GVFirebase && window.GVFirebase.isSuperAdminEmail(user.email)) {
+      console.log("Super Admin detected! Redirecting to dashboard...");
+      window.location.replace("dashboard.html");
+      return;
+    }
+
     // Force refresh token to get updated claims
     user.getIdTokenResult(true).then(function (idTokenResult) {
-      var claims = idTokenResult.claims;
+      var claims = (idTokenResult && idTokenResult.claims) || {};
       var role = claims.role;
       var approved = claims.approved;
       
       if (role === "super_admin" || (role === "staff_admin" && approved === true)) {
         console.log("Account approved! Redirecting to dashboard...");
         window.location.replace("dashboard.html");
+        return;
+      }
+
+      // Fallback: check Firestore staff profile
+      if (window.GVFirebase) {
+        window.GVFirebase.getStaffProfile(user.uid).then(function (p) {
+          if (p && p.status === "approved") {
+            console.log("Account approved via profile! Redirecting to dashboard...");
+            window.location.replace("dashboard.html");
+          }
+        });
       }
     }).catch(function (err) {
       console.error("Error polling approval status:", err);
