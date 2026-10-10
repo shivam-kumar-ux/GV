@@ -141,6 +141,23 @@
         !Array.isArray(tv)
       ) {
         deepMerge(tv, sv);
+      } else if (key === "disclosure" && Array.isArray(sv) && Array.isArray(tv)) {
+        var existingUrls = {};
+        sv.forEach(function (item) {
+          if (item && item.pdfUrl) existingUrls[String(item.pdfUrl).toLowerCase()] = true;
+          if (item && item.title) existingUrls[String(item.title).toLowerCase()] = true;
+        });
+        var merged = sv.slice();
+        tv.forEach(function (defItem) {
+          var url = defItem && defItem.pdfUrl ? String(defItem.pdfUrl).toLowerCase() : "";
+          var title = defItem && defItem.title ? String(defItem.title).toLowerCase() : "";
+          if ((!url || !existingUrls[url]) && (!title || !existingUrls[title])) {
+            merged.push(defItem);
+            if (url) existingUrls[url] = true;
+            if (title) existingUrls[title] = true;
+          }
+        });
+        target[key] = merged;
       } else {
         target[key] = sv;
       }
