@@ -1,0 +1,411 @@
+/* General Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+body {
+    background: #050a05; /* Deep dark green */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Background image styling */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('img/pro.png') center/cover no-repeat;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Darker overlay for first transition to make text more visible */
+#intro-scene .background-overlay {
+    opacity: 0.5;
+}
+
+.scene {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    transition: opacity 0.9s ease-in-out;
+    text-align: center;
+}
+
+
+
+@media (max-width: 479px) {
+    .scene {
+        padding: 20px 10px;
+    }
+}
+
+.hidden { display: none; opacity: 0; }
+
+/* Intro Scene Styles */
+.welcome-text {
+    color: #ffd47e;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    margin-bottom: clamp(30px, 8vh, 50px);
+    text-align: center;
+    animation: fadeInDown 1s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    max-width: 100%;
+    width: 100%;
+}
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 6px solid #FDD473;
+    padding-left: clamp(20px, 5vw, 45px);
+    animation: fadeInLeft 1.5s ease;
+    max-width: 100%;
+}
+
+
+.school-logo { max-width: 250px; width: auto; margin-right: 40px; }
+.school-name { color: #FDD473; font-size: 4rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+.motto { color: #FDD473; font-size: 1.8rem; margin-top: 20px; border-top: 1px solid #FDD473; padding-top: 10px; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); white-space: nowrap; }
+
+/* Main Scene Cards */
+.top-left-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.header-logo {
+    max-width: 120px;
+    width: auto;
+    height: auto;
+}
+
+.card-container { 
+    display: flex; 
+    gap: clamp(20px, 4vw, 30px); 
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    max-width: 95vw;
+    margin: 0 auto;
+}
+
+.card {
+    background: #fdf6e3;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #333;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    transform: translateY(50px);
+    animation: slideUp 1s forwards;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-box img { width: 100%; height: 250px; object-fit: cover; }
+
+.card-body {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    min-height: 40px;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.card-body .btn {
+    flex-shrink: 0;
+}
+
+.btn {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-blue { background: #3695c9; }
+.btn-teal { background: #033374; }
+
+
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideUp {
+    to { transform: translateY(0); }
+}
+
+footer .footer-info span {
+    pointer-events: all;
+    color: #ffffff;
+}
+
+
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
+}
+
+
+/* PYQ Styles */
+.card.pyq {
+    border-top: 4px solid #FDD473;
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, #FDD473, #ffd700);
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(253, 212, 115, 0.4);
+}
+
+.btn-gold:hover {
+    background: linear-gradient(135deg, #ffd700, #FDD473);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(253, 212, 115, 0.6);
+}
+
+.pyq-img {
+    height: 250px;
+    object-fit: cover;
+    filter: brightness(1.1) contrast(1.05);
+}
+
+.pyq-sections {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.pyq-section {
+    margin-bottom: 40px;
+    animation: slideUp 1s ease;
+}
+
+.pyq-section h2 {
+    color: #FDD473;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.accordion {
+    background: rgba(253, 246, 227, 0.95);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e0d4b5;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+.accordion button {
+    width: 100%;
+    background: #FDD473;
+    color: #333;
+    padding: 20px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.accordion button:hover {
+    background: #ffd700;
+}
+
+.panel {
+    display: none;
+    padding: 20px;
+    background: white;
+}
+
+.panel ul {
+    list-style: none;
+    padding: 0;
+}
+
+.panel li {
+    margin: 10px 0;
+}
+
+.panel a {
+    color: #3d6cb9;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.panel a:hover {
+    color: #1a5e58;
+    text-decoration: underline;
+}
+
+/* Responsive Media Queries */
+@media (min-width: 1200px) {
+    .card { width: 450px; }
+    .welcome-text { font-size: 5rem; }
+    .school-name { font-size: 4rem; }
+    .motto { font-size: 1.8rem; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .card-container { gap: 20px; }
+    .welcome-text { font-size: 4rem; }
+    .school-name { font-size: 3.5rem; }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .card { max-width: 400px; }
+    .welcome-text { font-size: 3.5rem; }
+    .school-name { font-size: 3rem; }
+    .motto { font-size: 1.5rem; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .card { max-width: 350px; }
+    .welcome-text { font-size: 3rem; }
+    .school-name { font-size: 2.5rem; }
+    .motto { font-size: 1.3rem; }
+    .logo-container { flex-direction: column; text-align: center; padding-left: 0; border-left: none; border-top: 6px solid #FDD473; padding-top: 30px; }
+}
+
+@media (max-width: 479px) {
+    body { font-size: 14px; }
+    .welcome-text { font-size: 2.5rem; margin-bottom: 30px; }
+    .school-name { font-size: 2rem; }
+    .motto { font-size: 1.1rem; }
+    .logo-container { flex-direction: column; text-align: center; padding: 20px; border-left: none; border-top: 4px solid #FDD473; padding-top: 25px; }
+    .school-logo { margin-right: 0; margin-bottom: 20px; max-width: 200px; }
+    .top-left-logo { top: 5px; left: 5px; }
+    .header-logo { max-width: 120px; }
+    .card-img-box img { height: 200px; }
+    .card-body { padding: 20px; }
+    .card-body h3 { font-size: 1rem; height: auto; }
+    .card-body p { font-size: 0.9rem; }
+}
+
+@media (max-width: 767px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .scene {
+        min-height: auto;
+        padding: 32px 14px 30px;
+        width: 100%;
+    }
+
+    .top-left-logo {
+        position: static;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .header-logo {
+        max-width: 92px;
+        margin: 0 auto;
+    }
+
+    .card {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .card-container {
+        width: 100%;
+        max-width: 100%;
+        gap: 18px;
+    }
+
+    .logo-container,
+    .title-block {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .school-name,
+    .motto,
+    .card-body h3,
+    .card-body p,
+    .btn {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .motto {
+        white-space: normal;
+    }
+
+    .btn {
+        width: 100%;
+        line-height: 1.25;
+    }
+
+    .card-body h3 {
+        height: auto;
+        min-height: 0;
+    }
+
+    .footer-info {
+        gap: 10px;
+        flex-direction: column;
+        text-align: center;
+        padding: 0 14px;
+    }
+}

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard — GV Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link href="../GV_Shahpur/img/H_logo.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="brand">
+            <img src="../GV_Shahpur/img/H_logo.png" alt="GV">
+            <h6>GV Admin Portal</h6>
+            <!-- Dark / Light mode toggle — sidebar, below logo -->
+            <button class="admin-sidebar-theme-btn" id="adminSidebarThemeBtn" title="Switch to Dark Mode" aria-label="Switch to Dark Mode">
+                <i class="fa fa-moon"></i>
+                <span id="adminSidebarThemeBtnLabel">Dark Mode</span>
+            </button>
+        </div>
+        <div class="px-3 py-2">
+            <label class="small text-white-50 mb-1">Website</label>
+            <select class="form-control form-control-sm" id="siteSelector"></select>
+        </div>
+        <nav class="py-2" id="shahpurNav">
+            <a href="#" class="admin-nav-link active" data-section="overview"><i class="fa fa-home"></i> Overview</a>
+            <a href="#" class="admin-nav-link admin-only-nav d-none" data-section="staff"><i class="fa fa-users-cog"></i> Staff Approvals</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="achievers"><i class="fa fa-trophy"></i> Achievers</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="programs"><i class="fa fa-book"></i> Programs</a>
+            <a href="#" class="admin-nav-link shahpur-section superadmin-only-nav" data-section="results"><i class="fa fa-chart-line"></i> Year Results</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="youtube"><i class="fab fa-youtube"></i> Videos</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="memories"><i class="fa fa-images"></i> Events</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="testimonials"><i class="fa fa-comment-dots"></i> Testimonials</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="hostel"><i class="fa fa-utensils"></i> Hostel Menu</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="disclosure"><i class="fa fa-file-pdf"></i> Disclosure</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="notices"><i class="fa fa-bell"></i> Notices</a>
+            <a href="#" class="admin-nav-link shahpur-section" data-section="blog"><i class="fa fa-newspaper"></i> Blog Posts</a>
+        </nav>
+        <nav class="py-2" id="pyqNav" style="display:none;">
+            <a href="#" class="admin-nav-link pyq-section active" data-section="pyq-overview"><i class="fa fa-home"></i> PYQ Overview</a>
+            <a href="#" class="admin-nav-link pyq-section" data-section="pyq-exams"><i class="fa fa-graduation-cap"></i> Exams</a>
+            <a href="#" class="admin-nav-link pyq-section" data-section="pyq-papers"><i class="fa fa-file-pdf"></i> Question Papers</a>
+            <a href="#" class="admin-nav-link admin-only-nav d-none pyq-section" data-section="staff"><i class="fa fa-users-cog"></i> Staff Approvals</a>
+        </nav>
+        <div class="p-3 border-top" style="border-color:rgba(255,255,255,.1)!important;">
+            <a href="#" class="admin-nav-link" id="linkViewSite" target="_blank"><i class="fa fa-external-link-alt"></i> View Website</a>
+            <a href="index.html" class="admin-nav-link"><i class="fa fa-th"></i> Portal Home</a>
+            <a href="#" class="admin-nav-link" id="btnLogout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <div>
+                <button class="btn btn-sm btn-outline-secondary d-lg-none mr-2" id="btnToggleSidebar"><i class="fa fa-bars"></i></button>
+                <h4 id="sectionTitle">Overview</h4>
+            </div>
+            <div>
+                <span class="badge badge-secondary mr-2" id="userRoleBadge">staff</span>
+                <span class="text-muted small mr-3" id="adminUserEmail"></span>
+                <button class="admin-theme-btn" id="adminThemeBtn" title="Switch to Dark Mode" aria-label="Switch to Dark Mode"><i class="fa fa-moon"></i></button>
+                <button class="btn btn-success btn-sm site-edit-btn shahpur-only" id="btnSaveAll"><i class="fa fa-save mr-1"></i>Save Changes</button>
+                <button class="btn btn-success btn-sm site-edit-btn pyq-only d-none" id="btnSavePyq"><i class="fa fa-save mr-1"></i>Save PYQ</button>
+            </div>
+        </div>
+
+        <div id="adminToast" class="admin-toast"></div>
+
+        <!-- UPLOAD DIAGNOSTIC PANEL - super admin only, wired in admin-app.js boot() -->
+        <div id="gvUploadDiag" style="display:none;position:fixed;bottom:16px;right:16px;background:#1a1a2e;color:#eee;padding:14px 18px;border-radius:8px;font-size:12px;font-family:monospace;max-width:420px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.5);">
+          <div style="font-weight:700;color:#ffc107;margin-bottom:8px;">🔧 Storage Diagnostics</div>
+          <div id="gvDiagStatus">Initialising…</div>
+          <button onclick="gvRunDiag()" style="margin-top:8px;padding:4px 10px;background:#0d6efd;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">Re-run test</button>
+          <button onclick="document.getElementById('gvUploadDiag').style.display='none'" style="margin-top:8px;margin-left:6px;padding:4px 10px;background:#6c757d;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">Close</button>
+        </div>
+        <script>
+        function gvRunDiag() {
+          var el = document.getElementById('gvDiagStatus');
+          if (!el) return;
+          var lines = [];
+          function log(s) { lines.push(s); el.innerHTML = lines.join('<br>'); }
+          lines = [];
+          var fbAuth = window.firebase && firebase.auth && firebase.auth();
+          if (!fbAuth) { log('❌ firebase.auth() not available'); return; }
+          var user = fbAuth.currentUser;
+          log('Auth: ' + (user ? '✅ ' + user.email : '❌ not signed in'));
+          if (!user) return;
+          user.getIdToken(true).then(function(idToken) {
+            log('Token: ✅ refreshed (len ' + idToken.length + ')');
+            var cfg = window.GV_FIREBASE_CONFIG || {};
+            var bucket = cfg.storageBucket || (cfg.projectId + '.firebasestorage.app');
+            log('Bucket: ' + bucket);
+            log('Testing upload via REST API…');
+            var path = 'gv-shahpur/.diag-' + Date.now() + '.txt';
+            var url = 'https://firebasestorage.googleapis.com/v0/b/' + bucket +
+              '/o?uploadType=media&name=' + encodeURIComponent(path);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + idToken);
+            xhr.setRequestHeader('Content-Type', 'text/plain');
+            xhr.onload = function() {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                log('✅ Upload OK — storage is working correctly');
+                // Clean up test file
+                var delXhr = new XMLHttpRequest();
+                delXhr.open('DELETE', 'https://firebasestorage.googleapis.com/v0/b/' + bucket +
+                  '/o/' + encodeURIComponent(path), true);
+                delXhr.setRequestHeader('Authorization', 'Bearer ' + idToken);
+                delXhr.send();
+              } else {
+                log('❌ Upload failed: HTTP ' + xhr.status);
+                try {
+                  var e = JSON.parse(xhr.responseText);
+                  if (e && e.error) log('→ ' + e.error.message);
+                } catch(pe) {}
+                if (xhr.status === 403) {
+                  log('→ Rules are blocking. Open Firebase Console → Storage → Rules');
+                  log('→ Ensure: allow write: if request.auth != null;');
+                  log('→ Then click Publish and wait 2 minutes');
+                } else if (xhr.status === 404) {
+                  log('→ Bucket not found. Go to Firebase Console → Storage → Get Started');
+                }
+              }
+            };
+            xhr.onerror = function() { log('❌ Network error'); };
+            xhr.send('diag-test');
+          }).catch(function(e){ log('❌ Token refresh: ' + e.message); });
+        }
+        </script>
+
+        <section class="admin-section active" id="sec-overview">
+            <h5 class="font-weight-bold mb-3">Welcome, <span id="welcomeName"></span></h5>
+            <p id="overviewDesc">Manage Gyanoday Vidyalaya Shahpur website content. T. Dam and PYQ will be added later.</p>
+            <div class="alert alert-info shahpur-only" id="siteInactiveAlert" style="display:none;">
+                This campus is not enabled yet. Only <strong>Shahpur</strong> can be edited now.
+            </div>
+            <div class="row mt-3 shahpur-only">
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#e8f0ff;">
+                        <h6 class="font-weight-bold text-primary">Shahpur — first import</h6>
+                        <p class="small mb-2">Copy current Shahpur HTML content into Firebase once.</p>
+                        <button class="btn btn-outline-primary btn-sm" id="btnSeedData"><i class="fa fa-database mr-1"></i>Import Shahpur Data</button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 rounded" style="background:#fff3cd;">
+                        <h6 class="font-weight-bold">Storage</h6>
+                        <ul class="small pl-3 mb-0">
+                            <li>Firestore: <code>siteContent/shahpur</code></li>
+                            <li>Files: <code>gv-shahpur/</code> in Storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="small text-muted shahpur-only" id="lastSavedInfo"></p>
+
+            <!-- Update History Panel -->
+            <div class="mt-4 shahpur-only">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="font-weight-bold mb-0"><i class="fa fa-history mr-2 text-primary"></i>Recent Updates</h6>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="renderUpdateHistory()"><i class="fa fa-sync-alt mr-1"></i>Refresh</button>
+                </div>
+                <div style="background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:14px 16px;max-height:400px;overflow-y:auto;" id="updateHistoryList">
+                    <p class="text-muted small"><i class="fa fa-spinner fa-spin mr-1"></i>Loading history…</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-section admin-only-sec" id="sec-staff">
+            <h5 class="font-weight-bold">Staff approval</h5>
+            <p class="text-muted small">Approve school staff so they can log in and edit website content.</p>
+            <div id="pendingStaffList" class="mt-3"></div>
+            <hr>
+            <h6 class="font-weight-bold">Approved staff</h6>
+            <div id="approvedStaffList" class="mt-2"></div>
+        </section>
+
+        <section class="admin-section shahpur-sec" id="sec-achievers">
+            <p class="text-muted small">Home &amp; Results — top performers.</p>
+            <div id="achieversList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddAchiever"><i class="fa fa-plus mr-1"></i>Add Student</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-programs">
+            <p class="text-muted small">Academics — routine &amp; syllabus PDFs.</p>
+            <div class="card mb-3 shadow-sm border-0">
+                <div class="card-body p-3 bg-light rounded">
+                    <h6 class="font-weight-bold mb-2 text-primary"><i class="fa fa-info-circle mr-1"></i> Icon Suggestions for Programs</h6>
+                    <p class="small text-muted mb-2">Here are some recommended FontAwesome icon classes you can use when adding or updating programs:</p>
+                    <div class="d-flex flex-wrap">
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-book text-primary mr-1"></i> fa-book (General Study)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-graduation-cap text-primary mr-1"></i> fa-graduation-cap (Graduation)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-school text-primary mr-1"></i> fa-school (Schooling)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-chalkboard-teacher text-primary mr-1"></i> fa-chalkboard-teacher (Teacher/Lecture)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-microscope text-primary mr-1"></i> fa-microscope (Science)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-calculator text-primary mr-1"></i> fa-calculator (Mathematics)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-laptop-code text-primary mr-1"></i> fa-laptop-code (Computer/IT)</span>
+                        <span class="badge badge-light border p-2 mr-2 mb-2"><i class="fa fa-brain text-primary mr-1"></i> fa-brain (Mind/Logic)</span>
+                    </div>
+                </div>
+            </div>
+            <div id="programsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddProgram"><i class="fa fa-plus mr-1"></i>Add Program</button>
+        </section>
+        <section class="admin-section shahpur-sec superadmin-only-sec" id="sec-results">
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Year</label><select class="form-control" id="resultsYearSelect"></select></div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteYear">Delete Year</button>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Total Selections</label><input type="number" class="form-control" id="rbySelections"></div>
+                <div class="col-md-4"><label>Exams Qualified</label><input type="number" class="form-control" id="rbyExams"></div>
+                <div class="col-md-4"><label>Rank Holders</label><input type="number" class="form-control" id="rbyToppers"></div>
+            </div>
+            <div id="resultsExamsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-youtube">
+            <div class="card mb-3 shadow-sm border-0">
+                <div class="card-body p-3 bg-light rounded">
+                    <h6 class="font-weight-bold mb-2 text-danger"><i class="fab fa-youtube mr-1"></i> How to get YouTube Video URL</h6>
+                    <ol class="small text-muted pl-3 mb-0">
+                        <li>Open the YouTube video you want to add in your browser.</li>
+                        <li>Copy the URL from the browser's address bar (e.g., <code>https://www.youtube.com/watch?v=...</code>).</li>
+                        <li>Alternatively, click the <strong>Share</strong> button below the video and click <strong>Copy Link</strong> (e.g., <code>https://youtu.be/...</code>).</li>
+                        <li>Paste that URL into the <strong>YouTube Video URL</strong> field below.</li>
+                    </ol>
+                </div>
+            </div>
+            <div id="youtubeList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddYoutube">Add Video</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-instagram"><div id="instagramList"></div><button class="btn btn-outline-primary btn-sm" id="btnAddInstagram">Add Post</button></section>
+        <section class="admin-section shahpur-sec" id="sec-facebook">
+            <p class="text-muted small">Home Stay Connected — Facebook cards.</p>
+            <div id="facebookList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddFacebook"><i class="fa fa-plus mr-1"></i>Add Facebook Card</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-memories">
+            <div class="form-row mb-3">
+                <div class="col-md-4"><label>Year</label><select class="form-control" id="memoriesYearSelect"></select></div>
+                <div class="col-md-8 d-flex align-items-end">
+                    <button class="btn btn-outline-primary btn-sm mr-2" id="btnAddMemYear">Add Year</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnDeleteMemYear">Delete Year</button>
+                </div>
+            </div>
+            <div id="memoriesEventsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddEvent">Add Event</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-testimonials">
+            <p class="text-muted small">Home Community Stories — parents, students, and alumni testimonials.</p>
+            <div id="testimonialsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddTestimonial"><i class="fa fa-plus mr-1"></i>Add Testimonial</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-hostel">
+            <div class="form-group">
+                <label>Hostel Menu PDF</label>
+                <input type="text" class="form-control mb-2" id="hostelMenuUrl">
+                <div class="d-flex align-items-center mt-1">
+                    <input type="file" class="form-control-file" accept="application/pdf" id="hostelMenuFile">
+                    <button type="button" class="btn btn-sm btn-primary ml-2" id="btnHostelMenuUpload" disabled style="white-space: nowrap;">Upload</button>
+                </div>
+                <div class="progress mt-2 d-none" id="hostelUploadProgress" style="height: 10px;">
+                    <div class="progress-bar bg-success" id="hostelUploadProgressBar" style="width: 0%; font-size: 8px;">0%</div>
+                </div>
+            </div>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-disclosure">
+            <div id="disclosureList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddDisclosure">Add Document</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-notices">
+            <div class="form-group"><label>Scrolling notice</label><textarea class="form-control" id="noticeTicker" rows="2"></textarea></div>
+            <div class="form-group"><label>Last updated</label><input type="text" class="form-control" id="noticeLastUpdated"></div>
+            <hr><div id="noticesList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddNotice">Add Notice</button>
+        </section>
+        <section class="admin-section shahpur-sec" id="sec-blog">
+            <p class="text-muted small">Blog page and Home news/events cards. Image accepts local paths, full URLs, or uploaded images.</p>
+            <div id="blogPostsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddBlogPost"><i class="fa fa-plus mr-1"></i>Add Blog Post</button>
+        </section>
+
+        <section class="admin-section pyq-sec" id="sec-pyq-overview">
+            <h5 class="font-weight-bold mb-3">PYQ Hub</h5>
+            <p class="text-muted small">Manage exams and previous year question papers shown on <a href="../pyq/index.html" target="_blank">PYQ Hub</a>.</p>
+            <div class="row mt-3" id="pyqStats"></div>
+            <div class="p-4 rounded mb-3" style="background:#e8f0ff;">
+                <h6 class="font-weight-bold text-primary">First-time import</h6>
+                <p class="small mb-2">Copy existing papers from <code>pyq-default.js</code> into Firestore once.</p>
+                <button class="btn btn-outline-primary btn-sm" id="btnSeedPyq"><i class="fa fa-database mr-1"></i>Import PYQ Data</button>
+            </div>
+            <p class="small text-muted">PYQ Hub reads from Firestore on refresh. Use <strong>Sync public site from Firestore</strong> only if you need static backup files in the repo.</p>
+        </section>
+        <section class="admin-section pyq-sec" id="sec-pyq-exams">
+            <p class="text-muted small">Exam categories appear in PYQ Hub modals (emoji, subtitle, format HTML).</p>
+            <div id="pyqExamsList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddPyqExam"><i class="fa fa-plus mr-1"></i>Add Exam</button>
+        </section>
+        <section class="admin-section pyq-sec" id="sec-pyq-papers">
+            <div class="form-row mb-3">
+                <div class="col-md-4">
+                    <label>Filter by exam</label>
+                    <select class="form-control" id="pyqPaperFilter"><option value="">All exams</option></select>
+                </div>
+            </div>
+            <p class="text-muted small">Upload PDF to Storage — URLs fill View/Download fields automatically.</p>
+            <div id="pyqPapersList"></div>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddPyqPaper"><i class="fa fa-plus mr-1"></i>Add Question Paper</button>
+        </section>
+
+        <section class="admin-section" id="sec-coming-soon" style="display:none;">
+            <div class="text-center py-5 text-muted">
+                <i class="fa fa-tools fa-3x mb-3"></i>
+                <h5>Coming soon</h5>
+                <p>This campus will be available in a future update.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Apply saved theme BEFORE first paint to prevent flash of wrong theme -->
+    <script>
+    (function(){
+      var t = localStorage.getItem('gv-theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../GV_Shahpur/js/posts-data.js"></script>
+    <script src="../js/sites/shahpur-default.js"></script>
+    <script src="../js/sites/pyq-default.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/staffAdminGuard.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-staff.js"></script>
+    <script src="js/admin-pyq.js"></script>
+    <script src="js/admin-app.js"></script>
+    <script>
+    /* ── Dark / Light mode toggle ── */
+    (function () {
+      var KEY = 'gv-theme';
+      // Top-bar button (topbar)
+      var btn = document.getElementById('adminThemeBtn');
+      // Sidebar button (below logo)
+      var sideBtn = document.getElementById('adminSidebarThemeBtn');
+      var sideBtnLabel = document.getElementById('adminSidebarThemeBtnLabel');
+
+      function isDark() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+      }
+
+      function applyTheme(dark) {
+        if (dark) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem(KEY, 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem(KEY, 'light');
+        }
+        updateBtns();
+      }
+
+      function updateBtns() {
+        var dark = isDark();
+        // Update top-bar button
+        if (btn) {
+          var icon = btn.querySelector('i');
+          if (icon) icon.className = dark ? 'fa fa-sun' : 'fa fa-moon';
+          btn.title = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+          btn.setAttribute('aria-label', dark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+        }
+        // Update sidebar button
+        if (sideBtn) {
+          var sIcon = sideBtn.querySelector('i');
+          if (sIcon) sIcon.className = dark ? 'fa fa-sun' : 'fa fa-moon';
+          if (sideBtnLabel) sideBtnLabel.textContent = dark ? 'Light Mode' : 'Dark Mode';
+          sideBtn.title = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+          sideBtn.setAttribute('aria-label', dark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+        }
+      }
+
+      if (btn) {
+        btn.addEventListener('click', function () { applyTheme(!isDark()); });
+      }
+      if (sideBtn) {
+        sideBtn.addEventListener('click', function () { applyTheme(!isDark()); });
+      }
+
+      // Sync icons with whatever theme was applied on load
+      updateBtns();
+    })();
+    </script>
+</body>
+</html>

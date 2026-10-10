@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login — GV Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link href="../GV_Shahpur/img/H_logo.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <div class="admin-login-wrap">
+        <div class="admin-login-card">
+            <img src="../GV_Shahpur/img/H_logo.png" alt="Gyanoday Vidyalaya">
+            <h4 class="text-center font-weight-bold mb-1" style="font-family:'Jost',sans-serif;color:#1F4E79;">Staff Login</h4>
+            <p class="text-center text-muted small mb-4">Email or Staff ID + Password</p>
+            <div id="loginAlert" class="alert alert-danger d-none" role="alert"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Staff ID or Email</label>
+                    <input type="text" class="form-control" id="loginId" required placeholder="e.g. GV-SP-001 or name@school.com" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="loginPassword" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-gv-primary btn-block py-2" id="loginBtn">
+                    <i class="fa fa-sign-in-alt mr-2"></i>Sign In
+                </button>
+            </form>
+            <p class="text-center mt-4 mb-0 small">
+                <a href="signup.html">New staff? Sign up</a> &nbsp;|&nbsp;
+                <a href="index.html">Portal home</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/gv-firebase.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script>
+    GVAuth.initLoginPage();
+    </script>
+</body>
+</html>
