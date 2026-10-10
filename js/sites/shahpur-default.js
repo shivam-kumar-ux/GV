@@ -111,9 +111,9 @@ window.GV_DEFAULT_CONTENT = {
     { title: "Copies of Society", pdfUrl: "docs/mandatory/Copies_of_Society.pdf" },
     { title: "Self Certification", pdfUrl: "docs/mandatory/Self_Certification.pdf" },
     { title: "Water Certificate", pdfUrl: "docs/mandatory/Water_Certificate.pdf" },
-    { title: "Get Self Certification", pdfUrl: "docs/mandatory/Get_Self_Certification.pdf" },
-    { title: "Water Quality", pdfUrl: "docs/mandatory/Water_Quality.pdf" },
-    { title: "Water Proforma", pdfUrl: "docs/mandatory/Water_Proforma.pdf" }
+    { title: "Get_Self_Certification", pdfUrl: "docs/mandatory/Get_Self_Certification.pdf" },
+    { title: "Water_Quality", pdfUrl: "docs/mandatory/Water_Quality.pdf" },
+    { title: "Water_Proforma", pdfUrl: "docs/mandatory/Water_Proforma.pdf" }
   ],
   notices: {
     ticker: "🚨 Breaking News: Annual Sports Day on Nov 15 | Winter Vacation from Dec 20-31 | PTM on Nov 8 | Exam Schedule Released 🚨",
