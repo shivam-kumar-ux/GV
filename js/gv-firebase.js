@@ -141,6 +141,23 @@
         !Array.isArray(tv)
       ) {
         deepMerge(tv, sv);
+      } else if (key === "disclosure" && Array.isArray(sv) && Array.isArray(tv)) {
+        var existingUrls = {};
+        sv.forEach(function (item) {
+          if (item && item.pdfUrl) existingUrls[String(item.pdfUrl).toLowerCase()] = true;
+          if (item && item.title) existingUrls[String(item.title).toLowerCase()] = true;
+        });
+        var merged = sv.slice();
+        tv.forEach(function (defItem) {
+          var url = defItem && defItem.pdfUrl ? String(defItem.pdfUrl).toLowerCase() : "";
+          var title = defItem && defItem.title ? String(defItem.title).toLowerCase() : "";
+          if ((!url || !existingUrls[url]) && (!title || !existingUrls[title])) {
+            merged.push(defItem);
+            if (url) existingUrls[url] = true;
+            if (title) existingUrls[title] = true;
+          }
+        });
+        target[key] = merged;
       } else {
         target[key] = sv;
       }
@@ -251,10 +268,13 @@
         var path = storagePrefix() + "/" + folder + "/" + Date.now() + "_" + safeName;
         var encodedPath = encodeURIComponent(path);
 
-        // Use Firebase Storage REST API directly — guarantees token is attached
-        // Simple POST upload: https://firebasestorage.googleapis.com/v0/b/{bucket}/o/{encodedPath}
+        // Use Google Cloud Storage JSON API for simple media upload.
+        // IMPORTANT: The /v0/b/{bucket}/o/{path} endpoint without uploadType=media
+        // treats the POST body as metadata JSON, NOT as file content. This caused
+        // uploaded PDFs to be stored as {"contentType":"application/pdf"} text.
+        // The correct endpoint for binary upload is /upload/storage/v1 with uploadType=media.
         var uploadUrl = "https://firebasestorage.googleapis.com/v0/b/" + bucket +
-          "/o/" + encodedPath;
+          "/o?uploadType=media&name=" + encodedPath;
 
         return new Promise(function (resolve, reject) {
           var xhr = new XMLHttpRequest();
@@ -273,8 +293,9 @@
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 var resp = JSON.parse(xhr.responseText);
+                var storedPath = encodeURIComponent(resp.name || path);
                 var downloadUrl = "https://firebasestorage.googleapis.com/v0/b/" +
-                  bucket + "/o/" + encodedPath + "?alt=media&token=" +
+                  bucket + "/o/" + storedPath + "?alt=media&token=" +
                   (resp.downloadTokens || "");
                 if (typeof onProgress === "function") onProgress(100);
                 resolve(downloadUrl);
@@ -402,9 +423,23 @@
         approvedAt: isBootstrapAdmin ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
         approvedBy: isBootstrapAdmin ? user.uid : null
       };
+
       var batch = db.batch();
       batch.set(db.collection("staffUsers").doc(user.uid), profile);
       batch.set(db.collection("staffLoginIndex").doc(staffId), { email: email, uid: user.uid });
+      
+      // Write to pendingAdmins for review flow
+      batch.set(db.collection("pendingAdmins").doc(user.uid), {
+        uid: user.uid,
+        name: data.name || "",
+        email: email,
+        staffId: staffId,
+        status: isBootstrapAdmin ? "approved" : "pending",
+        requestedAt: global.firebase.firestore.FieldValue.serverTimestamp(),
+        approvedAt: isBootstrapAdmin ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
+        approvedBy: isBootstrapAdmin ? user.uid : null
+      });
+
       return batch.commit().then(function () {
         return { user: user, profile: profile };
       });
@@ -436,6 +471,29 @@
 
   function listStaffByStatus(status) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    
+    // For pending, fetch from pendingAdmins collection
+    if (status === "pending") {
+      return db.collection("pendingAdmins").where("status", "==", "pending").get().then(function (snap) {
+        var list = [];
+        snap.forEach(function (doc) {
+          list.push(Object.assign({ uid: doc.id }, doc.data()));
+        });
+        return list;
+      });
+    }
+    
+    // For approved, fetch from approvedAdmins collection
+    if (status === "approved") {
+      return db.collection("approvedAdmins").get().then(function (snap) {
+        var list = [];
+        snap.forEach(function (doc) {
+          list.push(Object.assign({ uid: doc.id }, doc.data()));
+        });
+        return list;
+      });
+    }
+
     return db.collection("staffUsers").where("status", "==", status).get().then(function (snap) {
       var list = [];
       snap.forEach(function (doc) {
@@ -447,6 +505,15 @@
 
   function updateStaffStatus(uid, status, approverUid) {
     if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    
+    if (status === "approved") {
+      var approveFn = global.firebase.functions().httpsCallable("approveStaffAdmin");
+      return approveFn({ uid: uid });
+    } else if (status === "rejected") {
+      var rejectFn = global.firebase.functions().httpsCallable("rejectStaffAdmin");
+      return rejectFn({ uid: uid });
+    }
+    
     var patch = {
       status: status,
       approvedAt: status === "approved" ? global.firebase.firestore.FieldValue.serverTimestamp() : null,
@@ -454,6 +521,12 @@
     };
     if (status === "rejected") patch.rejectedAt = global.firebase.firestore.FieldValue.serverTimestamp();
     return db.collection("staffUsers").doc(uid).update(patch);
+  }
+
+  function revokeStaffAdmin(uid) {
+    if (!initFirebase()) return Promise.reject(new Error("Firebase not configured"));
+    var revokeFn = global.firebase.functions().httpsCallable("revokeStaffAdmin");
+    return revokeFn({ uid: uid });
   }
 
   function setStaffRole(uid, role) {
@@ -482,6 +555,7 @@
     requireApprovedUser: requireApprovedUser,
     listStaffByStatus: listStaffByStatus,
     updateStaffStatus: updateStaffStatus,
+    revokeStaffAdmin: revokeStaffAdmin,
     setStaffRole: setStaffRole,
     startTokenAutoRefresh: startTokenAutoRefresh,
     getDb: function () { return db; }

@@ -165,17 +165,50 @@ var GVAuth = (function () {
         window.location.href = "login.html";
         return;
       }
-      GVFirebase.getStaffProfile(user.uid).then(function (profile) {
-        if (!profile || profile.status === "pending") {
+      user.getIdTokenResult(true).then(function (idTokenResult) {
+        var claims = (idTokenResult && idTokenResult.claims) || {};
+        var role = claims.role;
+        var approved = claims.approved;
+
+        var isSuperAdmin = (role === "super_admin") || GVFirebase.isSuperAdminEmail(user.email);
+
+        if (isSuperAdmin || (role === "staff_admin" && approved === true)) {
+          GVFirebase.getStaffProfile(user.uid).then(function (profile) {
+            var prof = Object.assign({}, profile || {
+              name: user.displayName || "Admin",
+              email: user.email,
+              staffId: "SA",
+              status: "approved"
+            });
+            prof.role = isSuperAdmin ? "super_admin" : (role || (profile && profile.role) || "staff_admin");
+            cb({ user: user, profile: prof });
+          });
+        } else if (role === "staff_admin" && approved === false) {
           window.location.href = "pending.html";
-          return;
+        } else {
+          // Fallback: check Firestore staff profile if custom token claims are absent
+          GVFirebase.getStaffProfile(user.uid).then(function (profile) {
+            if (profile && profile.status === "approved") {
+              var prof = Object.assign({}, profile);
+              if (GVFirebase.isSuperAdminEmail(user.email)) prof.role = "super_admin";
+              else if (!prof.role) prof.role = "staff_admin";
+              cb({ user: user, profile: prof });
+            } else if (profile && profile.status === "pending") {
+              window.location.href = "pending.html";
+            } else {
+              GVFirebase.signOut().then(function () {
+                window.location.href = "login.html";
+              });
+            }
+          }).catch(function () {
+            GVFirebase.signOut().then(function () {
+              window.location.href = "login.html";
+            });
+          });
         }
-        if (profile.status !== "approved") {
-          GVFirebase.signOut();
-          window.location.href = "login.html";
-          return;
-        }
-        cb({ user: user, profile: profile });
+      }).catch(function (err) {
+        console.error("Dashboard guard error:", err);
+        window.location.href = "login.html";
       });
     });
   }

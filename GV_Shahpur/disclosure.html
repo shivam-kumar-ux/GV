@@ -164,7 +164,7 @@
                             <a href="facilities.html" class="dropdown-item">Facilities</a>
                             <a href="choose.html" class="dropdown-item">Why Choose Us</a>
                             <a href="gallery.html" class="dropdown-item">Gallery</a>
-                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
+                            <!-- TEMP_HIDE_HOSTEL <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a> -->
                             <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
                     </div>
@@ -304,13 +304,34 @@
                     <div class="doc-title">Water Certificate</div>
                     <button class="btn btn-primary btn-lg btn-block">View Document</button>
                 </div>
+
+                <!-- Document 14 -->
+                <div class="doc-card" data-toggle="modal" data-target="#doc14Modal">
+                    <i class="fas fa-file-pdf doc-icon"></i>
+                    <div class="doc-title">Get_Self_Certification</div>
+                    <button class="btn btn-primary btn-lg btn-block">View Document</button>
+                </div>
+
+                <!-- Document 15 -->
+                <div class="doc-card" data-toggle="modal" data-target="#doc15Modal">
+                    <i class="fas fa-file-pdf doc-icon"></i>
+                    <div class="doc-title">Water_Quality</div>
+                    <button class="btn btn-primary btn-lg btn-block">View Document</button>
+                </div>
+
+                <!-- Document 16 -->
+                <div class="doc-card" data-toggle="modal" data-target="#doc16Modal">
+                    <i class="fas fa-file-pdf doc-icon"></i>
+                    <div class="doc-title">Water_Proforma</div>
+                    <button class="btn btn-primary btn-lg btn-block">View Document</button>
+                </div>
             </div>
         </div>
     </div>
     <!-- Disclosure Documents End -->
     <div id="gvDisclosureModals"></div>
 
-    <!-- Document Modals (13 total) — fallback when Firebase is offline -->
+    <!-- Document Modals (16 total) — fallback when Firebase is offline -->
     
     <!-- Modal 1 -->
     <div class="modal fade" id="doc1Modal">
@@ -529,6 +550,57 @@
                 </div>
                 <div class="modal-body position-relative p-0 protected-area">
                     <iframe src="docs/mandatory/Water_Certificate.pdf" width="100%" height="600" frameborder="0" class="w-100"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 14 -->
+    <div class="modal fade" id="doc14Modal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title font-weight-bold">Get_Self_Certification</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body position-relative p-0 protected-area">
+                    <iframe src="docs/mandatory/Get_Self_Certification.pdf" width="100%" height="600" frameborder="0" class="w-100"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 15 -->
+    <div class="modal fade" id="doc15Modal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title font-weight-bold">Water_Quality</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body position-relative p-0 protected-area">
+                    <iframe src="docs/mandatory/Water_Quality.pdf" width="100%" height="600" frameborder="0" class="w-100"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 16 -->
+    <div class="modal fade" id="doc16Modal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title font-weight-bold">Water_Proforma</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body position-relative p-0 protected-area">
+                    <iframe src="docs/mandatory/Water_Proforma.pdf" width="100%" height="600" frameborder="0" class="w-100"></iframe>
                 </div>
             </div>
         </div>
