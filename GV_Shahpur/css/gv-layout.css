@@ -1,0 +1,522 @@
+/* ==========================================================================
+   GV-LAYOUT.CSS
+   Premium, sticky Topbar, Navbar, and Page Hero styles
+   Inpired by blog.html layout
+   ========================================================================== */
+
+/* ===================== THEME VARIABLES ===================== */
+:root {
+    --primary:   #2878EB;
+    --secondary: #F14D5D;
+    --dark:      #120F2D;
+    --light:     #ECF4FF;
+    --text-muted:#6B6A75;
+    --white:     #ffffff;
+    --card-shadow: 0 8px 30px rgba(40,120,235,.10);
+}
+
+/* ===================== TOPBAR ===================== */
+.gv-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1051;
+    background: var(--dark) !important;
+    padding: 8px 0;
+    width: 100%;
+}
+
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior.
+   The topbar on home is handled by .gv-home-topbar class with position:fixed set in index.html inline CSS. */
+body[data-gv-page="home"] .gv-topbar:not(.gv-home-topbar) {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
+
+.gv-topbar-info {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: normal;
+    align-items: center;
+    color: rgba(255,255,255,.75) !important;
+    font-size: .93rem;
+    gap: 2px 0;
+}
+
+.gv-topbar-info small { 
+    line-height: 1.25; 
+    color: rgba(255,255,255,.75) !important;
+}
+
+.gv-topbar a {
+    color: rgba(255,255,255,.75) !important;
+    transition: color 0.2s;
+}
+
+.gv-topbar a:hover {
+    color: #fff !important;
+}
+
+/* ===================== NAVBAR ===================== */
+.gv-navbar {
+    position: fixed;
+    top: 42px;
+    left: 0;
+    right: 0;
+    z-index: 1052;
+    background: var(--white) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07) !important;
+    width: 100%;
+    padding: 0;
+}
+
+/* Don't interfere with Home page (index.html) which has its own hero + scroll navbar behavior.
+   The navbar on home is handled by .gv-home-navbar-wrap class with position:fixed set in index.html inline CSS. */
+body[data-gv-page="home"] .gv-navbar:not(.gv-home-navbar-wrap) {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
+
+.gv-navbar .navbar {
+    background: var(--white) !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+.navbar-brand img { height: 60px; }
+
+.nav-link { 
+    font-family: "Jost", sans-serif; 
+    font-weight: 600; 
+    color: var(--dark) !important; 
+    font-size: .95rem; 
+    padding: .75rem 1rem !important; 
+    transition: color 0.2s;
+}
+.nav-link:hover, .nav-link.active { color: var(--primary) !important; }
+
+.navbar .btn { font-family: "Jost", sans-serif; font-weight: 600; }
+
+.get-admission-btn,
+.get-job-btn { 
+    background: #033374 !important; 
+    border-color: #033374 !important; 
+    color: #fff !important; 
+    border-radius: 4px;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.25rem !important;
+    transition: opacity 0.2s;
+}
+.get-admission-btn:hover, .get-job-btn:hover { 
+    opacity: .88 !important; 
+    color: #fff !important;
+}
+
+.notification-dot {
+    display: inline-block; width: 8px; height: 8px;
+    background: #dc3545; border-radius: 50%; margin-left: 4px;
+    animation: pulse 2s infinite; vertical-align: middle;
+}
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0   rgba(220,53,69,.7); }
+    70%  { box-shadow: 0 0 0 10px rgba(220,53,69,0); }
+    100% { box-shadow: 0 0 0 0   rgba(220,53,69,0); }
+}
+
+/* ===================== PAGE HERO (HEADER) ===================== */
+.blog-hero {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 100%) !important;
+    padding: 72px 0 56px !important;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.blog-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232878EB' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+    pointer-events: none;
+}
+
+.blog-hero .breadcrumb {
+    background: transparent !important; 
+    padding: 0 !important; 
+    margin-bottom: 12px !important;
+    font-size: .85rem !important;
+}
+
+.blog-hero .breadcrumb-item {
+    display: inline-block;
+}
+
+.blog-hero .breadcrumb-item, 
+.blog-hero .breadcrumb-item a {
+    color: rgba(255,255,255,.6) !important;
+    text-decoration: none;
+}
+
+.blog-hero .breadcrumb-item a:hover {
+    color: #fff !important;
+}
+
+.blog-hero .breadcrumb-item.active { 
+    color: rgba(255,255,255,.9) !important; 
+}
+
+.blog-hero .breadcrumb-item + .breadcrumb-item::before { 
+    color: rgba(255,255,255,.4) !important; 
+    content: "/" !important;
+}
+
+.blog-hero h1 {
+    color: #fff !important;
+    font-family: "Jost", sans-serif !important;
+    font-size: 2.6rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
+    line-height: 1.2 !important;
+}
+
+.blog-hero p { 
+    color: rgba(255,255,255,.7) !important; 
+    margin: 0 !important; 
+    font-size: 1.1rem;
+}
+
+.hero-accent {
+    display: inline-block;
+    width: 52px; height: 4px;
+    background: var(--secondary) !important;
+    border-radius: 2px;
+    margin-bottom: 16px;
+}
+
+/* ===================== ALTERNATING SECTION BACKGROUNDS ===================== */
+.gv-section-pattern {
+    background: linear-gradient(rgba(40, 120, 235, 0.05), rgba(40, 120, 235, 0.05)), url("../img/bg-image.jpg") !important;
+    background-attachment: fixed !important;
+}
+
+.gv-section-soft {
+    background: #ECF4FF !important;
+}
+
+/* ===================== MOBILE ADAPTABILITY ===================== */
+@media (max-width: 991.98px) {
+    .gv-navbar .navbar-collapse {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .blog-hero h1 { font-size: 1.9rem !important; }
+}
+
+@media (max-width: 575.98px) {
+    .gv-topbar-info { font-size: .82rem !important; }
+}
+
+/* ===================== MOBILE: HIDE TOPBAR ===================== */
+/* Hide the topbar on all pages on mobile — keeps the UI clean */
+@media (max-width: 767.98px) {
+    .gv-topbar {
+        display: none !important;
+    }
+
+    /* On non-home pages: topbar is hidden so only navbar height needed as offset */
+    body:not([data-gv-page="home"]) {
+        padding-top: 76px !important;          /* navbar height only */
+        scroll-padding-top: 76px !important;
+    }
+}
+
+/* ===================== FIXED-BARS OFFSET ===================== */
+:root {
+    --gv-fixed-top-offset: 118px; /* topbar (~42px) + navbar (~76px) */
+}
+
+body:not([data-gv-page="home"]) {
+    scroll-padding-top: var(--gv-fixed-top-offset);
+    padding-top: var(--gv-fixed-top-offset);
+}
+
+/* Push first hero/header content below fixed bars */
+body:not([data-gv-page="home"]) {
+    /* Ensure the first header/hero stays fully visible on initial page load.
+       Using padding-top + scroll-padding-top already reserves space for the fixed bars.
+       The negative margin used previously can cause the hero to be partially hidden until scroll/reflow.
+    */
+}
+
+body:not([data-gv-page="home"]) .blog-hero {
+    margin-top: 0;
+}
+
+
+/* ===================== DARK / LIGHT MODE TOGGLE BUTTON ===================== */
+
+/* Button itself — fits in topbar */
+.gv-theme-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+    vertical-align: middle;
+    padding: 0;
+    margin-left: 10px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.gv-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: rotate(20deg);
+    text-decoration: none;
+}
+
+/* ===================== DARK MODE — PUBLIC WEBSITE ===================== */
+
+[data-theme="dark"] {
+    /* Override all CSS variables */
+    --primary:    #5b9bf8;
+    --dark:       #0d1117;
+    --light:      #1c2333;
+    --white:      #161b22;
+    --text-muted: #8b949e;
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Base body */
+[data-theme="dark"] body {
+    background-color: #0d1117 !important;
+    color: #c9d1d9 !important;
+}
+
+/* Topbar — already dark, just tweak */
+[data-theme="dark"] .gv-topbar {
+    background: #010409 !important;
+}
+
+/* Navbar */
+[data-theme="dark"] .gv-navbar,
+[data-theme="dark"] .gv-navbar .navbar {
+    background: #161b22 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+    color: #5b9bf8 !important;
+}
+
+/* Navbar toggler */
+[data-theme="dark"] .navbar-toggler {
+    border-color: rgba(255,255,255,0.3) !important;
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* Dropdown menus */
+[data-theme="dark"] .dropdown-menu {
+    background-color: #1c2333 !important;
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: #21262d !important;
+    color: #5b9bf8 !important;
+}
+
+/* Cards, sections, panels */
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .card,
+[data-theme="dark"] .bg-light {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .shadow,
+[data-theme="dark"] .shadow-sm {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Text colours */
+[data-theme="dark"] h1, [data-theme="dark"] h2,
+[data-theme="dark"] h3, [data-theme="dark"] h4,
+[data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: #e6edf3 !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] small {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .text-dark,
+[data-theme="dark"] .text-body {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: #8b949e !important;
+}
+
+/* Borders */
+[data-theme="dark"] .border,
+[data-theme="dark"] .border-top,
+[data-theme="dark"] .border-bottom {
+    border-color: #30363d !important;
+}
+
+/* Tables */
+[data-theme="dark"] table,
+[data-theme="dark"] .table {
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .table-bordered {
+    border-color: #30363d !important;
+}
+
+/* Forms */
+[data-theme="dark"] .form-control {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: #161b22 !important;
+    border-color: #5b9bf8 !important;
+    color: #e6edf3 !important;
+    box-shadow: 0 0 0 0.2rem rgba(91,155,248,0.25) !important;
+}
+
+[data-theme="dark"] label {
+    color: #c9d1d9 !important;
+}
+
+/* Modals */
+[data-theme="dark"] .modal-content {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+    border-color: #30363d !important;
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: #30363d !important;
+}
+
+/* Breadcrumb */
+[data-theme="dark"] .breadcrumb {
+    background-color: transparent !important;
+}
+
+/* Sections with pattern / soft background */
+[data-theme="dark"] .gv-section-soft {
+    background: #161b22 !important;
+}
+
+[data-theme="dark"] .gv-section-pattern {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url("../img/bg-image.jpg") !important;
+    background-attachment: fixed !important;
+}
+
+/* Page hero stays dark — already is */
+[data-theme="dark"] .blog-hero {
+    background: linear-gradient(135deg, #010409 0%, #0d1117 100%) !important;
+}
+
+/* Navbar mobile collapse */
+[data-theme="dark"] .gv-navbar .navbar-collapse {
+    background: #161b22 !important;
+    border: 1px solid #30363d;
+}
+
+/* Owl carousel dots/arrows */
+[data-theme="dark"] .owl-dot span {
+    background: #30363d !important;
+}
+
+[data-theme="dark"] .owl-dot.active span {
+    background: #5b9bf8 !important;
+}
+
+/* Notices board */
+[data-theme="dark"] .nb-item {
+    background: #161b22 !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+/* Blog cards */
+[data-theme="dark"] .blog-card {
+    background: #161b22 !important;
+    border-color: #30363d !important;
+}
+
+/* Section titles with position-relative underlines */
+[data-theme="dark"] .section-title h6 {
+    color: #8b949e !important;
+}
+
+/* Scrollbar (webkit) */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #161b22;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+/* Back to top button */
+[data-theme="dark"] .back-to-top {
+    background: #5b9bf8 !important;
+    color: #fff !important;
+}
+
+/* Prevent flash of unstyled content — theme applied before paint via JS */
+html[data-theme="dark"] { color-scheme: dark; }
