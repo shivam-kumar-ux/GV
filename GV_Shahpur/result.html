@@ -142,6 +142,179 @@
                 padding: 20px !important;
             }
         }
+
+        /* ==========================================================
+           SESSIONAL RESULT CARDS & VIEWER MODAL
+           ========================================================== */
+        .gv-check-btn {
+            border-radius: 50px;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: linear-gradient(135deg, #2878EB 0%, #1F4E79 100%);
+            border: none;
+            color: #ffffff !important;
+        }
+
+        .gv-check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 120, 235, 0.35) !important;
+            color: #ffffff !important;
+        }
+
+        .gv-result-card {
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .gv-result-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(40, 120, 235, 0.18);
+            border-color: #2878EB;
+        }
+
+        .gv-card-header-badge {
+            height: 6px;
+            width: 100%;
+        }
+
+        .gv-card-body {
+            padding: 1.75rem 1.25rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gv-card-icon-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.85rem;
+            transition: transform 0.3s ease;
+        }
+
+        .gv-result-card:hover .gv-card-icon-wrap {
+            transform: scale(1.12) rotate(3deg);
+        }
+
+        .gv-card-session {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .gv-card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1F4E79;
+            margin-bottom: 0.4rem;
+        }
+
+        .gv-card-exam {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #4B5563;
+            margin-bottom: 0.35rem;
+        }
+
+        .gv-card-actions {
+            width: 100%;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .gv-view-result-btn {
+            border-radius: 8px;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(40, 120, 235, 0.2);
+            transition: all 0.25s ease;
+        }
+
+        .gv-view-result-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(40, 120, 235, 0.35);
+        }
+
+        .gv-external-link {
+            border-radius: 6px;
+            font-size: 0.8rem;
+            opacity: 0.85;
+            transition: all 0.2s ease;
+        }
+
+        .gv-external-link:hover {
+            opacity: 1;
+        }
+
+        /* Color variants */
+        .gv-result-card.card-nursery .gv-card-header-badge { background: #10B981; }
+        .gv-result-card.card-nursery .gv-card-icon-wrap { background: #ECFDF5; color: #10B981; }
+        .gv-result-card.card-nursery .gv-card-session { background: #ECFDF5; color: #047857; }
+
+        .gv-result-card.card-prep .gv-card-header-badge { background: #F59E0B; }
+        .gv-result-card.card-prep .gv-card-icon-wrap { background: #FFFBEB; color: #F59E0B; }
+        .gv-result-card.card-prep .gv-card-session { background: #FFFBEB; color: #B45309; }
+
+        .gv-result-card.card-kg .gv-card-header-badge { background: #8B5CF6; }
+        .gv-result-card.card-kg .gv-card-icon-wrap { background: #F5F3FF; color: #8B5CF6; }
+        .gv-result-card.card-kg .gv-card-session { background: #F5F3FF; color: #6D28D9; }
+
+        .gv-result-card.card-b3 .gv-card-header-badge { background: #2878EB; }
+        .gv-result-card.card-b3 .gv-card-icon-wrap { background: #EFF6FF; color: #2878EB; }
+        .gv-result-card.card-b3 .gv-card-session { background: #EFF6FF; color: #1D4ED8; }
+
+        /* Modal Customizations */
+        #gvPdfViewerModal .modal-dialog {
+            transition: max-width 0.3s ease;
+            max-width: 95vw;
+        }
+
+        #gvPdfViewerModal.modal-fullscreen .modal-dialog {
+            max-width: 99vw !important;
+            margin: 0.5vh auto;
+        }
+
+        #gvPdfViewerModal.modal-fullscreen .modal-body {
+            height: 86vh !important;
+        }
+
+        .gv-switch-class-btn {
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            transition: all 0.2s ease;
+        }
+
+        .gv-switch-class-btn.active {
+            background-color: #2878EB !important;
+            color: #ffffff !important;
+            border-color: #2878EB !important;
+            box-shadow: 0 2px 6px rgba(40, 120, 235, 0.4);
+        }
     </style>
 </head>
 
@@ -194,7 +367,7 @@
                             <a href="facilities.html" class="dropdown-item">Facilities</a>
                             <a href="choose.html" class="dropdown-item">Why Choose Us</a>
                             <a href="gallery.html" class="dropdown-item">Gallery</a>
-                            <!-- TEMP_HIDE_HOSTEL <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a> -->
+                            <a href="hostel.html" class="dropdown-item">Boarding & Hostel</a>
                             <a href="disclosure.html" class="dropdown-item">Mandatory Disclosure</a>
                         </div>
                     </div>
@@ -226,63 +399,139 @@
     <!-- Header End -->
 
     <!-- Result Search Form Start -->
-    <div class="container-fluid py-5 bg-light gv-section-pattern">
-        <div class="container py-5">
+    <div class="container-fluid py-5 bg-light gv-section-pattern" id="checkResultSection">
+        <div class="container py-4">
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center position-relative mb-5">
-                        <!--<h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Check Results</h6>-->
-                        <h1 class="display-4" style="color:#1F4E79;">Search Your Results</h1>
-                        <!-- <p class="mb-4">Enter your class, exam, and admission number to view your academic results.</p> -->
+                <div class="col-lg-11 col-xl-10">
+                    <div class="section-title text-center position-relative mb-4">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2" style="letter-spacing: 2px;">Academic Evaluation</h6>
+                        <h1 class="display-4 font-weight-bold" style="color:#1F4E79;">Check Your Results</h1>
+                        <p class="lead text-muted mb-0">Official Sessional Examination Results (October 2026) are declared.</p>
                     </div>
-                    <div class="bg-white p-5 shadow">
-                        <form id="resultForm">
-                            <!-- <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <label for="classSelect" class="font-weight-bold">Class</label>
-                                        <select class="form-control" id="classSelect" required style="color:#212529!important;background:#fff!important;-webkit-text-fill-color:#212529!important;background-image:none!important;">
-                                            <option value="">Select Class</option>
-                                            <option value="Nursery">Nursery</option>
-                                            <option value="LKG">LKG</option>
-                                            <option value="UKG">UKG</option>
-                                            <option value="1">Class 1</option>
-                                            <option value="2">Class 2</option>
-                                            <option value="3">Class 3</option>
-                                            <option value="4">Class 4</option>
-                                            <option value="5">Class 5</option>
-                                            <option value="6">Class 6</option>
-                                            <option value="7">Class 7</option>
-                                            <option value="8">Class 8</option>
-                                            <option value="9">Class 9</option>
-                                            <option value="10">Class 10</option>
-                                            <option value="11-science">Class 11 (Science)</option>
-                                            <option value="11-commerce">Class 11 (Commerce)</option>
-                                            <option value="12-science">Class 12 (Science)</option>
-                                            <option value="12-commerce">Class 12 (Commerce)</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label for="examSelect" class="font-weight-bold">Exam</label>
-                                        <select class="form-control" id="examSelect" required style="color:#212529!important;background:#fff!important;-webkit-text-fill-color:#212529!important;background-image:none!important;">
-                                            <option value="">Select Exam</option>
-                                            <option value="Pre - mid 1">Pre - mid 1</option>
-                                            <option value="Pre - mid 2">Pre - mid 2</option>
-                                            <option value="Half yearly">Half yearly</option>
-                                            <option value="Post mid">Post mid</option>
-                                            <option value="Annual exam">Annual exam</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label for="admissionNo" class="font-weight-bold">Admission Number</label>
-                                        <input type="text" class="form-control" id="admissionNo" placeholder="Enter Admission Number" required>
-                                    </div>
-                                </div> -->
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg px-5"><a
-                                        href="https://onlineresultportal.vercel.app/login/student"
-                                        style="color: white; text-decoration: none;">Check Your Result</a></button>
+
+                    <div class="bg-white p-4 p-md-5 shadow-sm rounded-lg border text-center">
+                        <div class="mb-4">
+                            <span class="badge badge-pill badge-primary px-3 py-2 text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 0.8px;">
+                                <i class="fas fa-bullhorn mr-2"></i>Declared: October '26 Sessional Exam
+                            </span>
+                            <h2 class="font-weight-bold mb-2" style="color: #1F4E79; font-size: 1.85rem;">Session 2026 – 2027 Report Cards</h2>
+                            <p class="text-muted mx-auto mb-4" style="max-width: 650px; font-size: 1.05rem;">
+                                Click the button below to view report cards for all classes. You can open, view, and verify your result report cards directly on the website.
+                            </p>
+                            <button type="button" id="btnCheckResultMain" class="btn btn-primary btn-lg px-5 py-3 shadow font-weight-bold gv-check-btn">
+                                <i class="fas fa-clipboard-check mr-2"></i>Check Your Result
+                                <i class="fas fa-chevron-down ml-2" id="chevronResultIcon"></i>
+                            </button>
+                        </div>
+
+                        <!-- 4 Result Cards Container (Expands when clicked) -->
+                        <div id="resultCardsContainer" style="display: none; padding-top: 2rem; border-top: 1px dashed #dee2e6;">
+                            <div class="text-center mb-4">
+                                <span class="badge badge-success px-3 py-1 font-weight-normal text-uppercase" style="letter-spacing: 1px;">
+                                    <i class="fas fa-check-circle mr-1"></i> 4 Class Results Available
+                                </span>
+                                <h3 class="font-weight-bold mt-2 mb-1" style="color: #1F4E79;">Select Your Class to View Result</h3>
+                                <p class="text-muted small">Click any card below to open and check the complete PDF report card on the website.</p>
                             </div>
-                        </form>
+
+                            <div class="row text-left" id="resultCardsRow">
+                                <!-- Card 1: Nursery -->
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                                    <div class="gv-result-card card-nursery" data-class="Class Nursery" data-file="Nur Report_October'26 Sessional Exam.pdf">
+                                        <div class="gv-card-header-badge"></div>
+                                        <div class="gv-card-body">
+                                            <div class="gv-card-icon-wrap">
+                                                <i class="fas fa-child"></i>
+                                            </div>
+                                            <span class="gv-card-session">Nursery</span>
+                                            <h4 class="gv-card-title">Class Nursery</h4>
+                                            <div class="gv-card-exam">October '26 Sessional Exam</div>
+                                            <div class="text-muted small mb-3">Session 2026–2027 • PDF Report</div>
+                                            <div class="gv-card-actions">
+                                                <button type="button" class="btn btn-primary btn-block font-weight-bold py-2 gv-view-result-btn">
+                                                    <i class="fas fa-eye mr-1"></i> Check Result
+                                                </button>
+                                                <a href="docs/Result/Nur Report_October'26 Sessional Exam.pdf" target="_blank" class="btn btn-sm btn-outline-secondary btn-block mt-2 gv-external-link" onclick="event.stopPropagation();">
+                                                    <i class="fas fa-external-link-alt mr-1"></i> Open in New Tab
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Prep -->
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                                    <div class="gv-result-card card-prep" data-class="Class Prep" data-file="Prep Report_October'26 Sessional Exam.pdf">
+                                        <div class="gv-card-header-badge"></div>
+                                        <div class="gv-card-body">
+                                            <div class="gv-card-icon-wrap">
+                                                <i class="fas fa-shapes"></i>
+                                            </div>
+                                            <span class="gv-card-session">Prep (LKG)</span>
+                                            <h4 class="gv-card-title">Class Prep</h4>
+                                            <div class="gv-card-exam">October '26 Sessional Exam</div>
+                                            <div class="text-muted small mb-3">Session 2026–2027 • PDF Report</div>
+                                            <div class="gv-card-actions">
+                                                <button type="button" class="btn btn-primary btn-block font-weight-bold py-2 gv-view-result-btn">
+                                                    <i class="fas fa-eye mr-1"></i> Check Result
+                                                </button>
+                                                <a href="docs/Result/Prep Report_October'26 Sessional Exam.pdf" target="_blank" class="btn btn-sm btn-outline-secondary btn-block mt-2 gv-external-link" onclick="event.stopPropagation();">
+                                                    <i class="fas fa-external-link-alt mr-1"></i> Open in New Tab
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3: KG -->
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                                    <div class="gv-result-card card-kg" data-class="Class KG" data-file="KG Report_October'26 Sessional Exam.pdf">
+                                        <div class="gv-card-header-badge"></div>
+                                        <div class="gv-card-body">
+                                            <div class="gv-card-icon-wrap">
+                                                <i class="fas fa-user-graduate"></i>
+                                            </div>
+                                            <span class="gv-card-session">KG (UKG)</span>
+                                            <h4 class="gv-card-title">Class KG</h4>
+                                            <div class="gv-card-exam">October '26 Sessional Exam</div>
+                                            <div class="text-muted small mb-3">Session 2026–2027 • PDF Report</div>
+                                            <div class="gv-card-actions">
+                                                <button type="button" class="btn btn-primary btn-block font-weight-bold py-2 gv-view-result-btn">
+                                                    <i class="fas fa-eye mr-1"></i> Check Result
+                                                </button>
+                                                <a href="docs/Result/KG Report_October'26 Sessional Exam.pdf" target="_blank" class="btn btn-sm btn-outline-secondary btn-block mt-2 gv-external-link" onclick="event.stopPropagation();">
+                                                    <i class="fas fa-external-link-alt mr-1"></i> Open in New Tab
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4: Class B-3 -->
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                                    <div class="gv-result-card card-b3" data-class="Class B-3" data-file="B-3 Report_October'26 Sessional Exam.pdf">
+                                        <div class="gv-card-header-badge"></div>
+                                        <div class="gv-card-body">
+                                            <div class="gv-card-icon-wrap">
+                                                <i class="fas fa-award"></i>
+                                            </div>
+                                            <span class="gv-card-session">Primary (B-3)</span>
+                                            <h4 class="gv-card-title">Class B-3</h4>
+                                            <div class="gv-card-exam">October '26 Sessional Exam</div>
+                                            <div class="text-muted small mb-3">Session 2026–2027 • PDF Report</div>
+                                            <div class="gv-card-actions">
+                                                <button type="button" class="btn btn-primary btn-block font-weight-bold py-2 gv-view-result-btn">
+                                                    <i class="fas fa-eye mr-1"></i> Check Result
+                                                </button>
+                                                <a href="docs/Result/B-3 Report_October'26 Sessional Exam.pdf" target="_blank" class="btn btn-sm btn-outline-secondary btn-block mt-2 gv-external-link" onclick="event.stopPropagation();">
+                                                    <i class="fas fa-external-link-alt mr-1"></i> Open in New Tab
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1150,6 +1399,65 @@
     <!-- ===== RESULTS BY YEAR SECTION END ===== -->
 
 
+    <!-- Result PDF Viewer Modal (Opens directly on website) -->
+    <div class="modal fade" id="gvPdfViewerModal" tabindex="-1" role="dialog" aria-labelledby="gvPdfViewerTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <!-- Header -->
+                <div class="modal-header bg-primary text-white py-3 px-3 px-md-4 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center" style="max-width: 75%;">
+                        <img src="img/V_logo.png" alt="GV Logo" style="height: 38px; width: 38px; object-fit: contain; margin-right: 12px; background: #fff; border-radius: 50%; padding: 2px;" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="modal-title font-weight-bold mb-0 text-white text-truncate" id="gvPdfViewerTitle">
+                                Class Nursery — October '26 Sessional Exam Result
+                            </h5>
+                            <small class="text-white-50" id="gvPdfViewerSubtitle">Gyanoday Vidyalaya • Session 2026–2027</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn btn-sm btn-light font-weight-bold mr-2 d-none d-md-inline-block" id="btnPdfFullscreen" title="Toggle Fullscreen">
+                            <i class="fas fa-expand mr-1"></i> Fullscreen
+                        </button>
+                        <a href="#" id="btnPdfDirectLink" target="_blank" class="btn btn-sm btn-light font-weight-bold mr-2" title="Open PDF in new tab">
+                            <i class="fas fa-external-link-alt mr-1"></i> <span class="d-none d-sm-inline">New Tab</span>
+                        </a>
+                        <button type="button" class="close text-white ml-2" data-dismiss="modal" aria-label="Close" style="font-size: 1.8rem; line-height: 1;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Class Switcher Toolbar inside Viewer -->
+                <div class="bg-light border-bottom px-3 py-2 d-flex align-items-center flex-wrap" style="gap: 6px;">
+                    <span class="small font-weight-bold text-muted mr-2"><i class="fas fa-layer-group mr-1"></i>Switch Class:</span>
+                    <button type="button" class="btn btn-sm btn-outline-primary gv-switch-class-btn" data-class="Class Nursery" data-file="Nur Report_October'26 Sessional Exam.pdf">Nursery</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary gv-switch-class-btn" data-class="Class Prep" data-file="Prep Report_October'26 Sessional Exam.pdf">Prep (LKG)</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary gv-switch-class-btn" data-class="Class KG" data-file="KG Report_October'26 Sessional Exam.pdf">KG (UKG)</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary gv-switch-class-btn" data-class="Class B-3" data-file="B-3 Report_October'26 Sessional Exam.pdf">Class B-3</button>
+                </div>
+
+                <!-- Body (PDF Iframe Viewer) -->
+                <div class="modal-body p-0 position-relative" style="background: #2f2f2f; height: 75vh; min-height: 500px;">
+                    <!-- Loading Spinner -->
+                    <div id="gvPdfLoadingSpinner" class="position-absolute w-100 h-100 d-flex flex-column align-items-center justify-content-center text-white" style="top:0; left:0; background: rgba(35,35,35,0.88); z-index: 10;">
+                        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                        <div class="font-weight-bold" style="font-size: 1.1rem;">Loading Report Card...</div>
+                        <small class="text-white-50 mt-1">Please wait a moment</small>
+                    </div>
+                    <iframe id="gvResultPdfIframe" src="" width="100%" height="100%" frameborder="0" style="border: none; display: block;" allowfullscreen></iframe>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer bg-light py-2 px-3 d-flex justify-content-between align-items-center flex-wrap">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle mr-1"></i>Viewing on phone? If the PDF doesn't display inside your browser, tap <strong>"New Tab"</strong> above to view directly.
+                    </small>
+                    <button type="button" class="btn btn-secondary btn-sm px-4" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Results Modal -->
     <div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
@@ -1284,9 +1592,99 @@
     <!-- Result JS inline fallback -->
     <script>
         // ==========================================================
-        // GYANODAY VIDYALAYA — RESULT FETCH
+        // GYANODAY VIDYALAYA — RESULT FETCH & OCTOBER '26 SESSIONAL EXAM
         // ==========================================================
         $(document).ready(function () {
+
+            // Sessional Exam PDF Results Viewer
+            window.openResultPdf = function (className, fileName) {
+                var rawUrl = 'docs/Result/' + fileName;
+                var encodedUrl = encodeURI(rawUrl);
+
+                $('#gvPdfViewerTitle').text(className + " — October '26 Sessional Exam Result");
+                $('#gvPdfViewerSubtitle').text("Gyanoday Vidyalaya • Session 2026–2027 • " + fileName);
+                $('#btnPdfDirectLink').attr('href', encodedUrl);
+
+                // Active button in class switcher toolbar
+                $('.gv-switch-class-btn').removeClass('active');
+                $('.gv-switch-class-btn').each(function () {
+                    if ($(this).attr('data-file') === fileName) {
+                        $(this).addClass('active');
+                    }
+                });
+
+                // Show loading spinner
+                $('#gvPdfLoadingSpinner').show();
+                var iframe = document.getElementById('gvResultPdfIframe');
+                if (iframe) {
+                    iframe.onload = function () {
+                        $('#gvPdfLoadingSpinner').fadeOut(180);
+                    };
+                    iframe.src = encodedUrl + '#toolbar=1&navpanes=0';
+                }
+
+                $('#gvPdfViewerModal').modal('show');
+            };
+
+            window.showAndScrollToResults = function () {
+                var $container = $('#resultCardsContainer');
+                var $chevron = $('#chevronResultIcon');
+
+                if (!$container.is(':visible')) {
+                    $container.slideDown(400, function () {
+                        $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                        $('html, body').animate({
+                            scrollTop: $('#resultCardsContainer').offset().top - 80
+                        }, 600);
+                    });
+                } else {
+                    $('html, body').animate({
+                        scrollTop: $('#resultCardsContainer').offset().top - 80
+                    }, 600);
+                }
+            };
+
+            $(document).on('click', '#btnCheckResultMain', function (e) {
+                e.preventDefault();
+                window.showAndScrollToResults();
+            });
+
+            $(document).on('click', '.gv-result-card', function (e) {
+                if ($(e.target).closest('.gv-external-link').length) return;
+                var cName = $(this).attr('data-class');
+                var fName = $(this).attr('data-file');
+                window.openResultPdf(cName, fName);
+            });
+
+            $(document).on('click', '.gv-switch-class-btn', function (e) {
+                e.preventDefault();
+                var cName = $(this).attr('data-class');
+                var fName = $(this).attr('data-file');
+                window.openResultPdf(cName, fName);
+            });
+
+            $('#btnPdfFullscreen').on('click', function () {
+                $('#gvPdfViewerModal').toggleClass('modal-fullscreen');
+                var icon = $(this).find('i');
+                if ($('#gvPdfViewerModal').hasClass('modal-fullscreen')) {
+                    icon.removeClass('fa-expand').addClass('fa-compress');
+                } else {
+                    icon.removeClass('fa-compress').addClass('fa-expand');
+                }
+            });
+
+            $('#gvPdfViewerModal').on('hidden.bs.modal', function () {
+                var iframe = document.getElementById('gvResultPdfIframe');
+                if (iframe) iframe.src = 'about:blank';
+                $('#gvPdfViewerModal').removeClass('modal-fullscreen');
+                $('#btnPdfFullscreen').find('i').removeClass('fa-compress').addClass('fa-expand');
+            });
+
+            if (window.location.hash === '#results' || window.location.hash === '#checkResultSection') {
+                setTimeout(function () {
+                    window.showAndScrollToResults();
+                }, 500);
+            }
 
             var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbx0S7pS8tK8vAmO1w1_t0q6EGgmV7TjGzhjtoioqjSD-qCmeT7t6cfouz0HyvD2O4/exec';
 
@@ -1519,8 +1917,7 @@
     </script>
 
     <!-- ===== FLOATING CHECK RESULT BUTTON ===== -->
-    <a href="https://onlineresultportal.vercel.app/login/student" id="floatResultBtn" title="Check Your Result"
-        target="_blank">
+    <a href="#checkResultSection" id="floatResultBtn" title="Check Your Result">
         <span class="frb-icon">📋</span>
         <span class="frb-label">Check<br>Result</span>
     </a>
@@ -1655,6 +2052,16 @@
 
             window.addEventListener('scroll', onScroll, { passive: true });
             onScroll(); // run once on load in case page is already scrolled
+
+            floatBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (typeof window.showAndScrollToResults === 'function') {
+                    window.showAndScrollToResults();
+                } else {
+                    var el = document.getElementById('checkResultSection');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         })();
     </script>
     <!-- ===== END FLOATING CHECK RESULT BUTTON ===== -->
